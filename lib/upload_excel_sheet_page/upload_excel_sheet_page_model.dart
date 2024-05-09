@@ -25,8 +25,14 @@ class UploadExcelSheetPageModel
   List<ProductMasterListStruct>? readexceldataCopy;
   // Stores action output result for [Custom Action - readFromCsv] action in Button widget.
   List<ProductMasterListStruct>? readexceldata;
-  bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
+  bool isDataUploading1 = false;
+  FFUploadedFile uploadedLocalFile1 =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+
+  // Stores action output result for [Custom Action - readFromCsv] action in Button widget.
+  List<ProductMasterListStruct>? readexceldata22;
+  bool isDataUploading2 = false;
+  FFUploadedFile uploadedLocalFile2 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
   @override

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:webviewx_plus/webviewx_plus.dart';
 import 'premise_model.dart';
 export 'premise_model.dart';
 
@@ -101,24 +100,6 @@ class _PremiseWidgetState extends State<PremiseWidget> {
                         .toList()
                         .cast<dynamic>();
                   });
-                  await showDialog(
-                    context: context,
-                    builder: (alertDialogContext) {
-                      return WebViewAware(
-                        child: AlertDialog(
-                          title: Text('on change'),
-                          content: Text('onchae'),
-                          actions: [
-                            TextButton(
-                              onPressed: () =>
-                                  Navigator.pop(alertDialogContext),
-                              child: Text('Ok'),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
                 },
               ),
               autofocus: true,

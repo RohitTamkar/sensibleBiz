@@ -18,9 +18,10 @@ import 'package:flutter/services.dart' show rootBundle;
 // import 'dart:convert' show utf8;
 import 'dart:convert';
 
-Future<List<ProductMasterListStruct>> readFromCsv(
+Future<List<ProductMasterListStruct>> readFromCsvnewprimise(
   BuildContext context,
   String? divider,
+  List<PremisesRecord>? premises,
 ) async {
   // null safety check
   divider = divider ?? ',';
