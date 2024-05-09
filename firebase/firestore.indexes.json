@@ -1,0 +1,36 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "STOCK_LOG",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "dayId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "reqCount",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "STOCK_LOG",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "dayId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "reqCount",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ]
+}
