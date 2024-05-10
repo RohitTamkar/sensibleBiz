@@ -404,7 +404,7 @@ class _OTPverificationWidgetState extends State<OTPverificationWidget> {
                                           ),
                                           FlutterFlowTimer(
                                             initialTime:
-                                                _model.timerMilliseconds,
+                                                _model.timerInitialTimeMs,
                                             getDisplayTime: (value) =>
                                                 StopWatchTimer.getDisplayTime(
                                               value,

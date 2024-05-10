@@ -32,6 +32,7 @@ class OTPverificationTestModel
   TextEditingController? pinCodeController;
   String? Function(BuildContext, String?)? pinCodeControllerValidator;
   // State field(s) for Timer widget.
+  final timerInitialTimeMs = 60000;
   int timerMilliseconds = 60000;
   String timerValue = StopWatchTimer.getDisplayTime(
     60000,

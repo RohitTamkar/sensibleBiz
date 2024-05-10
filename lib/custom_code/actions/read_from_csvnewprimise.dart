@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'index.dart'; // Imports other custom actions
+
 import '../../flutter_flow/upload_data.dart';
 
 import 'package:csv/csv.dart';
@@ -26,18 +28,6 @@ Future<List<ProductMasterListStruct>> readFromCsvnewprimise(
   // null safety check
   divider = divider ?? ',';
 
-//************** */
-
-// void main() {
-//   String userName1 = 'John Doe';
-//   String userName2 = 'Alice Smith';
-
-//   print(extractInitials(userName1)); // Output: JD
-//   print(extractInitials(userName2)); // Output: AS
-// }
-
-//*********** */
-
   final List<ProductMasterListStruct> productList = [];
 
   final selectedFile = await selectFile(allowedExtensions: ['csv']);
@@ -48,7 +38,7 @@ Future<List<ProductMasterListStruct>> readFromCsvnewprimise(
       'Reading file...',
       showLoading: true,
     );
-
+    print(premises);
     final fileBytes = selectedFile.bytes;
     final fileString = utf8.decode(fileBytes);
     List<String> rows = [];
@@ -72,7 +62,7 @@ Future<List<ProductMasterListStruct>> readFromCsvnewprimise(
 
         List<String> fields = row.split(divider);
 
-        if (fields.length < 2) {
+        if (fields.length < 14) {
           print("Skipping row: Insufficient fields");
           continue; // Skip rows without enough fields
         }
@@ -93,7 +83,6 @@ Future<List<ProductMasterListStruct>> readFromCsvnewprimise(
         var stock = fields[11];
         var weightable = fields[12];
         var code = fields[13];
-
         String generateShortName(String name) {
           List<String> words = name.split(' ');
           String shortName = '';
@@ -107,6 +96,25 @@ Future<List<ProductMasterListStruct>> readFromCsvnewprimise(
           return shortName;
         }
 
+        // Parse premise prices from the CSV file
+        var premisesPrices = fields.sublist(14);
+
+        // Construct the price table JSON string
+        Map<String, dynamic> priceTable = {
+          'default price': defaultPrice,
+        };
+
+        // Associate premise prices with premises names
+        if (premises != null && premises.length == premises.length) {
+          for (int i = 0; i < premises.length; i++) {
+            var premiseName = premises[i].name;
+            var premisePrice = premisesPrices[i];
+            priceTable[premiseName] = premisePrice;
+          }
+        }
+        //
+        String priceTableJson = jsonEncode(priceTable);
+        print(priceTableJson);
         productList.add(ProductMasterListStruct(
           id: '',
           active: false,
@@ -123,7 +131,7 @@ Future<List<ProductMasterListStruct>> readFromCsvnewprimise(
           onlinePrice: 0,
           onlineSynced: false,
           price: double.parse(price ?? '0.00'),
-          priceTable: '{"default price":$defaultPrice}',
+          priceTable: priceTableJson,
           recipeId: '',
           regionalName: regionalName ?? '',
           reorderLevel: 0,

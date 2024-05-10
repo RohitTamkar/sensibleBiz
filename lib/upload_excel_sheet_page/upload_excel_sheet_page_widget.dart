@@ -1,3 +1,5 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -5,9 +7,12 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import 'dart:math';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -354,38 +359,9 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onLongPress: () async {
-                                  final selectedFiles = await selectFiles(
-                                    multiFile: false,
-                                  );
-                                  if (selectedFiles != null) {
-                                    setState(
-                                        () => _model.isDataUploading1 = true);
-                                    var selectedUploadedFiles =
-                                        <FFUploadedFile>[];
-
-                                    try {
-                                      selectedUploadedFiles = selectedFiles
-                                          .map((m) => FFUploadedFile(
-                                                name: m.storagePath
-                                                    .split('/')
-                                                    .last,
-                                                bytes: m.bytes,
-                                              ))
-                                          .toList();
-                                    } finally {
-                                      _model.isDataUploading1 = false;
-                                    }
-                                    if (selectedUploadedFiles.length ==
-                                        selectedFiles.length) {
-                                      setState(() {
-                                        _model.uploadedLocalFile1 =
-                                            selectedUploadedFiles.first;
-                                      });
-                                    } else {
-                                      setState(() {});
-                                      return;
-                                    }
-                                  }
+                                  setState(() {
+                                    FFAppState().flag = true;
+                                  });
                                 },
                                 child: FFButtonWidget(
                                   onPressed: () async {
@@ -451,111 +427,120 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 20.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onLongPress: () async {
-                                  final selectedFiles = await selectFiles(
-                                    multiFile: false,
-                                  );
-                                  if (selectedFiles != null) {
-                                    setState(
-                                        () => _model.isDataUploading2 = true);
-                                    var selectedUploadedFiles =
-                                        <FFUploadedFile>[];
-
-                                    try {
-                                      selectedUploadedFiles = selectedFiles
-                                          .map((m) => FFUploadedFile(
-                                                name: m.storagePath
-                                                    .split('/')
-                                                    .last,
-                                                bytes: m.bytes,
-                                              ))
-                                          .toList();
-                                    } finally {
-                                      _model.isDataUploading2 = false;
-                                    }
-                                    if (selectedUploadedFiles.length ==
-                                        selectedFiles.length) {
-                                      setState(() {
-                                        _model.uploadedLocalFile2 =
-                                            selectedUploadedFiles.first;
-                                      });
-                                    } else {
-                                      setState(() {});
-                                      return;
-                                    }
-                                  }
-                                },
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    _model.readexceldata22 =
-                                        await actions.readFromCsv(
-                                      context,
-                                      ',',
+                            if (FFAppState().flag)
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 20.0),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onLongPress: () async {
+                                    final selectedFiles = await selectFiles(
+                                      multiFile: false,
                                     );
-                                    setState(() {
-                                      FFAppState().readProductlist = _model
-                                          .readexceldata22!
-                                          .toList()
-                                          .cast<ProductMasterListStruct>();
-                                    });
-                                    setState(() {
-                                      FFAppState().iterator = 0;
-                                      FFAppState().countExcel = 0;
-                                    });
-                                    setState(() {
-                                      FFAppState().readProductlist = _model
-                                          .readexceldata22!
-                                          .toList()
-                                          .cast<ProductMasterListStruct>();
-                                    });
-                                    setState(() {
-                                      FFAppState().countExcel =
-                                          FFAppState().readProductlist.length;
-                                    });
+                                    if (selectedFiles != null) {
+                                      setState(
+                                          () => _model.isDataUploading = true);
+                                      var selectedUploadedFiles =
+                                          <FFUploadedFile>[];
 
-                                    context.pushNamed('ExcelSheet');
-
-                                    setState(() {});
+                                      try {
+                                        selectedUploadedFiles = selectedFiles
+                                            .map((m) => FFUploadedFile(
+                                                  name: m.storagePath
+                                                      .split('/')
+                                                      .last,
+                                                  bytes: m.bytes,
+                                                ))
+                                            .toList();
+                                      } finally {
+                                        _model.isDataUploading = false;
+                                      }
+                                      if (selectedUploadedFiles.length ==
+                                          selectedFiles.length) {
+                                        setState(() {
+                                          _model.uploadedLocalFile =
+                                              selectedUploadedFiles.first;
+                                        });
+                                      } else {
+                                        setState(() {});
+                                        return;
+                                      }
+                                    }
                                   },
-                                  text: 'Upload File',
-                                  options: FFButtonOptions(
-                                    width: 250.0,
-                                    height: 50.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        50.0, 0.0, 50.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: Color(0xFFDB3D52),
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleLarge
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleLargeFamily,
-                                          letterSpacing: 0.0,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleLargeFamily),
-                                        ),
-                                    elevation: 3.0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      _model.premises =
+                                          await queryPremisesRecordOnce(
+                                        parent: FFAppState().outletRef,
+                                        queryBuilder: (premisesRecord) =>
+                                            premisesRecord.orderBy('code'),
+                                      );
+                                      _model.readexceldata22 =
+                                          await actions.readFromCsvnewprimise(
+                                        context,
+                                        ',',
+                                        _model.premises?.toList(),
+                                      );
+                                      setState(() {
+                                        FFAppState().readProductlist = _model
+                                            .readexceldata22!
+                                            .toList()
+                                            .cast<ProductMasterListStruct>();
+                                      });
+                                      setState(() {
+                                        FFAppState().iterator = 0;
+                                        FFAppState().countExcel = 0;
+                                      });
+                                      setState(() {
+                                        FFAppState().readProductlist = _model
+                                            .readexceldata22!
+                                            .toList()
+                                            .cast<ProductMasterListStruct>();
+                                      });
+                                      setState(() {
+                                        FFAppState().countExcel =
+                                            FFAppState().readProductlist.length;
+                                      });
+
+                                      context.pushNamed('ExcelSheetpremises');
+
+                                      setState(() {});
+                                    },
+                                    text: 'Upload  With Premises',
+                                    options: FFButtonOptions(
+                                      width: 250.0,
+                                      height: 50.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          50.0, 0.0, 50.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color: Color(0xFFDB3D52),
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleLargeFamily,
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleLargeFamily),
+                                          ),
+                                      elevation: 3.0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
                               ),
-                            ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 20.0),

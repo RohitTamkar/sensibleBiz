@@ -426,7 +426,7 @@ class _OTPverificationTestWidgetState extends State<OTPverificationTestWidget> {
                                           ),
                                           FlutterFlowTimer(
                                             initialTime:
-                                                _model.timerMilliseconds,
+                                                _model.timerInitialTimeMs,
                                             getDisplayTime: (value) =>
                                                 StopWatchTimer.getDisplayTime(
                                               value,

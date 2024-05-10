@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'splash_c_r_m_widget.dart' show SplashCRMWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
