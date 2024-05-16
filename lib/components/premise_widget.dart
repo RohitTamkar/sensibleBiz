@@ -45,9 +45,7 @@ class _PremiseWidgetState extends State<PremiseWidget> {
       r'''$.value''',
     ).toString().toString());
     _model.textFieldFocusNode ??= FocusNode();
-    _model.textFieldFocusNode!.addListener(
-      () async {},
-    );
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -87,7 +85,7 @@ class _PremiseWidgetState extends State<PremiseWidget> {
               focusNode: _model.textFieldFocusNode,
               onChanged: (_) => EasyDebounce.debounce(
                 '_model.textController',
-                Duration(milliseconds: 2000),
+                Duration(milliseconds: 0),
                 () async {
                   setState(() {
                     FFAppState().productJsonList = functions
@@ -100,6 +98,19 @@ class _PremiseWidgetState extends State<PremiseWidget> {
                         .toList()
                         .cast<dynamic>();
                   });
+                  ScaffoldMessenger.of(context).clearSnackBars();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Update',
+                        style: TextStyle(
+                          color: FlutterFlowTheme.of(context).primaryText,
+                        ),
+                      ),
+                      duration: Duration(milliseconds: 350),
+                      backgroundColor: FlutterFlowTheme.of(context).secondary,
+                    ),
+                  );
                 },
               ),
               autofocus: true,

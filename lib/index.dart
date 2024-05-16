@@ -96,3 +96,5 @@ export '/premises_show/premises_show_widget.dart' show PremisesShowWidget;
 export '/login_copy/login_copy_widget.dart' show LoginCopyWidget;
 export '/excel_sheetpremises/excel_sheetpremises_widget.dart'
     show ExcelSheetpremisesWidget;
+export '/bill_wise_sale_report/bill_wise_sale_report_widget.dart'
+    show BillWiseSaleReportWidget;

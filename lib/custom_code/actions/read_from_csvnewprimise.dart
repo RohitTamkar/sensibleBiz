@@ -107,8 +107,8 @@ Future<List<ProductMasterListStruct>> readFromCsvnewprimise(
         // Associate premise prices with premises names
         if (premises != null && premises.length == premises.length) {
           for (int i = 0; i < premises.length; i++) {
-            var premiseName = premises[i].name;
-            var premisePrice = premisesPrices[i];
+            var premiseName = '${premises[i].name} price';
+            var premisePrice = premisesPrices[i].trim();
             priceTable[premiseName] = premisePrice;
           }
         }

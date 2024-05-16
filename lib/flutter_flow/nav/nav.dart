@@ -696,6 +696,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'ExcelSheetpremises',
           path: '/excelSheetpremises',
           builder: (context, params) => ExcelSheetpremisesWidget(),
+        ),
+        FFRoute(
+          name: 'BillWiseSaleReport',
+          path: '/billWiseSaleReport',
+          builder: (context, params) => BillWiseSaleReportWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

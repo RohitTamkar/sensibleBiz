@@ -258,6 +258,56 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
                                                         ),
                                                       ),
                                                     ),
+                                                    Theme(
+                                                      data: ThemeData(
+                                                        checkboxTheme:
+                                                            CheckboxThemeData(
+                                                          visualDensity:
+                                                              VisualDensity
+                                                                  .compact,
+                                                          materialTapTargetSize:
+                                                              MaterialTapTargetSize
+                                                                  .shrinkWrap,
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4.0),
+                                                          ),
+                                                        ),
+                                                        unselectedWidgetColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                      ),
+                                                      child: Checkbox(
+                                                        value: _model
+                                                                .checkboxValueMap[
+                                                            plistItem] ??= false,
+                                                        onChanged:
+                                                            (newValue) async {
+                                                          setState(() =>
+                                                              _model.checkboxValueMap[
+                                                                      plistItem] =
+                                                                  newValue!);
+                                                        },
+                                                        side: BorderSide(
+                                                          width: 2,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                        ),
+                                                        activeColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        checkColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .info,
+                                                      ),
+                                                    ),
                                                   ],
                                                 ),
                                               ),

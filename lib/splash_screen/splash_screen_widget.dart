@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'splash_screen_model.dart';
 export 'splash_screen_model.dart';
 
@@ -37,7 +39,46 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 1000));
-      if (!isWeb) {
+      if (isWeb) {
+        _model.tabidGet = await actions.getSessionStorage(
+          'tabid',
+        );
+        if (_model.tabidGet == 'true') {
+          await showDialog(
+            context: context,
+            builder: (alertDialogContext) {
+              return WebViewAware(
+                child: AlertDialog(
+                  title: Text('Already Login'),
+                  content:
+                      Text('Already Login..please logout previous session.'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(alertDialogContext),
+                      child: Text('Ok'),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+          return;
+        } else {
+          setState(() {
+            FFAppState().setDay = getCurrentTimestamp;
+            FFAppState().expDay = functions.setExpiryTime(FFAppState().setDay!);
+          });
+          if (FFAppState().loggedIn) {
+            if (FFAppState().outletId != null && FFAppState().outletId != '') {
+              context.pushNamed('Dashboard');
+            } else {
+              context.pushNamed('OutletListPage');
+            }
+          } else {
+            context.pushNamed('Login');
+          }
+        }
+      } else {
         if (FFAppState().loggedIn) {
           if (FFAppState().outletId != null && FFAppState().outletId != '') {
             context.pushNamed('Dashboard');
@@ -51,19 +92,6 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
         }
 
         return;
-      }
-      setState(() {
-        FFAppState().setDay = getCurrentTimestamp;
-        FFAppState().expDay = functions.setExpiryTime(FFAppState().setDay!);
-      });
-      if (FFAppState().loggedIn) {
-        if (FFAppState().outletId != null && FFAppState().outletId != '') {
-          context.pushNamed('Dashboard');
-        } else {
-          context.pushNamed('OutletListPage');
-        }
-      } else {
-        context.pushNamed('Login');
       }
     });
 

@@ -596,76 +596,75 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                           ],
                         ),
                       ),
-                      if (false)
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Container(
-                            width: MediaQuery.sizeOf(context).width * 0.9,
-                            height: MediaQuery.sizeOf(context).height * 0.8,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 40.0,
-                                  color: Color(0x33000000),
-                                  offset: Offset(
-                                    0.0,
-                                    2.0,
-                                  ),
-                                  spreadRadius: 40.0,
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Align(
-                                    alignment: AlignmentDirectional(1.0, 0.0),
-                                    child: FlutterFlowIconButton(
-                                      borderRadius: 5.0,
-                                      buttonSize: 40.0,
-                                      fillColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                      icon: Icon(
-                                        Icons.close_sharp,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        size: 24.0,
-                                      ),
-                                      onPressed: () async {
-                                        if (animationsMap[
-                                                'containerOnActionTriggerAnimation'] !=
-                                            null) {
-                                          animationsMap[
-                                                  'containerOnActionTriggerAnimation']!
-                                              .controller
-                                              .reset();
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Image.asset(
-                                        'assets/images/Excel_Sheet_Example_2.jpg',
-                                        width: double.infinity,
-                                        height: 200.0,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ).animateOnActionTrigger(
-                            animationsMap['containerOnActionTriggerAnimation']!,
+                      Align(
+                        alignment: AlignmentDirectional(0.0, 0.0),
+                        child: Container(
+                          width: MediaQuery.sizeOf(context).width * 0.9,
+                          height: MediaQuery.sizeOf(context).height * 0.8,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 40.0,
+                                color: Color(0x33000000),
+                                offset: Offset(
+                                  0.0,
+                                  2.0,
+                                ),
+                                spreadRadius: 40.0,
+                              )
+                            ],
+                            borderRadius: BorderRadius.circular(20.0),
                           ),
+                          child: Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Align(
+                                  alignment: AlignmentDirectional(1.0, 0.0),
+                                  child: FlutterFlowIconButton(
+                                    borderRadius: 5.0,
+                                    buttonSize: 40.0,
+                                    fillColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    icon: Icon(
+                                      Icons.close_sharp,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      size: 24.0,
+                                    ),
+                                    onPressed: () async {
+                                      if (animationsMap[
+                                              'containerOnActionTriggerAnimation'] !=
+                                          null) {
+                                        animationsMap[
+                                                'containerOnActionTriggerAnimation']!
+                                            .controller
+                                            .reset();
+                                      }
+                                    },
+                                  ),
+                                ),
+                                Expanded(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image.asset(
+                                      'assets/images/Excel_Sheet_Example_3.jpg',
+                                      width: double.infinity,
+                                      height: 200.0,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ).animateOnActionTrigger(
+                          animationsMap['containerOnActionTriggerAnimation']!,
                         ),
+                      ),
                     ],
                   ),
                 ),

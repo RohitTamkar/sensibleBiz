@@ -294,7 +294,7 @@ class MobileTypography extends Typography {
         'Numans',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
-        fontSize: 13.0,
+        fontSize: 14.0,
       );
   String get labelSmallFamily => 'Numans';
   TextStyle get labelSmall => GoogleFonts.getFont(

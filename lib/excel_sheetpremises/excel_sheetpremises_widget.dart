@@ -1065,6 +1065,7 @@ class _ExcelSheetpremisesWidgetState extends State<ExcelSheetpremisesWidget> {
                                     ),
                                   ),
                                   Expanded(
+                                    flex: 3,
                                     child: Container(
                                       width: 100.0,
                                       height: 100.0,

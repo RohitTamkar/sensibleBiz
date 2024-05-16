@@ -883,10 +883,11 @@ class _ExcelListpremisesWidgetState extends State<ExcelListpremisesWidget> {
           ),
         ),
         Expanded(
+          flex: 3,
           child: TextFormField(
             controller: _model.textController15,
             focusNode: _model.textFieldFocusNode15,
-            autofocus: true,
+            autofocus: false,
             obscureText: false,
             decoration: InputDecoration(
               hintText: 'Search Code',
@@ -932,7 +933,7 @@ class _ExcelListpremisesWidgetState extends State<ExcelListpremisesWidget> {
                   useGoogleFonts: GoogleFonts.asMap().containsKey(
                       FlutterFlowTheme.of(context).labelMediumFamily),
                 ),
-            textAlign: TextAlign.end,
+            textAlign: TextAlign.start,
             validator: _model.textController15Validator.asValidator(context),
           ),
         ),

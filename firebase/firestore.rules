@@ -124,5 +124,17 @@ service cloud.firestore {
       allow read: if true;
     }
 
+
+    match /OUTLET/{parent}/BILL_SALE_SUMMARY/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if false;
+    }
+
+    match /{path=**}/BILL_SALE_SUMMARY/{document} {
+      allow read: if true;
+    }
+
   }
 }
