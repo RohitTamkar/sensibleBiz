@@ -60,6 +60,4 @@ export 'map_cat_to_prd.dart' show mapCatToPrd;
 export 'show_report_g_s_t.dart' show showReportGST;
 export 'genarate_product_code.dart' show genarateProductCode;
 export 'genarate_product_code1.dart' show genarateProductCode1;
-export 'set_session_storage.dart' show setSessionStorage;
-export 'get_session_storage.dart' show getSessionStorage;
 export 'clear_session_storage.dart' show clearSessionStorage;
