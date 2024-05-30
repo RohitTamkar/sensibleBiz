@@ -291,6 +291,16 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
                                                               _model.checkboxValueMap[
                                                                       plistItem] =
                                                                   newValue!);
+                                                          if (newValue!) {
+                                                            setState(() {
+                                                              FFAppState()
+                                                                  .addToPremisesUpdateCheckboxList(
+                                                                      getJsonField(
+                                                                plistItem,
+                                                                r'''$.id''',
+                                                              ).toString());
+                                                            });
+                                                          }
                                                         },
                                                         side: BorderSide(
                                                           width: 2,
@@ -363,19 +373,40 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
                             children: [
                               FFButtonWidget(
                                 onPressed: () async {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return WebViewAware(
+                                        child: AlertDialog(
+                                          title: Text('updated list'),
+                                          content: Text(FFAppState()
+                                              .premisesUpdateCheckboxList
+                                              .length
+                                              .toString()),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: Text('Ok'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
                                   setState(() {
                                     _model.startLoop = 0;
                                     _model.waitLoader = true;
                                   });
                                   while (_model.startLoop! <
-                                      FFAppState().productJsonList.length) {
+                                      FFAppState()
+                                          .premisesUpdateCheckboxList
+                                          .length) {
                                     await functions
                                         .productRef(
-                                            getJsonField(
-                                              FFAppState().productJsonList[
-                                                  _model.startLoop!],
-                                              r'''$.id''',
-                                            ).toString(),
+                                            FFAppState()
+                                                    .premisesUpdateCheckboxList[
+                                                _model.startLoop!],
                                             FFAppState().outletId)
                                         .update(createProductRecordData(
                                           priceTable: getJsonField(

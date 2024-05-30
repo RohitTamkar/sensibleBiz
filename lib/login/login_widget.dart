@@ -1524,11 +1524,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                         FFAppState().loggedIn =
                                                             true;
                                                       });
-                                                      await actions
-                                                          .setSessionStorage(
-                                                        'tabid',
-                                                        'true',
-                                                      );
 
                                                       context.pushNamed(
                                                           'OutletListPage');
@@ -1553,11 +1548,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                                   .textFieldQuickTextController1
                                                                   .text;
                                                         });
-                                                        await actions
-                                                            .setSessionStorage(
-                                                          'tabid',
-                                                          'true',
-                                                        );
 
                                                         context.pushNamed(
                                                             'OutletListPage');

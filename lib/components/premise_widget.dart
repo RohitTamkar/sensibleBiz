@@ -113,7 +113,10 @@ class _PremiseWidgetState extends State<PremiseWidget> {
                   );
                 },
               ),
-              autofocus: true,
+              autofocus: false,
+              readOnly:
+                  FFAppState().premisesUpdateCheckboxList.contains(widget.id) ==
+                      null,
               obscureText: false,
               decoration: InputDecoration(
                 labelStyle: FlutterFlowTheme.of(context).labelMedium.override(

@@ -46,6 +46,7 @@ class ProductMasterListStruct extends FFFirebaseStruct {
     int? viewType,
     String? weightable,
     double? defaultPrice,
+    String? dayType,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _id = id,
         _active = active,
@@ -83,6 +84,7 @@ class ProductMasterListStruct extends FFFirebaseStruct {
         _viewType = viewType,
         _weightable = weightable,
         _defaultPrice = defaultPrice,
+        _dayType = dayType,
         super(firestoreUtilData);
 
   // "id" field.
@@ -323,6 +325,12 @@ class ProductMasterListStruct extends FFFirebaseStruct {
       _defaultPrice = defaultPrice + amount;
   bool hasDefaultPrice() => _defaultPrice != null;
 
+  // "dayType" field.
+  String? _dayType;
+  String get dayType => _dayType ?? '';
+  set dayType(String? val) => _dayType = val;
+  bool hasDayType() => _dayType != null;
+
   static ProductMasterListStruct fromMap(Map<String, dynamic> data) =>
       ProductMasterListStruct(
         id: data['id'] as String?,
@@ -361,6 +369,7 @@ class ProductMasterListStruct extends FFFirebaseStruct {
         viewType: castToType<int>(data['viewType']),
         weightable: data['weightable'] as String?,
         defaultPrice: castToType<double>(data['defaultPrice']),
+        dayType: data['dayType'] as String?,
       );
 
   static ProductMasterListStruct? maybeFromMap(dynamic data) => data is Map
@@ -404,6 +413,7 @@ class ProductMasterListStruct extends FFFirebaseStruct {
         'viewType': _viewType,
         'weightable': _weightable,
         'defaultPrice': _defaultPrice,
+        'dayType': _dayType,
       }.withoutNulls;
 
   @override
@@ -551,6 +561,10 @@ class ProductMasterListStruct extends FFFirebaseStruct {
         'defaultPrice': serializeParam(
           _defaultPrice,
           ParamType.double,
+        ),
+        'dayType': serializeParam(
+          _dayType,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -737,6 +751,11 @@ class ProductMasterListStruct extends FFFirebaseStruct {
           ParamType.double,
           false,
         ),
+        dayType: deserializeParam(
+          data['dayType'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -780,7 +799,8 @@ class ProductMasterListStruct extends FFFirebaseStruct {
         state == other.state &&
         viewType == other.viewType &&
         weightable == other.weightable &&
-        defaultPrice == other.defaultPrice;
+        defaultPrice == other.defaultPrice &&
+        dayType == other.dayType;
   }
 
   @override
@@ -820,7 +840,8 @@ class ProductMasterListStruct extends FFFirebaseStruct {
         state,
         viewType,
         weightable,
-        defaultPrice
+        defaultPrice,
+        dayType
       ]);
 }
 
@@ -861,6 +882,7 @@ ProductMasterListStruct createProductMasterListStruct({
   int? viewType,
   String? weightable,
   double? defaultPrice,
+  String? dayType,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -903,6 +925,7 @@ ProductMasterListStruct createProductMasterListStruct({
       viewType: viewType,
       weightable: weightable,
       defaultPrice: defaultPrice,
+      dayType: dayType,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

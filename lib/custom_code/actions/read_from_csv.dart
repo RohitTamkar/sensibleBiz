@@ -92,6 +92,7 @@ Future<List<ProductMasterListStruct>> readFromCsv(
         var stock = fields[11];
         var weightable = fields[12];
         var code = fields[13];
+        var dayType = fields[14];
 
         String generateShortName(String name) {
           List<String> words = name.split(' ');
@@ -142,6 +143,7 @@ Future<List<ProductMasterListStruct>> readFromCsv(
           state: 0,
           viewType: 0,
           defaultPrice: double.parse(defaultPrice ?? '0.00'),
+          dayType: dayType.trim() ?? '',
         ));
       }
     }

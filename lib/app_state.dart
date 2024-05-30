@@ -1155,6 +1155,36 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInProductJsonList(int _index, dynamic _value) {
     _productJsonList.insert(_index, _value);
   }
+
+  List<String> _premisesUpdateCheckboxList = [];
+  List<String> get premisesUpdateCheckboxList => _premisesUpdateCheckboxList;
+  set premisesUpdateCheckboxList(List<String> _value) {
+    _premisesUpdateCheckboxList = _value;
+  }
+
+  void addToPremisesUpdateCheckboxList(String _value) {
+    _premisesUpdateCheckboxList.add(_value);
+  }
+
+  void removeFromPremisesUpdateCheckboxList(String _value) {
+    _premisesUpdateCheckboxList.remove(_value);
+  }
+
+  void removeAtIndexFromPremisesUpdateCheckboxList(int _index) {
+    _premisesUpdateCheckboxList.removeAt(_index);
+  }
+
+  void updatePremisesUpdateCheckboxListAtIndex(
+    int _index,
+    String Function(String) updateFn,
+  ) {
+    _premisesUpdateCheckboxList[_index] =
+        updateFn(_premisesUpdateCheckboxList[_index]);
+  }
+
+  void insertAtIndexInPremisesUpdateCheckboxList(int _index, String _value) {
+    _premisesUpdateCheckboxList.insert(_index, _value);
+  }
 }
 
 void _safeInit(Function() initializeField) {

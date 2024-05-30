@@ -78,250 +78,291 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 30.0,
-                            borderWidth: 1.0,
-                            buttonSize: 50.0,
-                            icon: Icon(
-                              Icons.chevron_left,
-                              color:
-                                  FlutterFlowTheme.of(context).primaryBtnText,
-                              size: 30.0,
-                            ),
-                            onPressed: () async {
-                              context.pop();
-                            },
-                          ),
-                          Text(
-                            'Bill Wise Sale Report',
-                            style: FlutterFlowTheme.of(context)
-                                .headlineMedium
-                                .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .headlineMediumFamily,
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              FlutterFlowIconButton(
+                                borderColor: Colors.transparent,
+                                borderRadius: 30.0,
+                                borderWidth: 1.0,
+                                buttonSize: 50.0,
+                                icon: Icon(
+                                  Icons.chevron_left,
                                   color: FlutterFlowTheme.of(context)
                                       .primaryBtnText,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w600,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .headlineMediumFamily),
+                                  size: 30.0,
                                 ),
-                          ),
-                          Builder(
-                            builder: (context) => FlutterFlowIconButton(
-                              borderColor: Colors.transparent,
-                              borderRadius: 30.0,
-                              borderWidth: 1.0,
-                              buttonSize: 50.0,
-                              icon: Icon(
-                                Icons.qr_code,
-                                color:
-                                    FlutterFlowTheme.of(context).primaryBtnText,
-                                size: 24.0,
+                                onPressed: () async {
+                                  context.pop();
+                                },
                               ),
-                              onPressed: () async {
-                                var _shouldSetState = false;
-                                _model.billNumberQR =
-                                    await FlutterBarcodeScanner.scanBarcode(
-                                  '#C62828', // scanning line color
-                                  'Cancel', // cancel button text
-                                  true, // whether to show the flash icon
-                                  ScanMode.QR,
-                                );
-
-                                _shouldSetState = true;
-                                _model.billDocumnetQR =
-                                    await queryBillSaleSummaryRecordOnce(
-                                  parent: FFAppState().outletRef,
-                                  queryBuilder: (billSaleSummaryRecord) =>
-                                      billSaleSummaryRecord.where(
-                                    'billNo',
-                                    isEqualTo: _model.billNumberQR,
+                              Text(
+                                'Bill Sale ',
+                                style: FlutterFlowTheme.of(context)
+                                    .headlineMedium
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .headlineMediumFamily,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBtnText,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineMediumFamily),
+                                    ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Builder(
+                                builder: (context) => FlutterFlowIconButton(
+                                  borderColor: Colors.transparent,
+                                  borderRadius: 30.0,
+                                  borderWidth: 1.0,
+                                  buttonSize: 50.0,
+                                  icon: Icon(
+                                    Icons.qr_code,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBtnText,
+                                    size: 24.0,
                                   ),
-                                  singleRecord: true,
-                                ).then((s) => s.firstOrNull);
-                                _shouldSetState = true;
-                                if (_model.billDocumnetQR?.checkInTime == 0) {
-                                  var confirmDialogResponse =
-                                      await showDialog<bool>(
+                                  onPressed: () async {
+                                    var _shouldSetState = false;
+                                    _model.billNumberQR =
+                                        await FlutterBarcodeScanner.scanBarcode(
+                                      '#C62828', // scanning line color
+                                      'Cancel', // cancel button text
+                                      true, // whether to show the flash icon
+                                      ScanMode.QR,
+                                    );
+
+                                    _shouldSetState = true;
+                                    _model.billDocumnetQR =
+                                        await queryBillSaleSummaryRecordOnce(
+                                      parent: FFAppState().outletRef,
+                                      queryBuilder: (billSaleSummaryRecord) =>
+                                          billSaleSummaryRecord.where(
+                                        'billNo',
+                                        isEqualTo: _model.billNumberQR,
+                                      ),
+                                      singleRecord: true,
+                                    ).then((s) => s.firstOrNull);
+                                    _shouldSetState = true;
+                                    if (_model.billDocumnetQR?.checkInTime ==
+                                        0) {
+                                      var confirmDialogResponse =
+                                          await showDialog<bool>(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return WebViewAware(
+                                                    child: AlertDialog(
+                                                      title: Text('Check In'),
+                                                      content: Text(
+                                                          'Bill No${_model.billDocumnetQR?.billNo}'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext,
+                                                                  false),
+                                                          child: Text('Cancel'),
+                                                        ),
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext,
+                                                                  true),
+                                                          child:
+                                                              Text('Confirm'),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                              ) ??
+                                              false;
+                                      if (confirmDialogResponse) {
+                                        await _model.billDocumnetQR!.reference
+                                            .update(
+                                                createBillSaleSummaryRecordData(
+                                          checkInTime: getCurrentTimestamp
+                                              .millisecondsSinceEpoch,
+                                        ));
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: WebViewAware(
+                                                child: GestureDetector(
+                                                  onTap: () => _model
+                                                          .unfocusNode
+                                                          .canRequestFocus
+                                                      ? FocusScope.of(context)
+                                                          .requestFocus(_model
+                                                              .unfocusNode)
+                                                      : FocusScope.of(context)
+                                                          .unfocus(),
+                                                  child: CheckInSuccessWidget(),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ).then((value) => setState(() {}));
+
+                                        if (_shouldSetState) setState(() {});
+                                        return;
+                                      } else {
+                                        if (_shouldSetState) setState(() {});
+                                        return;
+                                      }
+                                    } else {
+                                      if (_model.billDocumnetQR?.checkOutTime ==
+                                          0) {
+                                        var confirmDialogResponse =
+                                            await showDialog<bool>(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return WebViewAware(
+                                                      child: AlertDialog(
+                                                        title:
+                                                            Text('Check Out'),
+                                                        content: Text(
+                                                            'Bill No${_model.billDocumnetQR?.billNo}'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext,
+                                                                    false),
+                                                            child:
+                                                                Text('Cancel'),
+                                                          ),
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext,
+                                                                    true),
+                                                            child:
+                                                                Text('Confirm'),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                ) ??
+                                                false;
+                                        if (confirmDialogResponse) {
+                                          await _model.billDocumnetQR!.reference
+                                              .update(
+                                                  createBillSaleSummaryRecordData(
+                                            checkOutTime: getCurrentTimestamp
+                                                .millisecondsSinceEpoch,
+                                          ));
+                                          await showDialog(
                                             context: context,
-                                            builder: (alertDialogContext) {
-                                              return WebViewAware(
-                                                child: AlertDialog(
-                                                  title: Text('Check In'),
-                                                  content: Text(
-                                                      'Bill No${_model.billDocumnetQR?.billNo}'),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext,
-                                                              false),
-                                                      child: Text('Cancel'),
-                                                    ),
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext,
-                                                              true),
-                                                      child: Text('Confirm'),
-                                                    ),
-                                                  ],
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                elevation: 0,
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment: AlignmentDirectional(
+                                                        0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                                child: WebViewAware(
+                                                  child: GestureDetector(
+                                                    onTap: () => _model
+                                                            .unfocusNode
+                                                            .canRequestFocus
+                                                        ? FocusScope.of(context)
+                                                            .requestFocus(_model
+                                                                .unfocusNode)
+                                                        : FocusScope.of(context)
+                                                            .unfocus(),
+                                                    child:
+                                                        CheckOutSuccessWidget(),
+                                                  ),
                                                 ),
                                               );
                                             },
-                                          ) ??
-                                          false;
-                                  if (confirmDialogResponse) {
-                                    await _model.billDocumnetQR!.reference
-                                        .update(createBillSaleSummaryRecordData(
-                                      checkInTime: getCurrentTimestamp
-                                          .millisecondsSinceEpoch,
-                                    ));
-                                    await showDialog(
-                                      context: context,
-                                      builder: (dialogContext) {
-                                        return Dialog(
-                                          elevation: 0,
-                                          insetPadding: EdgeInsets.zero,
-                                          backgroundColor: Colors.transparent,
-                                          alignment: AlignmentDirectional(
-                                                  0.0, 0.0)
-                                              .resolve(
-                                                  Directionality.of(context)),
-                                          child: WebViewAware(
-                                            child: GestureDetector(
-                                              onTap: () => _model.unfocusNode
-                                                      .canRequestFocus
-                                                  ? FocusScope.of(context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode)
-                                                  : FocusScope.of(context)
-                                                      .unfocus(),
-                                              child: CheckInSuccessWidget(),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ).then((value) => setState(() {}));
+                                          ).then((value) => setState(() {}));
 
-                                    if (_shouldSetState) setState(() {});
-                                    return;
-                                  } else {
-                                    if (_shouldSetState) setState(() {});
-                                    return;
-                                  }
-                                } else {
-                                  if (_model.billDocumnetQR?.checkOutTime ==
-                                      0) {
-                                    var confirmDialogResponse =
-                                        await showDialog<bool>(
-                                              context: context,
-                                              builder: (alertDialogContext) {
-                                                return WebViewAware(
-                                                  child: AlertDialog(
-                                                    title: Text('Check Out'),
-                                                    content: Text(
-                                                        'Bill No${_model.billDocumnetQR?.billNo}'),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext,
-                                                                false),
-                                                        child: Text('Cancel'),
-                                                      ),
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext,
-                                                                true),
-                                                        child: Text('Confirm'),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                            ) ??
-                                            false;
-                                    if (confirmDialogResponse) {
-                                      await _model.billDocumnetQR!.reference
-                                          .update(
-                                              createBillSaleSummaryRecordData(
-                                        checkOutTime: getCurrentTimestamp
-                                            .millisecondsSinceEpoch,
-                                      ));
-                                      await showDialog(
-                                        context: context,
-                                        builder: (dialogContext) {
-                                          return Dialog(
-                                            elevation: 0,
-                                            insetPadding: EdgeInsets.zero,
-                                            backgroundColor: Colors.transparent,
-                                            alignment: AlignmentDirectional(
-                                                    0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                            child: WebViewAware(
-                                              child: GestureDetector(
-                                                onTap: () => _model.unfocusNode
-                                                        .canRequestFocus
-                                                    ? FocusScope.of(context)
-                                                        .requestFocus(
-                                                            _model.unfocusNode)
-                                                    : FocusScope.of(context)
-                                                        .unfocus(),
-                                                child: CheckOutSuccessWidget(),
+                                          if (_shouldSetState) setState(() {});
+                                          return;
+                                        } else {
+                                          if (_shouldSetState) setState(() {});
+                                          return;
+                                        }
+                                      } else {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: WebViewAware(
+                                                child: GestureDetector(
+                                                  onTap: () => _model
+                                                          .unfocusNode
+                                                          .canRequestFocus
+                                                      ? FocusScope.of(context)
+                                                          .requestFocus(_model
+                                                              .unfocusNode)
+                                                      : FocusScope.of(context)
+                                                          .unfocus(),
+                                                  child: SessionExpiredWidget(),
+                                                ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                      ).then((value) => setState(() {}));
+                                            );
+                                          },
+                                        ).then((value) => setState(() {}));
 
-                                      if (_shouldSetState) setState(() {});
-                                      return;
-                                    } else {
-                                      if (_shouldSetState) setState(() {});
-                                      return;
+                                        if (_shouldSetState) setState(() {});
+                                        return;
+                                      }
                                     }
-                                  } else {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (dialogContext) {
-                                        return Dialog(
-                                          elevation: 0,
-                                          insetPadding: EdgeInsets.zero,
-                                          backgroundColor: Colors.transparent,
-                                          alignment: AlignmentDirectional(
-                                                  0.0, 0.0)
-                                              .resolve(
-                                                  Directionality.of(context)),
-                                          child: WebViewAware(
-                                            child: GestureDetector(
-                                              onTap: () => _model.unfocusNode
-                                                      .canRequestFocus
-                                                  ? FocusScope.of(context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode)
-                                                  : FocusScope.of(context)
-                                                      .unfocus(),
-                                              child: SessionExpiredWidget(),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ).then((value) => setState(() {}));
 
                                     if (_shouldSetState) setState(() {});
-                                    return;
-                                  }
-                                }
-
-                                if (_shouldSetState) setState(() {});
-                              },
-                            ),
+                                  },
+                                ),
+                              ),
+                              FlutterFlowIconButton(
+                                borderRadius: 30.0,
+                                borderWidth: 1.0,
+                                buttonSize: 50.0,
+                                icon: Icon(
+                                  Icons.calendar_month,
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBtnText,
+                                  size: 24.0,
+                                ),
+                                onPressed: () {
+                                  print('IconButton pressed ...');
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -410,6 +451,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .labelMediumFamily,
                                         letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
                                                 FlutterFlowTheme.of(context)
@@ -427,6 +469,43 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                         fontFamily: FlutterFlowTheme.of(context)
                                             .labelMediumFamily,
                                         letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey(
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMediumFamily),
+                                      ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  'Check In',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .labelMediumFamily,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey(
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMediumFamily),
+                                      ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  'Check Out',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .labelMediumFamily,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
                                         useGoogleFonts: GoogleFonts.asMap()
                                             .containsKey(
                                                 FlutterFlowTheme.of(context)
@@ -569,6 +648,50 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                   child: Text(
                                                     billWiseSaleReportItem
                                                         .billNo,
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMediumFamily,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMediumFamily),
+                                                        ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    '9.30',
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMediumFamily,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMediumFamily),
+                                                        ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    '7.30',
                                                     textAlign: TextAlign.center,
                                                     style: FlutterFlowTheme.of(
                                                             context)

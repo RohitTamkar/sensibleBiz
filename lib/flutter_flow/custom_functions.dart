@@ -715,7 +715,7 @@ List<dynamic> premisesToJsonfunc(String getString) {
 
     list1.add({"key": list2[0], "value": list2[1]});
   }
-  print(list1);
+  // print(list1);
 
   return list1;
 }

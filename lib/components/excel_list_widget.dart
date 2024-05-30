@@ -25,7 +25,8 @@ class ExcelListWidget extends StatefulWidget {
     this.weightable,
     this.searchcode,
     this.shortName,
-  });
+    String? dayType,
+  }) : this.dayType = dayType ?? '0';
 
   final String? prdname;
   final String? regionalName;
@@ -42,6 +43,7 @@ class ExcelListWidget extends StatefulWidget {
   final String? weightable;
   final int? searchcode;
   final String? shortName;
+  final String dayType;
 
   @override
   State<ExcelListWidget> createState() => _ExcelListWidgetState();
@@ -113,6 +115,9 @@ class _ExcelListWidgetState extends State<ExcelListWidget> {
     _model.textController15 ??=
         TextEditingController(text: widget.searchcode?.toString());
     _model.textFieldFocusNode15 ??= FocusNode();
+
+    _model.textController16 ??= TextEditingController(text: widget.dayType);
+    _model.textFieldFocusNode16 ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -931,6 +936,60 @@ class _ExcelListWidgetState extends State<ExcelListWidget> {
                 ),
             textAlign: TextAlign.end,
             validator: _model.textController15Validator.asValidator(context),
+          ),
+        ),
+        Expanded(
+          child: TextFormField(
+            controller: _model.textController16,
+            focusNode: _model.textFieldFocusNode16,
+            autofocus: true,
+            obscureText: false,
+            decoration: InputDecoration(
+              hintText: 'Search Code',
+              hintStyle: FlutterFlowTheme.of(context).bodyLarge.override(
+                    fontFamily: FlutterFlowTheme.of(context).bodyLargeFamily,
+                    color: FlutterFlowTheme.of(context).secondaryText,
+                    letterSpacing: 0.0,
+                    useGoogleFonts: GoogleFonts.asMap().containsKey(
+                        FlutterFlowTheme.of(context).bodyLargeFamily),
+                  ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: FlutterFlowTheme.of(context).customColor3,
+                  width: 0.5,
+                ),
+                borderRadius: BorderRadius.circular(0.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: FlutterFlowTheme.of(context).info,
+                  width: 0.5,
+                ),
+                borderRadius: BorderRadius.circular(0.0),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: FlutterFlowTheme.of(context).error,
+                  width: 0.5,
+                ),
+                borderRadius: BorderRadius.circular(0.0),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: FlutterFlowTheme.of(context).error,
+                  width: 0.5,
+                ),
+                borderRadius: BorderRadius.circular(0.0),
+              ),
+            ),
+            style: FlutterFlowTheme.of(context).labelMedium.override(
+                  fontFamily: FlutterFlowTheme.of(context).labelMediumFamily,
+                  letterSpacing: 0.0,
+                  useGoogleFonts: GoogleFonts.asMap().containsKey(
+                      FlutterFlowTheme.of(context).labelMediumFamily),
+                ),
+            textAlign: TextAlign.end,
+            validator: _model.textController16Validator.asValidator(context),
           ),
         ),
       ],

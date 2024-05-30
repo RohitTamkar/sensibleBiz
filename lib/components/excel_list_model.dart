@@ -69,6 +69,10 @@ class ExcelListModel extends FlutterFlowModel<ExcelListWidget> {
   FocusNode? textFieldFocusNode15;
   TextEditingController? textController15;
   String? Function(BuildContext, String?)? textController15Validator;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode16;
+  TextEditingController? textController16;
+  String? Function(BuildContext, String?)? textController16Validator;
 
   @override
   void initState(BuildContext context) {}
@@ -119,5 +123,8 @@ class ExcelListModel extends FlutterFlowModel<ExcelListWidget> {
 
     textFieldFocusNode15?.dispose();
     textController15?.dispose();
+
+    textFieldFocusNode16?.dispose();
+    textController16?.dispose();
   }
 }

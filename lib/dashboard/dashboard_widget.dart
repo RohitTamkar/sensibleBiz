@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
+import '/components/scan_bill_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -3271,10 +3272,63 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                               tabletLandscape: false,
                                               desktop: false,
                                             ))
-                                              Text(
-                                                'Barcode details',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
+                                              Builder(
+                                                builder: (context) => InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder: (dialogContext) {
+                                                        return Dialog(
+                                                          elevation: 0,
+                                                          insetPadding:
+                                                              EdgeInsets.zero,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          alignment: AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                          child: WebViewAware(
+                                                            child:
+                                                                GestureDetector(
+                                                              onTap: () => _model
+                                                                      .unfocusNode
+                                                                      .canRequestFocus
+                                                                  ? FocusScope.of(
+                                                                          context)
+                                                                      .requestFocus(
+                                                                          _model
+                                                                              .unfocusNode)
+                                                                  : FocusScope.of(
+                                                                          context)
+                                                                      .unfocus(),
+                                                              child:
+                                                                  ScanBillWidget(
+                                                                outletDetails:
+                                                                    widget
+                                                                        .outletDetails,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ).then((value) =>
+                                                        setState(() {}));
+                                                  },
+                                                  child: Text(
+                                                    'Barcode details',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodySmall
                                                         .override(
                                                           fontFamily:
@@ -3292,6 +3346,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                           context)
                                                                       .bodySmallFamily),
                                                         ),
+                                                  ),
+                                                ),
                                               ),
                                           ],
                                         ),
