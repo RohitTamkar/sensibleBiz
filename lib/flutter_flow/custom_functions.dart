@@ -794,3 +794,12 @@ List<dynamic> editPriceTable(
   print(resList);
   return resList;
 }
+
+String getTimeFromMilliseonds(int milliseconds) {
+  if (milliseconds > 1) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
+    String formattedTime = DateFormat('hh:mm a').format(dateTime);
+    return formattedTime;
+  }
+  return "-";
+}

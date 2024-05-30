@@ -1,7 +1,9 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
-import '/components/scan_bill_widget.dart';
+import '/components/check_in_success_widget.dart';
+import '/components/check_out_success_widget.dart';
+import '/components/session_expired_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -3083,162 +3085,52 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                               tabletLandscape: false,
                                               desktop: false,
                                             ))
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 10.0, 0.0, 0.0),
-                                                child: FlutterFlowIconButton(
-                                                  borderColor:
-                                                      Colors.transparent,
-                                                  borderRadius: 30.0,
-                                                  borderWidth: 1.0,
-                                                  buttonSize: 45.0,
-                                                  icon: Icon(
-                                                    Icons.qr_code_scanner,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryBtnText,
-                                                    size: 30.0,
-                                                  ),
-                                                  onPressed: () async {
-                                                    var _shouldSetState = false;
-                                                    _model.qrSerial =
-                                                        await FlutterBarcodeScanner
-                                                            .scanBarcode(
-                                                      '#C62828', // scanning line color
-                                                      'Cancel', // cancel button text
-                                                      true, // whether to show the flash icon
-                                                      ScanMode.QR,
-                                                    );
+                                              Builder(
+                                                builder: (context) => Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 10.0, 0.0, 0.0),
+                                                  child: FlutterFlowIconButton(
+                                                    borderColor:
+                                                        Colors.transparent,
+                                                    borderRadius: 30.0,
+                                                    borderWidth: 1.0,
+                                                    buttonSize: 45.0,
+                                                    icon: Icon(
+                                                      Icons.qr_code_scanner,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryBtnText,
+                                                      size: 30.0,
+                                                    ),
+                                                    onPressed: () async {
+                                                      var _shouldSetState =
+                                                          false;
+                                                      _model.qrSerial =
+                                                          await FlutterBarcodeScanner
+                                                              .scanBarcode(
+                                                        '#C62828', // scanning line color
+                                                        'Cancel', // cancel button text
+                                                        true, // whether to show the flash icon
+                                                        ScanMode.QR,
+                                                      );
 
-                                                    _shouldSetState = true;
-                                                    _model.deviceDocument =
-                                                        await queryDeviceRecordOnce(
-                                                      queryBuilder:
-                                                          (deviceRecord) =>
-                                                              deviceRecord
-                                                                  .where(
-                                                        'serial',
-                                                        isEqualTo:
-                                                            _model.qrSerial,
-                                                      ),
-                                                      singleRecord: true,
-                                                    ).then((s) =>
-                                                            s.firstOrNull);
-                                                    _shouldSetState = true;
-                                                    await showDialog(
-                                                      context: context,
-                                                      builder:
-                                                          (alertDialogContext) {
-                                                        return WebViewAware(
-                                                          child: AlertDialog(
-                                                            title: Text(
-                                                                'OutletId'),
-                                                            content: Text(_model
-                                                                .deviceDocument!
-                                                                .outletId),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext),
-                                                                child:
-                                                                    Text('Ok'),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
-                                                    if (_model.deviceDocument !=
-                                                        null) {
-                                                      if ((_model.deviceDocument
-                                                                  ?.outletId ==
-                                                              widget
-                                                                  .outletDetails
-                                                                  ?.id) ||
-                                                          (_model.deviceDocument
-                                                                      ?.outletId ==
-                                                                  null ||
-                                                              _model.deviceDocument
-                                                                      ?.outletId ==
-                                                                  '') ||
-                                                          (_model.deviceDocument
-                                                                  ?.outletId ==
-                                                              '')) {
-                                                        await _model
-                                                            .deviceDocument!
-                                                            .reference
-                                                            .update(
-                                                                createDeviceRecordData(
-                                                          outletId: widget
-                                                              .outletDetails
-                                                              ?.id,
-                                                          outletName: widget
-                                                              .outletDetails
-                                                              ?.name,
-                                                          loggedIn: true,
-                                                          branch: widget
-                                                              .outletDetails
-                                                              ?.branch,
-                                                          active: true,
-                                                        ));
-                                                        await showDialog(
-                                                          context: context,
-                                                          builder:
-                                                              (alertDialogContext) {
-                                                            return WebViewAware(
-                                                              child:
-                                                                  AlertDialog(
-                                                                title: Text(
-                                                                    'Login Sucessfull !'),
-                                                                actions: [
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.pop(
-                                                                            alertDialogContext),
-                                                                    child: Text(
-                                                                        'Ok'),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            );
-                                                          },
-                                                        );
-                                                      } else {
-                                                        await showDialog(
-                                                          context: context,
-                                                          builder:
-                                                              (alertDialogContext) {
-                                                            return WebViewAware(
-                                                              child:
-                                                                  AlertDialog(
-                                                                title: Text(
-                                                                    'Login failed'),
-                                                                content: Text(
-                                                                    'Different outlet is present'),
-                                                                actions: [
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.pop(
-                                                                            alertDialogContext),
-                                                                    child: Text(
-                                                                        'Ok'),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            );
-                                                          },
-                                                        );
-                                                        if (_shouldSetState)
-                                                          setState(() {});
-                                                        return;
-                                                      }
-
-                                                      if (_shouldSetState)
-                                                        setState(() {});
-                                                      return;
-                                                    } else {
+                                                      _shouldSetState = true;
+                                                      _model.deviceDocument =
+                                                          await queryDeviceRecordOnce(
+                                                        queryBuilder:
+                                                            (deviceRecord) =>
+                                                                deviceRecord
+                                                                    .where(
+                                                          'serial',
+                                                          isEqualTo:
+                                                              _model.qrSerial,
+                                                        ),
+                                                        singleRecord: true,
+                                                      ).then((s) =>
+                                                              s.firstOrNull);
+                                                      _shouldSetState = true;
                                                       await showDialog(
                                                         context: context,
                                                         builder:
@@ -3246,7 +3138,10 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                           return WebViewAware(
                                                             child: AlertDialog(
                                                               title: Text(
-                                                                  'Device doesnot exists !'),
+                                                                  'OutletId'),
+                                                              content: Text(_model
+                                                                  .deviceDocument!
+                                                                  .outletId),
                                                               actions: [
                                                                 TextButton(
                                                                   onPressed: () =>
@@ -3260,11 +3155,341 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                           );
                                                         },
                                                       );
-                                                    }
+                                                      if (_model
+                                                              .deviceDocument !=
+                                                          null) {
+                                                        if ((_model.deviceDocument
+                                                                    ?.outletId ==
+                                                                widget
+                                                                    .outletDetails
+                                                                    ?.id) ||
+                                                            (_model.deviceDocument
+                                                                        ?.outletId ==
+                                                                    null ||
+                                                                _model.deviceDocument
+                                                                        ?.outletId ==
+                                                                    '') ||
+                                                            (_model.deviceDocument
+                                                                    ?.outletId ==
+                                                                '')) {
+                                                          await _model
+                                                              .deviceDocument!
+                                                              .reference
+                                                              .update(
+                                                                  createDeviceRecordData(
+                                                            outletId: widget
+                                                                .outletDetails
+                                                                ?.id,
+                                                            outletName: widget
+                                                                .outletDetails
+                                                                ?.name,
+                                                            loggedIn: true,
+                                                            branch: widget
+                                                                .outletDetails
+                                                                ?.branch,
+                                                            active: true,
+                                                          ));
+                                                          await showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (alertDialogContext) {
+                                                              return WebViewAware(
+                                                                child:
+                                                                    AlertDialog(
+                                                                  title: Text(
+                                                                      'Login Sucessfull !'),
+                                                                  actions: [
+                                                                    TextButton(
+                                                                      onPressed:
+                                                                          () =>
+                                                                              Navigator.pop(alertDialogContext),
+                                                                      child: Text(
+                                                                          'Ok'),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              );
+                                                            },
+                                                          );
+                                                        } else {
+                                                          await showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (alertDialogContext) {
+                                                              return WebViewAware(
+                                                                child:
+                                                                    AlertDialog(
+                                                                  title: Text(
+                                                                      'Login failed'),
+                                                                  content: Text(
+                                                                      'Different outlet is present'),
+                                                                  actions: [
+                                                                    TextButton(
+                                                                      onPressed:
+                                                                          () =>
+                                                                              Navigator.pop(alertDialogContext),
+                                                                      child: Text(
+                                                                          'Ok'),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              );
+                                                            },
+                                                          );
+                                                          if (_shouldSetState)
+                                                            setState(() {});
+                                                          return;
+                                                        }
 
-                                                    if (_shouldSetState)
-                                                      setState(() {});
-                                                  },
+                                                        if (_shouldSetState)
+                                                          setState(() {});
+                                                        return;
+                                                      } else {
+                                                        _model.billDocumnetQR =
+                                                            await queryBillSaleSummaryRecordOnce(
+                                                          parent: FFAppState()
+                                                              .outletRef,
+                                                          queryBuilder:
+                                                              (billSaleSummaryRecord) =>
+                                                                  billSaleSummaryRecord
+                                                                      .where(
+                                                            'billNo',
+                                                            isEqualTo:
+                                                                _model.qrSerial,
+                                                          ),
+                                                          singleRecord: true,
+                                                        ).then((s) =>
+                                                                s.firstOrNull);
+                                                        _shouldSetState = true;
+                                                        if (_model
+                                                                .billDocumnetQR
+                                                                ?.checkInTime ==
+                                                            0) {
+                                                          var confirmDialogResponse =
+                                                              await showDialog<
+                                                                      bool>(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (alertDialogContext) {
+                                                                      return WebViewAware(
+                                                                        child:
+                                                                            AlertDialog(
+                                                                          title:
+                                                                              Text('Check In'),
+                                                                          content:
+                                                                              Text('Bill No ${_model.billDocumnetQR?.billNo}'),
+                                                                          actions: [
+                                                                            TextButton(
+                                                                              onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                              child: Text('Cancel'),
+                                                                            ),
+                                                                            TextButton(
+                                                                              onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                              child: Text('Confirm'),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  ) ??
+                                                                  false;
+                                                          if (confirmDialogResponse) {
+                                                            await _model
+                                                                .billDocumnetQR!
+                                                                .reference
+                                                                .update(
+                                                                    createBillSaleSummaryRecordData(
+                                                              checkInTime:
+                                                                  getCurrentTimestamp
+                                                                      .millisecondsSinceEpoch,
+                                                            ));
+                                                            await showDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  (dialogContext) {
+                                                                return Dialog(
+                                                                  elevation: 0,
+                                                                  insetPadding:
+                                                                      EdgeInsets
+                                                                          .zero,
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  alignment: AlignmentDirectional(
+                                                                          0.0,
+                                                                          0.0)
+                                                                      .resolve(
+                                                                          Directionality.of(
+                                                                              context)),
+                                                                  child:
+                                                                      WebViewAware(
+                                                                    child:
+                                                                        GestureDetector(
+                                                                      onTap: () => _model
+                                                                              .unfocusNode
+                                                                              .canRequestFocus
+                                                                          ? FocusScope.of(context).requestFocus(_model
+                                                                              .unfocusNode)
+                                                                          : FocusScope.of(context)
+                                                                              .unfocus(),
+                                                                      child:
+                                                                          CheckInSuccessWidget(),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ).then((value) =>
+                                                                setState(
+                                                                    () {}));
+
+                                                            if (_shouldSetState)
+                                                              setState(() {});
+                                                            return;
+                                                          } else {
+                                                            if (_shouldSetState)
+                                                              setState(() {});
+                                                            return;
+                                                          }
+                                                        } else {
+                                                          if (_model
+                                                                  .billDocumnetQR
+                                                                  ?.checkOutTime ==
+                                                              0) {
+                                                            var confirmDialogResponse =
+                                                                await showDialog<
+                                                                        bool>(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (alertDialogContext) {
+                                                                        return WebViewAware(
+                                                                          child:
+                                                                              AlertDialog(
+                                                                            title:
+                                                                                Text('Check Out'),
+                                                                            content:
+                                                                                Text('Bill No ${_model.billDocumnetQR?.billNo}'),
+                                                                            actions: [
+                                                                              TextButton(
+                                                                                onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                child: Text('Cancel'),
+                                                                              ),
+                                                                              TextButton(
+                                                                                onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                child: Text('Confirm'),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                    ) ??
+                                                                    false;
+                                                            if (confirmDialogResponse) {
+                                                              await _model
+                                                                  .billDocumnetQR!
+                                                                  .reference
+                                                                  .update(
+                                                                      createBillSaleSummaryRecordData(
+                                                                checkOutTime:
+                                                                    getCurrentTimestamp
+                                                                        .millisecondsSinceEpoch,
+                                                              ));
+                                                              await showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (dialogContext) {
+                                                                  return Dialog(
+                                                                    elevation:
+                                                                        0,
+                                                                    insetPadding:
+                                                                        EdgeInsets
+                                                                            .zero,
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    alignment: AlignmentDirectional(
+                                                                            0.0,
+                                                                            0.0)
+                                                                        .resolve(
+                                                                            Directionality.of(context)),
+                                                                    child:
+                                                                        WebViewAware(
+                                                                      child:
+                                                                          GestureDetector(
+                                                                        onTap: () => _model.unfocusNode.canRequestFocus
+                                                                            ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                                                                            : FocusScope.of(context).unfocus(),
+                                                                        child:
+                                                                            CheckOutSuccessWidget(),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              ).then((value) =>
+                                                                  setState(
+                                                                      () {}));
+
+                                                              if (_shouldSetState)
+                                                                setState(() {});
+                                                              return;
+                                                            } else {
+                                                              if (_shouldSetState)
+                                                                setState(() {});
+                                                              return;
+                                                            }
+                                                          } else {
+                                                            await showDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  (dialogContext) {
+                                                                return Dialog(
+                                                                  elevation: 0,
+                                                                  insetPadding:
+                                                                      EdgeInsets
+                                                                          .zero,
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  alignment: AlignmentDirectional(
+                                                                          0.0,
+                                                                          0.0)
+                                                                      .resolve(
+                                                                          Directionality.of(
+                                                                              context)),
+                                                                  child:
+                                                                      WebViewAware(
+                                                                    child:
+                                                                        GestureDetector(
+                                                                      onTap: () => _model
+                                                                              .unfocusNode
+                                                                              .canRequestFocus
+                                                                          ? FocusScope.of(context).requestFocus(_model
+                                                                              .unfocusNode)
+                                                                          : FocusScope.of(context)
+                                                                              .unfocus(),
+                                                                      child:
+                                                                          SessionExpiredWidget(),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ).then((value) =>
+                                                                setState(
+                                                                    () {}));
+
+                                                            if (_shouldSetState)
+                                                              setState(() {});
+                                                            return;
+                                                          }
+                                                        }
+                                                      }
+
+                                                      if (_shouldSetState)
+                                                        setState(() {});
+                                                    },
+                                                  ),
                                                 ),
                                               ),
                                             if (responsiveVisibility(
@@ -3272,63 +3497,10 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                               tabletLandscape: false,
                                               desktop: false,
                                             ))
-                                              Builder(
-                                                builder: (context) => InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    await showDialog(
-                                                      context: context,
-                                                      builder: (dialogContext) {
-                                                        return Dialog(
-                                                          elevation: 0,
-                                                          insetPadding:
-                                                              EdgeInsets.zero,
-                                                          backgroundColor:
-                                                              Colors
-                                                                  .transparent,
-                                                          alignment: AlignmentDirectional(
-                                                                  0.0, 0.0)
-                                                              .resolve(
-                                                                  Directionality.of(
-                                                                      context)),
-                                                          child: WebViewAware(
-                                                            child:
-                                                                GestureDetector(
-                                                              onTap: () => _model
-                                                                      .unfocusNode
-                                                                      .canRequestFocus
-                                                                  ? FocusScope.of(
-                                                                          context)
-                                                                      .requestFocus(
-                                                                          _model
-                                                                              .unfocusNode)
-                                                                  : FocusScope.of(
-                                                                          context)
-                                                                      .unfocus(),
-                                                              child:
-                                                                  ScanBillWidget(
-                                                                outletDetails:
-                                                                    widget
-                                                                        .outletDetails,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    ).then((value) =>
-                                                        setState(() {}));
-                                                  },
-                                                  child: Text(
-                                                    'Barcode details',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
+                                              Text(
+                                                'Barcode details',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
                                                         .bodySmall
                                                         .override(
                                                           fontFamily:
@@ -3346,8 +3518,6 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                           context)
                                                                       .bodySmallFamily),
                                                         ),
-                                                  ),
-                                                ),
                                               ),
                                           ],
                                         ),

@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/calender_widget.dart';
 import '/components/check_in_success_widget.dart';
 import '/components/check_out_success_widget.dart';
 import '/components/session_expired_widget.dart';
@@ -11,6 +12,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -36,6 +38,13 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => BillWiseSaleReportModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
+      });
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -348,19 +357,46 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                   },
                                 ),
                               ),
-                              FlutterFlowIconButton(
-                                borderRadius: 30.0,
-                                borderWidth: 1.0,
-                                buttonSize: 50.0,
-                                icon: Icon(
-                                  Icons.calendar_month,
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBtnText,
-                                  size: 24.0,
+                              Builder(
+                                builder: (context) => FlutterFlowIconButton(
+                                  borderRadius: 30.0,
+                                  borderWidth: 1.0,
+                                  buttonSize: 50.0,
+                                  icon: Icon(
+                                    Icons.calendar_month,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBtnText,
+                                    size: 24.0,
+                                  ),
+                                  onPressed: () async {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (dialogContext) {
+                                        return Dialog(
+                                          elevation: 0,
+                                          insetPadding: EdgeInsets.zero,
+                                          backgroundColor: Colors.transparent,
+                                          alignment: AlignmentDirectional(
+                                                  0.0, 0.0)
+                                              .resolve(
+                                                  Directionality.of(context)),
+                                          child: WebViewAware(
+                                            child: GestureDetector(
+                                              onTap: () => _model.unfocusNode
+                                                      .canRequestFocus
+                                                  ? FocusScope.of(context)
+                                                      .requestFocus(
+                                                          _model.unfocusNode)
+                                                  : FocusScope.of(context)
+                                                      .unfocus(),
+                                              child: CalenderWidget(),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ).then((value) => setState(() {}));
+                                  },
                                 ),
-                                onPressed: () {
-                                  print('IconButton pressed ...');
-                                },
                               ),
                             ],
                           ),
@@ -414,7 +450,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                   ),
                             ),
                             Text(
-                              '10-05-2024',
+                              functions.dateFormat(getCurrentTimestamp),
                               style: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
@@ -542,8 +578,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                             queryBuilder: (billSaleSummaryRecord) =>
                                 billSaleSummaryRecord.where(
                               'dayId',
-                              isEqualTo:
-                                  functions.getDayId(getCurrentTimestamp),
+                              isEqualTo: FFAppState().selectedDate,
                             ),
                           ),
                           builder: (context, snapshot) {
@@ -669,7 +704,13 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    '9.30',
+                                                    valueOrDefault<String>(
+                                                      functions
+                                                          .getTimeFromMilliseonds(
+                                                              billWiseSaleReportItem
+                                                                  .checkInTime),
+                                                      '0',
+                                                    ),
                                                     textAlign: TextAlign.center,
                                                     style: FlutterFlowTheme.of(
                                                             context)
@@ -691,7 +732,12 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    '7.30',
+                                                    valueOrDefault<String>(
+                                                      functions.getTimeFromMilliseonds(
+                                                          billWiseSaleReportItem
+                                                              .checkOutTime),
+                                                      '0',
+                                                    ),
                                                     textAlign: TextAlign.center,
                                                     style: FlutterFlowTheme.of(
                                                             context)
