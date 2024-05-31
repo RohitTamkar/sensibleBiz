@@ -431,31 +431,27 @@ class _OutletListPageWidgetState extends State<OutletListPageWidget>
                                                         Colors.transparent,
                                                     onTap: () async {
                                                       if (isWeb) {
-                                                        setState(() {
-                                                          FFAppState().expDay =
-                                                              functions
-                                                                  .setExpiryTime(
-                                                                      getCurrentTimestamp);
-                                                        });
+                                                        FFAppState().expDay =
+                                                            functions.setExpiryTime(
+                                                                getCurrentTimestamp);
+                                                        setState(() {});
                                                       } else {
-                                                        FFAppState().update(() {
-                                                          FFAppState()
-                                                                  .outletId =
-                                                              listViewOutletRecord
-                                                                  .id;
-                                                          FFAppState()
-                                                                  .outletRef =
-                                                              listViewOutletRecord
-                                                                  .reference;
-                                                          FFAppState()
-                                                                  .outletName =
-                                                              listViewOutletRecord
-                                                                  .name;
-                                                          FFAppState()
-                                                                  .outletBranch =
-                                                              listViewOutletRecord
-                                                                  .branch;
-                                                        });
+                                                        FFAppState().outletId =
+                                                            listViewOutletRecord
+                                                                .id;
+                                                        FFAppState().outletRef =
+                                                            listViewOutletRecord
+                                                                .reference;
+                                                        FFAppState()
+                                                                .outletName =
+                                                            listViewOutletRecord
+                                                                .name;
+                                                        FFAppState()
+                                                                .outletBranch =
+                                                            listViewOutletRecord
+                                                                .branch;
+                                                        FFAppState()
+                                                            .update(() {});
 
                                                         await containerUserProfileRecord!
                                                             .reference
@@ -486,22 +482,21 @@ class _OutletListPageWidgetState extends State<OutletListPageWidget>
                                                         return;
                                                       }
 
-                                                      FFAppState().update(() {
-                                                        FFAppState().outletId =
-                                                            listViewOutletRecord
-                                                                .id;
-                                                        FFAppState().outletRef =
-                                                            listViewOutletRecord
-                                                                .reference;
-                                                        FFAppState()
-                                                                .outletName =
-                                                            listViewOutletRecord
-                                                                .name;
-                                                        FFAppState()
-                                                                .outletBranch =
-                                                            listViewOutletRecord
-                                                                .branch;
-                                                      });
+                                                      FFAppState().outletId =
+                                                          listViewOutletRecord
+                                                              .id;
+                                                      FFAppState().outletRef =
+                                                          listViewOutletRecord
+                                                              .reference;
+                                                      FFAppState().outletName =
+                                                          listViewOutletRecord
+                                                              .name;
+                                                      FFAppState()
+                                                              .outletBranch =
+                                                          listViewOutletRecord
+                                                              .branch;
+                                                      FFAppState()
+                                                          .update(() {});
 
                                                       await containerUserProfileRecord!
                                                           .reference

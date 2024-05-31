@@ -38,10 +38,9 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 1000));
       if (isWeb) {
-        setState(() {
-          FFAppState().setDay = getCurrentTimestamp;
-          FFAppState().expDay = functions.setExpiryTime(FFAppState().setDay!);
-        });
+        FFAppState().setDay = getCurrentTimestamp;
+        FFAppState().expDay = functions.setExpiryTime(FFAppState().setDay!);
+        setState(() {});
         if (FFAppState().loggedIn) {
           if (FFAppState().outletId != null && FFAppState().outletId != '') {
             context.pushNamed('Dashboard');

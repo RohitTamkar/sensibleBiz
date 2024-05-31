@@ -48,34 +48,30 @@ class _ProductListWidgetState extends State<ProductListWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        FFAppState().showMenuProduct = false;
-        FFAppState().sortMenuBool = false;
-        FFAppState().sortProductString = 'code';
-        FFAppState().flag = false;
-      });
+      FFAppState().showMenuProduct = false;
+      FFAppState().sortMenuBool = false;
+      FFAppState().sortProductString = 'code';
+      FFAppState().flag = false;
+      setState(() {});
       _model.prdList = await queryProductRecordOnce(
         parent: FFAppState().outletRef,
         queryBuilder: (productRecord) => productRecord.orderBy('code'),
       );
-      setState(() {
-        FFAppState().productCodeLength =
-            functions.getProductCount(_model.prdList!.length);
-      });
+      FFAppState().productCodeLength =
+          functions.getProductCount(_model.prdList!.length);
+      setState(() {});
       _model.sortedList = await actions.sortProducts(
         _model.prdList!.toList(),
         FFAppState().sortProductString,
         '78',
       );
-      setState(() {
-        _model.getProductDoc =
-            _model.sortedList!.toList().cast<ProductRecord>();
-        _model.storePrd = _model.sortedList!.toList().cast<ProductRecord>();
-        _model.all = true;
-        _model.regional = false;
-        _model.catServPtBool = false;
-        _model.waitLoader = false;
-      });
+      _model.getProductDoc = _model.sortedList!.toList().cast<ProductRecord>();
+      _model.storePrd = _model.sortedList!.toList().cast<ProductRecord>();
+      _model.all = true;
+      _model.regional = false;
+      _model.catServPtBool = false;
+      _model.waitLoader = false;
+      setState(() {});
       _model.servicePtQuery = await queryServicePointRecordOnce(
         parent: FFAppState().outletRef,
       );
@@ -132,9 +128,8 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    setState(() {
-                      FFAppState().showMenuProduct = false;
-                    });
+                    FFAppState().showMenuProduct = false;
+                    setState(() {});
                   },
                   child: Container(
                     decoration: BoxDecoration(),
@@ -181,11 +176,10 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                             if (isWeb) {
                                               context.pushNamed('Dashboard');
 
-                                              setState(() {
-                                                FFAppState().expDay =
-                                                    functions.setExpiryTime(
-                                                        getCurrentTimestamp);
-                                              });
+                                              FFAppState().expDay =
+                                                  functions.setExpiryTime(
+                                                      getCurrentTimestamp);
+                                              setState(() {});
                                             } else {
                                               context.pushNamed('MastersPage');
 
@@ -261,10 +255,8 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                             size: 28.0,
                                           ),
                                           onPressed: () async {
-                                            setState(() {
-                                              FFAppState().showMenuProduct =
-                                                  true;
-                                            });
+                                            FFAppState().showMenuProduct = true;
+                                            setState(() {});
                                           },
                                         ),
                                       ],
@@ -345,17 +337,14 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                             .sortProductString,
                                                         '78',
                                                       );
-                                                      setState(() {
-                                                        _model.getProductDoc =
-                                                            _model
-                                                                .sortedListCopy!
-                                                                .toList()
-                                                                .cast<
-                                                                    ProductRecord>();
-                                                        _model.all = true;
-                                                        _model.selectedId =
-                                                            null;
-                                                      });
+                                                      _model.getProductDoc = _model
+                                                          .sortedListCopy!
+                                                          .toList()
+                                                          .cast<
+                                                              ProductRecord>();
+                                                      _model.all = true;
+                                                      _model.selectedId = null;
+                                                      setState(() {});
 
                                                       setState(() {});
                                                     },
@@ -485,22 +474,23 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                                         .transparent,
                                                                 onTap:
                                                                     () async {
-                                                                  setState(() {
-                                                                    _model.getProductDoc = containerProductRecordList
-                                                                        .where((e) =>
-                                                                            e.category ==
-                                                                            listViewCategoryRecord
-                                                                                .reference.id)
-                                                                        .toList()
-                                                                        .cast<
-                                                                            ProductRecord>();
-                                                                    _model.selectedId =
-                                                                        listViewCategoryRecord
-                                                                            .reference
-                                                                            .id;
-                                                                    _model.all =
-                                                                        false;
-                                                                  });
+                                                                  _model.getProductDoc = containerProductRecordList
+                                                                      .where((e) =>
+                                                                          e.category ==
+                                                                          listViewCategoryRecord
+                                                                              .reference
+                                                                              .id)
+                                                                      .toList()
+                                                                      .cast<
+                                                                          ProductRecord>();
+                                                                  _model.selectedId =
+                                                                      listViewCategoryRecord
+                                                                          .reference
+                                                                          .id;
+                                                                  _model.all =
+                                                                      false;
+                                                                  setState(
+                                                                      () {});
                                                                 },
                                                                 child:
                                                                     Container(
@@ -959,11 +949,10 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                                             ) ??
                                                                             false;
                                                                     if (confirmDialogResponse) {
+                                                                      _model.removeFromGetProductDoc(
+                                                                          listProductMItem);
                                                                       setState(
-                                                                          () {
-                                                                        _model.removeFromGetProductDoc(
-                                                                            listProductMItem);
-                                                                      });
+                                                                          () {});
                                                                       await listProductMItem
                                                                           .reference
                                                                           .delete();
@@ -1482,14 +1471,13 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                         .sortProductString,
                                                     '78',
                                                   );
-                                                  setState(() {
-                                                    _model.getProductDoc = _model
-                                                        .sortedListweb!
-                                                        .toList()
-                                                        .cast<ProductRecord>();
-                                                    _model.all = true;
-                                                    _model.selectedId = null;
-                                                  });
+                                                  _model.getProductDoc = _model
+                                                      .sortedListweb!
+                                                      .toList()
+                                                      .cast<ProductRecord>();
+                                                  _model.all = true;
+                                                  _model.selectedId = null;
+                                                  setState(() {});
 
                                                   setState(() {});
                                                 },
@@ -1607,23 +1595,22 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                                 Colors
                                                                     .transparent,
                                                             onTap: () async {
-                                                              setState(() {
-                                                                _model.getProductDoc = containerProductRecordList
-                                                                    .where((e) =>
-                                                                        e.category ==
-                                                                        listViewCategoryRecord
-                                                                            .reference
-                                                                            .id)
-                                                                    .toList()
-                                                                    .cast<
-                                                                        ProductRecord>();
-                                                                _model.selectedId =
-                                                                    listViewCategoryRecord
-                                                                        .reference
-                                                                        .id;
-                                                                _model.all =
-                                                                    false;
-                                                              });
+                                                              _model.getProductDoc = containerProductRecordList
+                                                                  .where((e) =>
+                                                                      e.category ==
+                                                                      listViewCategoryRecord
+                                                                          .reference
+                                                                          .id)
+                                                                  .toList()
+                                                                  .cast<
+                                                                      ProductRecord>();
+                                                              _model.selectedId =
+                                                                  listViewCategoryRecord
+                                                                      .reference
+                                                                      .id;
+                                                              _model.all =
+                                                                  false;
+                                                              setState(() {});
                                                             },
                                                             child: Container(
                                                               decoration:
@@ -2084,10 +2071,10 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                                         ) ??
                                                                         false;
                                                                 if (confirmDialogResponse) {
-                                                                  setState(() {
-                                                                    _model.removeFromGetProductDoc(
-                                                                        listProductWebItem);
-                                                                  });
+                                                                  _model.removeFromGetProductDoc(
+                                                                      listProductWebItem);
+                                                                  setState(
+                                                                      () {});
                                                                   await listProductWebItem
                                                                       .reference
                                                                       .delete();
@@ -2182,13 +2169,11 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    setState(() {
-                      FFAppState().showMenuProduct = false;
-                    });
-                    setState(() {
-                      _model.catServPtBool = false;
-                      _model.servicePtBool = false;
-                    });
+                    FFAppState().showMenuProduct = false;
+                    setState(() {});
+                    _model.catServPtBool = false;
+                    _model.servicePtBool = false;
+                    setState(() {});
                   },
                   child: Container(
                     width: double.infinity,
@@ -2210,9 +2195,8 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      setState(() {
-                        FFAppState().showMenuProduct = false;
-                      });
+                      FFAppState().showMenuProduct = false;
+                      setState(() {});
                     },
                     child: Container(
                       width: 270.0,
@@ -2226,9 +2210,8 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          setState(() {
-                            FFAppState().showMenuProduct = false;
-                          });
+                          FFAppState().showMenuProduct = false;
+                          setState(() {});
                         },
                         child: SingleChildScrollView(
                           child: Column(
@@ -2245,9 +2228,8 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      setState(() {
-                                        FFAppState().showMenuProduct = false;
-                                      });
+                                      FFAppState().showMenuProduct = false;
+                                      setState(() {});
 
                                       context.pushNamed('SaveExcelSheet');
                                     },
@@ -2309,13 +2291,11 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      setState(() {
-                                        FFAppState().showMenuProduct = false;
-                                      });
-                                      setState(() {
-                                        FFAppState().sortMenuBool = true;
-                                        FFAppState().showMenuProduct = false;
-                                      });
+                                      FFAppState().showMenuProduct = false;
+                                      setState(() {});
+                                      FFAppState().sortMenuBool = true;
+                                      FFAppState().showMenuProduct = false;
+                                      setState(() {});
                                     },
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -2363,11 +2343,10 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
-                                                    setState(() {
-                                                      FFAppState()
-                                                              .showMenuProduct =
-                                                          false;
-                                                    });
+                                                    FFAppState()
+                                                            .showMenuProduct =
+                                                        false;
+                                                    setState(() {});
                                                   },
                                                   child: Column(
                                                     mainAxisSize:
@@ -2399,17 +2378,16 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                                 Colors
                                                                     .transparent,
                                                             onTap: () async {
-                                                              setState(() {
-                                                                FFAppState()
-                                                                        .sortMenuBool =
-                                                                    false;
-                                                                FFAppState()
-                                                                        .showMenuProduct =
-                                                                    false;
-                                                                FFAppState()
-                                                                        .sortProductString =
-                                                                    'code';
-                                                              });
+                                                              FFAppState()
+                                                                      .sortMenuBool =
+                                                                  false;
+                                                              FFAppState()
+                                                                      .showMenuProduct =
+                                                                  false;
+                                                              FFAppState()
+                                                                      .sortProductString =
+                                                                  'code';
+                                                              setState(() {});
                                                               _model.sortedList2 =
                                                                   await actions
                                                                       .sortProducts(
@@ -2420,15 +2398,14 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                                     .sortProductString,
                                                                 '78',
                                                               );
-                                                              setState(() {
-                                                                _model.getProductDoc = _model
-                                                                    .sortedList2!
-                                                                    .toList()
-                                                                    .cast<
-                                                                        ProductRecord>();
-                                                                _model.regional =
-                                                                    false;
-                                                              });
+                                                              _model.getProductDoc = _model
+                                                                  .sortedList2!
+                                                                  .toList()
+                                                                  .cast<
+                                                                      ProductRecord>();
+                                                              _model.regional =
+                                                                  false;
+                                                              setState(() {});
 
                                                               setState(() {});
                                                             },
@@ -2497,17 +2474,16 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                                 Colors
                                                                     .transparent,
                                                             onTap: () async {
-                                                              setState(() {
-                                                                FFAppState()
-                                                                        .sortMenuBool =
-                                                                    false;
-                                                                FFAppState()
-                                                                        .sortProductString =
-                                                                    'nameAZ';
-                                                                FFAppState()
-                                                                        .showMenuProduct =
-                                                                    false;
-                                                              });
+                                                              FFAppState()
+                                                                      .sortMenuBool =
+                                                                  false;
+                                                              FFAppState()
+                                                                      .sortProductString =
+                                                                  'nameAZ';
+                                                              FFAppState()
+                                                                      .showMenuProduct =
+                                                                  false;
+                                                              setState(() {});
                                                               _model.sortedList3 =
                                                                   await actions
                                                                       .sortProducts(
@@ -2518,15 +2494,14 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                                     .sortProductString,
                                                                 '78',
                                                               );
-                                                              setState(() {
-                                                                _model.getProductDoc = _model
-                                                                    .sortedList3!
-                                                                    .toList()
-                                                                    .cast<
-                                                                        ProductRecord>();
-                                                                _model.regional =
-                                                                    false;
-                                                              });
+                                                              _model.getProductDoc = _model
+                                                                  .sortedList3!
+                                                                  .toList()
+                                                                  .cast<
+                                                                      ProductRecord>();
+                                                              _model.regional =
+                                                                  false;
+                                                              setState(() {});
 
                                                               setState(() {});
                                                             },
@@ -2595,17 +2570,16 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                                 Colors
                                                                     .transparent,
                                                             onTap: () async {
-                                                              setState(() {
-                                                                FFAppState()
-                                                                        .sortMenuBool =
-                                                                    false;
-                                                                FFAppState()
-                                                                        .sortProductString =
-                                                                    'date';
-                                                                FFAppState()
-                                                                        .showMenuProduct =
-                                                                    false;
-                                                              });
+                                                              FFAppState()
+                                                                      .sortMenuBool =
+                                                                  false;
+                                                              FFAppState()
+                                                                      .sortProductString =
+                                                                  'date';
+                                                              FFAppState()
+                                                                      .showMenuProduct =
+                                                                  false;
+                                                              setState(() {});
                                                               _model.sortedList4 =
                                                                   await actions
                                                                       .sortProducts(
@@ -2616,15 +2590,14 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                                     .sortProductString,
                                                                 '78',
                                                               );
-                                                              setState(() {
-                                                                _model.getProductDoc = _model
-                                                                    .sortedList4!
-                                                                    .toList()
-                                                                    .cast<
-                                                                        ProductRecord>();
-                                                                _model.regional =
-                                                                    false;
-                                                              });
+                                                              _model.getProductDoc = _model
+                                                                  .sortedList4!
+                                                                  .toList()
+                                                                  .cast<
+                                                                      ProductRecord>();
+                                                              _model.regional =
+                                                                  false;
+                                                              setState(() {});
 
                                                               setState(() {});
                                                             },
@@ -2693,21 +2666,19 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                                 Colors
                                                                     .transparent,
                                                             onTap: () async {
-                                                              setState(() {
-                                                                _model.regional =
-                                                                    true;
-                                                              });
-                                                              setState(() {
-                                                                FFAppState()
-                                                                        .sortMenuBool =
-                                                                    false;
-                                                                FFAppState()
-                                                                        .sortProductString =
-                                                                    'date';
-                                                                FFAppState()
-                                                                        .showMenuProduct =
-                                                                    false;
-                                                              });
+                                                              _model.regional =
+                                                                  true;
+                                                              setState(() {});
+                                                              FFAppState()
+                                                                      .sortMenuBool =
+                                                                  false;
+                                                              FFAppState()
+                                                                      .sortProductString =
+                                                                  'date';
+                                                              FFAppState()
+                                                                      .showMenuProduct =
+                                                                  false;
+                                                              setState(() {});
                                                             },
                                                             child: Row(
                                                               mainAxisSize:
@@ -2831,10 +2802,9 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            setState(() {
-                                              FFAppState().showMenuProduct =
-                                                  false;
-                                            });
+                                            FFAppState().showMenuProduct =
+                                                false;
+                                            setState(() {});
 
                                             context.pushNamed(
                                                 'stockWeightCombinePage');
@@ -2872,9 +2842,8 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    setState(() {
-                                      FFAppState().showMenuProduct = false;
-                                    });
+                                    FFAppState().showMenuProduct = false;
+                                    setState(() {});
 
                                     context.pushNamed('Discount');
                                   },
@@ -2921,12 +2890,10 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    setState(() {
-                                      _model.catServPtBool = true;
-                                    });
-                                    setState(() {
-                                      FFAppState().showMenuProduct = false;
-                                    });
+                                    _model.catServPtBool = true;
+                                    setState(() {});
+                                    FFAppState().showMenuProduct = false;
+                                    setState(() {});
                                   },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -3135,9 +3102,8 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                         ).then((value) => setState(() {}));
 
                                         if (FFAppState().flag == true) {
-                                          setState(() {
-                                            FFAppState().startLoop = 0;
-                                          });
+                                          FFAppState().startLoop = 0;
+                                          setState(() {});
                                           while (FFAppState().startLoop <
                                               _model.prdList!.length) {
                                             await _model
@@ -3145,15 +3111,13 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                     FFAppState().startLoop]
                                                 .reference
                                                 .delete();
-                                            setState(() {
-                                              _model.removeFromGetProductDoc(
-                                                  _model.prdList![
-                                                      FFAppState().startLoop]);
-                                            });
-                                            setState(() {
-                                              FFAppState().startLoop =
-                                                  FFAppState().startLoop + 1;
-                                            });
+                                            _model.removeFromGetProductDoc(
+                                                _model.prdList![
+                                                    FFAppState().startLoop]);
+                                            setState(() {});
+                                            FFAppState().startLoop =
+                                                FFAppState().startLoop + 1;
+                                            setState(() {});
                                           }
                                           await showDialog(
                                             context: context,
@@ -3276,10 +3240,9 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        setState(() {
-                          _model.catServPtBool = false;
-                          _model.servicePtBool = true;
-                        });
+                        _model.catServPtBool = false;
+                        _model.servicePtBool = true;
+                        setState(() {});
                       },
                       child: ClipRRect(
                         child: Container(
@@ -3347,17 +3310,15 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
-                                              setState(() {
-                                                _model.catIdServPt =
-                                                    catForServPointItem
-                                                        .reference.id;
-                                                _model.catServPtBool = false;
-                                                _model.servicePtBool = true;
-                                              });
-                                              setState(() {
-                                                FFAppState().showMenuProduct =
-                                                    false;
-                                              });
+                                              _model.catIdServPt =
+                                                  catForServPointItem
+                                                      .reference.id;
+                                              _model.catServPtBool = false;
+                                              _model.servicePtBool = true;
+                                              setState(() {});
+                                              FFAppState().showMenuProduct =
+                                                  false;
+                                              setState(() {});
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(),
@@ -3539,19 +3500,17 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        setState(() {
-                                          _model.prdForServPt = _model.prdList!
-                                              .where((e) =>
-                                                  e.category ==
-                                                  _model.catIdServPt)
-                                              .toList()
-                                              .cast<ProductRecord>();
-                                          _model.waitLoader = true;
-                                          _model.servicePtBool = false;
-                                        });
-                                        setState(() {
-                                          FFAppState().startLoop = 0;
-                                        });
+                                        _model.prdForServPt = _model.prdList!
+                                            .where((e) =>
+                                                e.category ==
+                                                _model.catIdServPt)
+                                            .toList()
+                                            .cast<ProductRecord>();
+                                        _model.waitLoader = true;
+                                        _model.servicePtBool = false;
+                                        setState(() {});
+                                        FFAppState().startLoop = 0;
+                                        setState(() {});
                                         while (FFAppState().startLoop <
                                             _model.prdForServPt.length) {
                                           await _model
@@ -3562,15 +3521,13 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                             kitchenId: fetchedServicePtItem
                                                 .reference.id,
                                           ));
-                                          setState(() {
-                                            FFAppState().startLoop =
-                                                FFAppState().startLoop + 1;
-                                          });
+                                          FFAppState().startLoop =
+                                              FFAppState().startLoop + 1;
+                                          setState(() {});
                                         }
-                                        setState(() {
-                                          _model.servicePtBool = false;
-                                          _model.waitLoader = false;
-                                        });
+                                        _model.servicePtBool = false;
+                                        _model.waitLoader = false;
+                                        setState(() {});
                                         await showDialog(
                                           context: context,
                                           builder: (alertDialogContext) {

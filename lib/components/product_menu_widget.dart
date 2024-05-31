@@ -52,9 +52,8 @@ class _ProductMenuWidgetState extends State<ProductMenuWidget> {
       hoverColor: Colors.transparent,
       highlightColor: Colors.transparent,
       onTap: () async {
-        setState(() {
-          FFAppState().showMenuProduct = false;
-        });
+        FFAppState().showMenuProduct = false;
+        setState(() {});
       },
       child: Container(
         width: 270.0,
@@ -68,9 +67,8 @@ class _ProductMenuWidgetState extends State<ProductMenuWidget> {
           hoverColor: Colors.transparent,
           highlightColor: Colors.transparent,
           onTap: () async {
-            setState(() {
-              FFAppState().showMenuProduct = false;
-            });
+            FFAppState().showMenuProduct = false;
+            setState(() {});
           },
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -132,13 +130,11 @@ class _ProductMenuWidgetState extends State<ProductMenuWidget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  setState(() {
-                    FFAppState().showMenuProduct = false;
-                  });
-                  setState(() {
-                    FFAppState().sortMenuBool = true;
-                    FFAppState().showMenuProduct = false;
-                  });
+                  FFAppState().showMenuProduct = false;
+                  setState(() {});
+                  FFAppState().sortMenuBool = true;
+                  FFAppState().showMenuProduct = false;
+                  setState(() {});
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -201,9 +197,8 @@ class _ProductMenuWidgetState extends State<ProductMenuWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                setState(() {
-                                  FFAppState().showMenuProduct = false;
-                                });
+                                FFAppState().showMenuProduct = false;
+                                setState(() {});
                               },
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -219,13 +214,11 @@ class _ProductMenuWidgetState extends State<ProductMenuWidget> {
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          setState(() {
-                                            FFAppState().sortMenuBool = false;
-                                            FFAppState().showMenuProduct =
-                                                false;
-                                            FFAppState().sortProductString =
-                                                'code';
-                                          });
+                                          FFAppState().sortMenuBool = false;
+                                          FFAppState().showMenuProduct = false;
+                                          FFAppState().sortProductString =
+                                              'code';
+                                          setState(() {});
                                         },
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -269,11 +262,9 @@ class _ProductMenuWidgetState extends State<ProductMenuWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      setState(() {
-                                        FFAppState().sortMenuBool = false;
-                                        FFAppState().sortProductString =
-                                            'nameAZ';
-                                      });
+                                      FFAppState().sortMenuBool = false;
+                                      FFAppState().sortProductString = 'nameAZ';
+                                      setState(() {});
                                     },
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -315,11 +306,10 @@ class _ProductMenuWidgetState extends State<ProductMenuWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      setState(() {
-                                        FFAppState().sortMenuBool = false;
-                                        FFAppState().sortProductString =
-                                            'category';
-                                      });
+                                      FFAppState().sortMenuBool = false;
+                                      FFAppState().sortProductString =
+                                          'category';
+                                      setState(() {});
                                     },
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -361,9 +351,8 @@ class _ProductMenuWidgetState extends State<ProductMenuWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      setState(() {
-                                        FFAppState().sortMenuBool = false;
-                                      });
+                                      FFAppState().sortMenuBool = false;
+                                      setState(() {});
                                     },
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -405,9 +394,8 @@ class _ProductMenuWidgetState extends State<ProductMenuWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      setState(() {
-                                        FFAppState().sortMenuBool = false;
-                                      });
+                                      FFAppState().sortMenuBool = false;
+                                      setState(() {});
                                     },
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -528,9 +516,8 @@ class _ProductMenuWidgetState extends State<ProductMenuWidget> {
                         onTap: () async {
                           context.pushNamed('stockWeightCombinePage');
 
-                          setState(() {
-                            FFAppState().showMenuProduct = false;
-                          });
+                          FFAppState().showMenuProduct = false;
+                          setState(() {});
                         },
                         child: Text(
                           'Update Stockable and Weightable',

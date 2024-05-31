@@ -772,12 +772,10 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                                           );
                                                         },
                                                       );
-                                                      setState(() {
-                                                        FFAppState().passcode =
-                                                            _model
-                                                                .textController3
-                                                                .text;
-                                                      });
+                                                      FFAppState().passcode =
+                                                          _model.textController3
+                                                              .text;
+                                                      setState(() {});
                                                     } else {
                                                       await showDialog(
                                                         context: context,

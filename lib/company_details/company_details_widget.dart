@@ -84,10 +84,9 @@ class _CompanyDetailsWidgetState extends State<CompanyDetailsWidget> {
                             ),
                             onPressed: () async {
                               if (isWeb) {
-                                setState(() {
-                                  FFAppState().expDay = functions
-                                      .setExpiryTime(getCurrentTimestamp);
-                                });
+                                FFAppState().expDay = functions
+                                    .setExpiryTime(getCurrentTimestamp);
+                                setState(() {});
                               } else {
                                 context.pop();
                                 return;

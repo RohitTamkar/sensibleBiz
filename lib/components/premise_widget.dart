@@ -87,17 +87,16 @@ class _PremiseWidgetState extends State<PremiseWidget> {
                 '_model.textController',
                 Duration(milliseconds: 0),
                 () async {
-                  setState(() {
-                    FFAppState().productJsonList = functions
-                        .editPriceTable(
-                            widget.json!,
-                            widget.id!,
-                            _model.textController.text,
-                            widget.priceTableList!.toList(),
-                            FFAppState().productJsonList.toList())
-                        .toList()
-                        .cast<dynamic>();
-                  });
+                  FFAppState().productJsonList = functions
+                      .editPriceTable(
+                          widget.json!,
+                          widget.id!,
+                          _model.textController.text,
+                          widget.priceTableList!.toList(),
+                          FFAppState().productJsonList.toList())
+                      .toList()
+                      .cast<dynamic>();
+                  setState(() {});
                   ScaffoldMessenger.of(context).clearSnackBars();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

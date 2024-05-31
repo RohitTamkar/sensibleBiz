@@ -42,9 +42,8 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        _model.booleanPaperSize = false;
-      });
+      _model.booleanPaperSize = false;
+      setState(() {});
     });
 
     _model.textController1 ??=
@@ -1193,9 +1192,8 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
                                               null) {
                                             return;
                                           }
-                                          setState(() {
-                                            _model.wait = true;
-                                          });
+                                          _model.wait = true;
+                                          setState(() {});
 
                                           await widget.servPtDoc!.reference
                                               .update(
@@ -1237,9 +1235,8 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
                                                     .text
                                                 : '',
                                           ));
-                                          setState(() {
-                                            _model.wait = false;
-                                          });
+                                          _model.wait = false;
+                                          setState(() {});
                                           await showDialog(
                                             context: context,
                                             builder: (alertDialogContext) {

@@ -140,9 +140,8 @@ class _CustomDateRangeWidgetState extends State<CustomDateRangeWidget> {
                           );
                         });
                       }
-                      setState(() {
-                        FFAppState().startDate = _model.datePicked1;
-                      });
+                      FFAppState().startDate = _model.datePicked1;
+                      setState(() {});
                     },
                     text: '',
                     icon: Icon(
@@ -218,9 +217,8 @@ class _CustomDateRangeWidgetState extends State<CustomDateRangeWidget> {
                           );
                         });
                       }
-                      setState(() {
-                        FFAppState().endDate = _model.datePicked2;
-                      });
+                      FFAppState().endDate = _model.datePicked2;
+                      setState(() {});
                     },
                     text: 'Date Picker',
                     icon: Icon(

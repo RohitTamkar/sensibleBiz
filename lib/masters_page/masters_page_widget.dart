@@ -94,10 +94,9 @@ class _MastersPageWidgetState extends State<MastersPageWidget> {
                               }
 
                               if (isWeb) {
-                                setState(() {
-                                  FFAppState().expDay = functions
-                                      .setExpiryTime(getCurrentTimestamp);
-                                });
+                                FFAppState().expDay = functions
+                                    .setExpiryTime(getCurrentTimestamp);
+                                setState(() {});
                               } else {
                                 return;
                               }
@@ -191,9 +190,8 @@ class _MastersPageWidgetState extends State<MastersPageWidget> {
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          setState(() {
-                                            FFAppState().flagForMaster = false;
-                                          });
+                                          FFAppState().flagForMaster = false;
+                                          setState(() {});
                                         },
                                         child: Icon(
                                           Icons.grid_view,
@@ -216,10 +214,9 @@ class _MastersPageWidgetState extends State<MastersPageWidget> {
                                 context.pushNamed('CategoryList');
 
                                 if (isWeb) {
-                                  setState(() {
-                                    FFAppState().expDay = functions
-                                        .setExpiryTime(getCurrentTimestamp);
-                                  });
+                                  FFAppState().expDay = functions
+                                      .setExpiryTime(getCurrentTimestamp);
+                                  setState(() {});
                                 } else {
                                   return;
                                 }
@@ -320,10 +317,9 @@ class _MastersPageWidgetState extends State<MastersPageWidget> {
                                 context.pushNamed('ProductList');
 
                                 if (isWeb) {
-                                  setState(() {
-                                    FFAppState().expDay = functions
-                                        .setExpiryTime(getCurrentTimestamp);
-                                  });
+                                  FFAppState().expDay = functions
+                                      .setExpiryTime(getCurrentTimestamp);
+                                  setState(() {});
                                 } else {
                                   return;
                                 }
@@ -1427,15 +1423,13 @@ class _MastersPageWidgetState extends State<MastersPageWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        setState(() {
-                                          FFAppState().flagForMaster = true;
-                                        });
+                                        FFAppState().flagForMaster = true;
+                                        setState(() {});
                                         if (isWeb) {
-                                          setState(() {
-                                            FFAppState().expDay =
-                                                functions.setExpiryTime(
-                                                    getCurrentTimestamp);
-                                          });
+                                          FFAppState().expDay =
+                                              functions.setExpiryTime(
+                                                  getCurrentTimestamp);
+                                          setState(() {});
                                         } else {
                                           return;
                                         }
@@ -1475,11 +1469,9 @@ class _MastersPageWidgetState extends State<MastersPageWidget> {
                                       );
 
                                       if (isWeb) {
-                                        setState(() {
-                                          FFAppState().expDay =
-                                              functions.setExpiryTime(
-                                                  getCurrentTimestamp);
-                                        });
+                                        FFAppState().expDay = functions
+                                            .setExpiryTime(getCurrentTimestamp);
+                                        setState(() {});
                                       } else {
                                         return;
                                       }
@@ -1539,11 +1531,9 @@ class _MastersPageWidgetState extends State<MastersPageWidget> {
                                       context.pushNamed('ProductList');
 
                                       if (isWeb) {
-                                        setState(() {
-                                          FFAppState().expDay =
-                                              functions.setExpiryTime(
-                                                  getCurrentTimestamp);
-                                        });
+                                        FFAppState().expDay = functions
+                                            .setExpiryTime(getCurrentTimestamp);
+                                        setState(() {});
                                       } else {
                                         return;
                                       }

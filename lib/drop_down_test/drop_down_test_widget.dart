@@ -52,9 +52,8 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
       setState(() {
         _model.dropDownValueController?.reset();
       });
-      setState(() {
-        FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
-      });
+      FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
+      setState(() {});
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -114,9 +113,8 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
                             ),
                             onPressed: () async {
                               context.safePop();
-                              setState(() {
-                                FFAppState().productCart = [];
-                              });
+                              FFAppState().productCart = [];
+                              setState(() {});
                             },
                           ),
                           StreamBuilder<OutletRecord>(
@@ -233,10 +231,9 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
                             ),
                             onPressed: () async {
                               if (isWeb) {
-                                setState(() {
-                                  FFAppState().expDay = functions
-                                      .setExpiryTime(getCurrentTimestamp);
-                                });
+                                FFAppState().expDay = functions
+                                    .setExpiryTime(getCurrentTimestamp);
+                                setState(() {});
                               } else {
                                 return;
                               }
@@ -257,10 +254,9 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
                                   );
                                 });
                               }
-                              setState(() {
-                                FFAppState().selectedDate =
-                                    functions.getDayId(_model.datePicked!);
-                              });
+                              FFAppState().selectedDate =
+                                  functions.getDayId(_model.datePicked!);
+                              setState(() {});
                             },
                           ),
                         ],
@@ -333,10 +329,9 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
                                         dropDownProductRecordList.toList(),
                                         _model.dropDownValue!,
                                       );
-                                      setState(() {
-                                        FFAppState()
-                                            .addToProductCart(_model.res!);
-                                      });
+                                      FFAppState()
+                                          .addToProductCart(_model.res!);
+                                      setState(() {});
 
                                       setState(() {});
                                     },
@@ -751,13 +746,14 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
                                                                   FFAppState()
                                                                       .selBill,
                                                                 );
-                                                                setState(() {
-                                                                  FFAppState().productCart = _model
-                                                                      .res2Copy!
-                                                                      .toList()
-                                                                      .cast<
-                                                                          dynamic>();
-                                                                });
+                                                                FFAppState()
+                                                                        .productCart =
+                                                                    _model
+                                                                        .res2Copy!
+                                                                        .toList()
+                                                                        .cast<
+                                                                            dynamic>();
+                                                                setState(() {});
 
                                                                 setState(() {});
                                                               },
@@ -844,13 +840,13 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
                                                                     FFAppState()
                                                                         .selBill,
                                                                   );
-                                                                  setState(() {
-                                                                    FFAppState().productCart = _model
-                                                                        .res1Copy!
-                                                                        .toList()
-                                                                        .cast<
-                                                                            dynamic>();
-                                                                  });
+                                                                  FFAppState().productCart = _model
+                                                                      .res1Copy!
+                                                                      .toList()
+                                                                      .cast<
+                                                                          dynamic>();
+                                                                  setState(
+                                                                      () {});
 
                                                                   setState(
                                                                       () {});
@@ -947,18 +943,16 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
                                                       if (_model.issueDocCopy!
                                                               .length >
                                                           0) {
-                                                        setState(() {
-                                                          FFAppState().count =
-                                                              functions.reqCountNumber(
-                                                                  _model
-                                                                      .issueDocCopy!
-                                                                      .first);
-                                                        });
+                                                        FFAppState().count =
+                                                            functions
+                                                                .reqCountNumber(
+                                                                    _model
+                                                                        .issueDocCopy!
+                                                                        .first);
+                                                        setState(() {});
                                                       } else {
-                                                        setState(() {
-                                                          FFAppState().count =
-                                                              1;
-                                                        });
+                                                        FFAppState().count = 1;
+                                                        setState(() {});
                                                       }
 
                                                       _model.cartREsult1 =
@@ -1055,10 +1049,9 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
                                                           },
                                                         ),
                                                       });
-                                                      setState(() {
-                                                        FFAppState()
-                                                            .productCart = [];
-                                                      });
+                                                      FFAppState().productCart =
+                                                          [];
+                                                      setState(() {});
                                                       setState(() {
                                                         _model
                                                             .dropDownValueController
@@ -1174,18 +1167,16 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
                                                       if (_model.issueDoc!
                                                               .length >
                                                           0) {
-                                                        setState(() {
-                                                          FFAppState().count =
-                                                              functions.reqCountNumber(
-                                                                  _model
-                                                                      .issueDoc!
-                                                                      .first);
-                                                        });
+                                                        FFAppState().count =
+                                                            functions
+                                                                .reqCountNumber(
+                                                                    _model
+                                                                        .issueDoc!
+                                                                        .first);
+                                                        setState(() {});
                                                       } else {
-                                                        setState(() {
-                                                          FFAppState().count =
-                                                              1;
-                                                        });
+                                                        FFAppState().count = 1;
+                                                        setState(() {});
                                                       }
 
                                                       _model.cartREsult =
@@ -1282,10 +1273,9 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
                                                           },
                                                         ),
                                                       });
-                                                      setState(() {
-                                                        FFAppState()
-                                                            .productCart = [];
-                                                      });
+                                                      FFAppState().productCart =
+                                                          [];
+                                                      setState(() {});
                                                       setState(() {
                                                         _model
                                                             .dropDownValueController

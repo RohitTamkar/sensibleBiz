@@ -41,15 +41,12 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        _model.wait = true;
-      });
-      setState(() {
-        _model.wait = false;
-      });
-      setState(() {
-        FFAppState().loopExcelDouble = 0.0;
-      });
+      _model.wait = true;
+      setState(() {});
+      _model.wait = false;
+      setState(() {});
+      FFAppState().loopExcelDouble = 0.0;
+      setState(() {});
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -119,10 +116,9 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                   }
 
                                   if (isWeb) {
-                                    setState(() {
-                                      FFAppState().expDay = functions
-                                          .setExpiryTime(getCurrentTimestamp);
-                                    });
+                                    FFAppState().expDay = functions
+                                        .setExpiryTime(getCurrentTimestamp);
+                                    setState(() {});
                                   } else {
                                     return;
                                   }
@@ -499,15 +495,13 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                               }
 
                                               if (FFAppState().falg2 == true) {
-                                                setState(() {
-                                                  _model.outletId =
-                                                      listViewOutletRecord
-                                                          .reference;
-                                                  _model.startLoop = 0;
-                                                });
-                                                setState(() {
-                                                  _model.wait = true;
-                                                });
+                                                _model.outletId =
+                                                    listViewOutletRecord
+                                                        .reference;
+                                                _model.startLoop = 0;
+                                                setState(() {});
+                                                _model.wait = true;
+                                                setState(() {});
                                                 _model.selectedCat =
                                                     await queryCategoryRecordOnce(
                                                   parent: _model.outletId,
@@ -571,14 +565,12 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                           ?.type,
                                                     ));
                                                   }
-                                                  setState(() {
-                                                    _model.startLoop =
-                                                        _model.startLoop! + 1;
-                                                  });
+                                                  _model.startLoop =
+                                                      _model.startLoop! + 1;
+                                                  setState(() {});
                                                 }
-                                                setState(() {
-                                                  _model.startLoop = 0;
-                                                });
+                                                _model.startLoop = 0;
+                                                setState(() {});
                                                 while (_model.startLoop! <
                                                     _model
                                                         .selectedPrd!.length) {
@@ -591,10 +583,9 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                     _model.currentPrd!.toList(),
                                                   );
                                                   if (_model.res1 == true) {
-                                                    setState(() {
-                                                      _model.startLoop =
-                                                          _model.startLoop! + 1;
-                                                    });
+                                                    _model.startLoop =
+                                                        _model.startLoop! + 1;
+                                                    setState(() {});
                                                   } else {
                                                     var productRecordReference =
                                                         ProductRecord.createDoc(
@@ -879,10 +870,9 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                                   ?.discountAmount,
                                                             ),
                                                             productRecordReference);
-                                                    setState(() {
-                                                      _model.startLoop =
-                                                          _model.startLoop! + 1;
-                                                    });
+                                                    _model.startLoop =
+                                                        _model.startLoop! + 1;
+                                                    setState(() {});
                                                   }
                                                 }
                                                 _model.catIdUp =
@@ -895,9 +885,8 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                   parent:
                                                       FFAppState().outletRef,
                                                 );
-                                                setState(() {
-                                                  _model.startLoop = 0;
-                                                });
+                                                _model.startLoop = 0;
+                                                setState(() {});
                                                 while (_model.startLoop! <
                                                     _model.prdLst2!.length) {
                                                   _model.str =
@@ -916,14 +905,12 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                           createProductRecordData(
                                                     category: _model.str,
                                                   ));
-                                                  setState(() {
-                                                    _model.startLoop =
-                                                        _model.startLoop! + 1;
-                                                  });
+                                                  _model.startLoop =
+                                                      _model.startLoop! + 1;
+                                                  setState(() {});
                                                 }
-                                                setState(() {
-                                                  _model.startLoop = 0;
-                                                });
+                                                _model.startLoop = 0;
+                                                setState(() {});
                                                 while (_model.startLoop! <
                                                     _model.catIdUp!.length) {
                                                   await _model
@@ -938,15 +925,13 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                         ?.reference
                                                         .id,
                                                   ));
-                                                  setState(() {
-                                                    _model.startLoop =
-                                                        _model.startLoop! + 1;
-                                                  });
+                                                  _model.startLoop =
+                                                      _model.startLoop! + 1;
+                                                  setState(() {});
                                                 }
-                                                setState(() {
-                                                  _model.wait = false;
-                                                  _model.startLoop = 0;
-                                                });
+                                                _model.wait = false;
+                                                _model.startLoop = 0;
+                                                setState(() {});
                                                 await showDialog(
                                                   context: context,
                                                   builder:

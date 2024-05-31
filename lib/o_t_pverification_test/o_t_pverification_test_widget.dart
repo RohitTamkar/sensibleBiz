@@ -307,9 +307,8 @@ class _OTPverificationTestWidgetState extends State<OTPverificationTestWidget> {
                                               size: 15.0,
                                             ),
                                             onPressed: () async {
-                                              setState(() {
-                                                FFAppState().currentMobile = '';
-                                              });
+                                              FFAppState().currentMobile = '';
+                                              setState(() {});
 
                                               context.pushNamed(
                                                   'PhoneAuthPageTest');

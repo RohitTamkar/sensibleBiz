@@ -154,9 +154,8 @@ class _AddCustomerWidgetState extends State<AddCustomerWidget> {
                                           .validate()) {
                                     return;
                                   }
-                                  setState(() {
-                                    _model.wait = true;
-                                  });
+                                  _model.wait = true;
+                                  setState(() {});
 
                                   var customerRecordReference =
                                       CustomerRecord.createDoc(
@@ -215,9 +214,8 @@ class _AddCustomerWidgetState extends State<AddCustomerWidget> {
                                       .update(createCustomerRecordData(
                                     id: _model.createdCust?.reference.id,
                                   ));
-                                  setState(() {
-                                    _model.wait = false;
-                                  });
+                                  _model.wait = false;
+                                  setState(() {});
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {
@@ -1203,10 +1201,9 @@ class _AddCustomerWidgetState extends State<AddCustomerWidget> {
                                           );
                                         });
                                       }
-                                      setState(() {
-                                        _model.birthday = functions
-                                            .getDayId(_model.datePicked1!);
-                                      });
+                                      _model.birthday = functions
+                                          .getDayId(_model.datePicked1!);
+                                      setState(() {});
                                     },
                                     child: Container(
                                       width: double.infinity,
@@ -1384,10 +1381,9 @@ class _AddCustomerWidgetState extends State<AddCustomerWidget> {
                                             );
                                           });
                                         }
-                                        setState(() {
-                                          _model.anniversary = functions
-                                              .getDayId(_model.datePicked2!);
-                                        });
+                                        _model.anniversary = functions
+                                            .getDayId(_model.datePicked2!);
+                                        setState(() {});
                                       },
                                       child: Container(
                                         width: double.infinity,
@@ -1567,10 +1563,9 @@ class _AddCustomerWidgetState extends State<AddCustomerWidget> {
                                         );
                                       });
                                     }
-                                    setState(() {
-                                      _model.anniversary = functions
-                                          .getDayId(_model.datePicked3!);
-                                    });
+                                    _model.anniversary =
+                                        functions.getDayId(_model.datePicked3!);
+                                    setState(() {});
                                   },
                                   child: Container(
                                     width: double.infinity,

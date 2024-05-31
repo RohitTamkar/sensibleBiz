@@ -658,10 +658,9 @@ class _AccountWidgetState extends State<AccountWidget>
                                     context.pushNamed('MastersPage');
 
                                     if (isWeb) {
-                                      setState(() {
-                                        FFAppState().expDay = functions
-                                            .setExpiryTime(getCurrentTimestamp);
-                                      });
+                                      FFAppState().expDay = functions
+                                          .setExpiryTime(getCurrentTimestamp);
+                                      setState(() {});
                                     } else {
                                       return;
                                     }
@@ -775,10 +774,9 @@ class _AccountWidgetState extends State<AccountWidget>
                                     context.pushNamed('DevicePage');
 
                                     if (isWeb) {
-                                      setState(() {
-                                        FFAppState().expDay = functions
-                                            .setExpiryTime(getCurrentTimestamp);
-                                      });
+                                      FFAppState().expDay = functions
+                                          .setExpiryTime(getCurrentTimestamp);
+                                      setState(() {});
                                     } else {
                                       return;
                                     }
@@ -996,10 +994,9 @@ class _AccountWidgetState extends State<AccountWidget>
                                     context.pushNamed('CompanyDetails');
 
                                     if (isWeb) {
-                                      setState(() {
-                                        FFAppState().expDay = functions
-                                            .setExpiryTime(getCurrentTimestamp);
-                                      });
+                                      FFAppState().expDay = functions
+                                          .setExpiryTime(getCurrentTimestamp);
+                                      setState(() {});
                                     } else {
                                       return;
                                     }
@@ -1333,13 +1330,12 @@ class _AccountWidgetState extends State<AccountWidget>
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  setState(() {
-                                    FFAppState().currentMobile = '';
-                                    FFAppState().loggedIn = false;
-                                    FFAppState().outletId = '';
-                                    FFAppState().outletName = '';
-                                    FFAppState().outletRef = null;
-                                  });
+                                  FFAppState().currentMobile = '';
+                                  FFAppState().loggedIn = false;
+                                  FFAppState().outletId = '';
+                                  FFAppState().outletName = '';
+                                  FFAppState().outletRef = null;
+                                  setState(() {});
                                   var confirmDialogResponse =
                                       await showDialog<bool>(
                                             context: context,

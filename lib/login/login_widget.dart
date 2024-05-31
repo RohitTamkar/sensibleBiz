@@ -589,10 +589,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   FFButtonWidget(
                                     onPressed: () async {
                                       var _shouldSetState = false;
-                                      setState(() {
-                                        FFAppState().currentMobile =
-                                            '+91${_model.textFieldNumberTextController1.text}';
-                                      });
+                                      FFAppState().currentMobile =
+                                          '+91${_model.textFieldNumberTextController1.text}';
+                                      setState(() {});
                                       _model.res = await actions.login(
                                         '+91${_model.textFieldNumberTextController1.text}',
                                         _model
@@ -600,12 +599,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       );
                                       _shouldSetState = true;
                                       if (_model.res!) {
-                                        setState(() {
-                                          FFAppState().loggedIn = true;
-                                          FFAppState().passcode = _model
-                                              .textFieldQuickTextController1
-                                              .text;
-                                        });
+                                        FFAppState().loggedIn = true;
+                                        FFAppState().passcode = _model
+                                            .textFieldQuickTextController1.text;
+                                        setState(() {});
 
                                         context.pushNamed('OutletListPage');
                                       } else {
@@ -617,12 +614,11 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         );
                                         _shouldSetState = true;
                                         if (_model.res11!) {
-                                          setState(() {
-                                            FFAppState().loggedIn = true;
-                                            FFAppState().passcode = _model
-                                                .textFieldQuickTextController1
-                                                .text;
-                                          });
+                                          FFAppState().loggedIn = true;
+                                          FFAppState().passcode = _model
+                                              .textFieldQuickTextController1
+                                              .text;
+                                          setState(() {});
 
                                           context.pushNamed('OutletListPage');
 
@@ -691,11 +687,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   if (FFAppState().hide)
                                     FFButtonWidget(
                                       onPressed: () async {
-                                        setState(() {
-                                          FFAppState().loggedInUser = [];
-                                          FFAppState().loggedIn = false;
-                                          FFAppState().currentMobile = '';
-                                        });
+                                        FFAppState().loggedInUser = [];
+                                        FFAppState().loggedIn = false;
+                                        FFAppState().currentMobile = '';
+                                        setState(() {});
 
                                         context.pushNamed('CreateUserProfile');
                                       },
@@ -1506,11 +1501,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 FFButtonWidget(
                                                   onPressed: () async {
                                                     var _shouldSetState = false;
-                                                    setState(() {
-                                                      FFAppState()
-                                                              .currentMobile =
-                                                          '+91${_model.textFieldNumberTextController2.text}';
-                                                    });
+                                                    FFAppState().currentMobile =
+                                                        '+91${_model.textFieldNumberTextController2.text}';
+                                                    setState(() {});
                                                     _model.res1 =
                                                         await actions.login(
                                                       '+91${_model.textFieldNumberTextController2.text}',
@@ -1520,10 +1513,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     );
                                                     _shouldSetState = true;
                                                     if (_model.res1!) {
-                                                      setState(() {
-                                                        FFAppState().loggedIn =
-                                                            true;
-                                                      });
+                                                      FFAppState().loggedIn =
+                                                          true;
+                                                      setState(() {});
 
                                                       context.pushNamed(
                                                           'OutletListPage');
@@ -1539,15 +1531,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                       );
                                                       _shouldSetState = true;
                                                       if (_model.res15!) {
-                                                        setState(() {
-                                                          FFAppState()
-                                                              .loggedIn = true;
-                                                          FFAppState()
-                                                                  .passcode =
-                                                              _model
-                                                                  .textFieldQuickTextController1
-                                                                  .text;
-                                                        });
+                                                        FFAppState().loggedIn =
+                                                            true;
+                                                        FFAppState().passcode =
+                                                            _model
+                                                                .textFieldQuickTextController1
+                                                                .text;
+                                                        setState(() {});
 
                                                         context.pushNamed(
                                                             'OutletListPage');
@@ -1643,14 +1633,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 ))
                                                   FFButtonWidget(
                                                     onPressed: () async {
-                                                      setState(() {
-                                                        FFAppState()
-                                                            .loggedInUser = [];
-                                                        FFAppState().loggedIn =
-                                                            false;
-                                                        FFAppState()
-                                                            .currentMobile = '';
-                                                      });
+                                                      FFAppState()
+                                                          .loggedInUser = [];
+                                                      FFAppState().loggedIn =
+                                                          false;
+                                                      FFAppState()
+                                                          .currentMobile = '';
+                                                      setState(() {});
 
                                                       context.pushNamed(
                                                           'CreateUserProfile');

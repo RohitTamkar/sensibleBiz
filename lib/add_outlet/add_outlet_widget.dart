@@ -879,13 +879,12 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
 
                                           context.pushNamed('Dashboard');
 
-                                          setState(() {
-                                            FFAppState().outletName =
-                                                _model.outletDoc!.name;
-                                            FFAppState().outletId = functions
-                                                .newCustomFunction2(_model
-                                                    .outletDoc!.reference);
-                                          });
+                                          FFAppState().outletName =
+                                              _model.outletDoc!.name;
+                                          FFAppState().outletId =
+                                              functions.newCustomFunction2(
+                                                  _model.outletDoc!.reference);
+                                          setState(() {});
 
                                           setState(() {});
                                         },

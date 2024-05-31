@@ -74,9 +74,8 @@ class _EnterPasscodeCompoWidgetState extends State<EnterPasscodeCompoWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      setState(() {
-                        FFAppState().flag = false;
-                      });
+                      FFAppState().flag = false;
+                      setState(() {});
                       Navigator.pop(context);
                     },
                     child: Icon(
@@ -186,20 +185,16 @@ class _EnterPasscodeCompoWidgetState extends State<EnterPasscodeCompoWidget> {
                   ),
                   singleRecord: true,
                 ).then((s) => s.firstOrNull);
-                setState(() {
-                  FFAppState().passcode = _model.userRes!.quickPin;
-                });
-                setState(() {
-                  _model.psPasss = _model.textController.text;
-                });
+                FFAppState().passcode = _model.userRes!.quickPin;
+                setState(() {});
+                _model.psPasss = _model.textController.text;
+                setState(() {});
                 if (_model.psPasss == FFAppState().passcode) {
-                  setState(() {
-                    FFAppState().flag = true;
-                  });
+                  FFAppState().flag = true;
+                  setState(() {});
                 } else {
-                  setState(() {
-                    FFAppState().flag = false;
-                  });
+                  FFAppState().flag = false;
+                  setState(() {});
                   await showDialog(
                     context: context,
                     builder: (alertDialogContext) {

@@ -44,9 +44,8 @@ class _EditEmployeeWidgetState extends State<EditEmployeeWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        _model.shortNamePS = widget.ref?.shortName;
-      });
+      _model.shortNamePS = widget.ref?.shortName;
+      setState(() {});
     });
 
     _model.employeeNameTextController ??=
@@ -159,9 +158,8 @@ class _EditEmployeeWidgetState extends State<EditEmployeeWidget> {
                                           .validate()) {
                                     return;
                                   }
-                                  setState(() {
-                                    _model.wait = true;
-                                  });
+                                  _model.wait = true;
+                                  setState(() {});
 
                                   await widget.ref!.reference
                                       .update(createEmployeeRecordData(
@@ -180,9 +178,8 @@ class _EditEmployeeWidgetState extends State<EditEmployeeWidget> {
                                     shortName: _model.shortNamePS,
                                     id: widget.ref?.id,
                                   ));
-                                  setState(() {
-                                    _model.wait = false;
-                                  });
+                                  _model.wait = false;
+                                  setState(() {});
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {
@@ -284,10 +281,8 @@ class _EditEmployeeWidgetState extends State<EditEmployeeWidget> {
                                               _model.employeeNameTextController
                                                   .text,
                                             );
-                                            setState(() {
-                                              _model.shortNamePS =
-                                                  _model.getName;
-                                            });
+                                            _model.shortNamePS = _model.getName;
+                                            setState(() {});
 
                                             setState(() {});
                                           },
@@ -615,10 +610,9 @@ class _EditEmployeeWidgetState extends State<EditEmployeeWidget> {
                                           '_model.shortNameTextController',
                                           Duration(milliseconds: 2000),
                                           () async {
-                                            setState(() {
-                                              _model.shortNamePS = _model
-                                                  .shortNameTextController.text;
-                                            });
+                                            _model.shortNamePS = _model
+                                                .shortNameTextController.text;
+                                            setState(() {});
                                           },
                                         ),
                                         autofocus: true,

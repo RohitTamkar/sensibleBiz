@@ -141,10 +141,9 @@ class _AddCategoryPageWidgetState extends State<AddCategoryPageWidget> {
                                   onPressed: () async {
                                     context.safePop();
                                     if (isWeb) {
-                                      setState(() {
-                                        FFAppState().expDay = functions
-                                            .setExpiryTime(getCurrentTimestamp);
-                                      });
+                                      FFAppState().expDay = functions
+                                          .setExpiryTime(getCurrentTimestamp);
+                                      setState(() {});
                                     } else {
                                       return;
                                     }

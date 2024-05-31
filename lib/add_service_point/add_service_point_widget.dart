@@ -37,9 +37,8 @@ class _AddServicePointWidgetState extends State<AddServicePointWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        _model.booleanPaperSize = false;
-      });
+      _model.booleanPaperSize = false;
+      setState(() {});
     });
 
     _model.textController1 ??= TextEditingController();
@@ -1109,9 +1108,8 @@ class _AddServicePointWidgetState extends State<AddServicePointWidget> {
                                       if (_model.radioButton2Value == null) {
                                         return;
                                       }
-                                      setState(() {
-                                        _model.wait = true;
-                                      });
+                                      _model.wait = true;
+                                      setState(() {});
 
                                       var servicePointRecordReference =
                                           ServicePointRecord.createDoc(
@@ -1205,9 +1203,8 @@ class _AddServicePointWidgetState extends State<AddServicePointWidget> {
                                           .update(createServicePointRecordData(
                                         id: _model.created?.reference.id,
                                       ));
-                                      setState(() {
-                                        _model.wait = false;
-                                      });
+                                      _model.wait = false;
+                                      setState(() {});
                                       await showDialog(
                                         context: context,
                                         builder: (alertDialogContext) {

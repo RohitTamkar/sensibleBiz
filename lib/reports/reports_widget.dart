@@ -171,11 +171,10 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                     0.0, 0.0, 0.0, 20.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    setState(() {
-                                      FFAppState().finalCategoryReport = [];
-                                      FFAppState().productCart = [];
-                                      FFAppState().categoryCart = [];
-                                    });
+                                    FFAppState().finalCategoryReport = [];
+                                    FFAppState().productCart = [];
+                                    FFAppState().categoryCart = [];
+                                    setState(() {});
                                     _model.shiftdetails2 =
                                         await actions.getShiftDetails(
                                       FFAppState().outletId,
@@ -185,9 +184,8 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                         await actions.getProductSale(
                                       _model.shiftdetails2!.toList(),
                                     );
-                                    setState(() {
-                                      FFAppState().iLoopStart = 0;
-                                    });
+                                    FFAppState().iLoopStart = 0;
+                                    setState(() {});
                                     while (FFAppState().iLoopStart <
                                         _model.prdJson2!.length) {
                                       _model.productDetail2 =
@@ -214,24 +212,22 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                           r'''$.qty''',
                                         ),
                                       );
-                                      setState(() {
-                                        FFAppState().iLoopStart =
-                                            FFAppState().iLoopStart + 1;
-                                        FFAppState().addToProductCart(
-                                            _model.productJson2!);
-                                      });
+                                      FFAppState().iLoopStart =
+                                          FFAppState().iLoopStart + 1;
+                                      FFAppState().addToProductCart(
+                                          _model.productJson2!);
+                                      setState(() {});
                                     }
                                     _model.finalList2 = await actions.getReport(
                                       FFAppState().productCart.toList(),
                                       FFAppState().categoryCart.toList(),
                                       'product',
                                     );
-                                    setState(() {
-                                      FFAppState().finalCategoryReport = _model
-                                          .finalList2!
-                                          .toList()
-                                          .cast<dynamic>();
-                                    });
+                                    FFAppState().finalCategoryReport = _model
+                                        .finalList2!
+                                        .toList()
+                                        .cast<dynamic>();
+                                    setState(() {});
 
                                     context.pushNamed(
                                       'productSaleReportDaywise',
@@ -283,11 +279,10 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                     0.0, 0.0, 0.0, 20.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    setState(() {
-                                      FFAppState().finalCategoryReport = [];
-                                      FFAppState().productCart = [];
-                                      FFAppState().categoryCart = [];
-                                    });
+                                    FFAppState().finalCategoryReport = [];
+                                    FFAppState().productCart = [];
+                                    FFAppState().categoryCart = [];
+                                    setState(() {});
                                     _model.shiftdetails1 =
                                         await actions.getShiftDetails(
                                       FFAppState().outletId,
@@ -297,9 +292,8 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                         await actions.getProductSale(
                                       _model.shiftdetails1!.toList(),
                                     );
-                                    setState(() {
-                                      FFAppState().iLoopStart = 0;
-                                    });
+                                    FFAppState().iLoopStart = 0;
+                                    setState(() {});
                                     while (FFAppState().iLoopStart <
                                         _model.prdJson1!.length) {
                                       _model.productDetail = await ProductRecord
@@ -324,21 +318,19 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                           r'''$.qty''',
                                         ),
                                       );
-                                      setState(() {
-                                        FFAppState().iLoopStart =
-                                            FFAppState().iLoopStart + 1;
-                                        FFAppState().addToProductCart(
-                                            _model.productJson!);
-                                      });
+                                      FFAppState().iLoopStart =
+                                          FFAppState().iLoopStart + 1;
+                                      FFAppState().addToProductCart(
+                                          _model.productJson!);
+                                      setState(() {});
                                     }
                                     _model.catJson1 =
                                         await actions.getCatEiseSale(
                                       FFAppState().productCart.toList(),
                                       FFAppState().outletId,
                                     );
-                                    setState(() {
-                                      FFAppState().jLoopStart = 0;
-                                    });
+                                    FFAppState().jLoopStart = 0;
+                                    setState(() {});
                                     while (FFAppState().jLoopStart <
                                         _model.catJson1!.length) {
                                       _model.catDetails =
@@ -360,24 +352,22 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                           r'''$''',
                                         ).toString(),
                                       );
-                                      setState(() {
-                                        FFAppState().jLoopStart =
-                                            FFAppState().jLoopStart + 1;
-                                        FFAppState().addToCategoryCart(
-                                            _model.categoryJson!);
-                                      });
+                                      FFAppState().jLoopStart =
+                                          FFAppState().jLoopStart + 1;
+                                      FFAppState().addToCategoryCart(
+                                          _model.categoryJson!);
+                                      setState(() {});
                                     }
                                     _model.finalList = await actions.getReport(
                                       FFAppState().productCart.toList(),
                                       FFAppState().categoryCart.toList(),
                                       'category',
                                     );
-                                    setState(() {
-                                      FFAppState().finalCategoryReport = _model
-                                          .finalList!
-                                          .toList()
-                                          .cast<dynamic>();
-                                    });
+                                    FFAppState().finalCategoryReport = _model
+                                        .finalList!
+                                        .toList()
+                                        .cast<dynamic>();
+                                    setState(() {});
 
                                     context.pushNamed(
                                       'categoryWiseSaleReport',
@@ -738,10 +728,9 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    setState(() {
-                                      FFAppState().expDay = functions
-                                          .setExpiryTime(getCurrentTimestamp);
-                                    });
+                                    FFAppState().expDay = functions
+                                        .setExpiryTime(getCurrentTimestamp);
+                                    setState(() {});
                                     _model.result2 = await DayWiseSaleCall.call(
                                       outletId: FFAppState().outletId,
                                       dayId: functions
@@ -859,14 +848,12 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    setState(() {
-                                      FFAppState().expDay = functions
-                                          .setExpiryTime(getCurrentTimestamp);
-                                    });
-                                    setState(() {
-                                      FFAppState().selectedDate = functions
-                                          .getDayId(getCurrentTimestamp);
-                                    });
+                                    FFAppState().expDay = functions
+                                        .setExpiryTime(getCurrentTimestamp);
+                                    setState(() {});
+                                    FFAppState().selectedDate =
+                                        functions.getDayId(getCurrentTimestamp);
+                                    setState(() {});
                                     _model.resulttax =
                                         await DayWiseSaleCall.call(
                                       outletId: FFAppState().outletId,

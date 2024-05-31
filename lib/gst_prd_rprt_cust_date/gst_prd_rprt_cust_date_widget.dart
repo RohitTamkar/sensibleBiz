@@ -68,10 +68,9 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
         ),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
-      setState(() {
-        FFAppState().endDate = getCurrentTimestamp;
-        FFAppState().startDate = getCurrentTimestamp;
-      });
+      FFAppState().endDate = getCurrentTimestamp;
+      FFAppState().startDate = getCurrentTimestamp;
+      setState(() {});
       if (getJsonField(
             widget.json,
             r'''$[:].details[:].products[:]''',
@@ -93,14 +92,12 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
             );
           },
         );
-        setState(() {
-          FFAppState().productSaleJson = jsonDecode('null');
-        });
+        FFAppState().productSaleJson = jsonDecode('null');
+        setState(() {});
         return;
       }
-      setState(() {
-        FFAppState().productSaleJson = widget.json!;
-      });
+      FFAppState().productSaleJson = widget.json!;
+      setState(() {});
       _model.gstTaxPer2 = await actions.showReportGST(
         getJsonField(
           FFAppState().productSaleJson,
@@ -108,24 +105,20 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
           true,
         )!,
       );
-      setState(() {
-        FFAppState().gstJsonObj = _model.gstTaxPer2!;
-      });
-      setState(() {
-        FFAppState().isLoding = true;
-      });
+      FFAppState().gstJsonObj = _model.gstTaxPer2!;
+      setState(() {});
+      FFAppState().isLoding = true;
+      setState(() {});
       if (getJsonField(
             widget.json,
             r'''$[:].details[:].products[:]''',
           ) !=
           null) {
-        setState(() {
-          FFAppState().isLoding = false;
-        });
+        FFAppState().isLoding = false;
+        setState(() {});
       } else {
-        setState(() {
-          FFAppState().isLoding = false;
-        });
+        FFAppState().isLoding = false;
+        setState(() {});
         await showDialog(
           context: context,
           builder: (alertDialogContext) {
@@ -358,10 +351,9 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
                                             FFAppState().endDate?.toString(),
                                           );
                                           _shouldSetState = true;
-                                          setState(() {
-                                            FFAppState().emailId =
-                                                _model.userdetails!.email;
-                                          });
+                                          FFAppState().emailId =
+                                              _model.userdetails!.email;
+                                          setState(() {});
                                           await showDialog(
                                             context: context,
                                             builder: (dialogContext) {
@@ -530,11 +522,10 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
                                       onPressed: () async {
                                         var _shouldSetState = false;
                                         if (isWeb) {
-                                          setState(() {
-                                            FFAppState().expDay =
-                                                functions.setExpiryTime(
-                                                    getCurrentTimestamp);
-                                          });
+                                          FFAppState().expDay =
+                                              functions.setExpiryTime(
+                                                  getCurrentTimestamp);
+                                          setState(() {});
                                         }
                                         await showDialog(
                                           context: context,
@@ -567,9 +558,8 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
                                           },
                                         ).then((value) => setState(() {}));
 
-                                        setState(() {
-                                          FFAppState().isLoding = true;
-                                        });
+                                        FFAppState().isLoding = true;
+                                        setState(() {});
                                         _model.customdatewisegstSale =
                                             await GetCustomDateSaleCall.call(
                                           outletId: containerOutletRecord?.id,
@@ -611,11 +601,10 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
                                                 );
                                               },
                                             );
-                                            setState(() {
-                                              FFAppState().productSaleJson =
-                                                  jsonDecode('null');
-                                              FFAppState().isLoding = false;
-                                            });
+                                            FFAppState().productSaleJson =
+                                                jsonDecode('null');
+                                            FFAppState().isLoding = false;
+                                            setState(() {});
                                             if (_shouldSetState)
                                               setState(() {});
                                             return;
@@ -642,21 +631,19 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
                                               );
                                             },
                                           );
-                                          setState(() {
-                                            FFAppState().isLoding = false;
-                                            FFAppState().productSaleJson =
-                                                jsonDecode('null');
-                                          });
+                                          FFAppState().isLoding = false;
+                                          FFAppState().productSaleJson =
+                                              jsonDecode('null');
+                                          setState(() {});
                                           if (_shouldSetState) setState(() {});
                                           return;
                                         }
 
-                                        setState(() {
-                                          FFAppState().productSaleJson = (_model
-                                                  .customdatewisegstSale
-                                                  ?.jsonBody ??
-                                              '');
-                                        });
+                                        FFAppState().productSaleJson = (_model
+                                                .customdatewisegstSale
+                                                ?.jsonBody ??
+                                            '');
+                                        setState(() {});
                                         _model.gstTaxPer3 =
                                             await actions.showReportGST(
                                           getJsonField(
@@ -666,22 +653,19 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
                                           )!,
                                         );
                                         _shouldSetState = true;
-                                        setState(() {
-                                          FFAppState().gstJsonObj =
-                                              _model.gstTaxPer3!;
-                                        });
+                                        FFAppState().gstJsonObj =
+                                            _model.gstTaxPer3!;
+                                        setState(() {});
                                         if (getJsonField(
                                               FFAppState().productSaleJson,
                                               r'''$[:].details[:].products[:]''',
                                             ) !=
                                             null) {
-                                          setState(() {
-                                            FFAppState().isLoding = false;
-                                          });
+                                          FFAppState().isLoding = false;
+                                          setState(() {});
                                         } else {
-                                          setState(() {
-                                            FFAppState().isLoding = false;
-                                          });
+                                          FFAppState().isLoding = false;
+                                          setState(() {});
                                           await showDialog(
                                             context: context,
                                             builder: (alertDialogContext) {

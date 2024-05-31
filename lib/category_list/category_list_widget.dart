@@ -123,10 +123,9 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
                                     if (isWeb) {
                                       context.pushNamed('Dashboard');
 
-                                      setState(() {
-                                        FFAppState().expDay = functions
-                                            .setExpiryTime(getCurrentTimestamp);
-                                      });
+                                      FFAppState().expDay = functions
+                                          .setExpiryTime(getCurrentTimestamp);
+                                      setState(() {});
                                     } else {
                                       context.pushNamed('MastersPage');
 

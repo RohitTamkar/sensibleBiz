@@ -37,9 +37,8 @@ class _StockReportWidgetState extends State<StockReportWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
-      });
+      FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
+      setState(() {});
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -140,10 +139,9 @@ class _StockReportWidgetState extends State<StockReportWidget> {
                                 ),
                                 onPressed: () async {
                                   if (isWeb) {
-                                    setState(() {
-                                      FFAppState().expDay = functions
-                                          .setExpiryTime(getCurrentTimestamp);
-                                    });
+                                    FFAppState().expDay = functions
+                                        .setExpiryTime(getCurrentTimestamp);
+                                    setState(() {});
                                   } else {
                                     return;
                                   }
@@ -164,10 +162,9 @@ class _StockReportWidgetState extends State<StockReportWidget> {
                                       );
                                     });
                                   }
-                                  setState(() {
-                                    FFAppState().selectedDate =
-                                        functions.getDayId(_model.datePicked!);
-                                  });
+                                  FFAppState().selectedDate =
+                                      functions.getDayId(_model.datePicked!);
+                                  setState(() {});
                                 },
                               ),
                             ],

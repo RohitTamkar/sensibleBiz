@@ -53,20 +53,16 @@ class _ProductSaleReportDaywiseWidgetState
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
-      });
-      setState(() {
-        FFAppState().isLoding = true;
-      });
+      FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
+      setState(() {});
+      FFAppState().isLoding = true;
+      setState(() {});
       if (widget.prdTestList?.length != 0) {
-        setState(() {
-          FFAppState().isLoding = false;
-        });
+        FFAppState().isLoding = false;
+        setState(() {});
       } else {
-        setState(() {
-          FFAppState().isLoding = true;
-        });
+        FFAppState().isLoding = true;
+        setState(() {});
         await showDialog(
           context: context,
           builder: (alertDialogContext) {
@@ -202,10 +198,9 @@ class _ProductSaleReportDaywiseWidgetState
                                 ),
                                 onPressed: () async {
                                   if (isWeb) {
-                                    setState(() {
-                                      FFAppState().expDay = functions
-                                          .setExpiryTime(getCurrentTimestamp);
-                                    });
+                                    FFAppState().expDay = functions
+                                        .setExpiryTime(getCurrentTimestamp);
+                                    setState(() {});
                                   }
                                   final _datePickedDate = await showDatePicker(
                                     context: context,
@@ -223,16 +218,14 @@ class _ProductSaleReportDaywiseWidgetState
                                       );
                                     });
                                   }
-                                  setState(() {
-                                    FFAppState().selectedDate =
-                                        functions.getDayId(_model.datePicked!);
-                                    FFAppState().isLoding = true;
-                                  });
-                                  setState(() {
-                                    FFAppState().finalCategoryReport = [];
-                                    FFAppState().productCart = [];
-                                    FFAppState().categoryCart = [];
-                                  });
+                                  FFAppState().selectedDate =
+                                      functions.getDayId(_model.datePicked!);
+                                  FFAppState().isLoding = true;
+                                  setState(() {});
+                                  FFAppState().finalCategoryReport = [];
+                                  FFAppState().productCart = [];
+                                  FFAppState().categoryCart = [];
+                                  setState(() {});
                                   _model.shiftdetails3 =
                                       await actions.getShiftDetails(
                                     FFAppState().outletId,
@@ -242,9 +235,8 @@ class _ProductSaleReportDaywiseWidgetState
                                       await actions.getProductSale(
                                     _model.shiftdetails3!.toList(),
                                   );
-                                  setState(() {
-                                    FFAppState().iLoopStart = 0;
-                                  });
+                                  FFAppState().iLoopStart = 0;
+                                  setState(() {});
                                   while (FFAppState().iLoopStart <
                                       _model.prdJson3!.length) {
                                     _model.productDetail3 =
@@ -270,27 +262,24 @@ class _ProductSaleReportDaywiseWidgetState
                                         r'''$.qty''',
                                       ),
                                     );
-                                    setState(() {
-                                      FFAppState().iLoopStart =
-                                          FFAppState().iLoopStart + 1;
-                                      FFAppState().addToProductCart(
-                                          _model.productJson3!);
-                                    });
+                                    FFAppState().iLoopStart =
+                                        FFAppState().iLoopStart + 1;
+                                    FFAppState()
+                                        .addToProductCart(_model.productJson3!);
+                                    setState(() {});
                                   }
                                   _model.finalList4 = await actions.getReport(
                                     FFAppState().productCart.toList(),
                                     FFAppState().categoryCart.toList(),
                                     'product',
                                   );
-                                  setState(() {
-                                    FFAppState().finalCategoryReport = _model
-                                        .finalList4!
-                                        .toList()
-                                        .cast<dynamic>();
-                                  });
-                                  setState(() {
-                                    FFAppState().isLoding = false;
-                                  });
+                                  FFAppState().finalCategoryReport = _model
+                                      .finalList4!
+                                      .toList()
+                                      .cast<dynamic>();
+                                  setState(() {});
+                                  FFAppState().isLoding = false;
+                                  setState(() {});
 
                                   setState(() {});
                                 },

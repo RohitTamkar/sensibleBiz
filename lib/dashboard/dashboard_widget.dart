@@ -51,26 +51,23 @@ class _DashboardWidgetState extends State<DashboardWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
-      });
+      FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
+      setState(() {});
       _model.loadShiftData = await actions.getShiftDetails(
         FFAppState().outletId,
         functions.getDayId(getCurrentTimestamp),
       );
-      setState(() {
-        FFAppState().shiftDetailsList =
-            _model.loadShiftData!.toList().cast<dynamic>();
-      });
+      FFAppState().shiftDetailsList =
+          _model.loadShiftData!.toList().cast<dynamic>();
+      setState(() {});
       _model.loadShiftSummary = await actions.getShiftSummary(
         _model.loadShiftData!.toList(),
         '1',
       );
-      setState(() {
-        FFAppState().selectedShift = '1';
-        FFAppState().shiftDetail = _model.loadShiftSummary!;
-        FFAppState().isShiftSelected = true;
-      });
+      FFAppState().selectedShift = '1';
+      FFAppState().shiftDetail = _model.loadShiftSummary!;
+      FFAppState().isShiftSelected = true;
+      setState(() {});
       _model.loadTime = await actions.diffBetweenDates(
         getCurrentTimestamp,
         getJsonField(
@@ -78,9 +75,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
           r'''$.lastBillTime''',
         ),
       );
-      setState(() {
-        FFAppState().synchTime = _model.loadTime!;
-      });
+      FFAppState().synchTime = _model.loadTime!;
+      setState(() {});
       if (!isWeb) {
         return;
       }
@@ -89,13 +85,12 @@ class _DashboardWidgetState extends State<DashboardWidget> {
         callback: (timer) async {
           if (FFAppState().expDay! < getCurrentTimestamp) {
             _model.instantTimer?.cancel();
-            setState(() {
-              FFAppState().currentMobile = '';
-              FFAppState().loggedIn = false;
-              FFAppState().outletId = '';
-              FFAppState().outletName = '';
-              FFAppState().outletRef = null;
-            });
+            FFAppState().currentMobile = '';
+            FFAppState().loggedIn = false;
+            FFAppState().outletId = '';
+            FFAppState().outletName = '';
+            FFAppState().outletRef = null;
+            setState(() {});
             await showDialog(
               context: context,
               builder: (alertDialogContext) {
@@ -214,11 +209,10 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                     Colors.transparent,
                                                 onTap: () async {
                                                   if (isWeb) {
-                                                    setState(() {
-                                                      FFAppState().expDay =
-                                                          functions.setExpiryTime(
-                                                              getCurrentTimestamp);
-                                                    });
+                                                    FFAppState().expDay =
+                                                        functions.setExpiryTime(
+                                                            getCurrentTimestamp);
+                                                    setState(() {});
                                                   } else {
                                                     return;
                                                   }
@@ -296,11 +290,10 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                     Colors.transparent,
                                                 onTap: () async {
                                                   if (isWeb) {
-                                                    setState(() {
-                                                      FFAppState().expDay =
-                                                          functions.setExpiryTime(
-                                                              getCurrentTimestamp);
-                                                    });
+                                                    FFAppState().expDay =
+                                                        functions.setExpiryTime(
+                                                            getCurrentTimestamp);
+                                                    setState(() {});
 
                                                     context.pushNamed(
                                                         'UploadExcelSheetPage');
@@ -452,13 +445,12 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                     .transparent,
                                                             onTap: () async {
                                                               if (isWeb) {
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                          .expDay =
-                                                                      functions
-                                                                          .setExpiryTime(
-                                                                              getCurrentTimestamp);
-                                                                });
+                                                                FFAppState()
+                                                                        .expDay =
+                                                                    functions
+                                                                        .setExpiryTime(
+                                                                            getCurrentTimestamp);
+                                                                setState(() {});
                                                               } else {
                                                                 context
                                                                     .pushNamed(
@@ -593,13 +585,12 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                     .transparent,
                                                             onTap: () async {
                                                               if (isWeb) {
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                          .expDay =
-                                                                      functions
-                                                                          .setExpiryTime(
-                                                                              getCurrentTimestamp);
-                                                                });
+                                                                FFAppState()
+                                                                        .expDay =
+                                                                    functions
+                                                                        .setExpiryTime(
+                                                                            getCurrentTimestamp);
+                                                                setState(() {});
 
                                                                 context.pushNamed(
                                                                     'ProductList');
@@ -698,13 +689,12 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                 Colors
                                                                     .transparent,
                                                             onTap: () async {
-                                                              setState(() {
-                                                                FFAppState()
-                                                                        .expDay =
-                                                                    functions
-                                                                        .setExpiryTime(
-                                                                            getCurrentTimestamp);
-                                                              });
+                                                              FFAppState()
+                                                                      .expDay =
+                                                                  functions
+                                                                      .setExpiryTime(
+                                                                          getCurrentTimestamp);
+                                                              setState(() {});
 
                                                               context.pushNamed(
                                                                   'EditUserProfile');
@@ -1388,11 +1378,10 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
-                                                  setState(() {
-                                                    FFAppState().expDay =
-                                                        functions.setExpiryTime(
-                                                            getCurrentTimestamp);
-                                                  });
+                                                  FFAppState().expDay =
+                                                      functions.setExpiryTime(
+                                                          getCurrentTimestamp);
+                                                  setState(() {});
 
                                                   context.pushNamed(
                                                     'StockUpdate',
@@ -1712,21 +1701,19 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                 FFButtonWidget(
                                                               onPressed:
                                                                   () async {
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                          .expDay =
-                                                                      functions
-                                                                          .setExpiryTime(
-                                                                              getCurrentTimestamp);
-                                                                });
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                      .finalCategoryReport = [];
-                                                                  FFAppState()
-                                                                      .productCart = [];
-                                                                  FFAppState()
-                                                                      .categoryCart = [];
-                                                                });
+                                                                FFAppState()
+                                                                        .expDay =
+                                                                    functions
+                                                                        .setExpiryTime(
+                                                                            getCurrentTimestamp);
+                                                                setState(() {});
+                                                                FFAppState()
+                                                                    .finalCategoryReport = [];
+                                                                FFAppState()
+                                                                    .productCart = [];
+                                                                FFAppState()
+                                                                    .categoryCart = [];
+                                                                setState(() {});
                                                                 _model.shiftdetailsDashboard1 =
                                                                     await actions
                                                                         .getShiftDetails(
@@ -1743,10 +1730,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                       .shiftdetailsDashboard1!
                                                                       .toList(),
                                                                 );
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                      .iLoopStart = 0;
-                                                                });
+                                                                FFAppState()
+                                                                    .iLoopStart = 0;
+                                                                setState(() {});
                                                                 while (FFAppState()
                                                                         .iLoopStart <
                                                                     _model
@@ -1777,15 +1763,17 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                       r'''$.qty''',
                                                                     ),
                                                                   );
-                                                                  setState(() {
-                                                                    FFAppState()
-                                                                            .iLoopStart =
-                                                                        FFAppState().iLoopStart +
-                                                                            1;
-                                                                    FFAppState()
-                                                                        .addToProductCart(
-                                                                            _model.productJson5!);
-                                                                  });
+                                                                  FFAppState()
+                                                                          .iLoopStart =
+                                                                      FFAppState()
+                                                                              .iLoopStart +
+                                                                          1;
+                                                                  FFAppState()
+                                                                      .addToProductCart(
+                                                                          _model
+                                                                              .productJson5!);
+                                                                  setState(
+                                                                      () {});
                                                                 }
                                                                 _model.catJson5 =
                                                                     await actions
@@ -1796,10 +1784,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                   FFAppState()
                                                                       .outletId,
                                                                 );
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                      .jLoopStart = 0;
-                                                                });
+                                                                FFAppState()
+                                                                    .jLoopStart = 0;
+                                                                setState(() {});
                                                                 while (FFAppState()
                                                                         .jLoopStart <
                                                                     _model
@@ -1824,15 +1811,17 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                       r'''$''',
                                                                     ).toString(),
                                                                   );
-                                                                  setState(() {
-                                                                    FFAppState()
-                                                                            .jLoopStart =
-                                                                        FFAppState().jLoopStart +
-                                                                            1;
-                                                                    FFAppState()
-                                                                        .addToCategoryCart(
-                                                                            _model.categoryJson5!);
-                                                                  });
+                                                                  FFAppState()
+                                                                          .jLoopStart =
+                                                                      FFAppState()
+                                                                              .jLoopStart +
+                                                                          1;
+                                                                  FFAppState()
+                                                                      .addToCategoryCart(
+                                                                          _model
+                                                                              .categoryJson5!);
+                                                                  setState(
+                                                                      () {});
                                                                 }
                                                                 _model.finalList5 =
                                                                     await actions
@@ -1845,13 +1834,14 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                       .toList(),
                                                                   'category',
                                                                 );
-                                                                setState(() {
-                                                                  FFAppState().finalCategoryReport = _model
-                                                                      .finalList5!
-                                                                      .toList()
-                                                                      .cast<
-                                                                          dynamic>();
-                                                                });
+                                                                FFAppState()
+                                                                        .finalCategoryReport =
+                                                                    _model
+                                                                        .finalList5!
+                                                                        .toList()
+                                                                        .cast<
+                                                                            dynamic>();
+                                                                setState(() {});
 
                                                                 context
                                                                     .pushNamed(
@@ -1942,21 +1932,19 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                 FFButtonWidget(
                                                               onPressed:
                                                                   () async {
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                          .expDay =
-                                                                      functions
-                                                                          .setExpiryTime(
-                                                                              getCurrentTimestamp);
-                                                                });
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                      .finalCategoryReport = [];
-                                                                  FFAppState()
-                                                                      .productCart = [];
-                                                                  FFAppState()
-                                                                      .categoryCart = [];
-                                                                });
+                                                                FFAppState()
+                                                                        .expDay =
+                                                                    functions
+                                                                        .setExpiryTime(
+                                                                            getCurrentTimestamp);
+                                                                setState(() {});
+                                                                FFAppState()
+                                                                    .finalCategoryReport = [];
+                                                                FFAppState()
+                                                                    .productCart = [];
+                                                                FFAppState()
+                                                                    .categoryCart = [];
+                                                                setState(() {});
                                                                 _model.shiftdetailsDashboard =
                                                                     await actions
                                                                         .getShiftDetails(
@@ -1973,10 +1961,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                       .shiftdetailsDashboard!
                                                                       .toList(),
                                                                 );
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                      .iLoopStart = 0;
-                                                                });
+                                                                FFAppState()
+                                                                    .iLoopStart = 0;
+                                                                setState(() {});
                                                                 while (FFAppState()
                                                                         .iLoopStart <
                                                                     _model
@@ -2007,15 +1994,17 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                       r'''$.qty''',
                                                                     ),
                                                                   );
-                                                                  setState(() {
-                                                                    FFAppState()
-                                                                            .iLoopStart =
-                                                                        FFAppState().iLoopStart +
-                                                                            1;
-                                                                    FFAppState()
-                                                                        .addToProductCart(
-                                                                            _model.productJsonDashboard!);
-                                                                  });
+                                                                  FFAppState()
+                                                                          .iLoopStart =
+                                                                      FFAppState()
+                                                                              .iLoopStart +
+                                                                          1;
+                                                                  FFAppState()
+                                                                      .addToProductCart(
+                                                                          _model
+                                                                              .productJsonDashboard!);
+                                                                  setState(
+                                                                      () {});
                                                                 }
                                                                 _model.finalListDashboard =
                                                                     await actions
@@ -2028,13 +2017,14 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                       .toList(),
                                                                   'product',
                                                                 );
-                                                                setState(() {
-                                                                  FFAppState().finalCategoryReport = _model
-                                                                      .finalListDashboard!
-                                                                      .toList()
-                                                                      .cast<
-                                                                          dynamic>();
-                                                                });
+                                                                FFAppState()
+                                                                        .finalCategoryReport =
+                                                                    _model
+                                                                        .finalListDashboard!
+                                                                        .toList()
+                                                                        .cast<
+                                                                            dynamic>();
+                                                                setState(() {});
 
                                                                 context
                                                                     .pushNamed(
@@ -2126,24 +2116,22 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                 FFButtonWidget(
                                                               onPressed:
                                                                   () async {
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                          .expDay =
-                                                                      functions
-                                                                          .setExpiryTime(
-                                                                              getCurrentTimestamp);
-                                                                });
+                                                                FFAppState()
+                                                                        .expDay =
+                                                                    functions
+                                                                        .setExpiryTime(
+                                                                            getCurrentTimestamp);
+                                                                setState(() {});
 
                                                                 context.pushNamed(
                                                                     'StockReportam');
 
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                          .expDay =
-                                                                      functions
-                                                                          .setExpiryTime(
-                                                                              getCurrentTimestamp);
-                                                                });
+                                                                FFAppState()
+                                                                        .expDay =
+                                                                    functions
+                                                                        .setExpiryTime(
+                                                                            getCurrentTimestamp);
+                                                                setState(() {});
                                                               },
                                                               text:
                                                                   'Stock Report',
@@ -2217,24 +2205,22 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                 FFButtonWidget(
                                                               onPressed:
                                                                   () async {
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                          .expDay =
-                                                                      functions
-                                                                          .setExpiryTime(
-                                                                              getCurrentTimestamp);
-                                                                });
+                                                                FFAppState()
+                                                                        .expDay =
+                                                                    functions
+                                                                        .setExpiryTime(
+                                                                            getCurrentTimestamp);
+                                                                setState(() {});
 
                                                                 context.pushNamed(
                                                                     'DayWiseSaleReport');
 
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                          .expDay =
-                                                                      functions
-                                                                          .setExpiryTime(
-                                                                              getCurrentTimestamp);
-                                                                });
+                                                                FFAppState()
+                                                                        .expDay =
+                                                                    functions
+                                                                        .setExpiryTime(
+                                                                            getCurrentTimestamp);
+                                                                setState(() {});
                                                               },
                                                               text:
                                                                   'Daywise Report',
@@ -2429,11 +2415,10 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                       .pushNamed('DevicePage');
 
                                                   if (isWeb) {
-                                                    setState(() {
-                                                      FFAppState().expDay =
-                                                          functions.setExpiryTime(
-                                                              getCurrentTimestamp);
-                                                    });
+                                                    FFAppState().expDay =
+                                                        functions.setExpiryTime(
+                                                            getCurrentTimestamp);
+                                                    setState(() {});
                                                   } else {
                                                     return;
                                                   }
@@ -2511,11 +2496,10 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
-                                                  setState(() {
-                                                    FFAppState().expDay =
-                                                        functions.setExpiryTime(
-                                                            getCurrentTimestamp);
-                                                  });
+                                                  FFAppState().expDay =
+                                                      functions.setExpiryTime(
+                                                          getCurrentTimestamp);
+                                                  setState(() {});
 
                                                   context.pushNamed(
                                                       'deleteUserProfile');
@@ -2628,18 +2612,16 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                           ) ??
                                                           false;
                                                   if (confirmDialogResponse) {
-                                                    setState(() {
-                                                      FFAppState()
-                                                          .currentMobile = '';
-                                                      FFAppState().loggedIn =
-                                                          false;
-                                                      FFAppState().outletId =
-                                                          '';
-                                                      FFAppState().outletName =
-                                                          '';
-                                                      FFAppState().outletRef =
-                                                          null;
-                                                    });
+                                                    FFAppState().currentMobile =
+                                                        '';
+                                                    FFAppState().loggedIn =
+                                                        false;
+                                                    FFAppState().outletId = '';
+                                                    FFAppState().outletName =
+                                                        '';
+                                                    FFAppState().outletRef =
+                                                        null;
+                                                    setState(() {});
                                                     GoRouter.of(context)
                                                         .prepareAuthEvent();
                                                     await authManager.signOut();
@@ -2773,11 +2755,10 @@ class _DashboardWidgetState extends State<DashboardWidget> {
 
                                             return;
                                           }
-                                          setState(() {
-                                            FFAppState().expDay =
-                                                functions.setExpiryTime(
-                                                    getCurrentTimestamp);
-                                          });
+                                          FFAppState().expDay =
+                                              functions.setExpiryTime(
+                                                  getCurrentTimestamp);
+                                          setState(() {});
                                           if (MediaQuery.sizeOf(context).width <
                                                   kBreakpointSmall
                                               ? true
@@ -3620,13 +3601,12 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                             );
                                                           });
                                                         }
-                                                        setState(() {
-                                                          FFAppState()
-                                                                  .selectedDate =
-                                                              functions.getDayId(
-                                                                  _model
-                                                                      .datePicked!);
-                                                        });
+                                                        FFAppState()
+                                                                .selectedDate =
+                                                            functions.getDayId(
+                                                                _model
+                                                                    .datePicked!);
+                                                        setState(() {});
                                                         _model.clickShiftData =
                                                             await actions
                                                                 .getShiftDetails(
@@ -3641,25 +3621,24 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                               .toList(),
                                                           '1',
                                                         );
-                                                        setState(() {
-                                                          FFAppState()
-                                                                  .selectedShift =
-                                                              '1';
-                                                          FFAppState()
-                                                                  .shiftDetail =
-                                                              _model
-                                                                  .clickShiftSummary!;
-                                                          FFAppState()
-                                                                  .isShiftSelected =
-                                                              true;
-                                                          FFAppState()
-                                                                  .shiftDetailsList =
-                                                              _model
-                                                                  .clickShiftData!
-                                                                  .toList()
-                                                                  .cast<
-                                                                      dynamic>();
-                                                        });
+                                                        FFAppState()
+                                                                .selectedShift =
+                                                            '1';
+                                                        FFAppState()
+                                                                .shiftDetail =
+                                                            _model
+                                                                .clickShiftSummary!;
+                                                        FFAppState()
+                                                                .isShiftSelected =
+                                                            true;
+                                                        FFAppState()
+                                                                .shiftDetailsList =
+                                                            _model
+                                                                .clickShiftData!
+                                                                .toList()
+                                                                .cast<
+                                                                    dynamic>();
+                                                        setState(() {});
                                                         _model.clickTime =
                                                             await actions
                                                                 .diffBetweenDates(
@@ -3670,11 +3649,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                             r'''$.lastBillTime''',
                                                           ),
                                                         );
-                                                        setState(() {
-                                                          FFAppState()
-                                                                  .synchTime =
-                                                              _model.clickTime!;
-                                                        });
+                                                        FFAppState().synchTime =
+                                                            _model.clickTime!;
+                                                        setState(() {});
 
                                                         setState(() {});
                                                       },
@@ -3821,9 +3798,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                                               onPressed: () async {
                                                                                                 var _shouldSetState = false;
                                                                                                 if (isWeb) {
-                                                                                                  setState(() {
-                                                                                                    FFAppState().expDay = functions.setExpiryTime(getCurrentTimestamp);
-                                                                                                  });
+                                                                                                  FFAppState().expDay = functions.setExpiryTime(getCurrentTimestamp);
+                                                                                                  setState(() {});
                                                                                                 } else {
                                                                                                   if (_shouldSetState) setState(() {});
                                                                                                   return;
@@ -3842,17 +3818,15 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                                                   ).toString(),
                                                                                                 );
                                                                                                 _shouldSetState = true;
-                                                                                                setState(() {
-                                                                                                  FFAppState().selectedShift = getJsonField(
-                                                                                                    listItem,
-                                                                                                    r'''$.shiftNo''',
-                                                                                                  ).toString();
-                                                                                                  FFAppState().shiftDetail = _model.shiftClickW!;
-                                                                                                  FFAppState().isShiftSelected = true;
-                                                                                                });
-                                                                                                setState(() {
-                                                                                                  FFAppState().shiftDetailsList = _model.buttonShiftDataWeb!.toList().cast<dynamic>();
-                                                                                                });
+                                                                                                FFAppState().selectedShift = getJsonField(
+                                                                                                  listItem,
+                                                                                                  r'''$.shiftNo''',
+                                                                                                ).toString();
+                                                                                                FFAppState().shiftDetail = _model.shiftClickW!;
+                                                                                                FFAppState().isShiftSelected = true;
+                                                                                                setState(() {});
+                                                                                                FFAppState().shiftDetailsList = _model.buttonShiftDataWeb!.toList().cast<dynamic>();
+                                                                                                setState(() {});
                                                                                                 _model.time = await actions.diffBetweenDates(
                                                                                                   getCurrentTimestamp,
                                                                                                   getJsonField(
@@ -3861,9 +3835,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                                                   ),
                                                                                                 );
                                                                                                 _shouldSetState = true;
-                                                                                                setState(() {
-                                                                                                  FFAppState().synchTime = _model.time!;
-                                                                                                });
+                                                                                                FFAppState().synchTime = _model.time!;
+                                                                                                setState(() {});
                                                                                                 if (_shouldSetState) setState(() {});
                                                                                               },
                                                                                               text: 'Shift ${getJsonField(
@@ -6361,17 +6334,15 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                                     r'''$.shiftNo''',
                                                                                   ).toString(),
                                                                                 );
-                                                                                setState(() {
-                                                                                  FFAppState().selectedShift = getJsonField(
-                                                                                    listItem,
-                                                                                    r'''$.shiftNo''',
-                                                                                  ).toString();
-                                                                                  FFAppState().shiftDetail = _model.shiftClick!;
-                                                                                  FFAppState().isShiftSelected = true;
-                                                                                });
-                                                                                setState(() {
-                                                                                  FFAppState().shiftDetailsList = _model.buttonShiftData!.toList().cast<dynamic>();
-                                                                                });
+                                                                                FFAppState().selectedShift = getJsonField(
+                                                                                  listItem,
+                                                                                  r'''$.shiftNo''',
+                                                                                ).toString();
+                                                                                FFAppState().shiftDetail = _model.shiftClick!;
+                                                                                FFAppState().isShiftSelected = true;
+                                                                                setState(() {});
+                                                                                FFAppState().shiftDetailsList = _model.buttonShiftData!.toList().cast<dynamic>();
+                                                                                setState(() {});
                                                                                 _model.time2 = await actions.diffBetweenDates(
                                                                                   getCurrentTimestamp,
                                                                                   getJsonField(
@@ -6379,9 +6350,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                                     r'''$.lastBillTime''',
                                                                                   ),
                                                                                 );
-                                                                                setState(() {
-                                                                                  FFAppState().synchTime = _model.time2!;
-                                                                                });
+                                                                                FFAppState().synchTime = _model.time2!;
+                                                                                setState(() {});
 
                                                                                 setState(() {});
                                                                               },

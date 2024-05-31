@@ -98,10 +98,9 @@ class _EmployeeAllPageWidgetState extends State<EmployeeAllPageWidget> {
                                   if (isWeb) {
                                     context.pushNamed('Dashboard');
 
-                                    setState(() {
-                                      FFAppState().expDay = functions
-                                          .setExpiryTime(getCurrentTimestamp);
-                                    });
+                                    FFAppState().expDay = functions
+                                        .setExpiryTime(getCurrentTimestamp);
+                                    setState(() {});
                                   } else {
                                     context.pushNamed('MastersPage');
 
@@ -196,10 +195,9 @@ class _EmployeeAllPageWidgetState extends State<EmployeeAllPageWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    setState(() {
-                                      _model.count1 =
-                                          listViewEmployeeRecordList.length;
-                                    });
+                                    _model.count1 =
+                                        listViewEmployeeRecordList.length;
+                                    setState(() {});
                                   },
                                   child: ListView.builder(
                                     padding: EdgeInsets.zero,

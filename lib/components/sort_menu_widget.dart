@@ -46,9 +46,8 @@ class _SortMenuWidgetState extends State<SortMenuWidget> {
       hoverColor: Colors.transparent,
       highlightColor: Colors.transparent,
       onTap: () async {
-        setState(() {
-          FFAppState().showMenuProduct = false;
-        });
+        FFAppState().showMenuProduct = false;
+        setState(() {});
       },
       child: Container(
         width: 187.0,
@@ -62,9 +61,8 @@ class _SortMenuWidgetState extends State<SortMenuWidget> {
           hoverColor: Colors.transparent,
           highlightColor: Colors.transparent,
           onTap: () async {
-            setState(() {
-              FFAppState().showMenuProduct = false;
-            });
+            FFAppState().showMenuProduct = false;
+            setState(() {});
           },
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -93,10 +91,9 @@ class _SortMenuWidgetState extends State<SortMenuWidget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  setState(() {
-                    FFAppState().sortMenuBool = false;
-                    FFAppState().showMenuProduct = false;
-                  });
+                  FFAppState().sortMenuBool = false;
+                  FFAppState().showMenuProduct = false;
+                  setState(() {});
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -130,9 +127,8 @@ class _SortMenuWidgetState extends State<SortMenuWidget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  setState(() {
-                    FFAppState().sortMenuBool = false;
-                  });
+                  FFAppState().sortMenuBool = false;
+                  setState(() {});
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -166,9 +162,8 @@ class _SortMenuWidgetState extends State<SortMenuWidget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  setState(() {
-                    FFAppState().sortMenuBool = false;
-                  });
+                  FFAppState().sortMenuBool = false;
+                  setState(() {});
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -202,9 +197,8 @@ class _SortMenuWidgetState extends State<SortMenuWidget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  setState(() {
-                    FFAppState().sortMenuBool = false;
-                  });
+                  FFAppState().sortMenuBool = false;
+                  setState(() {});
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -238,9 +232,8 @@ class _SortMenuWidgetState extends State<SortMenuWidget> {
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  setState(() {
-                    FFAppState().sortMenuBool = false;
-                  });
+                  FFAppState().sortMenuBool = false;
+                  setState(() {});
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.max,

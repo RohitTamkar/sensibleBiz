@@ -42,9 +42,8 @@ class _ExcelSheetpremisesWidgetState extends State<ExcelSheetpremisesWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        FFAppState().startLoop = 0;
-      });
+      FFAppState().startLoop = 0;
+      setState(() {});
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -128,12 +127,11 @@ class _ExcelSheetpremisesWidgetState extends State<ExcelSheetpremisesWidget> {
                               ),
                               FFButtonWidget(
                                 onPressed: () async {
-                                  setState(() {
-                                    FFAppState().startLoop = 0;
-                                    FFAppState().endLoop =
-                                        FFAppState().readProductlist.length;
-                                    FFAppState().loopExcelDouble = 0.0;
-                                  });
+                                  FFAppState().startLoop = 0;
+                                  FFAppState().endLoop =
+                                      FFAppState().readProductlist.length;
+                                  FFAppState().loopExcelDouble = 0.0;
+                                  setState(() {});
                                   var confirmDialogResponse =
                                       await showDialog<bool>(
                                             context: context,
@@ -407,14 +405,12 @@ class _ExcelSheetpremisesWidgetState extends State<ExcelSheetpremisesWidget> {
                                         id: _model.createdDocumentProduct
                                             ?.reference.id,
                                       ));
-                                      setState(() {
-                                        FFAppState().startLoop =
-                                            FFAppState().startLoop + 1;
-                                      });
-                                      setState(() {
-                                        FFAppState().loopExcelDouble =
-                                            FFAppState().loopExcelDouble + 1.0;
-                                      });
+                                      FFAppState().startLoop =
+                                          FFAppState().startLoop + 1;
+                                      setState(() {});
+                                      FFAppState().loopExcelDouble =
+                                          FFAppState().loopExcelDouble + 1.0;
+                                      setState(() {});
                                     }
                                     await showDialog(
                                       context: context,

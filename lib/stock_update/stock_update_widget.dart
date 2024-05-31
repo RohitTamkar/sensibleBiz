@@ -53,9 +53,8 @@ class _StockUpdateWidgetState extends State<StockUpdateWidget> {
       setState(() {
         _model.dropDownValueController?.reset();
       });
-      setState(() {
-        FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
-      });
+      FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
+      setState(() {});
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -114,9 +113,8 @@ class _StockUpdateWidgetState extends State<StockUpdateWidget> {
                             ),
                             onPressed: () async {
                               context.safePop();
-                              setState(() {
-                                FFAppState().productCart = [];
-                              });
+                              FFAppState().productCart = [];
+                              setState(() {});
                             },
                           ),
                           StreamBuilder<OutletRecord>(
@@ -233,10 +231,9 @@ class _StockUpdateWidgetState extends State<StockUpdateWidget> {
                             ),
                             onPressed: () async {
                               if (isWeb) {
-                                setState(() {
-                                  FFAppState().expDay = functions
-                                      .setExpiryTime(getCurrentTimestamp);
-                                });
+                                FFAppState().expDay = functions
+                                    .setExpiryTime(getCurrentTimestamp);
+                                setState(() {});
                               } else {
                                 return;
                               }
@@ -257,10 +254,9 @@ class _StockUpdateWidgetState extends State<StockUpdateWidget> {
                                   );
                                 });
                               }
-                              setState(() {
-                                FFAppState().selectedDate =
-                                    functions.getDayId(_model.datePicked!);
-                              });
+                              FFAppState().selectedDate =
+                                  functions.getDayId(_model.datePicked!);
+                              setState(() {});
                             },
                           ),
                         ],
@@ -355,11 +351,10 @@ class _StockUpdateWidgetState extends State<StockUpdateWidget> {
                                                           .toList(),
                                                       _model.dropDownNewValue!,
                                                     );
-                                                    setState(() {
-                                                      FFAppState()
-                                                          .addToProductCart(
-                                                              _model.resCopy!);
-                                                    });
+                                                    FFAppState()
+                                                        .addToProductCart(
+                                                            _model.resCopy!);
+                                                    setState(() {});
 
                                                     setState(() {});
                                                   },
@@ -952,13 +947,14 @@ class _StockUpdateWidgetState extends State<StockUpdateWidget> {
                                                                   FFAppState()
                                                                       .selBill,
                                                                 );
-                                                                setState(() {
-                                                                  FFAppState().productCart = _model
-                                                                      .res2Copy!
-                                                                      .toList()
-                                                                      .cast<
-                                                                          dynamic>();
-                                                                });
+                                                                FFAppState()
+                                                                        .productCart =
+                                                                    _model
+                                                                        .res2Copy!
+                                                                        .toList()
+                                                                        .cast<
+                                                                            dynamic>();
+                                                                setState(() {});
 
                                                                 setState(() {});
                                                               },
@@ -1046,13 +1042,13 @@ class _StockUpdateWidgetState extends State<StockUpdateWidget> {
                                                                     FFAppState()
                                                                         .selBill,
                                                                   );
-                                                                  setState(() {
-                                                                    FFAppState().productCart = _model
-                                                                        .res1Copy!
-                                                                        .toList()
-                                                                        .cast<
-                                                                            dynamic>();
-                                                                  });
+                                                                  FFAppState().productCart = _model
+                                                                      .res1Copy!
+                                                                      .toList()
+                                                                      .cast<
+                                                                          dynamic>();
+                                                                  setState(
+                                                                      () {});
 
                                                                   setState(
                                                                       () {});
@@ -1150,18 +1146,16 @@ class _StockUpdateWidgetState extends State<StockUpdateWidget> {
                                                       if (_model.issueDoc!
                                                               .length >
                                                           0) {
-                                                        setState(() {
-                                                          FFAppState().count =
-                                                              functions.reqCountNumber(
-                                                                  _model
-                                                                      .issueDoc!
-                                                                      .first);
-                                                        });
+                                                        FFAppState().count =
+                                                            functions
+                                                                .reqCountNumber(
+                                                                    _model
+                                                                        .issueDoc!
+                                                                        .first);
+                                                        setState(() {});
                                                       } else {
-                                                        setState(() {
-                                                          FFAppState().count =
-                                                              1;
-                                                        });
+                                                        FFAppState().count = 1;
+                                                        setState(() {});
                                                       }
 
                                                       _model.cartREsult =
@@ -1258,10 +1252,9 @@ class _StockUpdateWidgetState extends State<StockUpdateWidget> {
                                                           },
                                                         ),
                                                       });
-                                                      setState(() {
-                                                        FFAppState().loopStart =
-                                                            0;
-                                                      });
+                                                      FFAppState().loopStart =
+                                                          0;
+                                                      setState(() {});
                                                       while (FFAppState()
                                                               .loopStart <
                                                           FFAppState()
@@ -1284,18 +1277,15 @@ class _StockUpdateWidgetState extends State<StockUpdateWidget> {
                                                                 r'''$.totalStock''',
                                                               ),
                                                             ));
-                                                        setState(() {
-                                                          FFAppState()
-                                                                  .loopStart =
-                                                              FFAppState()
-                                                                      .loopStart +
-                                                                  1;
-                                                        });
+                                                        FFAppState().loopStart =
+                                                            FFAppState()
+                                                                    .loopStart +
+                                                                1;
+                                                        setState(() {});
                                                       }
-                                                      setState(() {
-                                                        FFAppState()
-                                                            .productCart = [];
-                                                      });
+                                                      FFAppState().productCart =
+                                                          [];
+                                                      setState(() {});
                                                       setState(() {
                                                         _model
                                                             .dropDownValueController

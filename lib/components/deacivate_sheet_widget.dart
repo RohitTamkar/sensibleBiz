@@ -160,9 +160,8 @@ class _DeacivateSheetWidgetState extends State<DeacivateSheetWidget> {
               children: [
                 FFButtonWidget(
                   onPressed: () async {
-                    setState(() {
-                      FFAppState().deactivate = false;
-                    });
+                    FFAppState().deactivate = false;
+                    setState(() {});
                     context.safePop();
                   },
                   text: 'Cancel',
@@ -191,9 +190,8 @@ class _DeacivateSheetWidgetState extends State<DeacivateSheetWidget> {
                 ),
                 FFButtonWidget(
                   onPressed: () async {
-                    setState(() {
-                      FFAppState().deactivate = true;
-                    });
+                    FFAppState().deactivate = true;
+                    setState(() {});
 
                     await UserDeletionRecord.collection
                         .doc()

@@ -42,10 +42,9 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        _model.birthday = widget.ref?.birthdayDate;
-        _model.anniversPs = widget.ref?.anniversaryDate;
-      });
+      _model.birthday = widget.ref?.birthdayDate;
+      _model.anniversPs = widget.ref?.anniversaryDate;
+      setState(() {});
     });
 
     _model.employeeNameTextController ??=
@@ -163,9 +162,8 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
                                           .validate()) {
                                     return;
                                   }
-                                  setState(() {
-                                    _model.wait = true;
-                                  });
+                                  _model.wait = true;
+                                  setState(() {});
 
                                   await widget.ref!.reference
                                       .update(createCustomerRecordData(
@@ -182,9 +180,8 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
                                     allowedCredit: _model.checkboxValue,
                                     gstNo: _model.gSTnumTextController.text,
                                   ));
-                                  setState(() {
-                                    _model.wait = false;
-                                  });
+                                  _model.wait = false;
+                                  setState(() {});
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {
@@ -735,11 +732,9 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
                                                 );
                                               });
                                             }
-                                            setState(() {
-                                              _model.birthday =
-                                                  functions.getDayId(
-                                                      _model.datePicked1!);
-                                            });
+                                            _model.birthday = functions
+                                                .getDayId(_model.datePicked1!);
+                                            setState(() {});
                                           },
                                           child: Container(
                                             width: double.infinity,
@@ -940,11 +935,10 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
                                                   );
                                                 });
                                               }
-                                              setState(() {
-                                                _model.anniversPs =
-                                                    functions.getDayId(
-                                                        _model.datePicked2!);
-                                              });
+                                              _model.anniversPs =
+                                                  functions.getDayId(
+                                                      _model.datePicked2!);
+                                              setState(() {});
                                             },
                                             child: Container(
                                               width: double.infinity,
@@ -1134,10 +1128,9 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
                                             );
                                           });
                                         }
-                                        setState(() {
-                                          _model.anniversPs = functions
-                                              .getDayId(_model.datePicked3!);
-                                        });
+                                        _model.anniversPs = functions
+                                            .getDayId(_model.datePicked3!);
+                                        setState(() {});
                                       },
                                       child: Container(
                                         width: double.infinity,

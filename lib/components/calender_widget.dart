@@ -106,10 +106,9 @@ class _CalenderWidgetState extends State<CalenderWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      FFAppState().update(() {
-                        FFAppState().selectedDate = functions
-                            .selectedDayId(_model.calendarSelectedDay!.start);
-                      });
+                      FFAppState().selectedDate = functions
+                          .selectedDayId(_model.calendarSelectedDay!.start);
+                      FFAppState().update(() {});
                       Navigator.pop(context);
                     },
                     child: Text(

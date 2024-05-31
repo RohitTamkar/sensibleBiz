@@ -53,20 +53,16 @@ class _CategoryWiseSaleReportWidgetState
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
-      });
-      setState(() {
-        FFAppState().isLoding = true;
-      });
+      FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
+      setState(() {});
+      FFAppState().isLoding = true;
+      setState(() {});
       if (widget.catTestList?.length != 0) {
-        setState(() {
-          FFAppState().isLoding = false;
-        });
+        FFAppState().isLoding = false;
+        setState(() {});
       } else {
-        setState(() {
-          FFAppState().isLoding = false;
-        });
+        FFAppState().isLoding = false;
+        setState(() {});
         await showDialog(
           context: context,
           builder: (alertDialogContext) {
@@ -202,10 +198,9 @@ class _CategoryWiseSaleReportWidgetState
                                 ),
                                 onPressed: () async {
                                   if (isWeb) {
-                                    setState(() {
-                                      FFAppState().expDay = functions
-                                          .setExpiryTime(getCurrentTimestamp);
-                                    });
+                                    FFAppState().expDay = functions
+                                        .setExpiryTime(getCurrentTimestamp);
+                                    setState(() {});
                                   }
                                   final _datePickedDate = await showDatePicker(
                                     context: context,
@@ -223,16 +218,14 @@ class _CategoryWiseSaleReportWidgetState
                                       );
                                     });
                                   }
-                                  setState(() {
-                                    FFAppState().finalCategoryReport = [];
-                                    FFAppState().productCart = [];
-                                    FFAppState().categoryCart = [];
-                                  });
-                                  setState(() {
-                                    FFAppState().selectedDate =
-                                        functions.getDayId(_model.datePicked!);
-                                    FFAppState().isLoding = true;
-                                  });
+                                  FFAppState().finalCategoryReport = [];
+                                  FFAppState().productCart = [];
+                                  FFAppState().categoryCart = [];
+                                  setState(() {});
+                                  FFAppState().selectedDate =
+                                      functions.getDayId(_model.datePicked!);
+                                  FFAppState().isLoding = true;
+                                  setState(() {});
                                   _model.shiftdetails2 =
                                       await actions.getShiftDetails(
                                     FFAppState().outletId,
@@ -242,9 +235,8 @@ class _CategoryWiseSaleReportWidgetState
                                       await actions.getProductSale(
                                     _model.shiftdetails2!.toList(),
                                   );
-                                  setState(() {
-                                    FFAppState().iLoopStart = 0;
-                                  });
+                                  FFAppState().iLoopStart = 0;
+                                  setState(() {});
                                   while (FFAppState().iLoopStart <
                                       _model.prdJson2!.length) {
                                     _model.productDetail1 =
@@ -270,21 +262,19 @@ class _CategoryWiseSaleReportWidgetState
                                         r'''$.qty''',
                                       ),
                                     );
-                                    setState(() {
-                                      FFAppState().iLoopStart =
-                                          FFAppState().iLoopStart + 1;
-                                      FFAppState().addToProductCart(
-                                          _model.productJson2!);
-                                    });
+                                    FFAppState().iLoopStart =
+                                        FFAppState().iLoopStart + 1;
+                                    FFAppState()
+                                        .addToProductCart(_model.productJson2!);
+                                    setState(() {});
                                   }
                                   _model.catJson2 =
                                       await actions.getCatEiseSale(
                                     FFAppState().productCart.toList(),
                                     FFAppState().outletId,
                                   );
-                                  setState(() {
-                                    FFAppState().jLoopStart = 0;
-                                  });
+                                  FFAppState().jLoopStart = 0;
+                                  setState(() {});
                                   while (FFAppState().jLoopStart <
                                       _model.catJson2!.length) {
                                     _model.catDetails1 =
@@ -301,25 +291,23 @@ class _CategoryWiseSaleReportWidgetState
                                               FFAppState().jLoopStart])
                                           .toString(),
                                     );
-                                    setState(() {
-                                      FFAppState().jLoopStart =
-                                          FFAppState().jLoopStart + 1;
-                                      FFAppState().addToCategoryCart(
-                                          _model.categoryJson2!);
-                                    });
+                                    FFAppState().jLoopStart =
+                                        FFAppState().jLoopStart + 1;
+                                    FFAppState().addToCategoryCart(
+                                        _model.categoryJson2!);
+                                    setState(() {});
                                   }
                                   _model.finalList2 = await actions.getReport(
                                     FFAppState().productCart.toList(),
                                     FFAppState().categoryCart.toList(),
                                     'category',
                                   );
-                                  setState(() {
-                                    FFAppState().isLoding = false;
-                                    FFAppState().finalCategoryReport = _model
-                                        .finalList2!
-                                        .toList()
-                                        .cast<dynamic>();
-                                  });
+                                  FFAppState().isLoding = false;
+                                  FFAppState().finalCategoryReport = _model
+                                      .finalList2!
+                                      .toList()
+                                      .cast<dynamic>();
+                                  setState(() {});
 
                                   setState(() {});
                                 },

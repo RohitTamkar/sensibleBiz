@@ -46,12 +46,10 @@ class _StockWeightCombinePageWidgetState
       _model.json = await actions.docsToJson(
         _model.products!.toList(),
       );
-      setState(() {
-        FFAppState().prdJsonList = _model.json!.toList().cast<dynamic>();
-      });
-      setState(() {
-        _model.waitLoader = false;
-      });
+      FFAppState().prdJsonList = _model.json!.toList().cast<dynamic>();
+      setState(() {});
+      _model.waitLoader = false;
+      setState(() {});
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -118,9 +116,8 @@ class _StockWeightCombinePageWidgetState
                                   size: 30.0,
                                 ),
                                 onPressed: () async {
-                                  setState(() {
-                                    FFAppState().prdJsonList = [];
-                                  });
+                                  FFAppState().prdJsonList = [];
+                                  setState(() {});
                                   context.safePop();
                                 },
                               ),
@@ -308,12 +305,11 @@ class _StockWeightCombinePageWidgetState
                                             true,
                                             FFAppState().prdJsonList.toList(),
                                           );
-                                          setState(() {
-                                            FFAppState().prdJsonList = _model
-                                                .result!
-                                                .toList()
-                                                .cast<dynamic>();
-                                          });
+                                          FFAppState().prdJsonList = _model
+                                              .result!
+                                              .toList()
+                                              .cast<dynamic>();
+                                          setState(() {});
 
                                           setState(() {});
                                         } else {
@@ -324,12 +320,11 @@ class _StockWeightCombinePageWidgetState
                                             false,
                                             FFAppState().prdJsonList.toList(),
                                           );
-                                          setState(() {
-                                            FFAppState().prdJsonList = _model
-                                                .resultcopy!
-                                                .toList()
-                                                .cast<dynamic>();
-                                          });
+                                          FFAppState().prdJsonList = _model
+                                              .resultcopy!
+                                              .toList()
+                                              .cast<dynamic>();
+                                          setState(() {});
 
                                           setState(() {});
                                         }
@@ -375,12 +370,11 @@ class _StockWeightCombinePageWidgetState
                                             true,
                                             FFAppState().prdJsonList.toList(),
                                           );
-                                          setState(() {
-                                            FFAppState().prdJsonList = _model
-                                                .result1!
-                                                .toList()
-                                                .cast<dynamic>();
-                                          });
+                                          FFAppState().prdJsonList = _model
+                                              .result1!
+                                              .toList()
+                                              .cast<dynamic>();
+                                          setState(() {});
 
                                           setState(() {});
                                         } else {
@@ -391,12 +385,11 @@ class _StockWeightCombinePageWidgetState
                                             false,
                                             FFAppState().prdJsonList.toList(),
                                           );
-                                          setState(() {
-                                            FFAppState().prdJsonList = _model
-                                                .result1Copy!
-                                                .toList()
-                                                .cast<dynamic>();
-                                          });
+                                          FFAppState().prdJsonList = _model
+                                              .result1Copy!
+                                              .toList()
+                                              .cast<dynamic>();
+                                          setState(() {});
 
                                           setState(() {});
                                         }
@@ -524,15 +517,14 @@ class _StockWeightCombinePageWidgetState
                                                             'stock',
                                                           );
                                                           FFAppState()
-                                                              .update(() {
-                                                            FFAppState()
-                                                                    .prdJsonList =
-                                                                _model
-                                                                    .checkBoxClick!
-                                                                    .toList()
-                                                                    .cast<
-                                                                        dynamic>();
-                                                          });
+                                                                  .prdJsonList =
+                                                              _model
+                                                                  .checkBoxClick!
+                                                                  .toList()
+                                                                  .cast<
+                                                                      dynamic>();
+                                                          FFAppState()
+                                                              .update(() {});
 
                                                           setState(() {});
                                                         } else {
@@ -547,15 +539,14 @@ class _StockWeightCombinePageWidgetState
                                                             'stock',
                                                           );
                                                           FFAppState()
-                                                              .update(() {
-                                                            FFAppState()
-                                                                    .prdJsonList =
-                                                                _model
-                                                                    .checkBoxClickCopy!
-                                                                    .toList()
-                                                                    .cast<
-                                                                        dynamic>();
-                                                          });
+                                                                  .prdJsonList =
+                                                              _model
+                                                                  .checkBoxClickCopy!
+                                                                  .toList()
+                                                                  .cast<
+                                                                      dynamic>();
+                                                          FFAppState()
+                                                              .update(() {});
 
                                                           setState(() {});
                                                         }
@@ -628,15 +619,14 @@ class _StockWeightCombinePageWidgetState
                                                             'weight',
                                                           );
                                                           FFAppState()
-                                                              .update(() {
-                                                            FFAppState()
-                                                                    .prdJsonList =
-                                                                _model
-                                                                    .checkBoxClickCopy2!
-                                                                    .toList()
-                                                                    .cast<
-                                                                        dynamic>();
-                                                          });
+                                                                  .prdJsonList =
+                                                              _model
+                                                                  .checkBoxClickCopy2!
+                                                                  .toList()
+                                                                  .cast<
+                                                                      dynamic>();
+                                                          FFAppState()
+                                                              .update(() {});
 
                                                           setState(() {});
                                                         } else {
@@ -651,15 +641,14 @@ class _StockWeightCombinePageWidgetState
                                                             'weight',
                                                           );
                                                           FFAppState()
-                                                              .update(() {
-                                                            FFAppState()
-                                                                    .prdJsonList =
-                                                                _model
-                                                                    .checkBoxClick1!
-                                                                    .toList()
-                                                                    .cast<
-                                                                        dynamic>();
-                                                          });
+                                                                  .prdJsonList =
+                                                              _model
+                                                                  .checkBoxClick1!
+                                                                  .toList()
+                                                                  .cast<
+                                                                      dynamic>();
+                                                          FFAppState()
+                                                              .update(() {});
 
                                                           setState(() {});
                                                         }
@@ -743,12 +732,10 @@ class _StockWeightCombinePageWidgetState
                               Flexible(
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    setState(() {
-                                      _model.waitLoader = true;
-                                    });
-                                    setState(() {
-                                      _model.startLoop = 0;
-                                    });
+                                    _model.waitLoader = true;
+                                    setState(() {});
+                                    _model.startLoop = 0;
+                                    setState(() {});
                                     while (_model.startLoop! <
                                         FFAppState().prdJsonList.length) {
                                       await functions
@@ -771,14 +758,11 @@ class _StockWeightCombinePageWidgetState
                                               r'''$.weightable''',
                                             ),
                                           ));
-                                      setState(() {
-                                        _model.startLoop =
-                                            _model.startLoop! + 1;
-                                      });
+                                      _model.startLoop = _model.startLoop! + 1;
+                                      setState(() {});
                                     }
-                                    setState(() {
-                                      _model.waitLoader = false;
-                                    });
+                                    _model.waitLoader = false;
+                                    setState(() {});
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {

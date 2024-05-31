@@ -50,9 +50,8 @@ class _SaveExcelSheetWidgetState extends State<SaveExcelSheetWidget> {
       _model.fetchedPrd = await queryProductRecordOnce(
         parent: FFAppState().outletRef,
       );
-      setState(() {
-        FFAppState().startLoop = 0;
-      });
+      FFAppState().startLoop = 0;
+      setState(() {});
       while (FFAppState().startLoop < _model.fetchedPrd!.length) {
         await actions.generateExcel(
           FFAppState().outletName,
@@ -174,10 +173,9 @@ class _SaveExcelSheetWidgetState extends State<SaveExcelSheetWidget> {
                             ),
                             onPressed: () async {
                               if (isWeb) {
-                                setState(() {
-                                  FFAppState().expDay = functions
-                                      .setExpiryTime(getCurrentTimestamp);
-                                });
+                                FFAppState().expDay = functions
+                                    .setExpiryTime(getCurrentTimestamp);
+                                setState(() {});
                               } else {
                                 context.safePop();
                                 return;
@@ -378,9 +376,8 @@ class _SaveExcelSheetWidgetState extends State<SaveExcelSheetWidget> {
                                           );
                                         },
                                       );
-                                      setState(() {
-                                        FFAppState().emailId = '';
-                                      });
+                                      FFAppState().emailId = '';
+                                      setState(() {});
                                       context.safePop();
                                     } else {
                                       await showDialog(

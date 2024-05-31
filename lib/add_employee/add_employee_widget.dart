@@ -43,9 +43,8 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
       _model.count = await queryEmployeeRecordOnce(
         parent: FFAppState().outletRef,
       );
-      setState(() {
-        _model.countPS = functions.getCatCount(_model.count!.length);
-      });
+      _model.countPS = functions.getCatCount(_model.count!.length);
+      setState(() {});
     });
 
     _model.employeeNameTextController ??= TextEditingController();
@@ -163,9 +162,8 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
                                             .validate()) {
                                       return;
                                     }
-                                    setState(() {
-                                      _model.wait = true;
-                                    });
+                                    _model.wait = true;
+                                    setState(() {});
 
                                     var employeeRecordReference =
                                         EmployeeRecord.createDoc(
@@ -214,9 +212,8 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
                                         .update(createEmployeeRecordData(
                                       id: _model.created?.reference.id,
                                     ));
-                                    setState(() {
-                                      _model.wait = false;
-                                    });
+                                    _model.wait = false;
+                                    setState(() {});
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {

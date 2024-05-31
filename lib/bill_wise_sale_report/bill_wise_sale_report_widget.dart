@@ -41,9 +41,8 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
-      });
+      FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
+      setState(() {});
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -102,7 +101,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                   size: 30.0,
                                 ),
                                 onPressed: () async {
-                                  context.pop();
+                                  context.safePop();
                                 },
                               ),
                               Text(

@@ -122,9 +122,8 @@ class _TransferDataCompoWidgetState extends State<TransferDataCompoWidget> {
                   alignment: AlignmentDirectional(0.0, 1.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      setState(() {
-                        FFAppState().falg2 = false;
-                      });
+                      FFAppState().falg2 = false;
+                      setState(() {});
                       Navigator.pop(context);
                     },
                     text: 'Cancle',
@@ -158,9 +157,8 @@ class _TransferDataCompoWidgetState extends State<TransferDataCompoWidget> {
                   alignment: AlignmentDirectional(0.0, 1.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      setState(() {
-                        FFAppState().falg2 = true;
-                      });
+                      FFAppState().falg2 = true;
+                      setState(() {});
                       Navigator.pop(context);
                     },
                     text: 'Update',

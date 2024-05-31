@@ -40,12 +40,10 @@ class _DiscountWidgetState extends State<DiscountWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        FFAppState().prdJsonList = [];
-      });
-      setState(() {
-        FFAppState().taxIndexSTate = 0;
-      });
+      FFAppState().prdJsonList = [];
+      setState(() {});
+      FFAppState().taxIndexSTate = 0;
+      setState(() {});
       _model.products = await queryProductRecordOnce(
         parent: FFAppState().outletRef,
         queryBuilder: (productRecord) => productRecord.orderBy('code'),
@@ -53,13 +51,11 @@ class _DiscountWidgetState extends State<DiscountWidget> {
       _model.json = await actions.updateDiscountToJson(
         _model.products!.toList(),
       );
-      setState(() {
-        FFAppState().prdJsonList = _model.json!.toList().cast<dynamic>();
-      });
-      setState(() {
-        _model.all = true;
-        _model.updateStatus = false;
-      });
+      FFAppState().prdJsonList = _model.json!.toList().cast<dynamic>();
+      setState(() {});
+      _model.all = true;
+      _model.updateStatus = false;
+      setState(() {});
     });
 
     _model.textController ??= TextEditingController();
@@ -123,9 +119,8 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                   size: 30.0,
                                 ),
                                 onPressed: () async {
-                                  setState(() {
-                                    FFAppState().showMenuProduct = false;
-                                  });
+                                  FFAppState().showMenuProduct = false;
+                                  setState(() {});
                                   if (_model.updateStatus == false) {
                                     context.safePop();
                                   } else {
@@ -238,14 +233,12 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                             0.0, 0.0, 10.0, 0.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            setState(() {
-                                              _model.selectedId = '';
-                                              _model.selectAllBoolean = false;
-                                              _model.all = true;
-                                            });
-                                            setState(() {
-                                              FFAppState().prdJsonList = [];
-                                            });
+                                            _model.selectedId = '';
+                                            _model.selectAllBoolean = false;
+                                            _model.all = true;
+                                            setState(() {});
+                                            FFAppState().prdJsonList = [];
+                                            setState(() {});
                                             _model.products2 =
                                                 await queryProductRecordOnce(
                                               parent: FFAppState().outletRef,
@@ -256,12 +249,11 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                 .updateDiscountToJson(
                                               _model.products2!.toList(),
                                             );
-                                            setState(() {
-                                              FFAppState().prdJsonList = _model
-                                                  .json2!
-                                                  .toList()
-                                                  .cast<dynamic>();
-                                            });
+                                            FFAppState().prdJsonList = _model
+                                                .json2!
+                                                .toList()
+                                                .cast<dynamic>();
+                                            setState(() {});
 
                                             setState(() {});
                                           },
@@ -368,19 +360,17 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                       highlightColor:
                                                           Colors.transparent,
                                                       onTap: () async {
-                                                        setState(() {
-                                                          FFAppState()
-                                                              .prdJsonList = [];
-                                                        });
-                                                        setState(() {
-                                                          _model.all = false;
-                                                          _model.selectedId = functions
-                                                              .getReferenceCategory(
-                                                                  FFAppState()
-                                                                      .outletRef!,
-                                                                  listViewCategoryRecord
-                                                                      .reference);
-                                                        });
+                                                        FFAppState()
+                                                            .prdJsonList = [];
+                                                        setState(() {});
+                                                        _model.all = false;
+                                                        _model.selectedId = functions
+                                                            .getReferenceCategory(
+                                                                FFAppState()
+                                                                    .outletRef!,
+                                                                listViewCategoryRecord
+                                                                    .reference);
+                                                        setState(() {});
                                                         _model.products1 =
                                                             await queryProductRecordOnce(
                                                           parent: FFAppState()
@@ -400,14 +390,13 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                           _model.products1!
                                                               .toList(),
                                                         );
-                                                        setState(() {
-                                                          FFAppState()
-                                                                  .prdJsonList =
-                                                              _model.jsonbyCat!
-                                                                  .toList()
-                                                                  .cast<
-                                                                      dynamic>();
-                                                        });
+                                                        FFAppState()
+                                                                .prdJsonList =
+                                                            _model.jsonbyCat!
+                                                                .toList()
+                                                                .cast<
+                                                                    dynamic>();
+                                                        setState(() {});
 
                                                         setState(() {});
                                                       },
@@ -492,10 +481,9 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                       '_model.textController',
                                       Duration(milliseconds: 2000),
                                       () async {
-                                        setState(() {
-                                          _model.discValue = int.parse(
-                                              _model.textController.text);
-                                        });
+                                        _model.discValue = int.parse(
+                                            _model.textController.text);
+                                        setState(() {});
                                       },
                                     ),
                                     autofocus: true,
@@ -794,11 +782,10 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                               null &&
                                                                           _model.textController.text !=
                                                                               '') {
+                                                                        _model.updateStatus =
+                                                                            true;
                                                                         setState(
-                                                                            () {
-                                                                          _model.updateStatus =
-                                                                              true;
-                                                                        });
+                                                                            () {});
                                                                         _model.result =
                                                                             await actions.updateAddDiscountAction(
                                                                           'ALL',
@@ -810,13 +797,12 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                               .textController
                                                                               .text),
                                                                         );
+                                                                        FFAppState().prdJsonList = _model
+                                                                            .result!
+                                                                            .toList()
+                                                                            .cast<dynamic>();
                                                                         setState(
-                                                                            () {
-                                                                          FFAppState().prdJsonList = _model
-                                                                              .result!
-                                                                              .toList()
-                                                                              .cast<dynamic>();
-                                                                        });
+                                                                            () {});
                                                                       } else {
                                                                         await showDialog(
                                                                           context:
@@ -846,11 +832,10 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                               null &&
                                                                           _model.textController.text !=
                                                                               '') {
+                                                                        _model.updateStatus =
+                                                                            true;
                                                                         setState(
-                                                                            () {
-                                                                          _model.updateStatus =
-                                                                              true;
-                                                                        });
+                                                                            () {});
                                                                         _model.result2 =
                                                                             await actions.updateAddDiscountAction(
                                                                           'NONE',
@@ -862,13 +847,12 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                               .textController
                                                                               .text),
                                                                         );
+                                                                        FFAppState().prdJsonList = _model
+                                                                            .result2!
+                                                                            .toList()
+                                                                            .cast<dynamic>();
                                                                         setState(
-                                                                            () {
-                                                                          FFAppState().prdJsonList = _model
-                                                                              .result2!
-                                                                              .toList()
-                                                                              .cast<dynamic>();
-                                                                        });
+                                                                            () {});
                                                                       } else {
                                                                         await showDialog(
                                                                           context:
@@ -1099,18 +1083,16 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                                   setState(() => _model.checkboxValueMap[taxProdList1Item] = newValue!);
                                                                                   if (newValue!) {
                                                                                     if (_model.textController.text != null && _model.textController.text != '') {
-                                                                                      setState(() {
-                                                                                        _model.updateStatus = true;
-                                                                                      });
+                                                                                      _model.updateStatus = true;
+                                                                                      setState(() {});
                                                                                       _model.result1 = await actions.selectCheckboxDiscountSIngle(
                                                                                         true,
                                                                                         FFAppState().prdJsonList.toList(),
                                                                                         int.parse(_model.textController.text),
                                                                                         taxProdList1Item,
                                                                                       );
-                                                                                      setState(() {
-                                                                                        FFAppState().prdJsonList = _model.result1!.toList().cast<dynamic>();
-                                                                                      });
+                                                                                      FFAppState().prdJsonList = _model.result1!.toList().cast<dynamic>();
+                                                                                      setState(() {});
                                                                                     } else {
                                                                                       await showDialog(
                                                                                         context: context,
@@ -1132,18 +1114,16 @@ class _DiscountWidgetState extends State<DiscountWidget> {
 
                                                                                     setState(() {});
                                                                                   } else {
-                                                                                    setState(() {
-                                                                                      _model.updateStatus = true;
-                                                                                    });
+                                                                                    _model.updateStatus = true;
+                                                                                    setState(() {});
                                                                                     _model.result3 = await actions.selectCheckboxDiscountSIngle(
                                                                                       false,
                                                                                       FFAppState().prdJsonList.toList(),
                                                                                       _model.discValue,
                                                                                       taxProdList1Item,
                                                                                     );
-                                                                                    setState(() {
-                                                                                      FFAppState().prdJsonList = _model.result3!.toList().cast<dynamic>();
-                                                                                    });
+                                                                                    FFAppState().prdJsonList = _model.result3!.toList().cast<dynamic>();
+                                                                                    setState(() {});
 
                                                                                     setState(() {});
                                                                                   }
@@ -1192,10 +1172,9 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                   Expanded(
                                                     child: FFButtonWidget(
                                                       onPressed: () async {
-                                                        setState(() {
-                                                          FFAppState()
-                                                              .productListSTockableUpdate = [];
-                                                        });
+                                                        FFAppState()
+                                                            .productListSTockableUpdate = [];
+                                                        setState(() {});
                                                         context.safePop();
                                                       },
                                                       text: 'Cancel',
@@ -1259,12 +1238,10 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                       onPressed: () async {
                                                         if (_model.discValue !=
                                                             null) {
-                                                          setState(() {
-                                                            _model.startLoop =
-                                                                0;
-                                                            _model.waitUpload =
-                                                                true;
-                                                          });
+                                                          _model.startLoop = 0;
+                                                          _model.waitUpload =
+                                                              true;
+                                                          setState(() {});
                                                           while (_model
                                                                   .startLoop! <
                                                               FFAppState()
@@ -1287,22 +1264,19 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                     r'''$.discount''',
                                                                   ),
                                                                 ));
-                                                            setState(() {
-                                                              _model.startLoop =
-                                                                  _model.startLoop! +
-                                                                      1;
-                                                            });
+                                                            _model.startLoop =
+                                                                _model.startLoop! +
+                                                                    1;
+                                                            setState(() {});
                                                           }
-                                                          setState(() {
-                                                            _model.updateStatus =
-                                                                false;
-                                                            _model.waitUpload =
-                                                                false;
-                                                          });
-                                                          setState(() {
-                                                            _model.waitUpload =
-                                                                false;
-                                                          });
+                                                          _model.updateStatus =
+                                                              false;
+                                                          _model.waitUpload =
+                                                              false;
+                                                          setState(() {});
+                                                          _model.waitUpload =
+                                                              false;
+                                                          setState(() {});
                                                           await showDialog(
                                                             context: context,
                                                             builder:
@@ -1351,10 +1325,9 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                               );
                                                             },
                                                           );
-                                                          setState(() {
-                                                            _model.updateStatus =
-                                                                false;
-                                                          });
+                                                          _model.updateStatus =
+                                                              false;
+                                                          setState(() {});
 
                                                           context.pushNamed(
                                                               'Discount');

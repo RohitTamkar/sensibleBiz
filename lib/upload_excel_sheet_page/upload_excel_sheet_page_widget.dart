@@ -179,10 +179,9 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                             ),
                             onPressed: () async {
                               if (isWeb) {
-                                setState(() {
-                                  FFAppState().expDay = functions
-                                      .setExpiryTime(getCurrentTimestamp);
-                                });
+                                FFAppState().expDay = functions
+                                    .setExpiryTime(getCurrentTimestamp);
+                                setState(() {});
                               } else {
                                 context.safePop();
                                 return;
@@ -268,25 +267,22 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                             alignment: AlignmentDirectional(0.0, 0.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                setState(() {
-                                  FFAppState().iterator = 0;
-                                  FFAppState().countExcel = 0;
-                                });
+                                FFAppState().iterator = 0;
+                                FFAppState().countExcel = 0;
+                                setState(() {});
                                 _model.readexceldataCopy =
                                     await actions.readFromCsv(
                                   context,
                                   ',',
                                 );
-                                setState(() {
-                                  FFAppState().readProductlist = _model
-                                      .readexceldataCopy!
-                                      .toList()
-                                      .cast<ProductMasterListStruct>();
-                                });
-                                setState(() {
-                                  FFAppState().countExcel =
-                                      FFAppState().readProductlist.length;
-                                });
+                                FFAppState().readProductlist = _model
+                                    .readexceldataCopy!
+                                    .toList()
+                                    .cast<ProductMasterListStruct>();
+                                setState(() {});
+                                FFAppState().countExcel =
+                                    FFAppState().readProductlist.length;
+                                setState(() {});
 
                                 context.pushNamed('ExcelSheet');
 
@@ -359,9 +355,8 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onLongPress: () async {
-                                  setState(() {
-                                    FFAppState().flag = true;
-                                  });
+                                  FFAppState().flag = true;
+                                  setState(() {});
                                 },
                                 child: FFButtonWidget(
                                   onPressed: () async {
@@ -370,26 +365,22 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                                       context,
                                       ',',
                                     );
-                                    setState(() {
-                                      FFAppState().readProductlist = _model
-                                          .readexceldata!
-                                          .toList()
-                                          .cast<ProductMasterListStruct>();
-                                    });
-                                    setState(() {
-                                      FFAppState().iterator = 0;
-                                      FFAppState().countExcel = 0;
-                                    });
-                                    setState(() {
-                                      FFAppState().readProductlist = _model
-                                          .readexceldata!
-                                          .toList()
-                                          .cast<ProductMasterListStruct>();
-                                    });
-                                    setState(() {
-                                      FFAppState().countExcel =
-                                          FFAppState().readProductlist.length;
-                                    });
+                                    FFAppState().readProductlist = _model
+                                        .readexceldata!
+                                        .toList()
+                                        .cast<ProductMasterListStruct>();
+                                    setState(() {});
+                                    FFAppState().iterator = 0;
+                                    FFAppState().countExcel = 0;
+                                    setState(() {});
+                                    FFAppState().readProductlist = _model
+                                        .readexceldata!
+                                        .toList()
+                                        .cast<ProductMasterListStruct>();
+                                    setState(() {});
+                                    FFAppState().countExcel =
+                                        FFAppState().readProductlist.length;
+                                    setState(() {});
 
                                     context.pushNamed('ExcelSheet');
 
@@ -484,26 +475,22 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                                         ',',
                                         _model.premises?.toList(),
                                       );
-                                      setState(() {
-                                        FFAppState().readProductlist = _model
-                                            .readexceldata22!
-                                            .toList()
-                                            .cast<ProductMasterListStruct>();
-                                      });
-                                      setState(() {
-                                        FFAppState().iterator = 0;
-                                        FFAppState().countExcel = 0;
-                                      });
-                                      setState(() {
-                                        FFAppState().readProductlist = _model
-                                            .readexceldata22!
-                                            .toList()
-                                            .cast<ProductMasterListStruct>();
-                                      });
-                                      setState(() {
-                                        FFAppState().countExcel =
-                                            FFAppState().readProductlist.length;
-                                      });
+                                      FFAppState().readProductlist = _model
+                                          .readexceldata22!
+                                          .toList()
+                                          .cast<ProductMasterListStruct>();
+                                      setState(() {});
+                                      FFAppState().iterator = 0;
+                                      FFAppState().countExcel = 0;
+                                      setState(() {});
+                                      FFAppState().readProductlist = _model
+                                          .readexceldata22!
+                                          .toList()
+                                          .cast<ProductMasterListStruct>();
+                                      setState(() {});
+                                      FFAppState().countExcel =
+                                          FFAppState().readProductlist.length;
+                                      setState(() {});
 
                                       context.pushNamed('ExcelSheetpremises');
 

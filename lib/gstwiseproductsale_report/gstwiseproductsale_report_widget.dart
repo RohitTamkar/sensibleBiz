@@ -62,27 +62,22 @@ class _GstwiseproductsaleReportWidgetState
         ),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
-      setState(() {
-        FFAppState().productSaleJson = widget.json!;
-      });
-      setState(() {
-        FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
-      });
-      setState(() {
-        FFAppState().isLoding = true;
-      });
+      FFAppState().productSaleJson = widget.json!;
+      setState(() {});
+      FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
+      setState(() {});
+      FFAppState().isLoding = true;
+      setState(() {});
       if (getJsonField(
             widget.json,
             r'''$[:].details[:].products[:]''',
           ) !=
           null) {
-        setState(() {
-          FFAppState().isLoding = false;
-        });
+        FFAppState().isLoding = false;
+        setState(() {});
       } else {
-        setState(() {
-          FFAppState().isLoding = true;
-        });
+        FFAppState().isLoding = true;
+        setState(() {});
         await showDialog(
           context: context,
           builder: (alertDialogContext) {
@@ -403,11 +398,9 @@ class _GstwiseproductsaleReportWidgetState
                                     onPressed: () async {
                                       var _shouldSetState = false;
                                       if (isWeb) {
-                                        setState(() {
-                                          FFAppState().expDay =
-                                              functions.setExpiryTime(
-                                                  getCurrentTimestamp);
-                                        });
+                                        FFAppState().expDay = functions
+                                            .setExpiryTime(getCurrentTimestamp);
+                                        setState(() {});
                                       }
                                       final _datePickedDate =
                                           await showDatePicker(
@@ -426,11 +419,10 @@ class _GstwiseproductsaleReportWidgetState
                                           );
                                         });
                                       }
-                                      setState(() {
-                                        FFAppState().selectedDate = functions
-                                            .getDayId(_model.datePicked!);
-                                        FFAppState().isLoding = true;
-                                      });
+                                      FFAppState().selectedDate = functions
+                                          .getDayId(_model.datePicked!);
+                                      FFAppState().isLoding = true;
+                                      setState(() {});
                                       _model.customdatewisegst =
                                           await DayWiseSaleCall.call(
                                         outletId:
@@ -438,23 +430,20 @@ class _GstwiseproductsaleReportWidgetState
                                         dayId: FFAppState().selectedDate,
                                       );
                                       _shouldSetState = true;
-                                      setState(() {
-                                        FFAppState().productSaleJson = (_model
-                                                .customdatewisegst?.jsonBody ??
-                                            '');
-                                      });
+                                      FFAppState().productSaleJson =
+                                          (_model.customdatewisegst?.jsonBody ??
+                                              '');
+                                      setState(() {});
                                       if (getJsonField(
                                             FFAppState().productSaleJson,
                                             r'''$[:].details[:].products[:]''',
                                           ) !=
                                           null) {
-                                        setState(() {
-                                          FFAppState().isLoding = false;
-                                        });
+                                        FFAppState().isLoding = false;
+                                        setState(() {});
                                       } else {
-                                        setState(() {
-                                          FFAppState().isLoding = true;
-                                        });
+                                        FFAppState().isLoding = true;
+                                        setState(() {});
                                         await showDialog(
                                           context: context,
                                           builder: (alertDialogContext) {

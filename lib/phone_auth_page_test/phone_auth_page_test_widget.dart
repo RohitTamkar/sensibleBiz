@@ -362,10 +362,9 @@ class _PhoneAuthPageTestWidgetState extends State<PhoneAuthPageTestWidget> {
                                 children: [
                                   FFButtonWidget(
                                     onPressed: () async {
-                                      setState(() {
-                                        FFAppState().currentMobile =
-                                            '+91${_model.textFieldNumberTextController.text}';
-                                      });
+                                      FFAppState().currentMobile =
+                                          '+91${_model.textFieldNumberTextController.text}';
+                                      setState(() {});
                                       final phoneNumberVal =
                                           '+91${_model.textFieldNumberTextController.text}';
                                       if (phoneNumberVal == null ||

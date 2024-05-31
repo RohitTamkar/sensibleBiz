@@ -47,12 +47,11 @@ class _PremisesWidgetState extends State<PremisesWidget> {
       _model.fetchedPrem = await queryPremisesRecordOnce(
         parent: FFAppState().outletRef,
       );
-      setState(() {
-        _model.localPrewmises = _model.fetchedPrem!
-            .sortedList((e) => e.code)
-            .toList()
-            .cast<PremisesRecord>();
-      });
+      _model.localPrewmises = _model.fetchedPrem!
+          .sortedList((e) => e.code)
+          .toList()
+          .cast<PremisesRecord>();
+      setState(() {});
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -84,9 +83,8 @@ class _PremisesWidgetState extends State<PremisesWidget> {
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
               onTap: () async {
-                setState(() {
-                  _model.deleteAllb = false;
-                });
+                _model.deleteAllb = false;
+                setState(() {});
               },
               child: Container(
                 decoration: BoxDecoration(),
@@ -203,9 +201,8 @@ class _PremisesWidgetState extends State<PremisesWidget> {
                                           size: 28.0,
                                         ),
                                         onPressed: () async {
-                                          setState(() {
-                                            _model.deleteAllb = true;
-                                          });
+                                          _model.deleteAllb = true;
+                                          setState(() {});
                                         },
                                       ),
                                   ],
@@ -606,24 +603,20 @@ class _PremisesWidgetState extends State<PremisesWidget> {
                         ) ??
                         false;
                     if (confirmDialogResponse) {
-                      setState(() {
-                        _model.deleteAllb = false;
-                      });
-                      setState(() {
-                        FFAppState().startLoop = 0;
-                      });
+                      _model.deleteAllb = false;
+                      setState(() {});
+                      FFAppState().startLoop = 0;
+                      setState(() {});
                       while (
                           FFAppState().startLoop < _model.fetchedPrem!.length) {
                         await _model
                             .fetchedPrem![FFAppState().startLoop].reference
                             .delete();
-                        setState(() {
-                          _model.removeAtIndexFromLocalPrewmises(
-                              FFAppState().startLoop);
-                        });
-                        setState(() {
-                          FFAppState().startLoop = FFAppState().startLoop + 1;
-                        });
+                        _model.removeAtIndexFromLocalPrewmises(
+                            FFAppState().startLoop);
+                        setState(() {});
+                        FFAppState().startLoop = FFAppState().startLoop + 1;
+                        setState(() {});
                       }
                       await showDialog(
                         context: context,

@@ -71,9 +71,8 @@ class _EmailInputWidgetState extends State<EmailInputWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        setState(() {
-                          FFAppState().flag = false;
-                        });
+                        FFAppState().flag = false;
+                        setState(() {});
                         Navigator.pop(context);
                       },
                       child: Icon(
@@ -170,12 +169,10 @@ class _EmailInputWidgetState extends State<EmailInputWidget> {
                       !_model.formKey.currentState!.validate()) {
                     return;
                   }
-                  setState(() {
-                    FFAppState().flag = true;
-                  });
-                  setState(() {
-                    FFAppState().emailId = _model.textController.text;
-                  });
+                  FFAppState().flag = true;
+                  setState(() {});
+                  FFAppState().emailId = _model.textController.text;
+                  setState(() {});
                   Navigator.pop(context);
                 },
                 text: 'Submit',

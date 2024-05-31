@@ -645,13 +645,12 @@ class _StockWidgetState extends State<StockWidget> {
                                                               ),
                                                               onPressed:
                                                                   () async {
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                          .stock =
-                                                                      FFAppState()
-                                                                              .stock +
-                                                                          -1.0;
-                                                                });
+                                                                FFAppState()
+                                                                        .stock =
+                                                                    FFAppState()
+                                                                            .stock +
+                                                                        -1.0;
+                                                                setState(() {});
                                                               },
                                                             ),
                                                             Expanded(
@@ -707,13 +706,12 @@ class _StockWidgetState extends State<StockWidget> {
                                                               ),
                                                               onPressed:
                                                                   () async {
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                          .stock =
-                                                                      FFAppState()
-                                                                              .stock +
-                                                                          1.0;
-                                                                });
+                                                                FFAppState()
+                                                                        .stock =
+                                                                    FFAppState()
+                                                                            .stock +
+                                                                        1.0;
+                                                                setState(() {});
                                                               },
                                                             ),
                                                           ],
@@ -899,9 +897,8 @@ class _StockWidgetState extends State<StockWidget> {
                                             ),
                                             FFButtonWidget(
                                               onPressed: () async {
-                                                setState(() {
-                                                  FFAppState().stock = 0.0;
-                                                });
+                                                FFAppState().stock = 0.0;
+                                                setState(() {});
                                               },
                                               text: 'Add Stock',
                                               icon: Icon(

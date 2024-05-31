@@ -39,9 +39,8 @@ class _StockReportamWidgetState extends State<StockReportamWidget>
       _model.count = await queryEmployeeRecordOnce(
         parent: FFAppState().outletRef,
       );
-      setState(() {
-        _model.countPS = functions.getCatCount(_model.count!.length);
-      });
+      _model.countPS = functions.getCatCount(_model.count!.length);
+      setState(() {});
       _model.reports = await queryProductRecordOnce(
         parent: FFAppState().outletRef,
         queryBuilder: (productRecord) => productRecord.orderBy('code'),
@@ -216,14 +215,12 @@ class _StockReportamWidgetState extends State<StockReportamWidget>
                             onTap: (i) async {
                               [
                                 () async {
-                                  setState(() {
-                                    _model.type = 0;
-                                  });
+                                  _model.type = 0;
+                                  setState(() {});
                                 },
                                 () async {
-                                  setState(() {
-                                    _model.type = 3;
-                                  });
+                                  _model.type = 3;
+                                  setState(() {});
                                 }
                               ][i]();
                             },

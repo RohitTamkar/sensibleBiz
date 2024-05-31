@@ -45,10 +45,8 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
       _model.docsJson = await actions.productDocToJsonList(
         _model.productDocs!.toList(),
       );
-      setState(() {
-        FFAppState().productJsonList =
-            _model.docsJson!.toList().cast<dynamic>();
-      });
+      FFAppState().productJsonList = _model.docsJson!.toList().cast<dynamic>();
+      setState(() {});
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -121,11 +119,9 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
                                       if (isWeb) {
                                         context.pushNamed('Dashboard');
 
-                                        setState(() {
-                                          FFAppState().expDay =
-                                              functions.setExpiryTime(
-                                                  getCurrentTimestamp);
-                                        });
+                                        FFAppState().expDay = functions
+                                            .setExpiryTime(getCurrentTimestamp);
+                                        setState(() {});
                                       } else {
                                         context.pushNamed('MastersPage');
 
@@ -292,14 +288,13 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
                                                                       plistItem] =
                                                                   newValue!);
                                                           if (newValue!) {
-                                                            setState(() {
-                                                              FFAppState()
-                                                                  .addToPremisesUpdateCheckboxList(
-                                                                      getJsonField(
-                                                                plistItem,
-                                                                r'''$.id''',
-                                                              ).toString());
-                                                            });
+                                                            FFAppState()
+                                                                .addToPremisesUpdateCheckboxList(
+                                                                    getJsonField(
+                                                              plistItem,
+                                                              r'''$.id''',
+                                                            ).toString());
+                                                            setState(() {});
                                                           }
                                                         },
                                                         side: BorderSide(
@@ -394,10 +389,9 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
                                       );
                                     },
                                   );
-                                  setState(() {
-                                    _model.startLoop = 0;
-                                    _model.waitLoader = true;
-                                  });
+                                  _model.startLoop = 0;
+                                  _model.waitLoader = true;
+                                  setState(() {});
                                   while (_model.startLoop! <
                                       FFAppState()
                                           .premisesUpdateCheckboxList
@@ -415,13 +409,11 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
                                             r'''$.priceTable''',
                                           ).toString(),
                                         ));
-                                    setState(() {
-                                      _model.startLoop = _model.startLoop! + 1;
-                                    });
+                                    _model.startLoop = _model.startLoop! + 1;
+                                    setState(() {});
                                   }
-                                  setState(() {
-                                    _model.waitLoader = false;
-                                  });
+                                  _model.waitLoader = false;
+                                  setState(() {});
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {

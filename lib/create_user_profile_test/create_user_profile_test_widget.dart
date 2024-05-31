@@ -983,10 +983,9 @@ class _CreateUserProfileTestWidgetState
                                             );
                                           },
                                         );
-                                        setState(() {
-                                          FFAppState().currentMobile =
-                                              '${_model.textFieldMobileTextController2.text}';
-                                        });
+                                        FFAppState().currentMobile =
+                                            '${_model.textFieldMobileTextController2.text}';
+                                        setState(() {});
 
                                         context.pushNamed('OutletListPage');
 
@@ -1802,10 +1801,9 @@ class _CreateUserProfileTestWidgetState
                                             );
                                           },
                                         );
-                                        setState(() {
-                                          FFAppState().currentMobile =
-                                              '+91${_model.textFieldMobileTextController4.text}';
-                                        });
+                                        FFAppState().currentMobile =
+                                            '+91${_model.textFieldMobileTextController4.text}';
+                                        setState(() {});
 
                                         context.pushNamed('OutletListPage');
 

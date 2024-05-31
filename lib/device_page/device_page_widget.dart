@@ -166,10 +166,9 @@ class _DevicePageWidgetState extends State<DevicePageWidget> {
                                   ),
                                   onPressed: () async {
                                     if (isWeb) {
-                                      setState(() {
-                                        FFAppState().expDay = functions
-                                            .setExpiryTime(getCurrentTimestamp);
-                                      });
+                                      FFAppState().expDay = functions
+                                          .setExpiryTime(getCurrentTimestamp);
+                                      setState(() {});
                                     } else {
                                       context.safePop();
                                       return;
