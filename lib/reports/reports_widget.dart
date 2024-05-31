@@ -1,7 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -78,26 +77,11 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 10.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 30.0,
-                            borderWidth: 1.0,
-                            buttonSize: 45.0,
-                            icon: Icon(
-                              Icons.chevron_left,
-                              color:
-                                  FlutterFlowTheme.of(context).primaryBtnText,
-                              size: 30.0,
-                            ),
-                            onPressed: () async {
-                              context.safePop();
-                            },
-                          ),
                           AutoSizeText(
                             'Reports',
                             textAlign: TextAlign.center,
@@ -114,20 +98,6 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                       .containsKey(FlutterFlowTheme.of(context)
                                           .headlineMediumFamily),
                                 ),
-                          ),
-                          FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 30.0,
-                            borderWidth: 1.0,
-                            buttonSize: 45.0,
-                            icon: Icon(
-                              Icons.chevron_left,
-                              color: Colors.transparent,
-                              size: 30.0,
-                            ),
-                            onPressed: () {
-                              print('IconButton pressed ...');
-                            },
                           ),
                         ],
                       ),

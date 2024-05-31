@@ -3112,30 +3112,6 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                       ).then((s) =>
                                                               s.firstOrNull);
                                                       _shouldSetState = true;
-                                                      await showDialog(
-                                                        context: context,
-                                                        builder:
-                                                            (alertDialogContext) {
-                                                          return WebViewAware(
-                                                            child: AlertDialog(
-                                                              title: Text(
-                                                                  'OutletId'),
-                                                              content: Text(_model
-                                                                  .deviceDocument!
-                                                                  .outletId),
-                                                              actions: [
-                                                                TextButton(
-                                                                  onPressed: () =>
-                                                                      Navigator.pop(
-                                                                          alertDialogContext),
-                                                                  child: Text(
-                                                                      'Ok'),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          );
-                                                        },
-                                                      );
                                                       if (_model
                                                               .deviceDocument !=
                                                           null) {
