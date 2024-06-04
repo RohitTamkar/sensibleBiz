@@ -701,6 +701,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'BillWiseSaleReport',
           path: '/billWiseSaleReport',
           builder: (context, params) => BillWiseSaleReportWidget(),
+        ),
+        FFRoute(
+          name: 'userList',
+          path: '/userList',
+          builder: (context, params) => UserListWidget(),
+        ),
+        FFRoute(
+          name: 'addUser',
+          path: '/addUser',
+          builder: (context, params) => AddUserWidget(),
+        ),
+        FFRoute(
+          name: 'editUser',
+          path: '/editUser',
+          builder: (context, params) => EditUserWidget(
+            user: params.getParam(
+              'user',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['USER_PROFILE'],
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

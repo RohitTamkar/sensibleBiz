@@ -24,11 +24,12 @@ Future<bool> login(String? mobile, String pin) async {
       lst.add(snapshot.docs.first.data());
       FFAppState().loggedInUser.add({
         "ref": snapshot.docs.first.reference,
-        "role": snapshot.docs.first.data()['role'],
+        "role": snapshot.docs.first.data()['roll'],
         "id": snapshot.docs.first.id
       });
       FFAppState().currentUserId = snapshot.docs.first.id;
       FFAppState().currentUserRef = snapshot.docs.first.reference;
+      FFAppState().currentUserRole = snapshot.docs.first.data()['roll'];
       // FFAppState().currentUserRole = snapshot.docs.first.data()['role'];
       print("loggedInUser");
       print(FFAppState().loggedInUser);

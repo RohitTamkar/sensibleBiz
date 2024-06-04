@@ -19,6 +19,8 @@ class UserListStruct extends FFFirebaseStruct {
     bool? shiftReport,
     bool? stockOut,
     bool? payment,
+    bool? kOTModify,
+    bool? bizAppScanQR,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _barcode = barcode,
         _editBill = editBill,
@@ -29,6 +31,8 @@ class UserListStruct extends FFFirebaseStruct {
         _shiftReport = shiftReport,
         _stockOut = stockOut,
         _payment = payment,
+        _kOTModify = kOTModify,
+        _bizAppScanQR = bizAppScanQR,
         super(firestoreUtilData);
 
   // "Barcode" field.
@@ -85,6 +89,18 @@ class UserListStruct extends FFFirebaseStruct {
   set payment(bool? val) => _payment = val;
   bool hasPayment() => _payment != null;
 
+  // "KOTModify" field.
+  bool? _kOTModify;
+  bool get kOTModify => _kOTModify ?? false;
+  set kOTModify(bool? val) => _kOTModify = val;
+  bool hasKOTModify() => _kOTModify != null;
+
+  // "bizAppScanQR" field.
+  bool? _bizAppScanQR;
+  bool get bizAppScanQR => _bizAppScanQR ?? false;
+  set bizAppScanQR(bool? val) => _bizAppScanQR = val;
+  bool hasBizAppScanQR() => _bizAppScanQR != null;
+
   static UserListStruct fromMap(Map<String, dynamic> data) => UserListStruct(
         barcode: data['Barcode'] as bool?,
         editBill: data['EditBill'] as bool?,
@@ -95,6 +111,8 @@ class UserListStruct extends FFFirebaseStruct {
         shiftReport: data['ShiftReport'] as bool?,
         stockOut: data['StockOut'] as bool?,
         payment: data['payment'] as bool?,
+        kOTModify: data['KOTModify'] as bool?,
+        bizAppScanQR: data['bizAppScanQR'] as bool?,
       );
 
   static UserListStruct? maybeFromMap(dynamic data) =>
@@ -110,6 +128,8 @@ class UserListStruct extends FFFirebaseStruct {
         'ShiftReport': _shiftReport,
         'StockOut': _stockOut,
         'payment': _payment,
+        'KOTModify': _kOTModify,
+        'bizAppScanQR': _bizAppScanQR,
       }.withoutNulls;
 
   @override
@@ -148,6 +168,14 @@ class UserListStruct extends FFFirebaseStruct {
         ),
         'payment': serializeParam(
           _payment,
+          ParamType.bool,
+        ),
+        'KOTModify': serializeParam(
+          _kOTModify,
+          ParamType.bool,
+        ),
+        'bizAppScanQR': serializeParam(
+          _bizAppScanQR,
           ParamType.bool,
         ),
       }.withoutNulls;
@@ -199,6 +227,16 @@ class UserListStruct extends FFFirebaseStruct {
           ParamType.bool,
           false,
         ),
+        kOTModify: deserializeParam(
+          data['KOTModify'],
+          ParamType.bool,
+          false,
+        ),
+        bizAppScanQR: deserializeParam(
+          data['bizAppScanQR'],
+          ParamType.bool,
+          false,
+        ),
       );
 
   @override
@@ -215,7 +253,9 @@ class UserListStruct extends FFFirebaseStruct {
         settings == other.settings &&
         shiftReport == other.shiftReport &&
         stockOut == other.stockOut &&
-        payment == other.payment;
+        payment == other.payment &&
+        kOTModify == other.kOTModify &&
+        bizAppScanQR == other.bizAppScanQR;
   }
 
   @override
@@ -228,7 +268,9 @@ class UserListStruct extends FFFirebaseStruct {
         settings,
         shiftReport,
         stockOut,
-        payment
+        payment,
+        kOTModify,
+        bizAppScanQR
       ]);
 }
 
@@ -242,6 +284,8 @@ UserListStruct createUserListStruct({
   bool? shiftReport,
   bool? stockOut,
   bool? payment,
+  bool? kOTModify,
+  bool? bizAppScanQR,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -257,6 +301,8 @@ UserListStruct createUserListStruct({
       shiftReport: shiftReport,
       stockOut: stockOut,
       payment: payment,
+      kOTModify: kOTModify,
+      bizAppScanQR: bizAppScanQR,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

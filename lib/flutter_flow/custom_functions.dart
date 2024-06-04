@@ -803,3 +803,7 @@ String getTimeFromMilliseonds(int milliseconds) {
   }
   return "-";
 }
+
+int addOneIndexAhead(int start) {
+  return start + 1;
+}
