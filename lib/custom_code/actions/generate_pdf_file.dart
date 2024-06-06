@@ -13,11 +13,11 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
-Future<String> generatePdfFile(List<dynamic> dataList) async {
-// final filteredData = dataList.where((entry) {
-//       DateTime entryDate = DateTime.parse(entry['date']);
-//       return entryDate.isAfter(startDate.subtract(Duration(days: 1))) && entryDate.isBefore(endDate.add(Duration(days: 1)));
-//     }).toList();
+Future<String> generatePdfFile(
+    List<BillSaleSummeryDataTypeStruct> dataList) async {
+  // Add your function code here!
+
+  print(dataList);
 
   final pdf = pw.Document();
 
@@ -38,11 +38,11 @@ Future<String> generatePdfFile(List<dynamic> dataList) async {
               ],
               data: dataList.map((entry) {
                 return [
-                  entry['dayId'],
-                  entry['billNo'],
-                  entry['checkOutTime'],
-                  entry['checkInTime'],
-                  entry['finalTotal'].toString()
+                  entry.dayId,
+                  entry.billNo,
+                  entry.checkOutTime,
+                  entry.checkInTime,
+                  entry.finalTotal.toString()
                 ];
               }).toList(),
             ),
@@ -56,4 +56,3 @@ Future<String> generatePdfFile(List<dynamic> dataList) async {
       onLayout: (PdfPageFormat format) async => pdf.save());
   return "complted";
 }
-// Add your function code here!

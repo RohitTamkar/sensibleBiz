@@ -1208,6 +1208,44 @@ class FFAppState extends ChangeNotifier {
     updateFn(_userAccessList);
     prefs.setString('ff_userAccessList', _userAccessList.serialize());
   }
+
+  List<BillSaleSummeryDataTypeStruct> _billSaleStructState = [];
+  List<BillSaleSummeryDataTypeStruct> get billSaleStructState =>
+      _billSaleStructState;
+  set billSaleStructState(List<BillSaleSummeryDataTypeStruct> _value) {
+    _billSaleStructState = _value;
+  }
+
+  void addToBillSaleStructState(BillSaleSummeryDataTypeStruct _value) {
+    _billSaleStructState.add(_value);
+  }
+
+  void removeFromBillSaleStructState(BillSaleSummeryDataTypeStruct _value) {
+    _billSaleStructState.remove(_value);
+  }
+
+  void removeAtIndexFromBillSaleStructState(int _index) {
+    _billSaleStructState.removeAt(_index);
+  }
+
+  void updateBillSaleStructStateAtIndex(
+    int _index,
+    BillSaleSummeryDataTypeStruct Function(BillSaleSummeryDataTypeStruct)
+        updateFn,
+  ) {
+    _billSaleStructState[_index] = updateFn(_billSaleStructState[_index]);
+  }
+
+  void insertAtIndexInBillSaleStructState(
+      int _index, BillSaleSummeryDataTypeStruct _value) {
+    _billSaleStructState.insert(_index, _value);
+  }
+
+  int _billStartLoop = 0;
+  int get billStartLoop => _billStartLoop;
+  set billStartLoop(int _value) {
+    _billStartLoop = _value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

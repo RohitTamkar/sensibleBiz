@@ -1,3 +1,5 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -5,6 +7,8 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -53,9 +57,35 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
         }
       } else {
         if (FFAppState().loggedIn) {
-          if (FFAppState().userAccessList.bizAppScanQR &&
-              (FFAppState().currentUserRole == 'user')) {
-            context.pushNamed('BillWiseSaleReport');
+          if (FFAppState().currentUserRole == 'user') {
+            _model.userDoc = await queryUserProfileRecordOnce(
+              queryBuilder: (userProfileRecord) => userProfileRecord.where(
+                'id',
+                isEqualTo: FFAppState().currentUserId,
+              ),
+              singleRecord: true,
+            ).then((s) => s.firstOrNull);
+            if (_model.userDoc!.userAccess.bizAppScanQR) {
+              context.pushNamed('BillWiseSaleReport');
+            } else {
+              await showDialog(
+                context: context,
+                builder: (alertDialogContext) {
+                  return WebViewAware(
+                    child: AlertDialog(
+                      title: Text('Invalid Access'),
+                      content: Text('You dont have access'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(alertDialogContext),
+                          child: Text('Ok'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            }
           } else {
             if (FFAppState().currentUserRole == 'admin') {
               if (FFAppState().outletId != null &&
