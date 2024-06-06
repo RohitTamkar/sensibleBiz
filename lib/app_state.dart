@@ -147,6 +147,17 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _catcolor = prefs.getString('ff_catcolor') ?? _catcolor;
     });
+    _safeInit(() {
+      if (prefs.containsKey('ff_userAccessList')) {
+        try {
+          final serializedData = prefs.getString('ff_userAccessList') ?? '{}';
+          _userAccessList =
+              UserListStruct.fromSerializableMap(jsonDecode(serializedData));
+        } catch (e) {
+          print("Can't decode persisted data type. Error: $e.");
+        }
+      }
+    });
   }
 
   void update(VoidCallback callback) {
@@ -1190,10 +1201,12 @@ class FFAppState extends ChangeNotifier {
   UserListStruct get userAccessList => _userAccessList;
   set userAccessList(UserListStruct _value) {
     _userAccessList = _value;
+    prefs.setString('ff_userAccessList', _value.serialize());
   }
 
   void updateUserAccessListStruct(Function(UserListStruct) updateFn) {
     updateFn(_userAccessList);
+    prefs.setString('ff_userAccessList', _userAccessList.serialize());
   }
 }
 
