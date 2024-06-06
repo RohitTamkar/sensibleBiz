@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/calender/calender_widget.dart';
 import '/components/check_in_success/check_in_success_widget.dart';
 import '/components/check_out_success/check_out_success_widget.dart';
@@ -399,6 +400,37 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                     },
                                   ),
                                 ),
+                              if (FFAppState().currentUserRole == 'user')
+                                FlutterFlowIconButton(
+                                  borderRadius: 20.0,
+                                  borderWidth: 1.0,
+                                  buttonSize: 40.0,
+                                  icon: Icon(
+                                    Icons.logout,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    size: 24.0,
+                                  ),
+                                  onPressed: () async {
+                                    FFAppState().currentMobile = '';
+                                    FFAppState().loggedIn = false;
+                                    FFAppState().outletId = '';
+                                    FFAppState().outletName = '';
+                                    FFAppState().outletRef = null;
+                                    FFAppState().currentUserRole = '';
+                                    FFAppState().loggedInUser = [];
+                                    FFAppState().userAccessList =
+                                        UserListStruct();
+                                    setState(() {});
+                                    GoRouter.of(context).prepareAuthEvent();
+                                    await authManager.signOut();
+                                    GoRouter.of(context)
+                                        .clearRedirectLocation();
+
+                                    context.pushNamedAuth(
+                                        'Login', context.mounted);
+                                  },
+                                ),
                             ],
                           ),
                         ],
@@ -479,23 +511,25 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(
-                                child: Text(
-                                  'Date',
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .labelMediumFamily,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMediumFamily),
-                                      ),
+                              if (FFAppState().currentUserRole == 'admin')
+                                Expanded(
+                                  child: Text(
+                                    'Date',
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily:
+                                              FlutterFlowTheme.of(context)
+                                                  .labelMediumFamily,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                          useGoogleFonts: GoogleFonts.asMap()
+                                              .containsKey(
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMediumFamily),
+                                        ),
+                                  ),
                                 ),
-                              ),
                               Expanded(
                                 child: Text(
                                   'Bill No.',
@@ -662,28 +696,31 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    billWiseSaleReportItem
-                                                        .dayId,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .labelMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMediumFamily,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .labelMediumFamily),
-                                                        ),
+                                                if (FFAppState()
+                                                        .currentUserRole ==
+                                                    'admin')
+                                                  Expanded(
+                                                    child: Text(
+                                                      billWiseSaleReportItem
+                                                          .dayId,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMediumFamily,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .labelMediumFamily),
+                                                              ),
+                                                    ),
                                                   ),
-                                                ),
                                                 Expanded(
                                                   child: Text(
                                                     billWiseSaleReportItem
@@ -725,6 +762,9 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                               FlutterFlowTheme.of(
                                                                       context)
                                                                   .labelMediumFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .success,
                                                           letterSpacing: 0.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
@@ -752,6 +792,9 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                               FlutterFlowTheme.of(
                                                                       context)
                                                                   .labelMediumFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .error,
                                                           letterSpacing: 0.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
@@ -804,6 +847,102 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                             );
                           },
                         ),
+                      ),
+                      StreamBuilder<List<UserProfileRecord>>(
+                        stream: queryUserProfileRecord(
+                          queryBuilder: (userProfileRecord) =>
+                              userProfileRecord.where(
+                            'id',
+                            isEqualTo: FFAppState().currentUserId,
+                          ),
+                          singleRecord: true,
+                        )..listen((snapshot) async {
+                            List<UserProfileRecord>
+                                listViewUserProfileRecordList = snapshot;
+                            final listViewUserProfileRecord =
+                                listViewUserProfileRecordList.isNotEmpty
+                                    ? listViewUserProfileRecordList.first
+                                    : null;
+                            if (_model.listViewPreviousSnapshot != null &&
+                                !const ListEquality(
+                                        UserProfileRecordDocumentEquality())
+                                    .equals(listViewUserProfileRecordList,
+                                        _model.listViewPreviousSnapshot)) {
+                              if (listViewUserProfileRecord!
+                                  .userAccess.bizAppScanQR) {
+                                setState(() {});
+                                return;
+                              }
+
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return WebViewAware(
+                                    child: AlertDialog(
+                                      title: Text('Invalid Access'),
+                                      content: Text(
+                                          'Your Access Removed ..Contact Admin'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                              FFAppState().currentMobile = '';
+                              FFAppState().loggedIn = false;
+                              FFAppState().outletId = '';
+                              FFAppState().outletName = '';
+                              FFAppState().outletRef = null;
+                              FFAppState().currentUserRole = '';
+                              FFAppState().loggedInUser = [];
+                              FFAppState().userAccessList = UserListStruct();
+                              setState(() {});
+                              GoRouter.of(context).prepareAuthEvent();
+                              await authManager.signOut();
+                              GoRouter.of(context).clearRedirectLocation();
+
+                              context.pushNamedAuth('Login', context.mounted);
+
+                              setState(() {});
+                            }
+                            _model.listViewPreviousSnapshot = snapshot;
+                          }),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: SpinKitFadingCircle(
+                                  color: FlutterFlowTheme.of(context).warning,
+                                  size: 50.0,
+                                ),
+                              ),
+                            );
+                          }
+                          List<UserProfileRecord>
+                              listViewUserProfileRecordList = snapshot.data!;
+                          // Return an empty Container when the item does not exist.
+                          if (snapshot.data!.isEmpty) {
+                            return Container();
+                          }
+                          final listViewUserProfileRecord =
+                              listViewUserProfileRecordList.isNotEmpty
+                                  ? listViewUserProfileRecordList.first
+                                  : null;
+                          return ListView(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            children: [],
+                          );
+                        },
                       ),
                     ],
                   ),

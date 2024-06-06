@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/calender/calender_widget.dart';
 import '/components/check_in_success/check_in_success_widget.dart';
 import '/components/check_out_success/check_out_success_widget.dart';
@@ -28,6 +29,7 @@ class BillWiseSaleReportModel
   var billNumberQR = '';
   // Stores action output result for [Firestore Query - Query a collection] action in IconButton widget.
   BillSaleSummaryRecord? billDocumnetQR;
+  List<UserProfileRecord>? listViewPreviousSnapshot;
 
   @override
   void initState(BuildContext context) {}
