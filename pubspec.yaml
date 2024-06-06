@@ -88,12 +88,12 @@ dependencies:
   path_provider_android: 2.0.25
   path_provider_foundation: 2.2.2
   path_provider_platform_interface: 2.0.6
-  pdf: ^3.10.7
+  pdf: ^3.10.8
   percent_indicator: 4.2.2
   pin_code_fields: 8.0.1
   plugin_platform_interface: 2.1.8
   pointer_interceptor: 0.10.1
-  printing: ^5.11.1
+  printing: ^5.12.0
   provider: 6.0.5
   rxdart: 0.27.7
   shared_preferences: 2.2.2

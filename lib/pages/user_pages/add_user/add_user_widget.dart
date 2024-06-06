@@ -1437,7 +1437,7 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      'Biz App Scan QR',
+                                                      'Biz App Login',
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1557,86 +1557,95 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                               onPressed: () async {
                                 var userProfileRecordReference =
                                     UserProfileRecord.collection.doc();
-                                await userProfileRecordReference
-                                    .set(createUserProfileRecordData(
-                                  name: _model.textFieldNameTextController.text,
-                                  mobile: _model
-                                      .textFieldMobilenewTextController.text,
-                                  email:
-                                      _model.textFieldEmailTextController.text,
-                                  quickPin:
-                                      _model.pINTextFieldTextController.text,
-                                  roll: 'user',
-                                  outletId: FFAppState().outletId,
-                                  active: true,
-                                  createdDate: getCurrentTimestamp
-                                      .millisecondsSinceEpoch,
-                                  userAccess: updateUserListStruct(
-                                    UserListStruct(
-                                      barcode: false,
-                                      editBill: _model.editBillCheckboxValue,
-                                      goodsReceived:
-                                          _model.goodsReceivedCheckboxValue,
-                                      productAdd:
-                                          _model.prodcutAddCheckboxValue,
-                                      reports: _model.reportCheckValue,
-                                      settings: _model.settingCheckValue,
-                                      shiftReport:
-                                          _model.shiftReportCheckboxValue,
-                                      stockOut: _model.stockoutValue,
-                                      payment: _model.paymentCheckboxValue,
-                                      kOTModify: _model.kOTmodifyCheckboxValue,
-                                      bizAppScanQR: _model.bizAppCheckboxValue,
+                                await userProfileRecordReference.set({
+                                  ...createUserProfileRecordData(
+                                    name:
+                                        _model.textFieldNameTextController.text,
+                                    mobile: _model
+                                        .textFieldMobilenewTextController.text,
+                                    email: _model
+                                        .textFieldEmailTextController.text,
+                                    quickPin:
+                                        _model.pINTextFieldTextController.text,
+                                    roll: 'user',
+                                    outletId: FFAppState().outletId,
+                                    active: true,
+                                    createdDate: getCurrentTimestamp
+                                        .millisecondsSinceEpoch,
+                                    userAccess: updateUserListStruct(
+                                      UserListStruct(
+                                        barcode: false,
+                                        editBill: _model.editBillCheckboxValue,
+                                        goodsReceived:
+                                            _model.goodsReceivedCheckboxValue,
+                                        productAdd:
+                                            _model.prodcutAddCheckboxValue,
+                                        reports: _model.reportCheckValue,
+                                        settings: _model.settingCheckValue,
+                                        shiftReport:
+                                            _model.shiftReportCheckboxValue,
+                                        stockOut: _model.stockoutValue,
+                                        payment: _model.paymentCheckboxValue,
+                                        kOTModify:
+                                            _model.kOTmodifyCheckboxValue,
+                                        bizAppScanQR:
+                                            _model.bizAppCheckboxValue,
+                                      ),
+                                      clearUnsetFields: false,
+                                      create: true,
                                     ),
-                                    clearUnsetFields: false,
-                                    create: true,
                                   ),
-                                ));
+                                  ...mapToFirestore(
+                                    {
+                                      'outlets': [FFAppState().outletId],
+                                    },
+                                  ),
+                                });
                                 _model.userDoc =
-                                    UserProfileRecord.getDocumentFromData(
-                                        createUserProfileRecordData(
-                                          name: _model
-                                              .textFieldNameTextController.text,
-                                          mobile: _model
-                                              .textFieldMobilenewTextController
-                                              .text,
-                                          email: _model
-                                              .textFieldEmailTextController
-                                              .text,
-                                          quickPin: _model
-                                              .pINTextFieldTextController.text,
-                                          roll: 'user',
-                                          outletId: FFAppState().outletId,
-                                          active: true,
-                                          createdDate: getCurrentTimestamp
-                                              .millisecondsSinceEpoch,
-                                          userAccess: updateUserListStruct(
-                                            UserListStruct(
-                                              barcode: false,
-                                              editBill:
-                                                  _model.editBillCheckboxValue,
-                                              goodsReceived: _model
-                                                  .goodsReceivedCheckboxValue,
-                                              productAdd: _model
-                                                  .prodcutAddCheckboxValue,
-                                              reports: _model.reportCheckValue,
-                                              settings:
-                                                  _model.settingCheckValue,
-                                              shiftReport: _model
-                                                  .shiftReportCheckboxValue,
-                                              stockOut: _model.stockoutValue,
-                                              payment:
-                                                  _model.paymentCheckboxValue,
-                                              kOTModify:
-                                                  _model.kOTmodifyCheckboxValue,
-                                              bizAppScanQR:
-                                                  _model.bizAppCheckboxValue,
-                                            ),
-                                            clearUnsetFields: false,
-                                            create: true,
-                                          ),
-                                        ),
-                                        userProfileRecordReference);
+                                    UserProfileRecord.getDocumentFromData({
+                                  ...createUserProfileRecordData(
+                                    name:
+                                        _model.textFieldNameTextController.text,
+                                    mobile: _model
+                                        .textFieldMobilenewTextController.text,
+                                    email: _model
+                                        .textFieldEmailTextController.text,
+                                    quickPin:
+                                        _model.pINTextFieldTextController.text,
+                                    roll: 'user',
+                                    outletId: FFAppState().outletId,
+                                    active: true,
+                                    createdDate: getCurrentTimestamp
+                                        .millisecondsSinceEpoch,
+                                    userAccess: updateUserListStruct(
+                                      UserListStruct(
+                                        barcode: false,
+                                        editBill: _model.editBillCheckboxValue,
+                                        goodsReceived:
+                                            _model.goodsReceivedCheckboxValue,
+                                        productAdd:
+                                            _model.prodcutAddCheckboxValue,
+                                        reports: _model.reportCheckValue,
+                                        settings: _model.settingCheckValue,
+                                        shiftReport:
+                                            _model.shiftReportCheckboxValue,
+                                        stockOut: _model.stockoutValue,
+                                        payment: _model.paymentCheckboxValue,
+                                        kOTModify:
+                                            _model.kOTmodifyCheckboxValue,
+                                        bizAppScanQR:
+                                            _model.bizAppCheckboxValue,
+                                      ),
+                                      clearUnsetFields: false,
+                                      create: true,
+                                    ),
+                                  ),
+                                  ...mapToFirestore(
+                                    {
+                                      'outlets': [FFAppState().outletId],
+                                    },
+                                  ),
+                                }, userProfileRecordReference);
 
                                 await _model.userDoc!.reference
                                     .update(createUserProfileRecordData(

@@ -577,7 +577,9 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                             queryBuilder: (billSaleSummaryRecord) =>
                                 billSaleSummaryRecord.where(
                               'dayId',
-                              isEqualTo: FFAppState().selectedDate,
+                              isEqualTo: FFAppState().selectedDate != ''
+                                  ? FFAppState().selectedDate
+                                  : null,
                             ),
                           ),
                           builder: (context, snapshot) {

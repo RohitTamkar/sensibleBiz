@@ -1185,6 +1185,16 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInPremisesUpdateCheckboxList(int _index, String _value) {
     _premisesUpdateCheckboxList.insert(_index, _value);
   }
+
+  UserListStruct _userAccessList = UserListStruct();
+  UserListStruct get userAccessList => _userAccessList;
+  set userAccessList(UserListStruct _value) {
+    _userAccessList = _value;
+  }
+
+  void updateUserAccessListStruct(Function(UserListStruct) updateFn) {
+    updateFn(_userAccessList);
+  }
 }
 
 void _safeInit(Function() initializeField) {

@@ -603,8 +603,17 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         FFAppState().passcode = _model
                                             .textFieldQuickTextController1.text;
                                         setState(() {});
-
-                                        context.pushNamed('OutletListPage');
+                                        if ((FFAppState().currentUserRole ==
+                                                'user') &&
+                                            (FFAppState()
+                                                    .userAccessList
+                                                    .bizAppScanQR ==
+                                                true)) {
+                                          context
+                                              .pushNamed('BillWiseSaleReport');
+                                        } else {
+                                          context.pushNamed('OutletListPage');
+                                        }
                                       } else {
                                         _model.res11 = await actions.login(
                                           _model.textFieldNumberTextController1
@@ -619,8 +628,17 @@ class _LoginWidgetState extends State<LoginWidget> {
                                               .textFieldQuickTextController1
                                               .text;
                                           setState(() {});
-
-                                          context.pushNamed('OutletListPage');
+                                          if ((FFAppState().currentUserRole ==
+                                                  'user') &&
+                                              (FFAppState()
+                                                      .userAccessList
+                                                      .bizAppScanQR ==
+                                                  true)) {
+                                            context.pushNamed(
+                                                'BillWiseSaleReport');
+                                          } else {
+                                            context.pushNamed('OutletListPage');
+                                          }
 
                                           if (_shouldSetState) setState(() {});
                                           return;

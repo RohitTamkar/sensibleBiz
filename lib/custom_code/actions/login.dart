@@ -21,6 +21,8 @@ Future<bool> login(String? mobile, String pin) async {
       print('Document data: ${snapshot.docs}');
       List<dynamic> lst = [];
 
+      print(snapshot.docs.first.data());
+
       lst.add(snapshot.docs.first.data());
       FFAppState().loggedInUser.add({
         "ref": snapshot.docs.first.reference,
@@ -31,7 +33,9 @@ Future<bool> login(String? mobile, String pin) async {
       FFAppState().currentUserRef = snapshot.docs.first.reference;
       FFAppState().currentUserRole = snapshot.docs.first.data()['roll'];
       // FFAppState().currentUserRole = snapshot.docs.first.data()['role'];
-      print("loggedInUser");
+      var access = snapshot.docs.first.data()['userAccess'];
+      print("accessLisrt");
+      print(access);
       print(FFAppState().loggedInUser);
       return true;
     } else {
@@ -39,6 +43,7 @@ Future<bool> login(String? mobile, String pin) async {
       FFAppState().currentUserId = "";
       //FFAppState().currentUserRef=null;
       FFAppState().currentUserRole = "";
+
       print('Document does not exist on the database');
       return false;
     }

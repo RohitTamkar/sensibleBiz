@@ -78,7 +78,7 @@ export '/pages/add_employee/add_employee_widget.dart' show AddEmployeeWidget;
 export '/pages/edit_employee/edit_employee_widget.dart' show EditEmployeeWidget;
 export '/pages/reports/stock_reportam/stock_reportam_widget.dart'
     show StockReportamWidget;
-export '/pages/reports/gstwiseproductsale_report/gstwiseproductsale_report_widget.dart'
+export '/pages/gstwiseproductsale_report/gstwiseproductsale_report_widget.dart'
     show GstwiseproductsaleReportWidget;
 export '/pages/product_list/product_list_widget.dart' show ProductListWidget;
 export '/pages/add_service_point/add_service_point_widget.dart'
