@@ -11,6 +11,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'splash_screen_model.dart';
 export 'splash_screen_model.dart';
 
@@ -52,10 +53,36 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
         }
       } else {
         if (FFAppState().loggedIn) {
-          if (FFAppState().outletId != null && FFAppState().outletId != '') {
-            context.pushNamed('Dashboard');
+          if (FFAppState().userAccessList.bizAppScanQR &&
+              (FFAppState().currentUserRole == 'user')) {
+            context.pushNamed('BillWiseSaleReport');
           } else {
-            context.pushNamed('OutletListPage');
+            if (FFAppState().currentUserRole == 'admin') {
+              if (FFAppState().outletId != null &&
+                  FFAppState().outletId != '') {
+                context.pushNamed('Dashboard');
+              } else {
+                context.pushNamed('OutletListPage');
+              }
+            } else {
+              await showDialog(
+                context: context,
+                builder: (alertDialogContext) {
+                  return WebViewAware(
+                    child: AlertDialog(
+                      title: Text('Invalid Access'),
+                      content: Text('You dont have access'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(alertDialogContext),
+                          child: Text('Ok'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            }
           }
         } else {
           context.pushNamed('Login');
