@@ -807,3 +807,7 @@ String getTimeFromMilliseonds(int milliseconds) {
 int addOneIndexAhead(int start) {
   return start + 1;
 }
+
+DocumentReference getOutletRefById(String id) {
+  return FirebaseFirestore.instance.doc('/OUTLET/$id');
+}

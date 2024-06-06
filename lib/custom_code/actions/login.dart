@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'index.dart'; // Imports other custom actions
+
 Future<bool> login(String? mobile, String pin) async {
   // Add your function code here!
   return FirebaseFirestore.instance
@@ -32,11 +34,23 @@ Future<bool> login(String? mobile, String pin) async {
       FFAppState().currentUserId = snapshot.docs.first.id;
       FFAppState().currentUserRef = snapshot.docs.first.reference;
       FFAppState().currentUserRole = snapshot.docs.first.data()['roll'];
+      FFAppState().outletId = snapshot.docs.first.data()['outletId'];
+      FFAppState().outletRef = getOutletRefById(FFAppState().outletId);
+
       // FFAppState().currentUserRole = snapshot.docs.first.data()['role'];
       var access = snapshot.docs.first.data()['userAccess'];
+      FFAppState().userAccessList.bizAppScanQR = access["bizAppScanQR"];
+      FFAppState().userAccessList.barcode = access["barcode"];
+      FFAppState().userAccessList.editBill = access["editBill"];
+      FFAppState().userAccessList.goodsReceived = access["goodsReceived"];
+      FFAppState().userAccessList.kOTModify = access["kOTModify"];
+      FFAppState().userAccessList.payment = access["payment"];
+      FFAppState().userAccessList.reports = access["reports"];
+      FFAppState().userAccessList.settings = access["settings"];
       print("bizAppScanQR");
-      print(access.bizAppScanQR);
+      print(FFAppState().userAccessList.bizAppScanQR);
       print(FFAppState().loggedInUser);
+
       return true;
     } else {
       FFAppState().loggedInUser.clear();

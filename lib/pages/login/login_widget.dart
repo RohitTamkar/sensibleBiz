@@ -612,7 +612,32 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           context
                                               .pushNamed('BillWiseSaleReport');
                                         } else {
-                                          context.pushNamed('OutletListPage');
+                                          if (FFAppState().currentUserRole ==
+                                              'admin') {
+                                            context.pushNamed('OutletListPage');
+                                          } else {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return WebViewAware(
+                                                  child: AlertDialog(
+                                                    title:
+                                                        Text('Access Failed'),
+                                                    content: Text(
+                                                        'You dont have access'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext),
+                                                        child: Text('Ok'),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          }
                                         }
                                       } else {
                                         _model.res11 = await actions.login(
@@ -637,7 +662,33 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             context.pushNamed(
                                                 'BillWiseSaleReport');
                                           } else {
-                                            context.pushNamed('OutletListPage');
+                                            if (FFAppState().currentUserRole ==
+                                                'admin') {
+                                              context
+                                                  .pushNamed('OutletListPage');
+                                            } else {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return WebViewAware(
+                                                    child: AlertDialog(
+                                                      title:
+                                                          Text('Access Failed'),
+                                                      content: Text(
+                                                          'You dont have access'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext),
+                                                          child: Text('Ok'),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            }
                                           }
 
                                           if (_shouldSetState) setState(() {});
