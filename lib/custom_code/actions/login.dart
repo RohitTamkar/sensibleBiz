@@ -34,8 +34,8 @@ Future<bool> login(String? mobile, String pin) async {
       FFAppState().currentUserRole = snapshot.docs.first.data()['roll'];
       // FFAppState().currentUserRole = snapshot.docs.first.data()['role'];
       var access = snapshot.docs.first.data()['userAccess'];
-      print("accessLisrt");
-      print(access);
+      print("bizAppScanQR");
+      print(access.bizAppScanQR);
       print(FFAppState().loggedInUser);
       return true;
     } else {
