@@ -477,10 +477,21 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                         await queryBillSaleSummaryRecordOnce(
                                       parent: FFAppState().outletRef,
                                       queryBuilder: (billSaleSummaryRecord) =>
-                                          billSaleSummaryRecord.where(
-                                        'dayId',
-                                        isEqualTo: FFAppState().selectedDate,
-                                      ),
+                                          billSaleSummaryRecord
+                                              .where(
+                                                'createdDate',
+                                                isGreaterThanOrEqualTo: functions
+                                                    .getMillisecondsFromDate(
+                                                        FFAppState()
+                                                            .selectedDate),
+                                              )
+                                              .where(
+                                                'createdDate',
+                                                isLessThanOrEqualTo: functions
+                                                    .getMillisecondsFromDate(
+                                                        FFAppState()
+                                                            .selectedLastDate),
+                                              ),
                                     );
                                     FFAppState().billStartLoop = 0;
                                     setState(() {});

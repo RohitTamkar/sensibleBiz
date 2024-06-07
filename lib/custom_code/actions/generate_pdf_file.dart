@@ -91,7 +91,5 @@ Future<String> generatePdfFile(
       DateTime.now().millisecondsSinceEpoch.toString() +
       ".xlsx");
   await file.writeAsBytes(bytes);
-  // print(file.path);
-  // print(dataUri);
   return file.path;
 }

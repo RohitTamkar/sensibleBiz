@@ -811,3 +811,8 @@ int addOneIndexAhead(int start) {
 DocumentReference getOutletRefById(String id) {
   return FirebaseFirestore.instance.doc('/OUTLET/$id');
 }
+
+int getMillisecondsFromDate(String dayId) {
+  DateTime dateTime = DateFormat('yyyy-MM-dd').parse(dayId);
+  return dateTime.millisecondsSinceEpoch;
+}
