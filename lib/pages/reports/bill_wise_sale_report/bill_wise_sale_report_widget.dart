@@ -448,6 +448,11 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                     _model.billSaleSummeryDoc =
                                         await queryBillSaleSummaryRecordOnce(
                                       parent: FFAppState().outletRef,
+                                      queryBuilder: (billSaleSummaryRecord) =>
+                                          billSaleSummaryRecord.where(
+                                        'dayId',
+                                        isEqualTo: FFAppState().selectedDate,
+                                      ),
                                     );
                                     FFAppState().billStartLoop = 0;
                                     setState(() {});
@@ -518,6 +523,8 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                         );
                                       },
                                     );
+                                    FFAppState().billSaleStructState = [];
+                                    setState(() {});
 
                                     setState(() {});
                                   },
