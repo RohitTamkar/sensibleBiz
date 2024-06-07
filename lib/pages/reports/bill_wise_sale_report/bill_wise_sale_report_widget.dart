@@ -439,7 +439,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                   borderWidth: 1.0,
                                   buttonSize: 40.0,
                                   icon: Icon(
-                                    Icons.picture_as_pdf_sharp,
+                                    Icons.download_sharp,
                                     color: FlutterFlowTheme.of(context)
                                         .primaryBackground,
                                     size: 24.0,
