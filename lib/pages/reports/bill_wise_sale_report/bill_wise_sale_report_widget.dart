@@ -4,6 +4,7 @@ import '/backend/schema/structs/index.dart';
 import '/components/calender/calender_widget.dart';
 import '/components/check_in_success/check_in_success_widget.dart';
 import '/components/check_out_success/check_out_success_widget.dart';
+import '/components/select_date/select_date_widget.dart';
 import '/components/session_expired/session_expired_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -464,7 +465,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                             child: Padding(
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),
-                                              child: CalenderWidget(),
+                                              child: SelectDateWidget(),
                                             ),
                                           ),
                                         );
