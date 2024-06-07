@@ -44,6 +44,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
+      FFAppState().selectedLastDate = functions.getDayId(getCurrentTimestamp);
       setState(() {});
     });
 
@@ -445,6 +446,33 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                     size: 24.0,
                                   ),
                                   onPressed: () async {
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      enableDrag: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return WebViewAware(
+                                          child: GestureDetector(
+                                            onTap: () => _model
+                                                    .unfocusNode.canRequestFocus
+                                                ? FocusScope.of(context)
+                                                    .requestFocus(
+                                                        _model.unfocusNode)
+                                                : FocusScope.of(context)
+                                                    .unfocus(),
+                                            child: Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: CalenderWidget(),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ).then((value) => safeSetState(() {}));
+
+                                    FFAppState().billSaleStructState = [];
+                                    setState(() {});
                                     _model.billSaleSummeryDoc =
                                         await queryBillSaleSummaryRecordOnce(
                                       parent: FFAppState().outletRef,
@@ -510,7 +538,8 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                       builder: (alertDialogContext) {
                                         return WebViewAware(
                                           child: AlertDialog(
-                                            title: Text('OK'),
+                                            title:
+                                                Text('Excel Download Success.'),
                                             content: Text(_model.url!),
                                             actions: [
                                               TextButton(
@@ -523,8 +552,6 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                         );
                                       },
                                     );
-                                    FFAppState().billSaleStructState = [];
-                                    setState(() {});
 
                                     setState(() {});
                                   },
@@ -908,9 +935,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                     'admin')
                                                   Expanded(
                                                     child: Text(
-                                                      billWiseSaleReportItem
-                                                          .finalTotal
-                                                          .toString(),
+                                                      '₹ ${billWiseSaleReportItem.finalTotal.toString()}',
                                                       textAlign: TextAlign.end,
                                                       style:
                                                           FlutterFlowTheme.of(

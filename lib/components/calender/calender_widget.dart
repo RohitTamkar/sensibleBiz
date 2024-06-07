@@ -108,6 +108,8 @@ class _CalenderWidgetState extends State<CalenderWidget> {
                     onTap: () async {
                       FFAppState().selectedDate = functions
                           .selectedDayId(_model.calendarSelectedDay!.start);
+                      FFAppState().selectedLastDate = functions
+                          .selectedDayId(_model.calendarSelectedDay!.end);
                       FFAppState().update(() {});
                       Navigator.pop(context);
                     },

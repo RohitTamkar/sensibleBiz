@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 
 import 'index.dart'; // Imports other custom actions
 
+import 'index.dart'; // Imports other custom actions
+
 import 'dart:convert';
 
 import 'dart:io';
@@ -24,19 +26,20 @@ Future<String> generatePdfFile(
     List<BillSaleSummeryDataTypeStruct> dataList) async {
   var excel = Excel.createExcel();
   var sheet = excel['Sheet1'];
-  // print(productName);
-  String getTimeFromMilliseonds(int milliseconds) {
+  print(dataList);
+
+  String getTimeFromMilliseconds(int milliseconds) {
     if (milliseconds > 1) {
       DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
-      String formattedTime = DateFormat('hh:mm a').format(dateTime);
-      return formattedTime;
+      String formattedDateTime =
+          DateFormat('dd/MM/yyyy hh:mm a').format(dateTime);
+      return formattedDateTime;
     }
     return "-";
   }
 
   sheet.appendRow([TextCellValue('')]); // Add an empty row for spacing
 
-  // Add product details to the sheet
   sheet.appendRow([
     TextCellValue('Date'),
     TextCellValue('Bill No'),
@@ -45,22 +48,17 @@ Future<String> generatePdfFile(
     TextCellValue('Amount'),
   ]);
 
-  // Convert the list of maps to JSON
-  String jsonData = jsonEncode(dataList);
-  // print(jsonData);
-
   for (var product in dataList) {
     sheet.appendRow([
       TextCellValue(product.dayId),
       TextCellValue(product.billNo),
-      TextCellValue(getTimeFromMilliseonds(product.checkInTime)),
-      TextCellValue(getTimeFromMilliseonds(product.checkOutTime)),
+      TextCellValue(getTimeFromMilliseconds(product.checkInTime)),
+      TextCellValue(getTimeFromMilliseconds(product.checkOutTime)),
       TextCellValue(product.finalTotal.toString()),
     ]);
   }
   // }
   sheet.appendRow([TextCellValue('')]);
-  // Add total product amount to the sheet
 
   sheet.appendRow([TextCellValue('')]); // Add an empty row for spacing
 

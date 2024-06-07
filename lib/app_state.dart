@@ -1246,6 +1246,12 @@ class FFAppState extends ChangeNotifier {
   set billStartLoop(int _value) {
     _billStartLoop = _value;
   }
+
+  String _selectedLastDate = '';
+  String get selectedLastDate => _selectedLastDate;
+  set selectedLastDate(String _value) {
+    _selectedLastDate = _value;
+  }
 }
 
 void _safeInit(Function() initializeField) {
