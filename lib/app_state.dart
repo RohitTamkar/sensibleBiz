@@ -1252,6 +1252,12 @@ class FFAppState extends ChangeNotifier {
   set selectedLastDate(String _value) {
     _selectedLastDate = _value;
   }
+
+  String _selectedStartDate = '';
+  String get selectedStartDate => _selectedStartDate;
+  set selectedStartDate(String _value) {
+    _selectedStartDate = _value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

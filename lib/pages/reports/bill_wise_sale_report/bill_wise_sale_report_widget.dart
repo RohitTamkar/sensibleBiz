@@ -46,6 +46,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
       FFAppState().selectedLastDate = functions.getDayId(getCurrentTimestamp);
+      FFAppState().selectedStartDate = functions.getDayId(getCurrentTimestamp);
       setState(() {});
     });
 
@@ -472,98 +473,133 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                       },
                                     ).then((value) => safeSetState(() {}));
 
-                                    FFAppState().billSaleStructState = [];
-                                    setState(() {});
-                                    _model.billSaleSummeryDoc =
-                                        await queryBillSaleSummaryRecordOnce(
-                                      parent: FFAppState().outletRef,
-                                      queryBuilder: (billSaleSummaryRecord) =>
-                                          billSaleSummaryRecord
-                                              .where(
-                                                'createdDate',
-                                                isGreaterThanOrEqualTo: functions
-                                                    .getMillisecondsFromDate(
-                                                        FFAppState()
-                                                            .selectedDate),
-                                              )
-                                              .where(
-                                                'createdDate',
-                                                isLessThanOrEqualTo: functions
-                                                    .getMillisecondsFromDate(
-                                                        FFAppState()
-                                                            .selectedLastDate),
-                                              ),
-                                    );
-                                    FFAppState().billStartLoop = 0;
-                                    setState(() {});
-                                    while (FFAppState().billStartLoop <
-                                        _model.billSaleSummeryDoc!.length) {
-                                      FFAppState().addToBillSaleStructState(
-                                          BillSaleSummeryDataTypeStruct(
-                                        billNo: _model
-                                            .billSaleSummeryDoc?[
-                                                FFAppState().billStartLoop]
-                                            ?.billNo,
-                                        finalTotal: _model
-                                            .billSaleSummeryDoc?[
-                                                FFAppState().billStartLoop]
-                                            ?.finalTotal,
-                                        id: _model
-                                            .billSaleSummeryDoc?[
-                                                FFAppState().billStartLoop]
-                                            ?.id,
-                                        serialNo: _model
-                                            .billSaleSummeryDoc?[
-                                                FFAppState().billStartLoop]
-                                            ?.serialNo,
-                                        userId: _model
-                                            .billSaleSummeryDoc?[
-                                                FFAppState().billStartLoop]
-                                            ?.userId,
-                                        checkInTime: _model
-                                            .billSaleSummeryDoc?[
-                                                FFAppState().billStartLoop]
-                                            ?.checkInTime,
-                                        checkOutTime: _model
-                                            .billSaleSummeryDoc?[
-                                                FFAppState().billStartLoop]
-                                            ?.checkOutTime,
-                                        dayId: _model
-                                            .billSaleSummeryDoc?[
-                                                FFAppState().billStartLoop]
-                                            ?.dayId,
-                                        createdDate: _model
-                                            .billSaleSummeryDoc?[
-                                                FFAppState().billStartLoop]
-                                            ?.createdDate,
-                                      ));
+                                    if ((FFAppState().selectedStartDate !=
+                                                null &&
+                                            FFAppState().selectedStartDate !=
+                                                '') &&
+                                        (FFAppState().selectedLastDate !=
+                                                null &&
+                                            FFAppState().selectedLastDate !=
+                                                '')) {
+                                      FFAppState().billSaleStructState = [];
                                       setState(() {});
-                                      FFAppState().billStartLoop =
-                                          FFAppState().billStartLoop + 1;
+                                      _model.billSaleSummeryDoc =
+                                          await queryBillSaleSummaryRecordOnce(
+                                        parent: FFAppState().outletRef,
+                                        queryBuilder: (billSaleSummaryRecord) =>
+                                            billSaleSummaryRecord
+                                                .where(
+                                                  'createdDate',
+                                                  isGreaterThanOrEqualTo: functions
+                                                      .getMillisecondsFromDate(
+                                                          FFAppState()
+                                                              .selectedStartDate),
+                                                )
+                                                .where(
+                                                  'createdDate',
+                                                  isLessThanOrEqualTo: functions
+                                                      .getMillisecondsFromDate(
+                                                          FFAppState()
+                                                              .selectedLastDate),
+                                                ),
+                                      );
+                                      FFAppState().billStartLoop = 0;
                                       setState(() {});
+                                      while (FFAppState().billStartLoop <
+                                          _model.billSaleSummeryDoc!.length) {
+                                        FFAppState().addToBillSaleStructState(
+                                            BillSaleSummeryDataTypeStruct(
+                                          billNo: _model
+                                              .billSaleSummeryDoc?[
+                                                  FFAppState().billStartLoop]
+                                              ?.billNo,
+                                          finalTotal: _model
+                                              .billSaleSummeryDoc?[
+                                                  FFAppState().billStartLoop]
+                                              ?.finalTotal,
+                                          id: _model
+                                              .billSaleSummeryDoc?[
+                                                  FFAppState().billStartLoop]
+                                              ?.id,
+                                          serialNo: _model
+                                              .billSaleSummeryDoc?[
+                                                  FFAppState().billStartLoop]
+                                              ?.serialNo,
+                                          userId: _model
+                                              .billSaleSummeryDoc?[
+                                                  FFAppState().billStartLoop]
+                                              ?.userId,
+                                          checkInTime: _model
+                                              .billSaleSummeryDoc?[
+                                                  FFAppState().billStartLoop]
+                                              ?.checkInTime,
+                                          checkOutTime: _model
+                                              .billSaleSummeryDoc?[
+                                                  FFAppState().billStartLoop]
+                                              ?.checkOutTime,
+                                          dayId: _model
+                                              .billSaleSummeryDoc?[
+                                                  FFAppState().billStartLoop]
+                                              ?.dayId,
+                                          createdDate: _model
+                                              .billSaleSummeryDoc?[
+                                                  FFAppState().billStartLoop]
+                                              ?.createdDate,
+                                        ));
+                                        setState(() {});
+                                        FFAppState().billStartLoop =
+                                            FFAppState().billStartLoop + 1;
+                                        setState(() {});
+                                      }
+                                      _model.url =
+                                          await actions.generatePdfFile(
+                                        FFAppState()
+                                            .billSaleStructState
+                                            .toList(),
+                                      );
+                                      await showDialog(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return WebViewAware(
+                                            child: AlertDialog(
+                                              title: Text(
+                                                  'Excel Download Success.'),
+                                              content: Text(_model.url!),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext),
+                                                  child: Text('Ok'),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      await showDialog(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return WebViewAware(
+                                            child: AlertDialog(
+                                              title:
+                                                  Text('Select Date First..!'),
+                                              content: Text(
+                                                  'Please Select Start Date And End Date..!'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext),
+                                                  child: Text('Ok'),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
                                     }
-                                    _model.url = await actions.generatePdfFile(
-                                      FFAppState().billSaleStructState.toList(),
-                                    );
-                                    await showDialog(
-                                      context: context,
-                                      builder: (alertDialogContext) {
-                                        return WebViewAware(
-                                          child: AlertDialog(
-                                            title:
-                                                Text('Excel Download Success.'),
-                                            content: Text(_model.url!),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext),
-                                                child: Text('Ok'),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    );
 
                                     setState(() {});
                                   },

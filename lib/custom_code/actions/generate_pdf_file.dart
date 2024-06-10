@@ -57,8 +57,18 @@ Future<String> generatePdfFile(
       TextCellValue(product.finalTotal.toString()),
     ]);
   }
-  // }
-  sheet.appendRow([TextCellValue('')]);
+  int totalAmount = 0;
+  for (var product in dataList) {
+    totalAmount += product.finalTotal;
+  }
+
+  sheet.appendRow([
+    TextCellValue('Amount Total'),
+    TextCellValue(''),
+    TextCellValue(''),
+    TextCellValue(''),
+    TextCellValue(totalAmount.toString())
+  ]);
 
   sheet.appendRow([TextCellValue('')]); // Add an empty row for spacing
 

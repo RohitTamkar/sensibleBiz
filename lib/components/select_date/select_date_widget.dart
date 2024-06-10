@@ -1,6 +1,5 @@
 import '/components/endcalender/endcalender_widget.dart';
 import '/components/startcalender/startcalender_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -79,19 +78,42 @@ class _SelectDateWidgetState extends State<SelectDateWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  FlutterFlowIconButton(
-                    borderColor: FlutterFlowTheme.of(context).primary,
-                    borderRadius: 5.0,
-                    borderWidth: 0.5,
-                    buttonSize: 40.0,
-                    icon: Icon(
-                      Icons.close_sharp,
-                      color: FlutterFlowTheme.of(context).primary,
-                      size: 24.0,
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        Navigator.pop(context);
+                      },
+                      text: 'Done',
+                      options: FFButtonOptions(
+                        width: 100.0,
+                        height: 40.0,
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: Color(0xFF0F2EAE),
+                        textStyle: FlutterFlowTheme.of(context)
+                            .labelMedium
+                            .override(
+                              fontFamily: FlutterFlowTheme.of(context)
+                                  .labelMediumFamily,
+                              color:
+                                  FlutterFlowTheme.of(context).primaryBtnText,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w600,
+                              useGoogleFonts: GoogleFonts.asMap().containsKey(
+                                  FlutterFlowTheme.of(context)
+                                      .labelMediumFamily),
+                            ),
+                        elevation: 2.0,
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                      ),
                     ),
-                    onPressed: () async {
-                      Navigator.pop(context);
-                    },
                   ),
                 ],
               ),
