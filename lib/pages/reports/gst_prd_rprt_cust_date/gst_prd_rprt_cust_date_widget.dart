@@ -406,6 +406,7 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
                                                   _model.userdetails?.mobile,
                                               roll: _model.userdetails?.roll,
                                             );
+
                                             _shouldSetState = true;
                                             var confirmDialogResponse =
                                                 await showDialog<bool>(
@@ -571,6 +572,7 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
                                                   FFAppState().endDate!)
                                               .millisecondsSinceEpoch,
                                         );
+
                                         _shouldSetState = true;
                                         if ((_model.customdatewisegstSale
                                                 ?.succeeded ??

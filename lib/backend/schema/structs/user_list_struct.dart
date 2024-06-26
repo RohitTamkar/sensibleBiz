@@ -39,66 +39,77 @@ class UserListStruct extends FFFirebaseStruct {
   bool? _barcode;
   bool get barcode => _barcode ?? false;
   set barcode(bool? val) => _barcode = val;
+
   bool hasBarcode() => _barcode != null;
 
   // "EditBill" field.
   bool? _editBill;
   bool get editBill => _editBill ?? false;
   set editBill(bool? val) => _editBill = val;
+
   bool hasEditBill() => _editBill != null;
 
   // "GoodsReceived" field.
   bool? _goodsReceived;
   bool get goodsReceived => _goodsReceived ?? false;
   set goodsReceived(bool? val) => _goodsReceived = val;
+
   bool hasGoodsReceived() => _goodsReceived != null;
 
   // "ProductAdd" field.
   bool? _productAdd;
   bool get productAdd => _productAdd ?? false;
   set productAdd(bool? val) => _productAdd = val;
+
   bool hasProductAdd() => _productAdd != null;
 
   // "Reports" field.
   bool? _reports;
   bool get reports => _reports ?? false;
   set reports(bool? val) => _reports = val;
+
   bool hasReports() => _reports != null;
 
   // "Settings" field.
   bool? _settings;
   bool get settings => _settings ?? false;
   set settings(bool? val) => _settings = val;
+
   bool hasSettings() => _settings != null;
 
   // "ShiftReport" field.
   bool? _shiftReport;
   bool get shiftReport => _shiftReport ?? false;
   set shiftReport(bool? val) => _shiftReport = val;
+
   bool hasShiftReport() => _shiftReport != null;
 
   // "StockOut" field.
   bool? _stockOut;
   bool get stockOut => _stockOut ?? false;
   set stockOut(bool? val) => _stockOut = val;
+
   bool hasStockOut() => _stockOut != null;
 
   // "payment" field.
   bool? _payment;
   bool get payment => _payment ?? false;
   set payment(bool? val) => _payment = val;
+
   bool hasPayment() => _payment != null;
 
   // "KOTModify" field.
   bool? _kOTModify;
   bool get kOTModify => _kOTModify ?? false;
   set kOTModify(bool? val) => _kOTModify = val;
+
   bool hasKOTModify() => _kOTModify != null;
 
   // "bizAppScanQR" field.
   bool? _bizAppScanQR;
   bool get bizAppScanQR => _bizAppScanQR ?? false;
   set bizAppScanQR(bool? val) => _bizAppScanQR = val;
+
   bool hasBizAppScanQR() => _bizAppScanQR != null;
 
   static UserListStruct fromMap(Map<String, dynamic> data) => UserListStruct(

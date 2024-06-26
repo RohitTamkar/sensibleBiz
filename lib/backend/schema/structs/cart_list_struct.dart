@@ -29,40 +29,49 @@ class CartListStruct extends FFFirebaseStruct {
   String? _name;
   String get name => _name ?? '';
   set name(String? val) => _name = val;
+
   bool hasName() => _name != null;
 
   // "currentStock" field.
   double? _currentStock;
   double get currentStock => _currentStock ?? 0.0;
   set currentStock(double? val) => _currentStock = val;
+
   void incrementCurrentStock(double amount) =>
-      _currentStock = currentStock + amount;
+      currentStock = currentStock + amount;
+
   bool hasCurrentStock() => _currentStock != null;
 
   // "date" field.
   DateTime? _date;
   DateTime? get date => _date;
   set date(DateTime? val) => _date = val;
+
   bool hasDate() => _date != null;
 
   // "note" field.
   String? _note;
   String get note => _note ?? '';
   set note(String? val) => _note = val;
+
   bool hasNote() => _note != null;
 
   // "AddedStock" field.
   double? _addedStock;
   double get addedStock => _addedStock ?? 0.0;
   set addedStock(double? val) => _addedStock = val;
-  void incrementAddedStock(double amount) => _addedStock = addedStock + amount;
+
+  void incrementAddedStock(double amount) => addedStock = addedStock + amount;
+
   bool hasAddedStock() => _addedStock != null;
 
   // "code" field.
   int? _code;
   int get code => _code ?? 0;
   set code(int? val) => _code = val;
-  void incrementCode(int amount) => _code = code + amount;
+
+  void incrementCode(int amount) => code = code + amount;
+
   bool hasCode() => _code != null;
 
   static CartListStruct fromMap(Map<String, dynamic> data) => CartListStruct(

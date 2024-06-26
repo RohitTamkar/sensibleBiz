@@ -30,6 +30,7 @@ class ShiftSummaryCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -64,6 +65,7 @@ class DayWiseSaleCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -111,6 +113,7 @@ class SendMailCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }
@@ -142,6 +145,7 @@ class GetCustomDateSaleCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      isStreamingApi: false,
       alwaysAllowBody: false,
     );
   }

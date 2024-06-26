@@ -176,7 +176,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                     child: Html(
                                       data:
                                           '<h2>About us</h2>\n\n<h4><span style=\"font-size:14px\">Business Name : Sensible Connect Solutions PVT LTD&nbsp;</span></h4>\n\n<p><span style=\"font-size:12px\">Business Description : Founded in 2016, Sensible Connect Solutions Pvt. Ltd. has become a highly regarded entity involved in manufacturing and wholesaling best series of Billing Machine, POS Machine, Weighing Scale, Weighing Systems and many more. These are widely acknowledged for their application specific design, accurate dimension, high performance, lightweight and durable finish standard.</span></p>\n\n<h4><span style=\"font-size:14px\">Compact Billing Machine Series:</span></h4>\n\n<p><span style=\"font-size:12px\">We provide compact billing solutions facing a point of sale for various retail &amp; wholesale applications. We offer supermarket billing software and restaurant billing software from India.<br />\n* Cloud software with free customisation<br />\n* Mobile Application with Reporting Features<br />\n* Quick Billing Mode with Hot Keys<br />\n* Software subscription starts from INR 3000 +gst per outlet/device per year.</span></p>\n\n<p><span style=\"font-size:10px\">For More details Contact Us Link</span></p>\n\n<h2>&nbsp;</h2>',
-                                      onLinkTap: (url, _, __, ___) =>
+                                      onLinkTap: (url, _, __) =>
                                           launchURL(url!),
                                     ),
                                   ),

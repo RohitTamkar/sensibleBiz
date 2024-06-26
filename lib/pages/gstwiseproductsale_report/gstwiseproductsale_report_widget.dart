@@ -289,6 +289,7 @@ class _GstwiseproductsaleReportWidgetState
                                           mobileNo: _model.userdetails?.mobile,
                                           roll: _model.userdetails?.roll,
                                         );
+
                                         _shouldSetState = true;
                                         var confirmDialogResponse =
                                             await showDialog<bool>(
@@ -429,6 +430,7 @@ class _GstwiseproductsaleReportWidgetState
                                             containerOutletRecord?.reference.id,
                                         dayId: FFAppState().selectedDate,
                                       );
+
                                       _shouldSetState = true;
                                       FFAppState().productSaleJson =
                                           (_model.customdatewisegst?.jsonBody ??

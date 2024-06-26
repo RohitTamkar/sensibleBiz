@@ -362,7 +362,7 @@ class _UserManualCustomerViewWidgetState
                                             child: Html(
                                               data:
                                                   '<h3>H3 Header</h3> <p>Sample paragraph</p>',
-                                              onLinkTap: (url, _, __, ___) =>
+                                              onLinkTap: (url, _, __) =>
                                                   launchURL(url!),
                                             ),
                                           ),

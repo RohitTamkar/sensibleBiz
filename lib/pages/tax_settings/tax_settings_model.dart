@@ -70,7 +70,6 @@ class TaxSettingsModel extends FlutterFlowModel<TaxSettingsWidget> {
   // Stores action output result for [Custom Action - selectCheckboxTaxAll] action in SelectAllCheckbox widget.
   List<dynamic>? result;
   // State field(s) for Checkbox widget.
-
   Map<dynamic, bool> checkboxValueMap = {};
   List<dynamic> get checkboxCheckedItems =>
       checkboxValueMap.entries.where((e) => e.value).map((e) => e.key).toList();

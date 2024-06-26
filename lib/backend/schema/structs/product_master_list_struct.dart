@@ -91,244 +91,299 @@ class ProductMasterListStruct extends FFFirebaseStruct {
   String? _id;
   String get id => _id ?? '';
   set id(String? val) => _id = val;
+
   bool hasId() => _id != null;
 
   // "active" field.
   bool? _active;
   bool get active => _active ?? false;
   set active(bool? val) => _active = val;
+
   bool hasActive() => _active != null;
 
   // "category" field.
   String? _category;
   String get category => _category ?? '';
   set category(String? val) => _category = val;
+
   bool hasCategory() => _category != null;
 
   // "barcode" field.
   String? _barcode;
   String get barcode => _barcode ?? '';
   set barcode(String? val) => _barcode = val;
+
   bool hasBarcode() => _barcode != null;
 
   // "cess" field.
   double? _cess;
   double get cess => _cess ?? 0.0;
   set cess(double? val) => _cess = val;
-  void incrementCess(double amount) => _cess = cess + amount;
+
+  void incrementCess(double amount) => cess = cess + amount;
+
   bool hasCess() => _cess != null;
 
   // "code" field.
   int? _code;
   int get code => _code ?? 0;
   set code(int? val) => _code = val;
-  void incrementCode(int amount) => _code = code + amount;
+
+  void incrementCode(int amount) => code = code + amount;
+
   bool hasCode() => _code != null;
 
   // "costPrice" field.
   double? _costPrice;
   double get costPrice => _costPrice ?? 0.0;
   set costPrice(double? val) => _costPrice = val;
-  void incrementCostPrice(double amount) => _costPrice = costPrice + amount;
+
+  void incrementCostPrice(double amount) => costPrice = costPrice + amount;
+
   bool hasCostPrice() => _costPrice != null;
 
   // "dateTime" field.
   DateTime? _dateTime;
   DateTime? get dateTime => _dateTime;
   set dateTime(DateTime? val) => _dateTime = val;
+
   bool hasDateTime() => _dateTime != null;
 
   // "discount" field.
   double? _discount;
   double get discount => _discount ?? 0.0;
   set discount(double? val) => _discount = val;
-  void incrementDiscount(double amount) => _discount = discount + amount;
+
+  void incrementDiscount(double amount) => discount = discount + amount;
+
   bool hasDiscount() => _discount != null;
 
   // "keyCount" field.
   int? _keyCount;
   int get keyCount => _keyCount ?? 0;
   set keyCount(int? val) => _keyCount = val;
-  void incrementKeyCount(int amount) => _keyCount = keyCount + amount;
+
+  void incrementKeyCount(int amount) => keyCount = keyCount + amount;
+
   bool hasKeyCount() => _keyCount != null;
 
   // "kitchenId" field.
   String? _kitchenId;
   String get kitchenId => _kitchenId ?? '';
   set kitchenId(String? val) => _kitchenId = val;
+
   bool hasKitchenId() => _kitchenId != null;
 
   // "mrpPrice" field.
   double? _mrpPrice;
   double get mrpPrice => _mrpPrice ?? 0.0;
   set mrpPrice(double? val) => _mrpPrice = val;
-  void incrementMrpPrice(double amount) => _mrpPrice = mrpPrice + amount;
+
+  void incrementMrpPrice(double amount) => mrpPrice = mrpPrice + amount;
+
   bool hasMrpPrice() => _mrpPrice != null;
 
   // "name" field.
   String? _name;
   String get name => _name ?? '';
   set name(String? val) => _name = val;
+
   bool hasName() => _name != null;
 
   // "onlinePrice" field.
   double? _onlinePrice;
   double get onlinePrice => _onlinePrice ?? 0.0;
   set onlinePrice(double? val) => _onlinePrice = val;
+
   void incrementOnlinePrice(double amount) =>
-      _onlinePrice = onlinePrice + amount;
+      onlinePrice = onlinePrice + amount;
+
   bool hasOnlinePrice() => _onlinePrice != null;
 
   // "onlineSynced" field.
   bool? _onlineSynced;
   bool get onlineSynced => _onlineSynced ?? false;
   set onlineSynced(bool? val) => _onlineSynced = val;
+
   bool hasOnlineSynced() => _onlineSynced != null;
 
   // "price" field.
   double? _price;
   double get price => _price ?? 0.0;
   set price(double? val) => _price = val;
-  void incrementPrice(double amount) => _price = price + amount;
+
+  void incrementPrice(double amount) => price = price + amount;
+
   bool hasPrice() => _price != null;
 
   // "priceTable" field.
   String? _priceTable;
   String get priceTable => _priceTable ?? '';
   set priceTable(String? val) => _priceTable = val;
+
   bool hasPriceTable() => _priceTable != null;
 
   // "recipeId" field.
   String? _recipeId;
   String get recipeId => _recipeId ?? '';
   set recipeId(String? val) => _recipeId = val;
+
   bool hasRecipeId() => _recipeId != null;
 
   // "regionalName" field.
   String? _regionalName;
   String get regionalName => _regionalName ?? '';
   set regionalName(String? val) => _regionalName = val;
+
   bool hasRegionalName() => _regionalName != null;
 
   // "reorderLevel" field.
   int? _reorderLevel;
   int get reorderLevel => _reorderLevel ?? 0;
   set reorderLevel(int? val) => _reorderLevel = val;
+
   void incrementReorderLevel(int amount) =>
-      _reorderLevel = reorderLevel + amount;
+      reorderLevel = reorderLevel + amount;
+
   bool hasReorderLevel() => _reorderLevel != null;
 
   // "selected" field.
   bool? _selected;
   bool get selected => _selected ?? false;
   set selected(bool? val) => _selected = val;
+
   bool hasSelected() => _selected != null;
 
   // "shortName" field.
   String? _shortName;
   String get shortName => _shortName ?? '';
   set shortName(String? val) => _shortName = val;
+
   bool hasShortName() => _shortName != null;
 
   // "stockable" field.
   bool? _stockable;
   bool get stockable => _stockable ?? false;
   set stockable(bool? val) => _stockable = val;
+
   bool hasStockable() => _stockable != null;
 
   // "taxIndex" field.
   int? _taxIndex;
   int get taxIndex => _taxIndex ?? 0;
   set taxIndex(int? val) => _taxIndex = val;
-  void incrementTaxIndex(int amount) => _taxIndex = taxIndex + amount;
+
+  void incrementTaxIndex(int amount) => taxIndex = taxIndex + amount;
+
   bool hasTaxIndex() => _taxIndex != null;
 
   // "type" field.
   int? _type;
   int get type => _type ?? 0;
   set type(int? val) => _type = val;
-  void incrementType(int amount) => _type = type + amount;
+
+  void incrementType(int amount) => type = type + amount;
+
   bool hasType() => _type != null;
 
   // "unitId" field.
   int? _unitId;
   int get unitId => _unitId ?? 0;
   set unitId(int? val) => _unitId = val;
-  void incrementUnitId(int amount) => _unitId = unitId + amount;
+
+  void incrementUnitId(int amount) => unitId = unitId + amount;
+
   bool hasUnitId() => _unitId != null;
 
   // "currentStock" field.
   double? _currentStock;
   double get currentStock => _currentStock ?? 0.0;
   set currentStock(double? val) => _currentStock = val;
+
   void incrementCurrentStock(double amount) =>
-      _currentStock = currentStock + amount;
+      currentStock = currentStock + amount;
+
   bool hasCurrentStock() => _currentStock != null;
 
   // "unitType" field.
   String? _unitType;
   String get unitType => _unitType ?? '';
   set unitType(String? val) => _unitType = val;
+
   bool hasUnitType() => _unitType != null;
 
   // "categoryNo" field.
   int? _categoryNo;
   int get categoryNo => _categoryNo ?? 0;
   set categoryNo(int? val) => _categoryNo = val;
-  void incrementCategoryNo(int amount) => _categoryNo = categoryNo + amount;
+
+  void incrementCategoryNo(int amount) => categoryNo = categoryNo + amount;
+
   bool hasCategoryNo() => _categoryNo != null;
 
   // "batchNo" field.
   int? _batchNo;
   int get batchNo => _batchNo ?? 0;
   set batchNo(int? val) => _batchNo = val;
-  void incrementBatchNo(int amount) => _batchNo = batchNo + amount;
+
+  void incrementBatchNo(int amount) => batchNo = batchNo + amount;
+
   bool hasBatchNo() => _batchNo != null;
 
   // "hsnCode" field.
   String? _hsnCode;
   String get hsnCode => _hsnCode ?? '';
   set hsnCode(String? val) => _hsnCode = val;
+
   bool hasHsnCode() => _hsnCode != null;
 
   // "rooms" field.
   bool? _rooms;
   bool get rooms => _rooms ?? false;
   set rooms(bool? val) => _rooms = val;
+
   bool hasRooms() => _rooms != null;
 
   // "state" field.
   int? _state;
   int get state => _state ?? 0;
   set state(int? val) => _state = val;
-  void incrementState(int amount) => _state = state + amount;
+
+  void incrementState(int amount) => state = state + amount;
+
   bool hasState() => _state != null;
 
   // "viewType" field.
   int? _viewType;
   int get viewType => _viewType ?? 0;
   set viewType(int? val) => _viewType = val;
-  void incrementViewType(int amount) => _viewType = viewType + amount;
+
+  void incrementViewType(int amount) => viewType = viewType + amount;
+
   bool hasViewType() => _viewType != null;
 
   // "weightable" field.
   String? _weightable;
   String get weightable => _weightable ?? '';
   set weightable(String? val) => _weightable = val;
+
   bool hasWeightable() => _weightable != null;
 
   // "defaultPrice" field.
   double? _defaultPrice;
   double get defaultPrice => _defaultPrice ?? 0.0;
   set defaultPrice(double? val) => _defaultPrice = val;
+
   void incrementDefaultPrice(double amount) =>
-      _defaultPrice = defaultPrice + amount;
+      defaultPrice = defaultPrice + amount;
+
   bool hasDefaultPrice() => _defaultPrice != null;
 
   // "dayType" field.
   String? _dayType;
   String get dayType => _dayType ?? '';
   set dayType(String? val) => _dayType = val;
+
   bool hasDayType() => _dayType != null;
 
   static ProductMasterListStruct fromMap(Map<String, dynamic> data) =>

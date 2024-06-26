@@ -1027,7 +1027,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                             isEqualTo: FFAppState().currentUserId,
                           ),
                           singleRecord: true,
-                        )..listen((snapshot) async {
+                        )..listen((snapshot) {
                             List<UserProfileRecord>
                                 listViewUserProfileRecordList = snapshot;
                             final listViewUserProfileRecord =
@@ -1039,47 +1039,49 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                         UserProfileRecordDocumentEquality())
                                     .equals(listViewUserProfileRecordList,
                                         _model.listViewPreviousSnapshot)) {
-                              if (listViewUserProfileRecord!
-                                  .userAccess.bizAppScanQR) {
+                              () async {
+                                if (listViewUserProfileRecord!
+                                    .userAccess.bizAppScanQR) {
+                                  setState(() {});
+                                  return;
+                                }
+
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return WebViewAware(
+                                      child: AlertDialog(
+                                        title: Text('Invalid Access'),
+                                        content: Text(
+                                            'Your Access Removed ..Contact Admin'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                                FFAppState().currentMobile = '';
+                                FFAppState().loggedIn = false;
+                                FFAppState().outletId = '';
+                                FFAppState().outletName = '';
+                                FFAppState().outletRef = null;
+                                FFAppState().currentUserRole = '';
+                                FFAppState().loggedInUser = [];
+                                FFAppState().userAccessList = UserListStruct();
                                 setState(() {});
-                                return;
-                              }
+                                GoRouter.of(context).prepareAuthEvent();
+                                await authManager.signOut();
+                                GoRouter.of(context).clearRedirectLocation();
 
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return WebViewAware(
-                                    child: AlertDialog(
-                                      title: Text('Invalid Access'),
-                                      content: Text(
-                                          'Your Access Removed ..Contact Admin'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                              FFAppState().currentMobile = '';
-                              FFAppState().loggedIn = false;
-                              FFAppState().outletId = '';
-                              FFAppState().outletName = '';
-                              FFAppState().outletRef = null;
-                              FFAppState().currentUserRole = '';
-                              FFAppState().loggedInUser = [];
-                              FFAppState().userAccessList = UserListStruct();
-                              setState(() {});
-                              GoRouter.of(context).prepareAuthEvent();
-                              await authManager.signOut();
-                              GoRouter.of(context).clearRedirectLocation();
+                                context.pushNamedAuth('Login', context.mounted);
 
-                              context.pushNamedAuth('Login', context.mounted);
-
-                              setState(() {});
+                                setState(() {});
+                              }();
                             }
                             _model.listViewPreviousSnapshot = snapshot;
                           }),

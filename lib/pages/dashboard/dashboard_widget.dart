@@ -1854,7 +1854,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                           .finalList5,
                                                                       ParamType
                                                                           .JSON,
-                                                                      true,
+                                                                      isList:
+                                                                          true,
                                                                     ),
                                                                   }.withoutNulls,
                                                                 );
@@ -2037,7 +2038,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                           .finalCategoryReport,
                                                                       ParamType
                                                                           .JSON,
-                                                                      true,
+                                                                      isList:
+                                                                          true,
                                                                     ),
                                                                   }.withoutNulls,
                                                                 );

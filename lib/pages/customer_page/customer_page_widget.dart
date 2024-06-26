@@ -256,6 +256,7 @@ class _CustomerPageWidgetState extends State<CustomerPageWidget> {
                                           mobileNo: _model.fetchedUser?.mobile,
                                           roll: _model.fetchedUser?.roll,
                                         );
+
                                         _shouldSetState = true;
                                         if ((_model
                                                 .apiResultb2bCopy?.succeeded ??

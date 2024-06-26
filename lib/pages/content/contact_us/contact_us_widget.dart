@@ -175,8 +175,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                   Html(
                                     data:
                                         '<h2>Contat Us :</h2>\n\n<h4>Contact Person:<span style=\"font-size:14px\"> </span><span style=\"font-size:12px\">Amrut Nerlikar (Founder)</span><br />\nContact Numbers: <span style=\"font-size:12px\">+91-9561673253 ,+91-8669695333</span></h4>\n\n<h4>Address :</h4>\n\n<p>&nbsp; &nbsp; &nbsp; <span style=\"font-size:12px\">4 Anand Complex Alkapuri Society,<br />\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Opposite Kinara Hotel Near Vanaz Factory<br />\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Paud Road<br />\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Kothrud<br />\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pune, Maharashtra 411038<br />\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; India</span></p>\n\n<h4>Website :&nbsp;&nbsp; <span style=\"font-size:12px\">https://www.sensibleconnect.com</span></h4>\n\n<h2>&nbsp;</h2>\n',
-                                    onLinkTap: (url, _, __, ___) =>
-                                        launchURL(url!),
+                                    onLinkTap: (url, _, __) => launchURL(url!),
                                   ),
                                 ],
                               ),

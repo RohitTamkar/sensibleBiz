@@ -8,7 +8,6 @@ import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'discount_widget.dart' show DiscountWidget;
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -67,7 +66,6 @@ class DiscountModel extends FlutterFlowModel<DiscountWidget> {
   // Stores action output result for [Custom Action - updateAddDiscountAction] action in SelectAllCheckbox widget.
   List<dynamic>? result;
   // State field(s) for Checkbox widget.
-
   Map<dynamic, bool> checkboxValueMap = {};
   List<dynamic> get checkboxCheckedItems =>
       checkboxValueMap.entries.where((e) => e.value).map((e) => e.key).toList();

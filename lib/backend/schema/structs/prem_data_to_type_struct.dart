@@ -21,13 +21,16 @@ class PremDataToTypeStruct extends FFFirebaseStruct {
   String? _premHead;
   String get premHead => _premHead ?? '';
   set premHead(String? val) => _premHead = val;
+
   bool hasPremHead() => _premHead != null;
 
   // "premValue" field.
   double? _premValue;
   double get premValue => _premValue ?? 0.0;
   set premValue(double? val) => _premValue = val;
-  void incrementPremValue(double amount) => _premValue = premValue + amount;
+
+  void incrementPremValue(double amount) => premValue = premValue + amount;
+
   bool hasPremValue() => _premValue != null;
 
   static PremDataToTypeStruct fromMap(Map<String, dynamic> data) =>

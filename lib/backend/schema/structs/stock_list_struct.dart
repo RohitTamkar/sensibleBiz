@@ -25,28 +25,35 @@ class StockListStruct extends FFFirebaseStruct {
   String? _name;
   String get name => _name ?? '';
   set name(String? val) => _name = val;
+
   bool hasName() => _name != null;
 
   // "currenStock" field.
   double? _currenStock;
   double get currenStock => _currenStock ?? 0.0;
   set currenStock(double? val) => _currenStock = val;
+
   void incrementCurrenStock(double amount) =>
-      _currenStock = currenStock + amount;
+      currenStock = currenStock + amount;
+
   bool hasCurrenStock() => _currenStock != null;
 
   // "reqStock" field.
   double? _reqStock;
   double get reqStock => _reqStock ?? 0.0;
   set reqStock(double? val) => _reqStock = val;
-  void incrementReqStock(double amount) => _reqStock = reqStock + amount;
+
+  void incrementReqStock(double amount) => reqStock = reqStock + amount;
+
   bool hasReqStock() => _reqStock != null;
 
   // "code" field.
   int? _code;
   int get code => _code ?? 0;
   set code(int? val) => _code = val;
-  void incrementCode(int amount) => _code = code + amount;
+
+  void incrementCode(int amount) => code = code + amount;
+
   bool hasCode() => _code != null;
 
   static StockListStruct fromMap(Map<String, dynamic> data) => StockListStruct(

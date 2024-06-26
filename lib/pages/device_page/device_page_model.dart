@@ -16,7 +16,6 @@ class DevicePageModel extends FlutterFlowModel<DevicePageWidget> {
 
   final unfocusNode = FocusNode();
   // State field(s) for Checkbox widget.
-
   Map<DeviceRecord, bool> checkboxValueMap = {};
   List<DeviceRecord> get checkboxCheckedItems =>
       checkboxValueMap.entries.where((e) => e.value).map((e) => e.key).toList();

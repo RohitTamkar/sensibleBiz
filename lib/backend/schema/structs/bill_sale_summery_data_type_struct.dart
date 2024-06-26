@@ -35,59 +35,72 @@ class BillSaleSummeryDataTypeStruct extends FFFirebaseStruct {
   String? _billNo;
   String get billNo => _billNo ?? '';
   set billNo(String? val) => _billNo = val;
+
   bool hasBillNo() => _billNo != null;
 
   // "finalTotal" field.
   int? _finalTotal;
   int get finalTotal => _finalTotal ?? 0;
   set finalTotal(int? val) => _finalTotal = val;
-  void incrementFinalTotal(int amount) => _finalTotal = finalTotal + amount;
+
+  void incrementFinalTotal(int amount) => finalTotal = finalTotal + amount;
+
   bool hasFinalTotal() => _finalTotal != null;
 
   // "id" field.
   String? _id;
   String get id => _id ?? '';
   set id(String? val) => _id = val;
+
   bool hasId() => _id != null;
 
   // "serialNo" field.
   String? _serialNo;
   String get serialNo => _serialNo ?? '';
   set serialNo(String? val) => _serialNo = val;
+
   bool hasSerialNo() => _serialNo != null;
 
   // "userId" field.
   String? _userId;
   String get userId => _userId ?? '';
   set userId(String? val) => _userId = val;
+
   bool hasUserId() => _userId != null;
 
   // "checkInTime" field.
   int? _checkInTime;
   int get checkInTime => _checkInTime ?? 0;
   set checkInTime(int? val) => _checkInTime = val;
-  void incrementCheckInTime(int amount) => _checkInTime = checkInTime + amount;
+
+  void incrementCheckInTime(int amount) => checkInTime = checkInTime + amount;
+
   bool hasCheckInTime() => _checkInTime != null;
 
   // "checkOutTime" field.
   int? _checkOutTime;
   int get checkOutTime => _checkOutTime ?? 0;
   set checkOutTime(int? val) => _checkOutTime = val;
+
   void incrementCheckOutTime(int amount) =>
-      _checkOutTime = checkOutTime + amount;
+      checkOutTime = checkOutTime + amount;
+
   bool hasCheckOutTime() => _checkOutTime != null;
 
   // "dayId" field.
   String? _dayId;
   String get dayId => _dayId ?? '';
   set dayId(String? val) => _dayId = val;
+
   bool hasDayId() => _dayId != null;
 
   // "createdDate" field.
   int? _createdDate;
   int get createdDate => _createdDate ?? 0;
   set createdDate(int? val) => _createdDate = val;
-  void incrementCreatedDate(int amount) => _createdDate = createdDate + amount;
+
+  void incrementCreatedDate(int amount) => createdDate = createdDate + amount;
+
   bool hasCreatedDate() => _createdDate != null;
 
   static BillSaleSummeryDataTypeStruct fromMap(Map<String, dynamic> data) =>

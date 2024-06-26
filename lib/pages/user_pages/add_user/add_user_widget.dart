@@ -181,164 +181,250 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 5.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 5.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                AutoSizeText(
-                                  'Name *',
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .titleSmallFamily,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily),
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 20.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: TextFormField(
-                                    controller:
-                                        _model.textFieldNameTextController,
-                                    focusNode: _model.textFieldNameFocusNode,
-                                    onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.textFieldNameTextController',
-                                      Duration(milliseconds: 2000),
-                                      () => setState(() {}),
-                                    ),
-                                    autofocus: true,
-                                    textCapitalization:
-                                        TextCapitalization.sentences,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondary,
-                                          width: 0.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color:
-                                              FlutterFlowTheme.of(context).info,
-                                          width: 0.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 0.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 0.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      filled: true,
-                                      fillColor: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                    ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 5.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  AutoSizeText(
+                                    'Name *',
                                     style: FlutterFlowTheme.of(context)
-                                        .labelLarge
+                                        .titleSmall
                                         .override(
                                           fontFamily:
                                               FlutterFlowTheme.of(context)
-                                                  .labelLargeFamily,
+                                                  .titleSmallFamily,
                                           letterSpacing: 0.0,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
                                                   FlutterFlowTheme.of(context)
-                                                      .labelLargeFamily),
+                                                      .titleSmallFamily),
                                         ),
-                                    validator: _model
-                                        .textFieldNameTextControllerValidator
-                                        .asValidator(context),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 5.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                AutoSizeText(
-                                  'Mobile No.',
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .titleSmallFamily,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily),
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 20.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                if (FFAppState().hide)
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 20.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
                                   Expanded(
                                     child: TextFormField(
                                       controller:
-                                          _model.textFieldMobileTextController,
-                                      focusNode:
-                                          _model.textFieldMobileFocusNode,
+                                          _model.textFieldNameTextController,
+                                      focusNode: _model.textFieldNameFocusNode,
                                       onChanged: (_) => EasyDebounce.debounce(
-                                        '_model.textFieldMobileTextController',
+                                        '_model.textFieldNameTextController',
                                         Duration(milliseconds: 2000),
                                         () => setState(() {}),
                                       ),
                                       autofocus: false,
-                                      readOnly: true,
+                                      textCapitalization:
+                                          TextCapitalization.sentences,
                                       obscureText: false,
                                       decoration: InputDecoration(
-                                        labelText: '+91',
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondary,
+                                            width: 0.5,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .info,
+                                            width: 0.5,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 0.5,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 0.5,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                        ),
+                                        filled: true,
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelLargeFamily,
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLargeFamily),
+                                          ),
+                                      validator: _model
+                                          .textFieldNameTextControllerValidator
+                                          .asValidator(context),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 5.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  AutoSizeText(
+                                    'Mobile No.',
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmallFamily,
+                                          letterSpacing: 0.0,
+                                          useGoogleFonts: GoogleFonts.asMap()
+                                              .containsKey(
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmallFamily),
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 20.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  if (FFAppState().hide)
+                                    Expanded(
+                                      child: TextFormField(
+                                        controller: _model
+                                            .textFieldMobileTextController,
+                                        focusNode:
+                                            _model.textFieldMobileFocusNode,
+                                        onChanged: (_) => EasyDebounce.debounce(
+                                          '_model.textFieldMobileTextController',
+                                          Duration(milliseconds: 2000),
+                                          () => setState(() {}),
+                                        ),
+                                        autofocus: false,
+                                        readOnly: true,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          labelText: '+91',
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                              width: 0.5,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              width: 0.5,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              width: 0.5,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              width: 0.5,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                          ),
+                                          filled: true,
+                                          fillColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLargeFamily,
+                                              letterSpacing: 0.0,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelLargeFamily),
+                                            ),
+                                        keyboardType: const TextInputType
+                                            .numberWithOptions(
+                                            signed: true, decimal: true),
+                                        validator: _model
+                                            .textFieldMobileTextControllerValidator
+                                            .asValidator(context),
+                                      ),
+                                    ),
+                                  Expanded(
+                                    flex: 5,
+                                    child: TextFormField(
+                                      controller: _model
+                                          .textFieldMobilenewTextController,
+                                      focusNode:
+                                          _model.textFieldMobilenewFocusNode,
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        '_model.textFieldMobilenewTextController',
+                                        Duration(milliseconds: 2000),
+                                        () => setState(() {}),
+                                      ),
+                                      autofocus: false,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: FlutterFlowTheme.of(context)
@@ -395,1316 +481,1261 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                           const TextInputType.numberWithOptions(
                                               signed: true, decimal: true),
                                       validator: _model
-                                          .textFieldMobileTextControllerValidator
+                                          .textFieldMobilenewTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
-                                Expanded(
-                                  flex: 5,
-                                  child: TextFormField(
-                                    controller:
-                                        _model.textFieldMobilenewTextController,
-                                    focusNode:
-                                        _model.textFieldMobilenewFocusNode,
-                                    onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.textFieldMobilenewTextController',
-                                      Duration(milliseconds: 2000),
-                                      () => setState(() {}),
-                                    ),
-                                    autofocus: true,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondary,
-                                          width: 0.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color:
-                                              FlutterFlowTheme.of(context).info,
-                                          width: 0.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 0.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 0.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      filled: true,
-                                      fillColor: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                    ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 5.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  AutoSizeText(
+                                    'Email ID',
                                     style: FlutterFlowTheme.of(context)
-                                        .labelLarge
+                                        .titleSmall
                                         .override(
                                           fontFamily:
                                               FlutterFlowTheme.of(context)
-                                                  .labelLargeFamily,
+                                                  .titleSmallFamily,
                                           letterSpacing: 0.0,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
                                                   FlutterFlowTheme.of(context)
-                                                      .labelLargeFamily),
+                                                      .titleSmallFamily),
                                         ),
-                                    keyboardType:
-                                        const TextInputType.numberWithOptions(
-                                            signed: true, decimal: true),
-                                    validator: _model
-                                        .textFieldMobilenewTextControllerValidator
-                                        .asValidator(context),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 5.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                AutoSizeText(
-                                  'Email ID',
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .titleSmallFamily,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 20.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller:
+                                          _model.textFieldEmailTextController,
+                                      focusNode: _model.textFieldEmailFocusNode,
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        '_model.textFieldEmailTextController',
+                                        Duration(milliseconds: 2000),
+                                        () => setState(() {}),
+                                      ),
+                                      autofocus: false,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        isDense: false,
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondary,
+                                            width: 0.5,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .info,
+                                            width: 0.5,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 0.5,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 0.5,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                        ),
+                                        filled: true,
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .override(
+                                            fontFamily:
                                                 FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily),
-                                      ),
-                                ),
-                              ],
+                                                    .labelLargeFamily,
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLargeFamily),
+                                          ),
+                                      keyboardType: TextInputType.emailAddress,
+                                      validator: _model
+                                          .textFieldEmailTextControllerValidator
+                                          .asValidator(context),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 20.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: TextFormField(
-                                    controller:
-                                        _model.textFieldEmailTextController,
-                                    focusNode: _model.textFieldEmailFocusNode,
-                                    onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.textFieldEmailTextController',
-                                      Duration(milliseconds: 2000),
-                                      () => setState(() {}),
-                                    ),
-                                    autofocus: true,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      isDense: false,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondary,
-                                          width: 0.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color:
-                                              FlutterFlowTheme.of(context).info,
-                                          width: 0.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 0.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 0.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      filled: true,
-                                      fillColor: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                    ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 5.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  AutoSizeText(
+                                    'Quick PIN',
                                     style: FlutterFlowTheme.of(context)
-                                        .labelLarge
+                                        .titleSmall
                                         .override(
                                           fontFamily:
                                               FlutterFlowTheme.of(context)
-                                                  .labelLargeFamily,
+                                                  .titleSmallFamily,
                                           letterSpacing: 0.0,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
                                                   FlutterFlowTheme.of(context)
-                                                      .labelLargeFamily),
+                                                      .titleSmallFamily),
                                         ),
-                                    keyboardType: TextInputType.emailAddress,
-                                    validator: _model
-                                        .textFieldEmailTextControllerValidator
-                                        .asValidator(context),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 5.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                AutoSizeText(
-                                  'Quick PIN',
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .titleSmallFamily,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 20.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller:
+                                          _model.pINTextFieldTextController,
+                                      focusNode: _model.pINTextFieldFocusNode,
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        '_model.pINTextFieldTextController',
+                                        Duration(milliseconds: 2000),
+                                        () => setState(() {}),
+                                      ),
+                                      autofocus: false,
+                                      obscureText:
+                                          !_model.pINTextFieldVisibility,
+                                      decoration: InputDecoration(
+                                        isDense: false,
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondary,
+                                            width: 0.5,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .info,
+                                            width: 0.5,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 0.5,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 0.5,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                        ),
+                                        filled: true,
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        suffixIcon: InkWell(
+                                          onTap: () => setState(
+                                            () => _model
+                                                    .pINTextFieldVisibility =
+                                                !_model.pINTextFieldVisibility,
+                                          ),
+                                          focusNode:
+                                              FocusNode(skipTraversal: true),
+                                          child: Icon(
+                                            _model.pINTextFieldVisibility
+                                                ? Icons.visibility_outlined
+                                                : Icons.visibility_off_outlined,
+                                            color: Color(0xFF757575),
+                                            size: 15.0,
+                                          ),
+                                        ),
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .override(
+                                            fontFamily:
                                                 FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily),
-                                      ),
-                                ),
-                              ],
+                                                    .labelLargeFamily,
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLargeFamily),
+                                          ),
+                                      keyboardType: TextInputType.number,
+                                      validator: _model
+                                          .pINTextFieldTextControllerValidator
+                                          .asValidator(context),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 20.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: TextFormField(
-                                    controller:
-                                        _model.pINTextFieldTextController,
-                                    focusNode: _model.pINTextFieldFocusNode,
-                                    onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.pINTextFieldTextController',
-                                      Duration(milliseconds: 2000),
-                                      () => setState(() {}),
-                                    ),
-                                    autofocus: true,
-                                    obscureText: !_model.pINTextFieldVisibility,
-                                    decoration: InputDecoration(
-                                      isDense: false,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondary,
-                                          width: 0.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color:
-                                              FlutterFlowTheme.of(context).info,
-                                          width: 0.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 0.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 0.5,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      filled: true,
-                                      fillColor: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      suffixIcon: InkWell(
-                                        onTap: () => setState(
-                                          () => _model.pINTextFieldVisibility =
-                                              !_model.pINTextFieldVisibility,
-                                        ),
-                                        focusNode:
-                                            FocusNode(skipTraversal: true),
-                                        child: Icon(
-                                          _model.pINTextFieldVisibility
-                                              ? Icons.visibility_outlined
-                                              : Icons.visibility_off_outlined,
-                                          color: Color(0xFF757575),
-                                          size: 15.0,
-                                        ),
-                                      ),
-                                    ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 5.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  AutoSizeText(
+                                    'User Permissions',
                                     style: FlutterFlowTheme.of(context)
-                                        .labelLarge
+                                        .titleSmall
                                         .override(
                                           fontFamily:
                                               FlutterFlowTheme.of(context)
-                                                  .labelLargeFamily,
+                                                  .titleSmallFamily,
                                           letterSpacing: 0.0,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
                                                   FlutterFlowTheme.of(context)
-                                                      .labelLargeFamily),
+                                                      .titleSmallFamily),
                                         ),
-                                    keyboardType: TextInputType.number,
-                                    validator: _model
-                                        .pINTextFieldTextControllerValidator
-                                        .asValidator(context),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 5.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                AutoSizeText(
-                                  'User Permissions',
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .titleSmallFamily,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 5.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Container(
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Theme(
+                                                        data: ThemeData(
+                                                          checkboxTheme:
+                                                              CheckboxThemeData(
+                                                            visualDensity:
+                                                                VisualDensity
+                                                                    .compact,
+                                                            materialTapTargetSize:
+                                                                MaterialTapTargetSize
+                                                                    .shrinkWrap,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.0),
+                                                            ),
+                                                          ),
+                                                          unselectedWidgetColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                        ),
+                                                        child: Checkbox(
+                                                          value: _model
+                                                                  .reportCheckValue ??=
+                                                              false,
+                                                          onChanged:
+                                                              (newValue) async {
+                                                            setState(() => _model
+                                                                    .reportCheckValue =
+                                                                newValue!);
+                                                          },
+                                                          side: BorderSide(
+                                                            width: 2,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .customColor3,
+                                                          ),
+                                                          activeColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                          checkColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Reports',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Theme(
+                                                        data: ThemeData(
+                                                          checkboxTheme:
+                                                              CheckboxThemeData(
+                                                            visualDensity:
+                                                                VisualDensity
+                                                                    .compact,
+                                                            materialTapTargetSize:
+                                                                MaterialTapTargetSize
+                                                                    .shrinkWrap,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.0),
+                                                            ),
+                                                          ),
+                                                          unselectedWidgetColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                        ),
+                                                        child: Checkbox(
+                                                          value: _model
+                                                                  .settingCheckValue ??=
+                                                              false,
+                                                          onChanged:
+                                                              (newValue) async {
+                                                            setState(() => _model
+                                                                    .settingCheckValue =
+                                                                newValue!);
+                                                          },
+                                                          side: BorderSide(
+                                                            width: 2,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .customColor3,
+                                                          ),
+                                                          activeColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                          checkColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Setting',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Theme(
+                                                        data: ThemeData(
+                                                          checkboxTheme:
+                                                              CheckboxThemeData(
+                                                            visualDensity:
+                                                                VisualDensity
+                                                                    .compact,
+                                                            materialTapTargetSize:
+                                                                MaterialTapTargetSize
+                                                                    .shrinkWrap,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.0),
+                                                            ),
+                                                          ),
+                                                          unselectedWidgetColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                        ),
+                                                        child: Checkbox(
+                                                          value: _model
+                                                                  .stockoutValue ??=
+                                                              false,
+                                                          onChanged:
+                                                              (newValue) async {
+                                                            setState(() => _model
+                                                                    .stockoutValue =
+                                                                newValue!);
+                                                          },
+                                                          side: BorderSide(
+                                                            width: 2,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .customColor3,
+                                                          ),
+                                                          activeColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                          checkColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Stock Out',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Theme(
+                                                        data: ThemeData(
+                                                          checkboxTheme:
+                                                              CheckboxThemeData(
+                                                            visualDensity:
+                                                                VisualDensity
+                                                                    .compact,
+                                                            materialTapTargetSize:
+                                                                MaterialTapTargetSize
+                                                                    .shrinkWrap,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.0),
+                                                            ),
+                                                          ),
+                                                          unselectedWidgetColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                        ),
+                                                        child: Checkbox(
+                                                          value: _model
+                                                                  .paymentCheckboxValue ??=
+                                                              false,
+                                                          onChanged:
+                                                              (newValue) async {
+                                                            setState(() => _model
+                                                                    .paymentCheckboxValue =
+                                                                newValue!);
+                                                          },
+                                                          side: BorderSide(
+                                                            width: 2,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .customColor3,
+                                                          ),
+                                                          activeColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                          checkColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'payment',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Theme(
+                                                        data: ThemeData(
+                                                          checkboxTheme:
+                                                              CheckboxThemeData(
+                                                            visualDensity:
+                                                                VisualDensity
+                                                                    .compact,
+                                                            materialTapTargetSize:
+                                                                MaterialTapTargetSize
+                                                                    .shrinkWrap,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.0),
+                                                            ),
+                                                          ),
+                                                          unselectedWidgetColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                        ),
+                                                        child: Checkbox(
+                                                          value: _model
+                                                                  .prodcutAddCheckboxValue ??=
+                                                              false,
+                                                          onChanged:
+                                                              (newValue) async {
+                                                            setState(() => _model
+                                                                    .prodcutAddCheckboxValue =
+                                                                newValue!);
+                                                          },
+                                                          side: BorderSide(
+                                                            width: 2,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .customColor3,
+                                                          ),
+                                                          activeColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                          checkColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Product Add',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Theme(
+                                                        data: ThemeData(
+                                                          checkboxTheme:
+                                                              CheckboxThemeData(
+                                                            visualDensity:
+                                                                VisualDensity
+                                                                    .compact,
+                                                            materialTapTargetSize:
+                                                                MaterialTapTargetSize
+                                                                    .shrinkWrap,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.0),
+                                                            ),
+                                                          ),
+                                                          unselectedWidgetColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                        ),
+                                                        child: Checkbox(
+                                                          value: _model
+                                                                  .editBillCheckboxValue ??=
+                                                              false,
+                                                          onChanged:
+                                                              (newValue) async {
+                                                            setState(() => _model
+                                                                    .editBillCheckboxValue =
+                                                                newValue!);
+                                                          },
+                                                          side: BorderSide(
+                                                            width: 2,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .customColor3,
+                                                          ),
+                                                          activeColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                          checkColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Edit Bill',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Theme(
+                                                        data: ThemeData(
+                                                          checkboxTheme:
+                                                              CheckboxThemeData(
+                                                            visualDensity:
+                                                                VisualDensity
+                                                                    .compact,
+                                                            materialTapTargetSize:
+                                                                MaterialTapTargetSize
+                                                                    .shrinkWrap,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.0),
+                                                            ),
+                                                          ),
+                                                          unselectedWidgetColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                        ),
+                                                        child: Checkbox(
+                                                          value: _model
+                                                                  .shiftReportCheckboxValue ??=
+                                                              false,
+                                                          onChanged:
+                                                              (newValue) async {
+                                                            setState(() => _model
+                                                                    .shiftReportCheckboxValue =
+                                                                newValue!);
+                                                          },
+                                                          side: BorderSide(
+                                                            width: 2,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .customColor3,
+                                                          ),
+                                                          activeColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                          checkColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Shift Report',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Theme(
+                                                        data: ThemeData(
+                                                          checkboxTheme:
+                                                              CheckboxThemeData(
+                                                            visualDensity:
+                                                                VisualDensity
+                                                                    .compact,
+                                                            materialTapTargetSize:
+                                                                MaterialTapTargetSize
+                                                                    .shrinkWrap,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.0),
+                                                            ),
+                                                          ),
+                                                          unselectedWidgetColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                        ),
+                                                        child: Checkbox(
+                                                          value: _model
+                                                                  .goodsReceivedCheckboxValue ??=
+                                                              false,
+                                                          onChanged:
+                                                              (newValue) async {
+                                                            setState(() => _model
+                                                                    .goodsReceivedCheckboxValue =
+                                                                newValue!);
+                                                          },
+                                                          side: BorderSide(
+                                                            width: 2,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .customColor3,
+                                                          ),
+                                                          activeColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                          checkColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Goods Received',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Theme(
+                                                        data: ThemeData(
+                                                          checkboxTheme:
+                                                              CheckboxThemeData(
+                                                            visualDensity:
+                                                                VisualDensity
+                                                                    .compact,
+                                                            materialTapTargetSize:
+                                                                MaterialTapTargetSize
+                                                                    .shrinkWrap,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.0),
+                                                            ),
+                                                          ),
+                                                          unselectedWidgetColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                        ),
+                                                        child: Checkbox(
+                                                          value: _model
+                                                                  .bizAppCheckboxValue ??=
+                                                              false,
+                                                          onChanged:
+                                                              (newValue) async {
+                                                            setState(() => _model
+                                                                    .bizAppCheckboxValue =
+                                                                newValue!);
+                                                          },
+                                                          side: BorderSide(
+                                                            width: 2,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .customColor3,
+                                                          ),
+                                                          activeColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                          checkColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Biz App Login',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Theme(
+                                                        data: ThemeData(
+                                                          checkboxTheme:
+                                                              CheckboxThemeData(
+                                                            visualDensity:
+                                                                VisualDensity
+                                                                    .compact,
+                                                            materialTapTargetSize:
+                                                                MaterialTapTargetSize
+                                                                    .shrinkWrap,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.0),
+                                                            ),
+                                                          ),
+                                                          unselectedWidgetColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                        ),
+                                                        child: Checkbox(
+                                                          value: _model
+                                                                  .kOTmodifyCheckboxValue ??=
+                                                              false,
+                                                          onChanged:
+                                                              (newValue) async {
+                                                            setState(() => _model
+                                                                    .kOTmodifyCheckboxValue =
+                                                                newValue!);
+                                                          },
+                                                          side: BorderSide(
+                                                            width: 2,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .customColor3,
+                                                          ),
+                                                          activeColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .customColor3,
+                                                          checkColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'KOT Modify',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMediumFamily,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyMediumFamily),
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 25.0, 0.0, 0.0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  var userProfileRecordReference =
+                                      UserProfileRecord.collection.doc();
+                                  await userProfileRecordReference.set({
+                                    ...createUserProfileRecordData(
+                                      name: _model
+                                          .textFieldNameTextController.text,
+                                      mobile: _model
+                                          .textFieldMobilenewTextController
+                                          .text,
+                                      email: _model
+                                          .textFieldEmailTextController.text,
+                                      quickPin: _model
+                                          .pINTextFieldTextController.text,
+                                      roll: 'user',
+                                      outletId: FFAppState().outletId,
+                                      active: true,
+                                      createdDate: getCurrentTimestamp
+                                          .millisecondsSinceEpoch,
+                                      userAccess: updateUserListStruct(
+                                        UserListStruct(
+                                          barcode: false,
+                                          editBill:
+                                              _model.editBillCheckboxValue,
+                                          goodsReceived:
+                                              _model.goodsReceivedCheckboxValue,
+                                          productAdd:
+                                              _model.prodcutAddCheckboxValue,
+                                          reports: _model.reportCheckValue,
+                                          settings: _model.settingCheckValue,
+                                          shiftReport:
+                                              _model.shiftReportCheckboxValue,
+                                          stockOut: _model.stockoutValue,
+                                          payment: _model.paymentCheckboxValue,
+                                          kOTModify:
+                                              _model.kOTmodifyCheckboxValue,
+                                          bizAppScanQR:
+                                              _model.bizAppCheckboxValue,
+                                        ),
+                                        clearUnsetFields: false,
+                                        create: true,
                                       ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 5.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Container(
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Theme(
-                                                      data: ThemeData(
-                                                        checkboxTheme:
-                                                            CheckboxThemeData(
-                                                          visualDensity:
-                                                              VisualDensity
-                                                                  .compact,
-                                                          materialTapTargetSize:
-                                                              MaterialTapTargetSize
-                                                                  .shrinkWrap,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4.0),
-                                                          ),
-                                                        ),
-                                                        unselectedWidgetColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                      ),
-                                                      child: Checkbox(
-                                                        value: _model
-                                                                .reportCheckValue ??=
-                                                            false,
-                                                        onChanged:
-                                                            (newValue) async {
-                                                          setState(() => _model
-                                                                  .reportCheckValue =
-                                                              newValue!);
-                                                        },
-                                                        side: BorderSide(
-                                                          width: 2,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .customColor3,
-                                                        ),
-                                                        activeColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                        checkColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'Reports',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
-                                                              ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Theme(
-                                                      data: ThemeData(
-                                                        checkboxTheme:
-                                                            CheckboxThemeData(
-                                                          visualDensity:
-                                                              VisualDensity
-                                                                  .compact,
-                                                          materialTapTargetSize:
-                                                              MaterialTapTargetSize
-                                                                  .shrinkWrap,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4.0),
-                                                          ),
-                                                        ),
-                                                        unselectedWidgetColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                      ),
-                                                      child: Checkbox(
-                                                        value: _model
-                                                                .settingCheckValue ??=
-                                                            false,
-                                                        onChanged:
-                                                            (newValue) async {
-                                                          setState(() => _model
-                                                                  .settingCheckValue =
-                                                              newValue!);
-                                                        },
-                                                        side: BorderSide(
-                                                          width: 2,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .customColor3,
-                                                        ),
-                                                        activeColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                        checkColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'Setting',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
-                                                              ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Theme(
-                                                      data: ThemeData(
-                                                        checkboxTheme:
-                                                            CheckboxThemeData(
-                                                          visualDensity:
-                                                              VisualDensity
-                                                                  .compact,
-                                                          materialTapTargetSize:
-                                                              MaterialTapTargetSize
-                                                                  .shrinkWrap,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4.0),
-                                                          ),
-                                                        ),
-                                                        unselectedWidgetColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                      ),
-                                                      child: Checkbox(
-                                                        value: _model
-                                                                .stockoutValue ??=
-                                                            false,
-                                                        onChanged:
-                                                            (newValue) async {
-                                                          setState(() => _model
-                                                                  .stockoutValue =
-                                                              newValue!);
-                                                        },
-                                                        side: BorderSide(
-                                                          width: 2,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .customColor3,
-                                                        ),
-                                                        activeColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                        checkColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'Stock Out',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
-                                                              ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Theme(
-                                                      data: ThemeData(
-                                                        checkboxTheme:
-                                                            CheckboxThemeData(
-                                                          visualDensity:
-                                                              VisualDensity
-                                                                  .compact,
-                                                          materialTapTargetSize:
-                                                              MaterialTapTargetSize
-                                                                  .shrinkWrap,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4.0),
-                                                          ),
-                                                        ),
-                                                        unselectedWidgetColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                      ),
-                                                      child: Checkbox(
-                                                        value: _model
-                                                                .paymentCheckboxValue ??=
-                                                            false,
-                                                        onChanged:
-                                                            (newValue) async {
-                                                          setState(() => _model
-                                                                  .paymentCheckboxValue =
-                                                              newValue!);
-                                                        },
-                                                        side: BorderSide(
-                                                          width: 2,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .customColor3,
-                                                        ),
-                                                        activeColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                        checkColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'payment',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
-                                                              ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Theme(
-                                                      data: ThemeData(
-                                                        checkboxTheme:
-                                                            CheckboxThemeData(
-                                                          visualDensity:
-                                                              VisualDensity
-                                                                  .compact,
-                                                          materialTapTargetSize:
-                                                              MaterialTapTargetSize
-                                                                  .shrinkWrap,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4.0),
-                                                          ),
-                                                        ),
-                                                        unselectedWidgetColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                      ),
-                                                      child: Checkbox(
-                                                        value: _model
-                                                                .prodcutAddCheckboxValue ??=
-                                                            false,
-                                                        onChanged:
-                                                            (newValue) async {
-                                                          setState(() => _model
-                                                                  .prodcutAddCheckboxValue =
-                                                              newValue!);
-                                                        },
-                                                        side: BorderSide(
-                                                          width: 2,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .customColor3,
-                                                        ),
-                                                        activeColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                        checkColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'Product Add',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
-                                                              ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Theme(
-                                                      data: ThemeData(
-                                                        checkboxTheme:
-                                                            CheckboxThemeData(
-                                                          visualDensity:
-                                                              VisualDensity
-                                                                  .compact,
-                                                          materialTapTargetSize:
-                                                              MaterialTapTargetSize
-                                                                  .shrinkWrap,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4.0),
-                                                          ),
-                                                        ),
-                                                        unselectedWidgetColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                      ),
-                                                      child: Checkbox(
-                                                        value: _model
-                                                                .editBillCheckboxValue ??=
-                                                            false,
-                                                        onChanged:
-                                                            (newValue) async {
-                                                          setState(() => _model
-                                                                  .editBillCheckboxValue =
-                                                              newValue!);
-                                                        },
-                                                        side: BorderSide(
-                                                          width: 2,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .customColor3,
-                                                        ),
-                                                        activeColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                        checkColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'Edit Bill',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
-                                                              ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Theme(
-                                                      data: ThemeData(
-                                                        checkboxTheme:
-                                                            CheckboxThemeData(
-                                                          visualDensity:
-                                                              VisualDensity
-                                                                  .compact,
-                                                          materialTapTargetSize:
-                                                              MaterialTapTargetSize
-                                                                  .shrinkWrap,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4.0),
-                                                          ),
-                                                        ),
-                                                        unselectedWidgetColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                      ),
-                                                      child: Checkbox(
-                                                        value: _model
-                                                                .shiftReportCheckboxValue ??=
-                                                            false,
-                                                        onChanged:
-                                                            (newValue) async {
-                                                          setState(() => _model
-                                                                  .shiftReportCheckboxValue =
-                                                              newValue!);
-                                                        },
-                                                        side: BorderSide(
-                                                          width: 2,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .customColor3,
-                                                        ),
-                                                        activeColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                        checkColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'Shift Report',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
-                                                              ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Theme(
-                                                      data: ThemeData(
-                                                        checkboxTheme:
-                                                            CheckboxThemeData(
-                                                          visualDensity:
-                                                              VisualDensity
-                                                                  .compact,
-                                                          materialTapTargetSize:
-                                                              MaterialTapTargetSize
-                                                                  .shrinkWrap,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4.0),
-                                                          ),
-                                                        ),
-                                                        unselectedWidgetColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                      ),
-                                                      child: Checkbox(
-                                                        value: _model
-                                                                .goodsReceivedCheckboxValue ??=
-                                                            false,
-                                                        onChanged:
-                                                            (newValue) async {
-                                                          setState(() => _model
-                                                                  .goodsReceivedCheckboxValue =
-                                                              newValue!);
-                                                        },
-                                                        side: BorderSide(
-                                                          width: 2,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .customColor3,
-                                                        ),
-                                                        activeColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                        checkColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'Goods Received',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
-                                                              ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Theme(
-                                                      data: ThemeData(
-                                                        checkboxTheme:
-                                                            CheckboxThemeData(
-                                                          visualDensity:
-                                                              VisualDensity
-                                                                  .compact,
-                                                          materialTapTargetSize:
-                                                              MaterialTapTargetSize
-                                                                  .shrinkWrap,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4.0),
-                                                          ),
-                                                        ),
-                                                        unselectedWidgetColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                      ),
-                                                      child: Checkbox(
-                                                        value: _model
-                                                                .bizAppCheckboxValue ??=
-                                                            false,
-                                                        onChanged:
-                                                            (newValue) async {
-                                                          setState(() => _model
-                                                                  .bizAppCheckboxValue =
-                                                              newValue!);
-                                                        },
-                                                        side: BorderSide(
-                                                          width: 2,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .customColor3,
-                                                        ),
-                                                        activeColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                        checkColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'Biz App Login',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
-                                                              ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Theme(
-                                                      data: ThemeData(
-                                                        checkboxTheme:
-                                                            CheckboxThemeData(
-                                                          visualDensity:
-                                                              VisualDensity
-                                                                  .compact,
-                                                          materialTapTargetSize:
-                                                              MaterialTapTargetSize
-                                                                  .shrinkWrap,
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4.0),
-                                                          ),
-                                                        ),
-                                                        unselectedWidgetColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                      ),
-                                                      child: Checkbox(
-                                                        value: _model
-                                                                .kOTmodifyCheckboxValue ??=
-                                                            false,
-                                                        onChanged:
-                                                            (newValue) async {
-                                                          setState(() => _model
-                                                                  .kOTmodifyCheckboxValue =
-                                                              newValue!);
-                                                        },
-                                                        side: BorderSide(
-                                                          width: 2,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .customColor3,
-                                                        ),
-                                                        activeColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor3,
-                                                        checkColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'KOT Modify',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily,
-                                                                fontSize: 16.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyMediumFamily),
-                                                              ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                    ),
+                                    ...mapToFirestore(
+                                      {
+                                        'outlets': [FFAppState().outletId],
+                                      },
+                                    ),
+                                  });
+                                  _model.userDoc =
+                                      UserProfileRecord.getDocumentFromData({
+                                    ...createUserProfileRecordData(
+                                      name: _model
+                                          .textFieldNameTextController.text,
+                                      mobile: _model
+                                          .textFieldMobilenewTextController
+                                          .text,
+                                      email: _model
+                                          .textFieldEmailTextController.text,
+                                      quickPin: _model
+                                          .pINTextFieldTextController.text,
+                                      roll: 'user',
+                                      outletId: FFAppState().outletId,
+                                      active: true,
+                                      createdDate: getCurrentTimestamp
+                                          .millisecondsSinceEpoch,
+                                      userAccess: updateUserListStruct(
+                                        UserListStruct(
+                                          barcode: false,
+                                          editBill:
+                                              _model.editBillCheckboxValue,
+                                          goodsReceived:
+                                              _model.goodsReceivedCheckboxValue,
+                                          productAdd:
+                                              _model.prodcutAddCheckboxValue,
+                                          reports: _model.reportCheckValue,
+                                          settings: _model.settingCheckValue,
+                                          shiftReport:
+                                              _model.shiftReportCheckboxValue,
+                                          stockOut: _model.stockoutValue,
+                                          payment: _model.paymentCheckboxValue,
+                                          kOTModify:
+                                              _model.kOTmodifyCheckboxValue,
+                                          bizAppScanQR:
+                                              _model.bizAppCheckboxValue,
+                                        ),
+                                        clearUnsetFields: false,
+                                        create: true,
+                                      ),
+                                    ),
+                                    ...mapToFirestore(
+                                      {
+                                        'outlets': [FFAppState().outletId],
+                                      },
+                                    ),
+                                  }, userProfileRecordReference);
+
+                                  await _model.userDoc!.reference
+                                      .update(createUserProfileRecordData(
+                                    id: _model.userDoc?.reference.id,
+                                  ));
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return WebViewAware(
+                                        child: AlertDialog(
+                                          title: Text('Success'),
+                                          content: Text('User Created .'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: Text('Ok'),
                                             ),
                                           ],
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 25.0, 0.0, 0.0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                var userProfileRecordReference =
-                                    UserProfileRecord.collection.doc();
-                                await userProfileRecordReference.set({
-                                  ...createUserProfileRecordData(
-                                    name:
-                                        _model.textFieldNameTextController.text,
-                                    mobile: _model
-                                        .textFieldMobilenewTextController.text,
-                                    email: _model
-                                        .textFieldEmailTextController.text,
-                                    quickPin:
-                                        _model.pINTextFieldTextController.text,
-                                    roll: 'user',
-                                    outletId: FFAppState().outletId,
-                                    active: true,
-                                    createdDate: getCurrentTimestamp
-                                        .millisecondsSinceEpoch,
-                                    userAccess: updateUserListStruct(
-                                      UserListStruct(
-                                        barcode: false,
-                                        editBill: _model.editBillCheckboxValue,
-                                        goodsReceived:
-                                            _model.goodsReceivedCheckboxValue,
-                                        productAdd:
-                                            _model.prodcutAddCheckboxValue,
-                                        reports: _model.reportCheckValue,
-                                        settings: _model.settingCheckValue,
-                                        shiftReport:
-                                            _model.shiftReportCheckboxValue,
-                                        stockOut: _model.stockoutValue,
-                                        payment: _model.paymentCheckboxValue,
-                                        kOTModify:
-                                            _model.kOTmodifyCheckboxValue,
-                                        bizAppScanQR:
-                                            _model.bizAppCheckboxValue,
-                                      ),
-                                      clearUnsetFields: false,
-                                      create: true,
-                                    ),
-                                  ),
-                                  ...mapToFirestore(
-                                    {
-                                      'outlets': [FFAppState().outletId],
+                                      );
                                     },
-                                  ),
-                                });
-                                _model.userDoc =
-                                    UserProfileRecord.getDocumentFromData({
-                                  ...createUserProfileRecordData(
-                                    name:
-                                        _model.textFieldNameTextController.text,
-                                    mobile: _model
-                                        .textFieldMobilenewTextController.text,
-                                    email: _model
-                                        .textFieldEmailTextController.text,
-                                    quickPin:
-                                        _model.pINTextFieldTextController.text,
-                                    roll: 'user',
-                                    outletId: FFAppState().outletId,
-                                    active: true,
-                                    createdDate: getCurrentTimestamp
-                                        .millisecondsSinceEpoch,
-                                    userAccess: updateUserListStruct(
-                                      UserListStruct(
-                                        barcode: false,
-                                        editBill: _model.editBillCheckboxValue,
-                                        goodsReceived:
-                                            _model.goodsReceivedCheckboxValue,
-                                        productAdd:
-                                            _model.prodcutAddCheckboxValue,
-                                        reports: _model.reportCheckValue,
-                                        settings: _model.settingCheckValue,
-                                        shiftReport:
-                                            _model.shiftReportCheckboxValue,
-                                        stockOut: _model.stockoutValue,
-                                        payment: _model.paymentCheckboxValue,
-                                        kOTModify:
-                                            _model.kOTmodifyCheckboxValue,
-                                        bizAppScanQR:
-                                            _model.bizAppCheckboxValue,
+                                  );
+
+                                  context.pushNamed('userList');
+
+                                  setState(() {});
+                                },
+                                text: 'Add User',
+                                options: FFButtonOptions(
+                                  width: 250.0,
+                                  height: 40.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .titleSmallFamily,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBtnText,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey(
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmallFamily),
                                       ),
-                                      clearUnsetFields: false,
-                                      create: true,
-                                    ),
+                                  elevation: 2.0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
                                   ),
-                                  ...mapToFirestore(
-                                    {
-                                      'outlets': [FFAppState().outletId],
-                                    },
-                                  ),
-                                }, userProfileRecordReference);
-
-                                await _model.userDoc!.reference
-                                    .update(createUserProfileRecordData(
-                                  id: _model.userDoc?.reference.id,
-                                ));
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return WebViewAware(
-                                      child: AlertDialog(
-                                        title: Text('Success'),
-                                        content: Text('User Created .'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Ok'),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
-
-                                context.pushNamed('userList');
-
-                                setState(() {});
-                              },
-                              text: 'Add User',
-                              options: FFButtonOptions(
-                                width: 250.0,
-                                height: 40.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).primary,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .titleSmallFamily,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBtnText,
-                                      letterSpacing: 0.0,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmallFamily),
-                                    ),
-                                elevation: 2.0,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.circular(5.0),
                                 ),
-                                borderRadius: BorderRadius.circular(5.0),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

@@ -39,74 +39,90 @@ class ProductListStruct extends FFFirebaseStruct {
   String? _name;
   String get name => _name ?? '';
   set name(String? val) => _name = val;
+
   bool hasName() => _name != null;
 
   // "id" field.
   String? _id;
   String get id => _id ?? '';
   set id(String? val) => _id = val;
+
   bool hasId() => _id != null;
 
   // "requestedStock" field.
   double? _requestedStock;
   double get requestedStock => _requestedStock ?? 0.0;
   set requestedStock(double? val) => _requestedStock = val;
+
   void incrementRequestedStock(double amount) =>
-      _requestedStock = requestedStock + amount;
+      requestedStock = requestedStock + amount;
+
   bool hasRequestedStock() => _requestedStock != null;
 
   // "currentStock" field.
   double? _currentStock;
   double get currentStock => _currentStock ?? 0.0;
   set currentStock(double? val) => _currentStock = val;
+
   void incrementCurrentStock(double amount) =>
-      _currentStock = currentStock + amount;
+      currentStock = currentStock + amount;
+
   bool hasCurrentStock() => _currentStock != null;
 
   // "type" field.
   String? _type;
   String get type => _type ?? '';
   set type(String? val) => _type = val;
+
   bool hasType() => _type != null;
 
   // "note" field.
   String? _note;
   String get note => _note ?? '';
   set note(String? val) => _note = val;
+
   bool hasNote() => _note != null;
 
   // "inWardStock" field.
   double? _inWardStock;
   double get inWardStock => _inWardStock ?? 0.0;
   set inWardStock(double? val) => _inWardStock = val;
+
   void incrementInWardStock(double amount) =>
-      _inWardStock = inWardStock + amount;
+      inWardStock = inWardStock + amount;
+
   bool hasInWardStock() => _inWardStock != null;
 
   // "status" field.
   String? _status;
   String get status => _status ?? '';
   set status(String? val) => _status = val;
+
   bool hasStatus() => _status != null;
 
   // "reqStock" field.
   double? _reqStock;
   double get reqStock => _reqStock ?? 0.0;
   set reqStock(double? val) => _reqStock = val;
-  void incrementReqStock(double amount) => _reqStock = reqStock + amount;
+
+  void incrementReqStock(double amount) => reqStock = reqStock + amount;
+
   bool hasReqStock() => _reqStock != null;
 
   // "code" field.
   int? _code;
   int get code => _code ?? 0;
   set code(int? val) => _code = val;
-  void incrementCode(int amount) => _code = code + amount;
+
+  void incrementCode(int amount) => code = code + amount;
+
   bool hasCode() => _code != null;
 
   // "ref" field.
   DocumentReference? _ref;
   DocumentReference? get ref => _ref;
   set ref(DocumentReference? val) => _ref = val;
+
   bool hasRef() => _ref != null;
 
   static ProductListStruct fromMap(Map<String, dynamic> data) =>

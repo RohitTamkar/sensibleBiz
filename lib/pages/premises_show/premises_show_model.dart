@@ -43,7 +43,6 @@ class PremisesShowModel extends FlutterFlowModel<PremisesShowWidget> {
   // Stores action output result for [Custom Action - productDocToJsonList] action in PremisesShow widget.
   List<dynamic>? docsJson;
   // State field(s) for Checkbox widget.
-
   Map<dynamic, bool> checkboxValueMap = {};
   List<dynamic> get checkboxCheckedItems =>
       checkboxValueMap.entries.where((e) => e.value).map((e) => e.key).toList();

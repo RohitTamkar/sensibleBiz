@@ -65,7 +65,6 @@ class StockWeightCombinePageModel
   // Stores action output result for [Custom Action - selectCheckbox] action in WeightableCheckbox widget.
   List<dynamic>? result1Copy;
   // State field(s) for Checkbox widget.
-
   Map<dynamic, bool> checkboxValueMap1 = {};
   List<dynamic> get checkboxCheckedItems1 => checkboxValueMap1.entries
       .where((e) => e.value)
@@ -77,7 +76,6 @@ class StockWeightCombinePageModel
   // Stores action output result for [Custom Action - selectCheckboxCopy] action in Checkbox widget.
   List<dynamic>? checkBoxClickCopy;
   // State field(s) for Checkbox widget.
-
   Map<dynamic, bool> checkboxValueMap2 = {};
   List<dynamic> get checkboxCheckedItems2 => checkboxValueMap2.entries
       .where((e) => e.value)
