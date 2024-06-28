@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/no_data/no_data_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -13,6 +14,7 @@ import 'product_sale_report_daywise_widget.dart'
     show ProductSaleReportDaywiseWidget;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -27,6 +29,8 @@ class ProductSaleReportDaywiseModel
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Firestore Query - Query a collection] action in productSaleReportDaywise widget.
+  UserProfileRecord? userDetails;
   DateTime? datePicked;
   // Stores action output result for [Custom Action - getShiftDetails] action in IconButton widget.
   List<dynamic>? shiftdetails3;
@@ -38,6 +42,10 @@ class ProductSaleReportDaywiseModel
   dynamic? productJson3;
   // Stores action output result for [Custom Action - getReport] action in IconButton widget.
   List<dynamic>? finalList4;
+  // Stores action output result for [Custom Action - genrateExcelForProductWiseSaleReport] action in IconButton widget.
+  String? base64Link;
+  // Stores action output result for [Backend Call - API (sendMail)] action in IconButton widget.
+  ApiCallResponse? apiResultOfMailSend;
   // Stores action output result for [Custom Action - exportToExcelProductReport] action in Icon widget.
   dynamic? res;
 

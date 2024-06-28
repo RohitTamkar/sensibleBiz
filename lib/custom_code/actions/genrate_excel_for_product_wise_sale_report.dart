@@ -19,6 +19,7 @@ import 'package:excel/excel.dart';
 Future<String> genrateExcelForProductWiseSaleReport(
   List<dynamic> jsonproduct,
   String? startdate,
+  String? outletName,
 ) async {
   // Create Excel file
   print(jsonproduct);
@@ -28,7 +29,7 @@ Future<String> genrateExcelForProductWiseSaleReport(
   // Add headers to the sheet
   sheet.appendRow([
     TextCellValue('Shop Name'),
-    // TextCellValue(shopName ?? ''),
+    TextCellValue(outletName ?? ''),
   ]);
 /*
   sheet.appendRow([
