@@ -63,3 +63,5 @@ export 'genarate_product_code1.dart' show genarateProductCode1;
 export 'clear_session_storage.dart' show clearSessionStorage;
 export 'generate_bill_wise_data_excel.dart' show generateBillWiseDataExcel;
 export 'generate_pdf_file.dart' show generatePdfFile;
+export 'genrate_excel_for_product_wise_sale_report.dart'
+    show genrateExcelForProductWiseSaleReport;

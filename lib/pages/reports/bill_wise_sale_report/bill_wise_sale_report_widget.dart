@@ -132,118 +132,46 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                           Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Builder(
-                                builder: (context) => FlutterFlowIconButton(
-                                  borderColor: Colors.transparent,
-                                  borderRadius: 30.0,
-                                  borderWidth: 1.0,
-                                  buttonSize: 50.0,
-                                  icon: Icon(
-                                    Icons.qr_code,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBtnText,
-                                    size: 24.0,
-                                  ),
-                                  onPressed: () async {
-                                    var _shouldSetState = false;
-                                    _model.billNumberQR =
-                                        await FlutterBarcodeScanner.scanBarcode(
-                                      '#C62828', // scanning line color
-                                      'Cancel', // cancel button text
-                                      true, // whether to show the flash icon
-                                      ScanMode.QR,
-                                    );
+                              if (responsiveVisibility(
+                                context: context,
+                                desktop: false,
+                              ))
+                                Builder(
+                                  builder: (context) => FlutterFlowIconButton(
+                                    borderColor: Colors.transparent,
+                                    borderRadius: 30.0,
+                                    borderWidth: 1.0,
+                                    buttonSize: 50.0,
+                                    icon: Icon(
+                                      Icons.qr_code,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBtnText,
+                                      size: 24.0,
+                                    ),
+                                    onPressed: () async {
+                                      var _shouldSetState = false;
+                                      _model.billNumberQR =
+                                          await FlutterBarcodeScanner
+                                              .scanBarcode(
+                                        '#C62828', // scanning line color
+                                        'Cancel', // cancel button text
+                                        true, // whether to show the flash icon
+                                        ScanMode.QR,
+                                      );
 
-                                    _shouldSetState = true;
-                                    _model.billDocumnetQR =
-                                        await queryBillSaleSummaryRecordOnce(
-                                      parent: FFAppState().outletRef,
-                                      queryBuilder: (billSaleSummaryRecord) =>
-                                          billSaleSummaryRecord.where(
-                                        'billNo',
-                                        isEqualTo: _model.billNumberQR,
-                                      ),
-                                      singleRecord: true,
-                                    ).then((s) => s.firstOrNull);
-                                    _shouldSetState = true;
-                                    if (_model.billDocumnetQR?.checkInTime ==
-                                        0) {
-                                      var confirmDialogResponse =
-                                          await showDialog<bool>(
-                                                context: context,
-                                                builder: (alertDialogContext) {
-                                                  return WebViewAware(
-                                                    child: AlertDialog(
-                                                      title: Text('Check In'),
-                                                      content: Text(
-                                                          'Bill No${_model.billDocumnetQR?.billNo}'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext,
-                                                                  false),
-                                                          child: Text('Cancel'),
-                                                        ),
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext,
-                                                                  true),
-                                                          child:
-                                                              Text('Confirm'),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  );
-                                                },
-                                              ) ??
-                                              false;
-                                      if (confirmDialogResponse) {
-                                        await _model.billDocumnetQR!.reference
-                                            .update(
-                                                createBillSaleSummaryRecordData(
-                                          checkInTime: getCurrentTimestamp
-                                              .millisecondsSinceEpoch,
-                                        ));
-                                        await showDialog(
-                                          context: context,
-                                          builder: (dialogContext) {
-                                            return Dialog(
-                                              elevation: 0,
-                                              insetPadding: EdgeInsets.zero,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              alignment:
-                                                  AlignmentDirectional(0.0, 0.0)
-                                                      .resolve(
-                                                          Directionality.of(
-                                                              context)),
-                                              child: WebViewAware(
-                                                child: GestureDetector(
-                                                  onTap: () => _model
-                                                          .unfocusNode
-                                                          .canRequestFocus
-                                                      ? FocusScope.of(context)
-                                                          .requestFocus(_model
-                                                              .unfocusNode)
-                                                      : FocusScope.of(context)
-                                                          .unfocus(),
-                                                  child: CheckInSuccessWidget(),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ).then((value) => setState(() {}));
-
-                                        if (_shouldSetState) setState(() {});
-                                        return;
-                                      } else {
-                                        if (_shouldSetState) setState(() {});
-                                        return;
-                                      }
-                                    } else {
-                                      if (_model.billDocumnetQR?.checkOutTime ==
+                                      _shouldSetState = true;
+                                      _model.billDocumnetQR =
+                                          await queryBillSaleSummaryRecordOnce(
+                                        parent: FFAppState().outletRef,
+                                        queryBuilder: (billSaleSummaryRecord) =>
+                                            billSaleSummaryRecord.where(
+                                          'billNo',
+                                          isEqualTo: _model.billNumberQR,
+                                        ),
+                                        singleRecord: true,
+                                      ).then((s) => s.firstOrNull);
+                                      _shouldSetState = true;
+                                      if (_model.billDocumnetQR?.checkInTime ==
                                           0) {
                                         var confirmDialogResponse =
                                             await showDialog<bool>(
@@ -252,8 +180,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                       (alertDialogContext) {
                                                     return WebViewAware(
                                                       child: AlertDialog(
-                                                        title:
-                                                            Text('Check Out'),
+                                                        title: Text('Check In'),
                                                         content: Text(
                                                             'Bill No${_model.billDocumnetQR?.billNo}'),
                                                         actions: [
@@ -283,7 +210,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                           await _model.billDocumnetQR!.reference
                                               .update(
                                                   createBillSaleSummaryRecordData(
-                                            checkOutTime: getCurrentTimestamp
+                                            checkInTime: getCurrentTimestamp
                                                 .millisecondsSinceEpoch,
                                           ));
                                           await showDialog(
@@ -309,7 +236,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                         : FocusScope.of(context)
                                                             .unfocus(),
                                                     child:
-                                                        CheckOutSuccessWidget(),
+                                                        CheckInSuccessWidget(),
                                                   ),
                                                 ),
                                               );
@@ -323,45 +250,133 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                           return;
                                         }
                                       } else {
-                                        await showDialog(
-                                          context: context,
-                                          builder: (dialogContext) {
-                                            return Dialog(
-                                              elevation: 0,
-                                              insetPadding: EdgeInsets.zero,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              alignment:
-                                                  AlignmentDirectional(0.0, 0.0)
-                                                      .resolve(
-                                                          Directionality.of(
-                                                              context)),
-                                              child: WebViewAware(
-                                                child: GestureDetector(
-                                                  onTap: () => _model
-                                                          .unfocusNode
-                                                          .canRequestFocus
-                                                      ? FocusScope.of(context)
-                                                          .requestFocus(_model
-                                                              .unfocusNode)
-                                                      : FocusScope.of(context)
-                                                          .unfocus(),
-                                                  child: SessionExpiredWidget(),
+                                        if (_model
+                                                .billDocumnetQR?.checkOutTime ==
+                                            0) {
+                                          var confirmDialogResponse =
+                                              await showDialog<bool>(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return WebViewAware(
+                                                        child: AlertDialog(
+                                                          title:
+                                                              Text('Check Out'),
+                                                          content: Text(
+                                                              'Bill No${_model.billDocumnetQR?.billNo}'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext,
+                                                                      false),
+                                                              child: Text(
+                                                                  'Cancel'),
+                                                            ),
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext,
+                                                                      true),
+                                                              child: Text(
+                                                                  'Confirm'),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  ) ??
+                                                  false;
+                                          if (confirmDialogResponse) {
+                                            await _model
+                                                .billDocumnetQR!.reference
+                                                .update(
+                                                    createBillSaleSummaryRecordData(
+                                              checkOutTime: getCurrentTimestamp
+                                                  .millisecondsSinceEpoch,
+                                            ));
+                                            await showDialog(
+                                              context: context,
+                                              builder: (dialogContext) {
+                                                return Dialog(
+                                                  elevation: 0,
+                                                  insetPadding: EdgeInsets.zero,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                              0.0, 0.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
+                                                  child: WebViewAware(
+                                                    child: GestureDetector(
+                                                      onTap: () => _model
+                                                              .unfocusNode
+                                                              .canRequestFocus
+                                                          ? FocusScope.of(
+                                                                  context)
+                                                              .requestFocus(_model
+                                                                  .unfocusNode)
+                                                          : FocusScope.of(
+                                                                  context)
+                                                              .unfocus(),
+                                                      child:
+                                                          CheckOutSuccessWidget(),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ).then((value) => setState(() {}));
+
+                                            if (_shouldSetState)
+                                              setState(() {});
+                                            return;
+                                          } else {
+                                            if (_shouldSetState)
+                                              setState(() {});
+                                            return;
+                                          }
+                                        } else {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                elevation: 0,
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment: AlignmentDirectional(
+                                                        0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                                child: WebViewAware(
+                                                  child: GestureDetector(
+                                                    onTap: () => _model
+                                                            .unfocusNode
+                                                            .canRequestFocus
+                                                        ? FocusScope.of(context)
+                                                            .requestFocus(_model
+                                                                .unfocusNode)
+                                                        : FocusScope.of(context)
+                                                            .unfocus(),
+                                                    child:
+                                                        SessionExpiredWidget(),
+                                                  ),
                                                 ),
-                                              ),
-                                            );
-                                          },
-                                        ).then((value) => setState(() {}));
+                                              );
+                                            },
+                                          ).then((value) => setState(() {}));
 
-                                        if (_shouldSetState) setState(() {});
-                                        return;
+                                          if (_shouldSetState) setState(() {});
+                                          return;
+                                        }
                                       }
-                                    }
 
-                                    if (_shouldSetState) setState(() {});
-                                  },
+                                      if (_shouldSetState) setState(() {});
+                                    },
+                                  ),
                                 ),
-                              ),
                               if (FFAppState().currentUserRole == 'admin')
                                 Builder(
                                   builder: (context) => FlutterFlowIconButton(
@@ -435,7 +450,13 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                         'Login', context.mounted);
                                   },
                                 ),
-                              if (FFAppState().currentUserRole == 'admin')
+                              if (false &&
+                                  responsiveVisibility(
+                                    context: context,
+                                    tablet: false,
+                                    tabletLandscape: false,
+                                    desktop: false,
+                                  ))
                                 FlutterFlowIconButton(
                                   borderColor: Colors.transparent,
                                   borderRadius: 20.0,
@@ -615,202 +636,237 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
             ),
             Expanded(
               flex: 26,
-              child: Container(
-                width: double.infinity,
-                height: 100.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primaryBackground,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(0.0),
-                    bottomRight: Radius.circular(0.0),
-                    topLeft: Radius.circular(40.0),
-                    topRight: Radius.circular(40.0),
+              child: StreamBuilder<List<BillSaleSummaryRecord>>(
+                stream: queryBillSaleSummaryRecord(
+                  parent: FFAppState().outletRef,
+                  queryBuilder: (billSaleSummaryRecord) =>
+                      billSaleSummaryRecord.where(
+                    'dayId',
+                    isEqualTo: FFAppState().selectedDate != ''
+                        ? FFAppState().selectedDate
+                        : null,
                   ),
                 ),
-                child: Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(15.0, 30.0, 15.0, 0.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Today\'s Date : ',
-                              style: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .labelMediumFamily,
-                                    color: FlutterFlowTheme.of(context).info,
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .labelMediumFamily),
-                                  ),
-                            ),
-                            Text(
-                              functions.dateFormat(getCurrentTimestamp),
-                              style: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .labelMediumFamily,
-                                    color: FlutterFlowTheme.of(context).info,
-                                    letterSpacing: 0.0,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .labelMediumFamily),
-                                  ),
-                            ),
-                          ],
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: SpinKitFadingCircle(
+                          color: FlutterFlowTheme.of(context).warning,
+                          size: 50.0,
                         ),
                       ),
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).customColor1,
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              if (FFAppState().currentUserRole == 'admin')
-                                Expanded(
-                                  child: Text(
-                                    'Date',
+                    );
+                  }
+                  List<BillSaleSummaryRecord>
+                      containerBillSaleSummaryRecordList = snapshot.data!;
+                  return Container(
+                    width: double.infinity,
+                    height: 100.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(0.0),
+                        bottomRight: Radius.circular(0.0),
+                        topLeft: Radius.circular(40.0),
+                        topRight: Radius.circular(40.0),
+                      ),
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(15.0, 30.0, 15.0, 0.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 10.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      'Today\'s Date : ',
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMediumFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .info,
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMediumFamily),
+                                          ),
+                                    ),
+                                    Text(
+                                      functions.dateFormat(getCurrentTimestamp),
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMediumFamily,
+                                            color: FlutterFlowTheme.of(context)
+                                                .info,
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMediumFamily),
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                                if (FFAppState().currentUserRole == 'admin')
+                                  Text(
+                                    'Total Sale:- ₹${functions.getTotalSaleOfBillSaleSummery(containerBillSaleSummaryRecordList.toList()).toString()}',
                                     style: FlutterFlowTheme.of(context)
-                                        .labelMedium
+                                        .bodyMedium
                                         .override(
                                           fontFamily:
                                               FlutterFlowTheme.of(context)
-                                                  .labelMediumFamily,
+                                                  .bodyMediumFamily,
+                                          color:
+                                              FlutterFlowTheme.of(context).info,
+                                          fontSize: 14.0,
                                           letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w600,
                                           useGoogleFonts: GoogleFonts.asMap()
                                               .containsKey(
                                                   FlutterFlowTheme.of(context)
-                                                      .labelMediumFamily),
+                                                      .bodyMediumFamily),
                                         ),
                                   ),
-                                ),
-                              Expanded(
-                                child: Text(
-                                  'Bill No.',
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .labelMediumFamily,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMediumFamily),
-                                      ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  'Check In',
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .labelMediumFamily,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMediumFamily),
-                                      ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  'Check Out',
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .labelMediumFamily,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMediumFamily),
-                                      ),
-                                ),
-                              ),
-                              if (FFAppState().currentUserRole == 'admin')
-                                Expanded(
-                                  child: Text(
-                                    'Amount',
-                                    textAlign: TextAlign.end,
-                                    style: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMediumFamily,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w600,
-                                          useGoogleFonts: GoogleFonts.asMap()
-                                              .containsKey(
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMediumFamily),
-                                        ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: StreamBuilder<List<BillSaleSummaryRecord>>(
-                          stream: queryBillSaleSummaryRecord(
-                            parent: FFAppState().outletRef,
-                            queryBuilder: (billSaleSummaryRecord) =>
-                                billSaleSummaryRecord.where(
-                              'dayId',
-                              isEqualTo: FFAppState().selectedDate != ''
-                                  ? FFAppState().selectedDate
-                                  : null,
+                              ],
                             ),
                           ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: SpinKitFadingCircle(
-                                    color: FlutterFlowTheme.of(context).warning,
-                                    size: 50.0,
+                          Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).customColor1,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  if (FFAppState().currentUserRole == 'admin')
+                                    Expanded(
+                                      child: Text(
+                                        'Date',
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMediumFamily,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMediumFamily),
+                                            ),
+                                      ),
+                                    ),
+                                  Expanded(
+                                    child: Text(
+                                      'Bill No.',
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMediumFamily,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w600,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMediumFamily),
+                                          ),
+                                    ),
                                   ),
-                                ),
-                              );
-                            }
-                            List<BillSaleSummaryRecord>
-                                containerBillSaleSummaryRecordList =
-                                snapshot.data!;
-                            return Container(
+                                  Expanded(
+                                    child: Text(
+                                      'Check In',
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMediumFamily,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w600,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMediumFamily),
+                                          ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      'Check Out',
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMediumFamily,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w600,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMediumFamily),
+                                          ),
+                                    ),
+                                  ),
+                                  if (FFAppState().currentUserRole == 'admin')
+                                    Expanded(
+                                      child: Text(
+                                        'Amount',
+                                        textAlign: TextAlign.end,
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMediumFamily,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMediumFamily),
+                                            ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
                               height: double.infinity,
                               decoration: BoxDecoration(),
                               child: Builder(
@@ -874,8 +930,12 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                     'admin')
                                                   Expanded(
                                                     child: Text(
-                                                      billWiseSaleReportItem
-                                                          .dayId,
+                                                      '${billWiseSaleReportItem.dayId}  ${valueOrDefault<String>(
+                                                        functions.getTimeFromMilliseonds(
+                                                            billWiseSaleReportItem
+                                                                .createdDate),
+                                                        '0',
+                                                      )}',
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -1015,111 +1075,116 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                   );
                                 },
                               ),
-                            );
-                          },
-                        ),
-                      ),
-                      StreamBuilder<List<UserProfileRecord>>(
-                        stream: queryUserProfileRecord(
-                          queryBuilder: (userProfileRecord) =>
-                              userProfileRecord.where(
-                            'id',
-                            isEqualTo: FFAppState().currentUserId,
+                            ),
                           ),
-                          singleRecord: true,
-                        )..listen((snapshot) {
-                            List<UserProfileRecord>
-                                listViewUserProfileRecordList = snapshot;
-                            final listViewUserProfileRecord =
-                                listViewUserProfileRecordList.isNotEmpty
-                                    ? listViewUserProfileRecordList.first
-                                    : null;
-                            if (_model.listViewPreviousSnapshot != null &&
-                                !const ListEquality(
-                                        UserProfileRecordDocumentEquality())
-                                    .equals(listViewUserProfileRecordList,
-                                        _model.listViewPreviousSnapshot)) {
-                              () async {
-                                if (listViewUserProfileRecord!
-                                    .userAccess.bizAppScanQR) {
-                                  setState(() {});
-                                  return;
-                                }
-
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return WebViewAware(
-                                      child: AlertDialog(
-                                        title: Text('Invalid Access'),
-                                        content: Text(
-                                            'Your Access Removed ..Contact Admin'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Ok'),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
-                                FFAppState().currentMobile = '';
-                                FFAppState().loggedIn = false;
-                                FFAppState().outletId = '';
-                                FFAppState().outletName = '';
-                                FFAppState().outletRef = null;
-                                FFAppState().currentUserRole = '';
-                                FFAppState().loggedInUser = [];
-                                FFAppState().userAccessList = UserListStruct();
-                                setState(() {});
-                                GoRouter.of(context).prepareAuthEvent();
-                                await authManager.signOut();
-                                GoRouter.of(context).clearRedirectLocation();
-
-                                context.pushNamedAuth('Login', context.mounted);
-
-                                setState(() {});
-                              }();
-                            }
-                            _model.listViewPreviousSnapshot = snapshot;
-                          }),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: SpinKitFadingCircle(
-                                  color: FlutterFlowTheme.of(context).warning,
-                                  size: 50.0,
-                                ),
+                          StreamBuilder<List<UserProfileRecord>>(
+                            stream: queryUserProfileRecord(
+                              queryBuilder: (userProfileRecord) =>
+                                  userProfileRecord.where(
+                                'id',
+                                isEqualTo: FFAppState().currentUserId,
                               ),
-                            );
-                          }
-                          List<UserProfileRecord>
-                              listViewUserProfileRecordList = snapshot.data!;
-                          // Return an empty Container when the item does not exist.
-                          if (snapshot.data!.isEmpty) {
-                            return Container();
-                          }
-                          final listViewUserProfileRecord =
-                              listViewUserProfileRecordList.isNotEmpty
-                                  ? listViewUserProfileRecordList.first
-                                  : null;
-                          return ListView(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            children: [],
-                          );
-                        },
+                              singleRecord: true,
+                            )..listen((snapshot) {
+                                List<UserProfileRecord>
+                                    listViewUserProfileRecordList = snapshot;
+                                final listViewUserProfileRecord =
+                                    listViewUserProfileRecordList.isNotEmpty
+                                        ? listViewUserProfileRecordList.first
+                                        : null;
+                                if (_model.listViewPreviousSnapshot != null &&
+                                    !const ListEquality(
+                                            UserProfileRecordDocumentEquality())
+                                        .equals(listViewUserProfileRecordList,
+                                            _model.listViewPreviousSnapshot)) {
+                                  () async {
+                                    if (listViewUserProfileRecord!
+                                        .userAccess.bizAppScanQR) {
+                                      setState(() {});
+                                      return;
+                                    }
+
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return WebViewAware(
+                                          child: AlertDialog(
+                                            title: Text('Invalid Access'),
+                                            content: Text(
+                                                'Your Access Removed ..Contact Admin'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext),
+                                                child: Text('Ok'),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                    FFAppState().currentMobile = '';
+                                    FFAppState().loggedIn = false;
+                                    FFAppState().outletId = '';
+                                    FFAppState().outletName = '';
+                                    FFAppState().outletRef = null;
+                                    FFAppState().currentUserRole = '';
+                                    FFAppState().loggedInUser = [];
+                                    FFAppState().userAccessList =
+                                        UserListStruct();
+                                    setState(() {});
+                                    GoRouter.of(context).prepareAuthEvent();
+                                    await authManager.signOut();
+                                    GoRouter.of(context)
+                                        .clearRedirectLocation();
+
+                                    context.pushNamedAuth(
+                                        'Login', context.mounted);
+
+                                    setState(() {});
+                                  }();
+                                }
+                                _model.listViewPreviousSnapshot = snapshot;
+                              }),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: SpinKitFadingCircle(
+                                      color:
+                                          FlutterFlowTheme.of(context).warning,
+                                      size: 50.0,
+                                    ),
+                                  ),
+                                );
+                              }
+                              List<UserProfileRecord>
+                                  listViewUserProfileRecordList =
+                                  snapshot.data!;
+                              // Return an empty Container when the item does not exist.
+                              if (snapshot.data!.isEmpty) {
+                                return Container();
+                              }
+                              final listViewUserProfileRecord =
+                                  listViewUserProfileRecordList.isNotEmpty
+                                      ? listViewUserProfileRecordList.first
+                                      : null;
+                              return ListView(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                children: [],
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               ),
             ),
           ],

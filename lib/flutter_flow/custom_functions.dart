@@ -816,3 +816,17 @@ int getMillisecondsFromDate(String dayId) {
   DateTime dateTime = DateFormat('yyyy-MM-dd').parse(dayId);
   return dateTime.millisecondsSinceEpoch;
 }
+
+double getTotalSaleOfBillSaleSummery(
+    List<BillSaleSummaryRecord>? billSaleDocuments) {
+  double totalSale = 0;
+  if (billSaleDocuments!.length == 0) {
+    return totalSale;
+  }
+
+  for (var item in billSaleDocuments) {
+    totalSale += item.finalTotal;
+  }
+
+  return totalSale;
+}
