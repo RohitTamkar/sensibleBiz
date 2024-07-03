@@ -297,10 +297,6 @@ class _ExcelSheetWidgetState extends State<ExcelSheetWidget> {
                                             .readProductlist[
                                                 FFAppState().startLoop]
                                             .currentStock,
-                                        dayType: FFAppState()
-                                            .readProductlist[
-                                                FFAppState().startLoop]
-                                            .dayType,
                                       ));
                                       _model.createdDocumentProduct =
                                           ProductRecord.getDocumentFromData(
@@ -399,10 +395,6 @@ class _ExcelSheetWidgetState extends State<ExcelSheetWidget> {
                                                     .readProductlist[
                                                         FFAppState().startLoop]
                                                     .currentStock,
-                                                dayType: FFAppState()
-                                                    .readProductlist[
-                                                        FFAppState().startLoop]
-                                                    .dayType,
                                               ),
                                               productRecordReference);
 
