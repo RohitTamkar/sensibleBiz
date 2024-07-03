@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/no_data/no_data_widget.dart';
+import '/components/select_date_range/select_date_range_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -341,110 +342,136 @@ class _ProductSaleReportDaywiseWidgetState
                                 ),
                                 onPressed: () async {
                                   var _shouldSetState = false;
-                                  _model.base64Link = await actions
-                                      .genrateExcelForProductWiseSaleReport(
-                                    FFAppState().finalCategoryReport.toList(),
-                                    FFAppState().selectedDate,
-                                    containerOutletRecord?.name,
-                                  );
-                                  _shouldSetState = true;
-                                  _model.apiResultOfMailSend =
-                                      await SendMailCall.call(
-                                    outletName: FFAppState().outletName,
-                                    file: _model.base64Link,
-                                    fileName: 'ProductWiseSale',
-                                    toEmail: _model.userDetails?.email,
-                                    branchName: containerOutletRecord?.branch,
-                                    username: _model.userDetails?.name,
-                                    mobileNo: _model.userDetails?.mobile,
-                                    roll: _model.userDetails?.roll,
-                                  );
+                                  if (true) {
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      enableDrag: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return WebViewAware(
+                                          child: GestureDetector(
+                                            onTap: () => _model
+                                                    .unfocusNode.canRequestFocus
+                                                ? FocusScope.of(context)
+                                                    .requestFocus(
+                                                        _model.unfocusNode)
+                                                : FocusScope.of(context)
+                                                    .unfocus(),
+                                            child: Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: SelectDateRangeWidget(),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ).then((value) => safeSetState(() {}));
+                                  } else {
+                                    _model.base64Link = await actions
+                                        .genrateExcelForProductWiseSaleReport(
+                                      FFAppState().finalCategoryReport.toList(),
+                                      FFAppState().selectedDate,
+                                    );
+                                    _shouldSetState = true;
+                                    _model.apiResultOfMailSend =
+                                        await SendMailCall.call(
+                                      outletName: FFAppState().outletName,
+                                      file: _model.base64Link,
+                                      fileName: 'ProductWiseSale',
+                                      toEmail: _model.userDetails?.email,
+                                      branchName: containerOutletRecord?.branch,
+                                      username: _model.userDetails?.name,
+                                      mobileNo: _model.userDetails?.mobile,
+                                      roll: _model.userDetails?.roll,
+                                    );
 
-                                  _shouldSetState = true;
-                                  var confirmDialogResponse =
-                                      await showDialog<bool>(
-                                            context: context,
-                                            builder: (alertDialogContext) {
-                                              return WebViewAware(
-                                                child: AlertDialog(
-                                                  title: Text(
-                                                      'Confirm Your Email !'),
-                                                  content: Text(_model
-                                                      .userDetails!.email),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext,
-                                                              false),
-                                                      child: Text('Cancel'),
-                                                    ),
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext,
-                                                              true),
-                                                      child: Text('Confirm'),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                          ) ??
-                                          false;
-                                  if (confirmDialogResponse) {
-                                    if ((_model
-                                            .apiResultOfMailSend?.succeeded ??
-                                        true)) {
-                                      await showDialog(
-                                        context: context,
-                                        builder: (alertDialogContext) {
-                                          return WebViewAware(
-                                            child: AlertDialog(
-                                              title: Text('Success'),
-                                              content: Text(
-                                                  'Email Sent Successfully.'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext),
-                                                  child: Text('Ok'),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      );
-                                      if (_shouldSetState) setState(() {});
-                                      return;
+                                    _shouldSetState = true;
+                                    var confirmDialogResponse =
+                                        await showDialog<bool>(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return WebViewAware(
+                                                  child: AlertDialog(
+                                                    title: Text(
+                                                        'Confirm Your Email !'),
+                                                    content: Text(_model
+                                                        .userDetails!.email),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                false),
+                                                        child: Text('Cancel'),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                true),
+                                                        child: Text('Confirm'),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            ) ??
+                                            false;
+                                    if (confirmDialogResponse) {
+                                      if ((_model
+                                              .apiResultOfMailSend?.succeeded ??
+                                          true)) {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return WebViewAware(
+                                              child: AlertDialog(
+                                                title: Text('Success'),
+                                                content: Text(
+                                                    'Email Sent Successfully.'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                        if (_shouldSetState) setState(() {});
+                                        return;
+                                      } else {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return WebViewAware(
+                                              child: AlertDialog(
+                                                title: Text('Failed'),
+                                                content: Text(
+                                                    'Email Sent Failed.Try Again'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                        if (_shouldSetState) setState(() {});
+                                        return;
+                                      }
                                     } else {
-                                      await showDialog(
-                                        context: context,
-                                        builder: (alertDialogContext) {
-                                          return WebViewAware(
-                                            child: AlertDialog(
-                                              title: Text('Failed'),
-                                              content: Text(
-                                                  'Email Sent Failed.Try Again'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext),
-                                                  child: Text('Ok'),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      );
                                       if (_shouldSetState) setState(() {});
                                       return;
                                     }
-                                  } else {
-                                    if (_shouldSetState) setState(() {});
-                                    return;
                                   }
 
                                   if (_shouldSetState) setState(() {});

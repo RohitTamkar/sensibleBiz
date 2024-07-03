@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'index.dart'; // Imports other custom actions
+
 import 'dart:convert';
 
 import 'dart:io';
@@ -19,7 +21,6 @@ import 'package:excel/excel.dart';
 Future<String> genrateExcelForProductWiseSaleReport(
   List<dynamic> jsonproduct,
   String? startdate,
-  String? outletName,
 ) async {
   // Create Excel file
   print(jsonproduct);
@@ -29,7 +30,7 @@ Future<String> genrateExcelForProductWiseSaleReport(
   // Add headers to the sheet
   sheet.appendRow([
     TextCellValue('Shop Name'),
-    TextCellValue(outletName ?? ''),
+    // TextCellValue(shopName ?? ''),
   ]);
 /*
   sheet.appendRow([
@@ -52,80 +53,37 @@ Future<String> genrateExcelForProductWiseSaleReport(
   // Add product details to the sheet
   sheet.appendRow([
     TextCellValue('Product Name'),
-    TextCellValue('Tax (%)'),
-    TextCellValue('Tax Amount'),
-    TextCellValue('Qty'),
-    TextCellValue('Calculated Tax'),
+    TextCellValue('Quantity'),
     TextCellValue('Price'),
     TextCellValue('Total'),
   ]);
 
-  var productTotal = 0.0;
+  double totalqty = 0;
+  double totalAmt = 0;
+
   for (var product in jsonproduct) {
-    var taxAmountIn = double.parse(product['taxAmountIn'].toString());
-    // var qty = int.parse(product['qty'].toString());
-    var qty = double.parse(product['qty'].toString());
-    var calculatedTax = (taxAmountIn * qty).toStringAsFixed(2);
+    // print(product);
+    // print(product['name']);
+    totalqty += product['qty'];
+    totalAmt += product['catTotal'];
     sheet.appendRow([
-      TextCellValue(product['prdName'].toString()),
-      TextCellValue(product['taxPer'].toString()),
-      TextCellValue(product['taxAmountIn'].toString()),
+      TextCellValue(product['name'].toString()),
       TextCellValue(product['qty'].toString()),
-      TextCellValue(calculatedTax),
       TextCellValue(product['price'].toString()),
       TextCellValue(product['catTotal'].toString()),
     ]);
-    productTotal += double.parse(product['catTotal'].toString());
   }
 
   sheet.appendRow([TextCellValue('')]);
-  // Add total product amount to the sheet
-  sheet.appendRow([
-    TextCellValue('Product Total'),
-    TextCellValue(productTotal.toStringAsFixed(2)),
-  ]);
-  sheet.appendRow([TextCellValue('')]); // Add an empty row for spacing
-
-  sheet.appendRow([
-    TextCellValue('Tax (%)'),
-    TextCellValue('Basic Tax Amount'),
-  ]);
-
-  // Initialize tax categories
-  var taxCategories = {
-    0: '0% GST TOTAL',
-    3: '3% GST TOTAL',
-    5: '5% GST TOTAL',
-    12: '12% GST TOTAL',
-    18: '18% GST TOTAL',
-    28: '28% GST TOTAL',
-    22: '22% VAT TOTAL',
-  };
-
-  // Tax summary
-  var taxSummary = <int, double>{};
-  var totalTaxAmount = 0.0;
-  for (var product in jsonproduct) {
-    var taxPer = product['taxPer'];
-    var taxAmountIn = double.parse(product['taxAmountInTotal'].toString());
-    taxSummary[taxPer] = (taxSummary[taxPer] ?? 0) + taxAmountIn;
-    totalTaxAmount += taxAmountIn;
-  }
-
-  // Add tax totals to the sheet
-  taxCategories.forEach((tax, label) {
-    sheet.appendRow([
-      TextCellValue(label),
-      TextCellValue((taxSummary[tax] ?? 0).toStringAsFixed(2)),
-    ]);
-  });
-
   sheet.appendRow([TextCellValue('')]);
+
+  sheet.appendRow([
+    TextCellValue('Total'),
+    TextCellValue(totalqty.toString()),
+    TextCellValue(''),
+    TextCellValue(totalAmt.toString()),
+  ]);
   // Add total tax amount to the sheet
-  sheet.appendRow([
-    TextCellValue('Total Tax'),
-    TextCellValue(totalTaxAmount.toStringAsFixed(2)),
-  ]);
   // Encode the Excel file
   var fileBytes = excel.encode();
 
