@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/no_data/no_data_widget.dart';
+import '/components/requested_stock_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -23,11 +24,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
-import 'stock_update_model.dart';
-export 'stock_update_model.dart';
+import 'stock_update_copy_model.dart';
+export 'stock_update_copy_model.dart';
 
-class StockUpdateWidget extends StatefulWidget {
-  const StockUpdateWidget({
+class StockUpdateCopyWidget extends StatefulWidget {
+  const StockUpdateCopyWidget({
     super.key,
     required this.outlet,
   });
@@ -35,18 +36,18 @@ class StockUpdateWidget extends StatefulWidget {
   final OutletRecord? outlet;
 
   @override
-  State<StockUpdateWidget> createState() => _StockUpdateWidgetState();
+  State<StockUpdateCopyWidget> createState() => _StockUpdateCopyWidgetState();
 }
 
-class _StockUpdateWidgetState extends State<StockUpdateWidget> {
-  late StockUpdateModel _model;
+class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
+  late StockUpdateCopyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => StockUpdateModel());
+    _model = createModel(context, () => StockUpdateCopyModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -966,37 +967,19 @@ class _StockUpdateWidgetState extends State<StockUpdateWidget> {
                                                             ),
                                                             Expanded(
                                                               flex: 2,
-                                                              child: Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            5.0,
-                                                                            0.0),
-                                                                child: Text(
-                                                                  valueOrDefault<
-                                                                      String>(
+                                                              child:
+                                                                  RequestedStockWidget(
+                                                                key: Key(
+                                                                    'Keybre_${listIndex}_of_${list.length}'),
+                                                                parameter1:
                                                                     getJsonField(
-                                                                      listItem,
-                                                                      r'''$.reqStock''',
-                                                                    )?.toString(),
-                                                                    '1',
-                                                                  ),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            FlutterFlowTheme.of(context).headlineMediumFamily,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).headlineMediumFamily),
-                                                                      ),
+                                                                  listItem,
+                                                                  r'''$.reqStock''',
+                                                                ),
+                                                                parameter2:
+                                                                    getJsonField(
+                                                                  listItem,
+                                                                  r'''$''',
                                                                 ),
                                                               ),
                                                             ),

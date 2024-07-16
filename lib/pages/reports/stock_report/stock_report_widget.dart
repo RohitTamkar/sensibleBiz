@@ -459,6 +459,7 @@ class _StockReportWidgetState extends State<StockReportWidget> {
                               }
                               List<StockLogRecord> listViewStockLogRecordList =
                                   snapshot.data!;
+
                               if (listViewStockLogRecordList.isEmpty) {
                                 return Container(
                                   width: MediaQuery.sizeOf(context).width * 1.0,
@@ -753,6 +754,7 @@ class _StockReportWidgetState extends State<StockReportWidget> {
                                                     listViewStockLogRecord
                                                         .productListMap
                                                         .toList();
+
                                                 return ListView.builder(
                                                   padding: EdgeInsets.zero,
                                                   shrinkWrap: true,

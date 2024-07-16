@@ -73,58 +73,13 @@ class _SelectDateRangeWidgetState extends State<SelectDateRangeWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        Navigator.pop(context);
-                      },
-                      text: 'Done',
-                      options: FFButtonOptions(
-                        width: 100.0,
-                        height: 40.0,
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: Color(0xFF0F2EAE),
-                        textStyle: FlutterFlowTheme.of(context)
-                            .labelMedium
-                            .override(
-                              fontFamily: FlutterFlowTheme.of(context)
-                                  .labelMediumFamily,
-                              color:
-                                  FlutterFlowTheme.of(context).primaryBtnText,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w600,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .labelMediumFamily),
-                            ),
-                        elevation: 2.0,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 2.0),
               child: FFButtonWidget(
                 onPressed: () async {
                   FFAppState().selectedDate =
                       functions.getDayId(getCurrentTimestamp);
                   setState(() {});
+                  Navigator.pop(context);
                 },
                 text: 'Today',
                 options: FFButtonOptions(
@@ -153,9 +108,10 @@ class _SelectDateRangeWidgetState extends State<SelectDateRangeWidget> {
             ),
             FFButtonWidget(
               onPressed: () async {
-                FFAppState().selectedDate =
-                    functions.getDayId(getCurrentTimestamp);
+                FFAppState().selectedDate = functions
+                    .getYesterdayDayId(functions.getDayId(getCurrentTimestamp));
                 setState(() {});
+                Navigator.pop(context);
               },
               text: 'Yesterday',
               options: FFButtonOptions(

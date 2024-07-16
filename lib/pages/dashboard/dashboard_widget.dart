@@ -459,7 +459,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                       {
                                                                     'outletDetails':
                                                                         serializeParam(
-                                                                      widget
+                                                                      widget!
                                                                           .outletDetails,
                                                                       ParamType
                                                                           .Document,
@@ -468,7 +468,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                   extra: <String,
                                                                       dynamic>{
                                                                     'outletDetails':
-                                                                        widget
+                                                                        widget!
                                                                             .outletDetails,
                                                                   },
                                                                 );
@@ -482,7 +482,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                     {
                                                                   'outletDetails':
                                                                       serializeParam(
-                                                                    widget
+                                                                    widget!
                                                                         .outletDetails,
                                                                     ParamType
                                                                         .Document,
@@ -491,7 +491,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                 extra: <String,
                                                                     dynamic>{
                                                                   'outletDetails':
-                                                                      widget
+                                                                      widget!
                                                                           .outletDetails,
                                                                 },
                                                               );
@@ -1384,16 +1384,16 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                   setState(() {});
 
                                                   context.pushNamed(
-                                                    'StockUpdate',
+                                                    'StockUpdateCopy',
                                                     queryParameters: {
                                                       'outlet': serializeParam(
-                                                        widget.outletDetails,
+                                                        widget!.outletDetails,
                                                         ParamType.Document,
                                                       ),
                                                     }.withoutNulls,
                                                     extra: <String, dynamic>{
                                                       'outlet':
-                                                          widget.outletDetails,
+                                                          widget!.outletDetails,
                                                     },
                                                   );
                                                 },
@@ -2884,6 +2884,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                 List<OutletRecord>
                                                     containerOutletRecordList =
                                                     snapshot.data!;
+
                                                 final containerOutletRecord =
                                                     containerOutletRecordList
                                                             .isNotEmpty
@@ -3194,7 +3195,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                           null) {
                                                         if ((_model.deviceDocument
                                                                     ?.outletId ==
-                                                                widget
+                                                                widget!
                                                                     .outletDetails
                                                                     ?.id) ||
                                                             (_model.deviceDocument
@@ -3211,14 +3212,14 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                               .reference
                                                               .update(
                                                                   createDeviceRecordData(
-                                                            outletId: widget
+                                                            outletId: widget!
                                                                 .outletDetails
                                                                 ?.id,
-                                                            outletName: widget
+                                                            outletName: widget!
                                                                 .outletDetails
                                                                 ?.name,
                                                             loggedIn: true,
-                                                            branch: widget
+                                                            branch: widget!
                                                                 .outletDetails
                                                                 ?.branch,
                                                             active: true,
@@ -3851,6 +3852,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                                     child: Builder(
                                                                                       builder: (context) {
                                                                                         final list = FFAppState().shiftDetailsList.map((e) => e).toList();
+
                                                                                         return ListView.builder(
                                                                                           padding: EdgeInsets.zero,
                                                                                           scrollDirection: Axis.horizontal,
@@ -6360,6 +6362,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                             .map((e) =>
                                                                                 e)
                                                                             .toList();
+
                                                                         return ListView
                                                                             .builder(
                                                                           padding:

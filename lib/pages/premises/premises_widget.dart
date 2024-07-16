@@ -250,6 +250,7 @@ class _PremisesWidgetState extends State<PremisesWidget> {
                                         if (output.isEmpty) {
                                           return NoDataWidget();
                                         }
+
                                         return ListView.builder(
                                           padding: EdgeInsets.zero,
                                           scrollDirection: Axis.vertical,

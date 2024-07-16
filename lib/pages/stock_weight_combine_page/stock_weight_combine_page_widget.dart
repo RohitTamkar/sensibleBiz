@@ -415,6 +415,7 @@ class _StockWeightCombinePageWidgetState
                                 builder: (context) {
                                   final productList =
                                       FFAppState().prdJsonList.toList();
+
                                   return ListView.builder(
                                     padding: EdgeInsets.zero,
                                     scrollDirection: Axis.vertical,

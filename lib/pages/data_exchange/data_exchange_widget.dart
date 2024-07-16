@@ -212,6 +212,7 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                               List<UserProfileRecord>
                                   containerUserProfileRecordList =
                                   snapshot.data!;
+
                               final containerUserProfileRecord =
                                   containerUserProfileRecordList.isNotEmpty
                                       ? containerUserProfileRecordList.first

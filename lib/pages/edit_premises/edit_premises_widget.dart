@@ -43,19 +43,19 @@ class _EditPremisesWidgetState extends State<EditPremisesWidget> {
     _model = createModel(context, () => EditPremisesModel());
 
     _model.textController1 ??=
-        TextEditingController(text: widget.premDoc?.name);
+        TextEditingController(text: widget!.premDoc?.name);
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.textController2 ??=
-        TextEditingController(text: widget.premDoc?.code?.toString());
+        TextEditingController(text: widget!.premDoc?.code?.toString());
     _model.textFieldFocusNode2 ??= FocusNode();
 
     _model.textController3 ??=
-        TextEditingController(text: widget.premDoc?.tables?.toString());
+        TextEditingController(text: widget!.premDoc?.tables?.toString());
     _model.textFieldFocusNode3 ??= FocusNode();
 
     _model.textController4 ??=
-        TextEditingController(text: widget.premDoc?.range?.toString());
+        TextEditingController(text: widget!.premDoc?.range?.toString());
     _model.textFieldFocusNode4 ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -98,6 +98,7 @@ class _EditPremisesWidgetState extends State<EditPremisesWidget> {
         }
         List<UserProfileRecord> editPremisesUserProfileRecordList =
             snapshot.data!;
+
         return GestureDetector(
           onTap: () => _model.unfocusNode.canRequestFocus
               ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -428,7 +429,7 @@ class _EditPremisesWidgetState extends State<EditPremisesWidget> {
                                           _model.taxMValue ??=
                                               valueOrDefault<String>(
                                             functions
-                                                .getTaxIdfunc(widget
+                                                .getTaxIdfunc(widget!
                                                     .premDoc!.taxIndex
                                                     .toString())
                                                 .toString(),
@@ -477,7 +478,7 @@ class _EditPremisesWidgetState extends State<EditPremisesWidget> {
                                             ),
                                         hintText: valueOrDefault<String>(
                                           functions.getTaxIdEdit2(
-                                              widget.premDoc?.taxIndex),
+                                              widget!.premDoc?.taxIndex),
                                           'Tax',
                                         ),
                                         fillColor: Colors.white,
@@ -508,10 +509,11 @@ class _EditPremisesWidgetState extends State<EditPremisesWidget> {
                                           _model.dropDownValueController ??=
                                               FormFieldController<String>(
                                         _model.dropDownValue ??=
-                                            widget.premDoc?.userId != null &&
-                                                    widget.premDoc?.userId != ''
+                                            widget!.premDoc?.userId != null &&
+                                                    widget!.premDoc?.userId !=
+                                                        ''
                                                 ? valueOrDefault<String>(
-                                                    widget.premDoc?.userId,
+                                                    widget!.premDoc?.userId,
                                                     '-',
                                                   )
                                                 : '-',
@@ -543,7 +545,7 @@ class _EditPremisesWidgetState extends State<EditPremisesWidget> {
                                       hintText: valueOrDefault<String>(
                                         editPremisesUserProfileRecordList
                                             .where((e) =>
-                                                e.id == widget.premDoc?.userId)
+                                                e.id == widget!.premDoc?.userId)
                                             .toList()
                                             .first
                                             .name,
@@ -597,7 +599,7 @@ class _EditPremisesWidgetState extends State<EditPremisesWidget> {
                                     controller:
                                         _model.radioButtonValueController ??=
                                             FormFieldController<String>(
-                                                widget.premDoc!.type),
+                                                widget!.premDoc!.type),
                                     optionHeight: 32.0,
                                     textStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
@@ -829,7 +831,7 @@ class _EditPremisesWidgetState extends State<EditPremisesWidget> {
                                           return;
                                         }
 
-                                        await widget.premDoc!.reference
+                                        await widget!.premDoc!.reference
                                             .update(createPremisesRecordData(
                                           name: _model.textController1.text,
                                           range: int.tryParse(

@@ -72,7 +72,7 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
       FFAppState().startDate = getCurrentTimestamp;
       setState(() {});
       if (getJsonField(
-            widget.json,
+            widget!.json,
             r'''$[:].details[:].products[:]''',
           ) ==
           null) {
@@ -96,7 +96,7 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
         setState(() {});
         return;
       }
-      FFAppState().productSaleJson = widget.json!;
+      FFAppState().productSaleJson = widget!.json!;
       setState(() {});
       _model.gstTaxPer2 = await actions.showReportGST(
         getJsonField(
@@ -110,7 +110,7 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
       FFAppState().isLoding = true;
       setState(() {});
       if (getJsonField(
-            widget.json,
+            widget!.json,
             r'''$[:].details[:].products[:]''',
           ) !=
           null) {
@@ -239,6 +239,7 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
                     );
                   }
                   List<OutletRecord> containerOutletRecordList = snapshot.data!;
+
                   // Return an empty Container when the item does not exist.
                   if (snapshot.data!.isEmpty) {
                     return Container();
@@ -989,6 +990,7 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
                                                     ),
                                                   );
                                                 }
+
                                                 return ListView.builder(
                                                   padding: EdgeInsets.zero,
                                                   scrollDirection:
@@ -1567,6 +1569,7 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
                                                       ),
                                                     );
                                                   }
+
                                                   return ListView.builder(
                                                     padding: EdgeInsets.zero,
                                                     scrollDirection:
@@ -2047,6 +2050,7 @@ class _GstPrdRprtCustDateWidgetState extends State<GstPrdRprtCustDateWidget>
                                                                           .gstJsonObj,
                                                                       r'''$''',
                                                                     ).toList();
+
                                                                     return ListView
                                                                         .separated(
                                                                       padding:

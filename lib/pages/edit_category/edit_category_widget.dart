@@ -41,41 +41,41 @@ class _EditCategoryWidgetState extends State<EditCategoryWidget> {
 
     _model.nameMTextController ??= TextEditingController(
         text: valueOrDefault<String>(
-      widget.catDoc?.name,
+      widget!.catDoc?.name,
       '\"\"',
     ));
     _model.nameMFocusNode ??= FocusNode();
 
     _model.regionalNameMTextController ??= TextEditingController(
-        text: widget.catDoc?.regionalName == null ||
-                widget.catDoc?.regionalName == ''
+        text: widget!.catDoc?.regionalName == null ||
+                widget!.catDoc?.regionalName == ''
             ? _model.nameMTextController.text
-            : widget.catDoc?.regionalName);
+            : widget!.catDoc?.regionalName);
     _model.regionalNameMFocusNode ??= FocusNode();
 
     _model.catCodeTextController ??= TextEditingController(
         text: valueOrDefault<String>(
-      widget.catDoc?.categoryNo?.toString(),
+      widget!.catDoc?.categoryNo?.toString(),
       '0',
     ));
     _model.catCodeFocusNode ??= FocusNode();
 
     _model.nameWebTextController ??= TextEditingController(
         text: valueOrDefault<String>(
-      widget.categoryDocW?.name,
+      widget!.categoryDocW?.name,
       '\"',
     ));
     _model.nameWebFocusNode ??= FocusNode();
 
     _model.regNameWTextController ??= TextEditingController(
-        text: widget.categoryDocW?.regionalName == null ||
-                widget.categoryDocW?.regionalName == ''
+        text: widget!.categoryDocW?.regionalName == null ||
+                widget!.categoryDocW?.regionalName == ''
             ? _model.nameWebTextController.text
-            : widget.categoryDocW?.regionalName);
+            : widget!.categoryDocW?.regionalName);
     _model.regNameWFocusNode ??= FocusNode();
 
     _model.catCodeWTextController ??= TextEditingController(
-        text: widget.categoryDocW?.categoryNo?.toString());
+        text: widget!.categoryDocW?.categoryNo?.toString());
     _model.catCodeWFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -546,16 +546,17 @@ class _EditCategoryWidgetState extends State<EditCategoryWidget> {
                                           return;
                                         }
 
-                                        await widget.catDoc!.reference
+                                        await widget!.catDoc!.reference
                                             .update(createCategoryRecordData(
                                           name: functions.toCapitalLetter(
                                               _model.nameMTextController.text),
                                           id: functions.getCatIdByRef(
-                                              widget.catDoc!.reference),
-                                          regionalName: widget.catDoc
+                                              widget!.catDoc!.reference),
+                                          regionalName: widget!.catDoc
                                                           ?.regionalName ==
                                                       null ||
-                                                  widget.catDoc?.regionalName ==
+                                                  widget!.catDoc
+                                                          ?.regionalName ==
                                                       ''
                                               ? _model.nameMTextController.text
                                               : _model
@@ -990,17 +991,17 @@ class _EditCategoryWidgetState extends State<EditCategoryWidget> {
                                             return;
                                           }
 
-                                          await widget.categoryDocW!.reference
+                                          await widget!.categoryDocW!.reference
                                               .update(createCategoryRecordData(
                                             name: functions.toCapitalLetter(
                                                 _model.nameWebTextController
                                                     .text),
                                             id: functions.getCatIdByRef(
-                                                widget.catDoc!.reference),
-                                            regionalName: widget.categoryDocW
+                                                widget!.catDoc!.reference),
+                                            regionalName: widget!.categoryDocW
                                                             ?.regionalName ==
                                                         null ||
-                                                    widget.categoryDocW
+                                                    widget!.categoryDocW
                                                             ?.regionalName ==
                                                         ''
                                                 ? _model

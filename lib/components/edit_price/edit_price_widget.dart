@@ -38,15 +38,15 @@ class _EditPriceWidgetState extends State<EditPriceWidget> {
     _model = createModel(context, () => EditPriceModel());
 
     _model.textController1 ??=
-        TextEditingController(text: widget.one?.toString());
+        TextEditingController(text: widget!.one?.toString());
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.textController2 ??=
-        TextEditingController(text: widget.two?.toString());
+        TextEditingController(text: widget!.two?.toString());
     _model.textFieldFocusNode2 ??= FocusNode();
 
     _model.textController3 ??=
-        TextEditingController(text: widget.three?.toString());
+        TextEditingController(text: widget!.three?.toString());
     _model.textFieldFocusNode3 ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));

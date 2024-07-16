@@ -41,7 +41,7 @@ class _PremiseWidgetState extends State<PremiseWidget> {
 
     _model.textController ??= TextEditingController(
         text: getJsonField(
-      widget.json,
+      widget!.json,
       r'''$.value''',
     ).toString().toString());
     _model.textFieldFocusNode ??= FocusNode();
@@ -65,7 +65,7 @@ class _PremiseWidgetState extends State<PremiseWidget> {
       children: [
         Text(
           getJsonField(
-            widget.json,
+            widget!.json,
             r'''$.key''',
           ).toString(),
           style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -89,10 +89,10 @@ class _PremiseWidgetState extends State<PremiseWidget> {
                 () async {
                   FFAppState().productJsonList = functions
                       .editPriceTable(
-                          widget.json!,
-                          widget.id!,
+                          widget!.json!,
+                          widget!.id!,
                           _model.textController.text,
-                          widget.priceTableList!.toList(),
+                          widget!.priceTableList!.toList(),
                           FFAppState().productJsonList.toList())
                       .toList()
                       .cast<dynamic>();
@@ -113,9 +113,10 @@ class _PremiseWidgetState extends State<PremiseWidget> {
                 },
               ),
               autofocus: false,
-              readOnly:
-                  FFAppState().premisesUpdateCheckboxList.contains(widget.id) ==
-                      null,
+              readOnly: FFAppState()
+                      .premisesUpdateCheckboxList
+                      .contains(widget!.id) ==
+                  null,
               obscureText: false,
               decoration: InputDecoration(
                 labelStyle: FlutterFlowTheme.of(context).labelMedium.override(

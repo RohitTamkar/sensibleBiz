@@ -134,7 +134,9 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                   ),
                                 );
                               }
+
                               final containerOutletRecord = snapshot.data!;
+
                               return Container(
                                 decoration: BoxDecoration(),
                                 child: Padding(
@@ -313,6 +315,7 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                   List<ProductRecord>
                                       dropDownProductRecordList =
                                       snapshot.data!;
+
                                   return FlutterFlowDropDown<String>(
                                     controller:
                                         _model.dropDownValueController ??=
@@ -588,6 +591,7 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                                   child: NoDataWidget(),
                                                 );
                                               }
+
                                               return ListView.builder(
                                                 padding: EdgeInsets.zero,
                                                 scrollDirection: Axis.vertical,
@@ -902,6 +906,7 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                             List<UserProfileRecord>
                                                 rowUserProfileRecordList =
                                                 snapshot.data!;
+
                                             final rowUserProfileRecord =
                                                 rowUserProfileRecordList
                                                         .isNotEmpty
@@ -1451,6 +1456,7 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                       List<StockLogRecord>
                                           listViewStockLogRecordList =
                                           snapshot.data!;
+
                                       if (listViewStockLogRecordList.isEmpty) {
                                         return Container(
                                           width:
@@ -1704,6 +1710,7 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                                               listViewStockLogRecord
                                                                   .productListMap
                                                                   .toList();
+
                                                           return ListView
                                                               .builder(
                                                             padding:

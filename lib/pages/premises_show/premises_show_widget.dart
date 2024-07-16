@@ -187,6 +187,7 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
                               builder: (context) {
                                 final plist =
                                     FFAppState().productJsonList.toList();
+
                                 return ListView.builder(
                                   padding: EdgeInsets.zero,
                                   scrollDirection: Axis.vertical,
@@ -325,6 +326,7 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
                                                         r'''$.priceTable''',
                                                       ).toString())
                                                       .toList();
+
                                                   return Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,

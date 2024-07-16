@@ -83,6 +83,7 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
               );
             }
             List<CategoryRecord> containerCategoryRecordList = snapshot.data!;
+
             return Container(
               decoration: BoxDecoration(),
               child: Column(
@@ -212,6 +213,7 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
                                           child: NoDataWidget(),
                                         );
                                       }
+
                                       return ListView.builder(
                                         padding: EdgeInsets.zero,
                                         scrollDirection: Axis.vertical,
@@ -614,6 +616,7 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
                                           child: NoDataWidget(),
                                         );
                                       }
+
                                       return ListView.builder(
                                         padding: EdgeInsets.zero,
                                         scrollDirection: Axis.vertical,

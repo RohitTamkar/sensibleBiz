@@ -830,3 +830,10 @@ double getTotalSaleOfBillSaleSummery(
 
   return totalSale;
 }
+
+String getYesterdayDayId(String date) {
+  DateTime parsedDate = DateTime.parse(date);
+  DateTime yesterday = parsedDate.subtract(Duration(days: 1));
+  String formattedDate = yesterday.toIso8601String().split('T').first;
+  return formattedDate;
+}

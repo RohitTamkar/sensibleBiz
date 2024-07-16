@@ -52,7 +52,8 @@ class _PremTypeWidgetState extends State<PremTypeWidget> {
       ),
       child: Builder(
         builder: (context) {
-          final myJson = widget.keyValJson?.toList() ?? [];
+          final myJson = widget!.keyValJson?.toList() ?? [];
+
           return Row(
             mainAxisSize: MainAxisSize.max,
             children: List.generate(myJson.length, (myJsonIndex) {

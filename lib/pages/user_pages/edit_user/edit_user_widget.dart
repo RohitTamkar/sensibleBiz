@@ -72,7 +72,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
         body: StreamBuilder<UserProfileRecord>(
-          stream: UserProfileRecord.getDocument(widget.user!),
+          stream: UserProfileRecord.getDocument(widget!.user!),
           builder: (context, snapshot) {
             // Customize what your widget looks like when it's loading.
             if (!snapshot.hasData) {
@@ -87,7 +87,9 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                 ),
               );
             }
+
             final containerUserProfileRecord = snapshot.data!;
+
             return Container(
               decoration: BoxDecoration(),
               child: Column(
@@ -1654,7 +1656,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                     0.0, 25.0, 0.0, 0.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    await widget.user!
+                                    await widget!.user!
                                         .update(createUserProfileRecordData(
                                       mobile: _model
                                           .textFieldMobilenewTextController

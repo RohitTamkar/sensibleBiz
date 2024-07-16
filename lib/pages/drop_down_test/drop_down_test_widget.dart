@@ -135,7 +135,9 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
                                   ),
                                 );
                               }
+
                               final containerOutletRecord = snapshot.data!;
+
                               return Container(
                                 decoration: BoxDecoration(),
                                 child: Padding(
@@ -314,6 +316,7 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
                                   List<ProductRecord>
                                       dropDownProductRecordList =
                                       snapshot.data!;
+
                                   return FlutterFlowDropDown<String>(
                                     controller:
                                         _model.dropDownValueController ??=
@@ -589,6 +592,7 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
                                                   child: NoDataWidget(),
                                                 );
                                               }
+
                                               return ListView.builder(
                                                 padding: EdgeInsets.zero,
                                                 scrollDirection: Axis.vertical,
@@ -903,6 +907,7 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
                                             List<UserProfileRecord>
                                                 rowUserProfileRecordList =
                                                 snapshot.data!;
+
                                             final rowUserProfileRecord =
                                                 rowUserProfileRecordList
                                                         .isNotEmpty
@@ -1460,6 +1465,7 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
                                             List<StockLogRecord>
                                                 listViewStockLogRecordList =
                                                 snapshot.data!;
+
                                             if (listViewStockLogRecordList
                                                 .isEmpty) {
                                               return Container(
@@ -1720,6 +1726,7 @@ class _DropDownTestWidgetState extends State<DropDownTestWidget> {
                                                                           final list1 = listViewStockLogRecord
                                                                               .productListMap
                                                                               .toList();
+
                                                                           return ListView
                                                                               .builder(
                                                                             padding:

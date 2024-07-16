@@ -78,6 +78,7 @@ class _DevicePageWidgetState extends State<DevicePageWidget> {
               );
             }
             List<DeviceRecord> containerDeviceRecordList = snapshot.data!;
+
             return Container(
               decoration: BoxDecoration(),
               child: Column(
@@ -262,6 +263,7 @@ class _DevicePageWidgetState extends State<DevicePageWidget> {
                                           '',
                                         );
                                       }
+
                                       return ListView.builder(
                                         padding: EdgeInsets.zero,
                                         scrollDirection: Axis.vertical,
@@ -611,6 +613,7 @@ class _DevicePageWidgetState extends State<DevicePageWidget> {
                                   builder: (context) {
                                     final deviceWList =
                                         containerDeviceRecordList.toList();
+
                                     return ListView.builder(
                                       padding: EdgeInsets.zero,
                                       scrollDirection: Axis.vertical,

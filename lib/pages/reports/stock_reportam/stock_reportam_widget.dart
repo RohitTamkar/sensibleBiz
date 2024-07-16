@@ -244,6 +244,7 @@ class _StockReportamWidgetState extends State<StockReportamWidget>
                                               .toList()
                                               ?.toList() ??
                                           [];
+
                                       return ListView.builder(
                                         padding: EdgeInsets.zero,
                                         scrollDirection: Axis.vertical,
@@ -399,6 +400,7 @@ class _StockReportamWidgetState extends State<StockReportamWidget>
                                             .toList()
                                             ?.toList() ??
                                         [];
+
                                     return ListView.builder(
                                       padding: EdgeInsets.zero,
                                       scrollDirection: Axis.vertical,

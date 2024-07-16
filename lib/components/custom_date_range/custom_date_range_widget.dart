@@ -1,11 +1,13 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'custom_date_range_model.dart';
 export 'custom_date_range_model.dart';
 
@@ -277,7 +279,7 @@ class _CustomDateRangeWidgetState extends State<CustomDateRangeWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 6.0),
               child: Text(
                 'Selected  End Date : ${dateTimeFormat(
-                  'yMd',
+                  'd/M/y',
                   FFAppState().endDate,
                   locale: FFLocalizations.of(context).languageCode,
                 )}',
@@ -293,6 +295,29 @@ class _CustomDateRangeWidgetState extends State<CustomDateRangeWidget> {
             ),
             FFButtonWidget(
               onPressed: () async {
+                FFAppState().selectedDate =
+                    functions.getDayId(_model.datePicked1!);
+                FFAppState().selectedLastDate =
+                    functions.getDayId(_model.datePicked2!);
+                setState(() {});
+                await showDialog(
+                  context: context,
+                  builder: (alertDialogContext) {
+                    return WebViewAware(
+                      child: AlertDialog(
+                        title: Text(functions.getDayId(_model.datePicked1!)),
+                        content: Text(functions.getDayId(_model.datePicked2!)),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(alertDialogContext),
+                            child: Text('Ok'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+                Navigator.pop(context);
                 Navigator.pop(context);
               },
               text: 'Submit',

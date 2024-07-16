@@ -57,7 +57,7 @@ class _CategoryWiseSaleReportWidgetState
       setState(() {});
       FFAppState().isLoding = true;
       setState(() {});
-      if (widget.catTestList?.length != 0) {
+      if (widget!.catTestList?.length != 0) {
         FFAppState().isLoding = false;
         setState(() {});
       } else {
@@ -490,6 +490,7 @@ class _CategoryWiseSaleReportWidgetState
                                       child: NoDataWidget(),
                                     );
                                   }
+
                                   return DataTable2(
                                     columns: [
                                       DataColumn2(

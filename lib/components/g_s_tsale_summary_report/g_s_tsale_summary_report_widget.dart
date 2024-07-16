@@ -77,6 +77,7 @@ class _GSTsaleSummaryReportWidgetState
                       FFAppState().gstJsonObj,
                       r'''$''',
                     ).toList();
+
                     return ListView.separated(
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.vertical,

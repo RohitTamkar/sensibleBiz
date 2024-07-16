@@ -361,6 +361,7 @@ class _CustomerPageWidgetState extends State<CustomerPageWidget> {
                                 }
                                 List<CustomerRecord>
                                     listViewCustomerRecordList = snapshot.data!;
+
                                 return ListView.builder(
                                   padding: EdgeInsets.zero,
                                   scrollDirection: Axis.vertical,

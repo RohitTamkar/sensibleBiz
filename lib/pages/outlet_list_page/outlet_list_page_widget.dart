@@ -118,6 +118,7 @@ class _OutletListPageWidgetState extends State<OutletListPageWidget>
               }
               List<UserProfileRecord> containerUserProfileRecordList =
                   snapshot.data!;
+
               final containerUserProfileRecord =
                   containerUserProfileRecordList.isNotEmpty
                       ? containerUserProfileRecordList.first

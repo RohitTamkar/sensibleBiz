@@ -57,54 +57,56 @@ class _ExcelViewWidgetState extends State<ExcelViewWidget> {
     super.initState();
     _model = createModel(context, () => ExcelViewModel());
 
-    _model.textController1 ??= TextEditingController(text: widget.parameter1);
+    _model.textController1 ??= TextEditingController(text: widget!.parameter1);
     _model.textFieldFocusNode1 ??= FocusNode();
 
-    _model.textController2 ??= TextEditingController(text: widget.parameter2);
+    _model.textController2 ??= TextEditingController(text: widget!.parameter2);
     _model.textFieldFocusNode2 ??= FocusNode();
 
     _model.textController3 ??=
-        TextEditingController(text: widget.parameter3?.toString());
+        TextEditingController(text: widget!.parameter3?.toString());
     _model.textFieldFocusNode3 ??= FocusNode();
 
     _model.textController4 ??=
-        TextEditingController(text: widget.parameter3?.toString());
+        TextEditingController(text: widget!.parameter3?.toString());
     _model.textFieldFocusNode4 ??= FocusNode();
 
     _model.textController5 ??=
-        TextEditingController(text: widget.parameter4?.toString());
+        TextEditingController(text: widget!.parameter4?.toString());
     _model.textFieldFocusNode5 ??= FocusNode();
 
     _model.textController6 ??=
-        TextEditingController(text: widget.parameter5?.toString());
+        TextEditingController(text: widget!.parameter5?.toString());
     _model.textFieldFocusNode6 ??= FocusNode();
 
-    _model.textController7 ??= TextEditingController(text: widget.parameter6);
+    _model.textController7 ??= TextEditingController(text: widget!.parameter6);
     _model.textFieldFocusNode7 ??= FocusNode();
 
     _model.textController8 ??=
-        TextEditingController(text: widget.parameter7?.toString());
+        TextEditingController(text: widget!.parameter7?.toString());
     _model.textFieldFocusNode8 ??= FocusNode();
 
     _model.textController9 ??=
-        TextEditingController(text: widget.parameter8?.toString());
+        TextEditingController(text: widget!.parameter8?.toString());
     _model.textFieldFocusNode9 ??= FocusNode();
 
-    _model.textController10 ??= TextEditingController(text: widget.parameter9);
+    _model.textController10 ??= TextEditingController(text: widget!.parameter9);
     _model.textFieldFocusNode10 ??= FocusNode();
 
-    _model.textController11 ??= TextEditingController(text: widget.parameter10);
+    _model.textController11 ??=
+        TextEditingController(text: widget!.parameter10);
     _model.textFieldFocusNode11 ??= FocusNode();
 
     _model.textController12 ??=
-        TextEditingController(text: widget.parameter11?.toString());
+        TextEditingController(text: widget!.parameter11?.toString());
     _model.textFieldFocusNode12 ??= FocusNode();
 
-    _model.textController13 ??= TextEditingController(text: widget.parameter12);
+    _model.textController13 ??=
+        TextEditingController(text: widget!.parameter12);
     _model.textFieldFocusNode13 ??= FocusNode();
 
     _model.textController14 ??=
-        TextEditingController(text: widget.parameter13?.toString());
+        TextEditingController(text: widget!.parameter13?.toString());
     _model.textFieldFocusNode14 ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));

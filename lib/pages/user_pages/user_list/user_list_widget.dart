@@ -81,6 +81,7 @@ class _UserListWidgetState extends State<UserListWidget> {
             }
             List<UserProfileRecord> containerUserProfileRecordList =
                 snapshot.data!;
+
             return Container(
               decoration: BoxDecoration(),
               child: Column(
@@ -211,6 +212,7 @@ class _UserListWidgetState extends State<UserListWidget> {
                                           child: NoDataWidget(),
                                         );
                                       }
+
                                       return ListView.builder(
                                         padding: EdgeInsets.zero,
                                         scrollDirection: Axis.vertical,

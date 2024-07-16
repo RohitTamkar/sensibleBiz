@@ -122,6 +122,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                   );
                 }
                 List<ProductRecord> containerProductRecordList = snapshot.data!;
+
                 return InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -440,6 +441,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                         List<CategoryRecord>
                                                             listViewCategoryRecordList =
                                                             snapshot.data!;
+
                                                         return ListView.builder(
                                                           padding:
                                                               EdgeInsets.zero,
@@ -564,6 +566,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                 if (listProductM.isEmpty) {
                                                   return NoDataWidget();
                                                 }
+
                                                 return ListView.builder(
                                                   padding: EdgeInsets.zero,
                                                   scrollDirection:
@@ -1073,6 +1076,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                           if (listProductW.isEmpty) {
                                             return NoDataWidget();
                                           }
+
                                           return ListView.builder(
                                             padding: EdgeInsets.zero,
                                             scrollDirection: Axis.vertical,
@@ -1563,6 +1567,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                     List<CategoryRecord>
                                                         listViewCategoryRecordList =
                                                         snapshot.data!;
+
                                                     return ListView.builder(
                                                       padding: EdgeInsets.zero,
                                                       shrinkWrap: true,
@@ -1696,6 +1701,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                             if (listProductWeb.isEmpty) {
                                               return NoDataWidget();
                                             }
+
                                             return ListView.builder(
                                               padding: EdgeInsets.zero,
                                               scrollDirection: Axis.vertical,
@@ -3234,6 +3240,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                     }
                     List<CategoryRecord> catServContainerCategoryRecordList =
                         snapshot.data!;
+
                     return InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -3294,6 +3301,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                           catServContainerCategoryRecordList
                                               .sortedList((e) => e.categoryNo)
                                               .toList();
+
                                       return ListView.builder(
                                         padding: EdgeInsets.zero,
                                         shrinkWrap: true,
@@ -3484,6 +3492,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                             builder: (context) {
                               final fetchedServicePt =
                                   _model.servicePtQuery?.toList() ?? [];
+
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 scrollDirection: Axis.vertical,

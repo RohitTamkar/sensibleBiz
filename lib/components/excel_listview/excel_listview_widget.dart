@@ -39,17 +39,17 @@ class _ExcelListviewWidgetState extends State<ExcelListviewWidget> {
     super.initState();
     _model = createModel(context, () => ExcelListviewModel());
 
-    _model.textController1 ??= TextEditingController(text: widget.parameter1);
+    _model.textController1 ??= TextEditingController(text: widget!.parameter1);
     _model.textFieldFocusNode1 ??= FocusNode();
 
-    _model.textController2 ??= TextEditingController(text: widget.parameter2);
+    _model.textController2 ??= TextEditingController(text: widget!.parameter2);
     _model.textFieldFocusNode2 ??= FocusNode();
 
-    _model.textController3 ??= TextEditingController(text: widget.parameter3);
+    _model.textController3 ??= TextEditingController(text: widget!.parameter3);
     _model.textFieldFocusNode3 ??= FocusNode();
 
     _model.textController4 ??=
-        TextEditingController(text: widget.parameter4?.toString());
+        TextEditingController(text: widget!.parameter4?.toString());
     _model.textFieldFocusNode4 ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));

@@ -54,7 +54,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
     });
 
     _model.codeMTextController ??=
-        TextEditingController(text: widget.codeLen.toString());
+        TextEditingController(text: widget!.codeLen.toString());
     _model.codeMFocusNode ??= FocusNode();
 
     _model.productNameMTextController ??= TextEditingController();
@@ -168,6 +168,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                 );
               }
               List<CategoryRecord> containerCategoryRecordList = snapshot.data!;
+
               return Container(
                 decoration: BoxDecoration(),
                 child: Column(
@@ -3781,7 +3782,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                           decoration:
                                                               InputDecoration(
                                                             isDense: true,
-                                                            labelText: widget
+                                                            labelText: widget!
                                                                 .codeLen
                                                                 .toString(),
                                                             hintText: 'code',

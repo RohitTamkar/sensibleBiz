@@ -723,6 +723,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               collectionNamePath: ['USER_PROFILE'],
             ),
           ),
+        ),
+        FFRoute(
+          name: 'StockUpdateCopy',
+          path: '/stockUpdateCopy',
+          asyncParams: {
+            'outlet': getDoc(['OUTLET'], OutletRecord.fromSnapshot),
+          },
+          builder: (context, params) => StockUpdateCopyWidget(
+            outlet: params.getParam(
+              'outlet',
+              ParamType.Document,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

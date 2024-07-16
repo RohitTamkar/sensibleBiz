@@ -147,6 +147,7 @@ class _ServicePointWidgetState extends State<ServicePointWidget> {
                       }
                       List<ServicePointRecord> containerServicePointRecordList =
                           snapshot.data!;
+
                       return Container(
                         width: MediaQuery.sizeOf(context).width * 1.0,
                         height: 100.0,
@@ -167,6 +168,7 @@ class _ServicePointWidgetState extends State<ServicePointWidget> {
                             builder: (context) {
                               final servicePtVar =
                                   containerServicePointRecordList.toList();
+
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 scrollDirection: Axis.vertical,

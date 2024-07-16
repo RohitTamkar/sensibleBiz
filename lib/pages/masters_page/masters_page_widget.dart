@@ -669,25 +669,6 @@ class _MastersPageWidgetState extends State<MastersPageWidget> {
                                                         ),
                                               ),
                                             ),
-                                            Text(
-                                              '',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyLargeFamily,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyLargeFamily),
-                                                      ),
-                                            ),
                                           ],
                                         ),
                                       ),
@@ -750,7 +731,7 @@ class _MastersPageWidgetState extends State<MastersPageWidget> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 5.0),
                                               child: Text(
-                                                'Costumer',
+                                                'Customer',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .titleMedium
@@ -770,25 +751,6 @@ class _MastersPageWidgetState extends State<MastersPageWidget> {
                                                                       .titleMediumFamily),
                                                         ),
                                               ),
-                                            ),
-                                            Text(
-                                              '',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyLargeFamily,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyLargeFamily),
-                                                      ),
                                             ),
                                           ],
                                         ),

@@ -178,6 +178,7 @@ class _DeleteUserProfileWidgetState extends State<DeleteUserProfileWidget> {
                                 List<UserProfileRecord>
                                     containerUserProfileRecordList =
                                     snapshot.data!;
+
                                 final containerUserProfileRecord =
                                     containerUserProfileRecordList.isNotEmpty
                                         ? containerUserProfileRecordList.first
@@ -1236,6 +1237,7 @@ class _DeleteUserProfileWidgetState extends State<DeleteUserProfileWidget> {
                                                 List<UserDeletionRecord>
                                                     containerUserDeletionRecordList =
                                                     snapshot.data!;
+
                                                 // Return an empty Container when the item does not exist.
                                                 if (snapshot.data!.isEmpty) {
                                                   return Container();

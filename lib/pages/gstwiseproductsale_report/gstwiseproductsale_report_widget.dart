@@ -62,14 +62,14 @@ class _GstwiseproductsaleReportWidgetState
         ),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
-      FFAppState().productSaleJson = widget.json!;
+      FFAppState().productSaleJson = widget!.json!;
       setState(() {});
       FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
       setState(() {});
       FFAppState().isLoding = true;
       setState(() {});
       if (getJsonField(
-            widget.json,
+            widget!.json,
             r'''$[:].details[:].products[:]''',
           ) !=
           null) {
@@ -164,6 +164,7 @@ class _GstwiseproductsaleReportWidgetState
                     );
                   }
                   List<OutletRecord> containerOutletRecordList = snapshot.data!;
+
                   // Return an empty Container when the item does not exist.
                   if (snapshot.data!.isEmpty) {
                     return Container();
@@ -214,7 +215,7 @@ class _GstwiseproductsaleReportWidgetState
                                   _model.base64 = await actions.generateExcel(
                                     containerOutletRecord?.name,
                                     getCurrentTimestamp.toString(),
-                                    widget.json!,
+                                    widget!.json!,
                                     FFAppState().startDate?.toString(),
                                     FFAppState().endDate?.toString(),
                                   );
@@ -714,6 +715,7 @@ class _GstwiseproductsaleReportWidgetState
                                                 ),
                                               );
                                             }
+
                                             return ListView.builder(
                                               padding: EdgeInsets.zero,
                                               scrollDirection: Axis.vertical,
@@ -1251,6 +1253,7 @@ class _GstwiseproductsaleReportWidgetState
                                                 ),
                                               );
                                             }
+
                                             return ListView.builder(
                                               padding: EdgeInsets.zero,
                                               scrollDirection: Axis.vertical,

@@ -44,7 +44,7 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
 
-    _model.textController3 ??= TextEditingController(text: widget.qr);
+    _model.textController3 ??= TextEditingController(text: widget!.qr);
     _model.textFieldFocusNode3 ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -730,6 +730,7 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
                               List<UserProfileRecord>
                                   containerUserProfileRecordList =
                                   snapshot.data!;
+
                               final containerUserProfileRecord =
                                   containerUserProfileRecordList.isNotEmpty
                                       ? containerUserProfileRecordList.first
@@ -767,6 +768,7 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
                                     }
                                     List<DeviceRecord> buttonDeviceRecordList =
                                         snapshot.data!;
+
                                     final buttonDeviceRecord =
                                         buttonDeviceRecordList.isNotEmpty
                                             ? buttonDeviceRecordList.first

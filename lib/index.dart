@@ -106,3 +106,5 @@ export '/pages/reports/bill_wise_sale_report/bill_wise_sale_report_widget.dart'
 export '/pages/user_pages/user_list/user_list_widget.dart' show UserListWidget;
 export '/pages/user_pages/add_user/add_user_widget.dart' show AddUserWidget;
 export '/pages/user_pages/edit_user/edit_user_widget.dart' show EditUserWidget;
+export '/pages/stock_update_copy/stock_update_copy_widget.dart'
+    show StockUpdateCopyWidget;

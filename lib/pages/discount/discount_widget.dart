@@ -331,6 +331,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                               List<CategoryRecord>
                                                   listViewCategoryRecordList =
                                                   snapshot.data!;
+
                                               return ListView.builder(
                                                 padding: EdgeInsets.zero,
                                                 shrinkWrap: true,
@@ -921,6 +922,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                           FFAppState()
                                                               .prdJsonList
                                                               .toList();
+
                                                       return ListView.builder(
                                                         padding:
                                                             EdgeInsets.zero,

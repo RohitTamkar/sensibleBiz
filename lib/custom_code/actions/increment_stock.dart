@@ -20,7 +20,7 @@ Future<List<dynamic>> incrementStock(
 
   if (productCart.isNotEmpty) {
     var index = productCart.indexOf(obj);
-    productCart[index]["reqStock"]++;
+    //productCart[index]["reqStock"]++;
     productCart[index]["totalStock"] =
         productCart[index]["currentStock"] + productCart[index]["reqStock"];
 

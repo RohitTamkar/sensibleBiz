@@ -67,7 +67,7 @@ class _ProductSaleReportDaywiseWidgetState
       setState(() {});
       FFAppState().isLoding = true;
       setState(() {});
-      if (widget.prdTestList?.length != 0) {
+      if (widget!.prdTestList?.length != 0) {
         FFAppState().isLoding = false;
         setState(() {});
       } else {
@@ -159,6 +159,7 @@ class _ProductSaleReportDaywiseWidgetState
                     );
                   }
                   List<OutletRecord> containerOutletRecordList = snapshot.data!;
+
                   // Return an empty Container when the item does not exist.
                   if (snapshot.data!.isEmpty) {
                     return Container();
@@ -794,6 +795,7 @@ class _ProductSaleReportDaywiseWidgetState
                                                 ),
                                               );
                                             }
+
                                             return ListView.builder(
                                               padding: EdgeInsets.zero,
                                               scrollDirection: Axis.vertical,
@@ -1304,6 +1306,7 @@ class _ProductSaleReportDaywiseWidgetState
                                                 ),
                                               );
                                             }
+
                                             return ListView.builder(
                                               padding: EdgeInsets.zero,
                                               scrollDirection: Axis.vertical,

@@ -49,45 +49,45 @@ class _EditProductWidgetState extends State<EditProductWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.catResultM = await CategoryRecord.getDocumentOnce(functions
-          .getCatRefById(widget.proDoc!.category, FFAppState().outletRef!.id));
+          .getCatRefById(widget!.proDoc!.category, FFAppState().outletRef!.id));
     });
 
     _model.textFieldCodeMTextController ??= TextEditingController(
         text: valueOrDefault<String>(
-      widget.proDoc?.code?.toString(),
+      widget!.proDoc?.code?.toString(),
       '0',
     ));
     _model.textFieldCodeMFocusNode ??= FocusNode();
 
     _model.productNameMTextController ??= TextEditingController(
         text: valueOrDefault<String>(
-      widget.proDoc?.name,
+      widget!.proDoc?.name,
       '\"',
     ));
     _model.productNameMFocusNode ??= FocusNode();
 
     _model.textFieldSellingPriceMTextController ??=
-        TextEditingController(text: widget.proDoc?.price?.toString());
+        TextEditingController(text: widget!.proDoc?.price?.toString());
     _model.textFieldSellingPriceMFocusNode ??= FocusNode();
 
     _model.textFieldMRPPriceMTextController ??=
-        TextEditingController(text: widget.proDoc?.mrpPrice?.toString());
+        TextEditingController(text: widget!.proDoc?.mrpPrice?.toString());
     _model.textFieldMRPPriceMFocusNode ??= FocusNode();
 
     _model.textFieldPurchasePriceMTextController ??=
-        TextEditingController(text: widget.proDoc?.costPrice?.toString());
+        TextEditingController(text: widget!.proDoc?.costPrice?.toString());
     _model.textFieldPurchasePriceMFocusNode ??= FocusNode();
 
     _model.textFieldRegionalNameMTextController ??=
-        TextEditingController(text: widget.proDoc?.regionalName);
+        TextEditingController(text: widget!.proDoc?.regionalName);
     _model.textFieldRegionalNameMFocusNode ??= FocusNode();
 
     _model.textFieldRecorderLevelMTextController ??=
-        TextEditingController(text: widget.proDoc?.reorderLevel?.toString());
+        TextEditingController(text: widget!.proDoc?.reorderLevel?.toString());
     _model.textFieldRecorderLevelMFocusNode ??= FocusNode();
 
     _model.textFieldDiscountPerMTextController1 ??=
-        TextEditingController(text: widget.proDoc?.discount?.toString());
+        TextEditingController(text: widget!.proDoc?.discount?.toString());
     _model.textFieldDiscountPerMFocusNode1 ??= FocusNode();
 
     _model.textFieldDiscountPerMTextController2 ??= TextEditingController(
@@ -107,65 +107,65 @@ class _EditProductWidgetState extends State<EditProductWidget> {
     _model.textFieldShortNameMFocusNode ??= FocusNode();
 
     _model.textFieldCurrentStockMTextController ??=
-        TextEditingController(text: widget.proDoc?.currentStock?.toString());
+        TextEditingController(text: widget!.proDoc?.currentStock?.toString());
     _model.textFieldCurrentStockMFocusNode ??= FocusNode();
 
     _model.expandableMExpandableController =
         ExpandableController(initialExpanded: false);
     _model.textFieldBarcodeMTextController ??= TextEditingController(
         text: valueOrDefault<String>(
-      widget.proDoc?.barcode,
+      widget!.proDoc?.barcode,
       '0',
     ));
     _model.textFieldBarcodeMFocusNode ??= FocusNode();
 
     _model.textFieldHsnCodeMTextController ??= TextEditingController(
         text: valueOrDefault<String>(
-      widget.proDoc?.hsnCode,
+      widget!.proDoc?.hsnCode,
       '0',
     ));
     _model.textFieldHsnCodeMFocusNode ??= FocusNode();
 
     _model.textFieldCodeWTextController ??= TextEditingController(
         text: valueOrDefault<String>(
-      widget.productDocW?.code?.toString(),
+      widget!.productDocW?.code?.toString(),
       '0',
     ));
     _model.textFieldCodeWFocusNode ??= FocusNode();
 
     _model.productNameWTextController ??= TextEditingController(
         text: valueOrDefault<String>(
-      widget.productDocW?.name,
+      widget!.productDocW?.name,
       '\"',
     ));
     _model.productNameWFocusNode ??= FocusNode();
 
     _model.textFieldSellingPriceWTextController ??=
-        TextEditingController(text: widget.proDoc?.price?.toString());
+        TextEditingController(text: widget!.proDoc?.price?.toString());
     _model.textFieldSellingPriceWFocusNode ??= FocusNode();
 
     _model.textFieldMRPPriceWTextController ??=
-        TextEditingController(text: widget.proDoc?.mrpPrice?.toString());
+        TextEditingController(text: widget!.proDoc?.mrpPrice?.toString());
     _model.textFieldMRPPriceWFocusNode ??= FocusNode();
 
     _model.textFieldPurchasePriceWTextController ??=
-        TextEditingController(text: widget.productDocW?.costPrice?.toString());
+        TextEditingController(text: widget!.productDocW?.costPrice?.toString());
     _model.textFieldPurchasePriceWFocusNode ??= FocusNode();
 
     _model.textFieldCurrentStockWTextController ??= TextEditingController(
-        text: widget.productDocW?.currentStock?.toString());
+        text: widget!.productDocW?.currentStock?.toString());
     _model.textFieldCurrentStockWFocusNode ??= FocusNode();
 
     _model.textFieldRegionalNameWTextController ??=
-        TextEditingController(text: widget.productDocW?.regionalName);
+        TextEditingController(text: widget!.productDocW?.regionalName);
     _model.textFieldRegionalNameWFocusNode ??= FocusNode();
 
     _model.textFieldRecorderLevelWTextController ??= TextEditingController(
-        text: widget.productDocW?.reorderLevel?.toString());
+        text: widget!.productDocW?.reorderLevel?.toString());
     _model.textFieldRecorderLevelWFocusNode ??= FocusNode();
 
     _model.textFieldDiscountPerWTextController1 ??=
-        TextEditingController(text: widget.productDocW?.discount?.toString());
+        TextEditingController(text: widget!.productDocW?.discount?.toString());
     _model.textFieldDiscountPerWFocusNode1 ??= FocusNode();
 
     _model.textFieldDiscountPerWTextController2 ??= TextEditingController(
@@ -187,11 +187,11 @@ class _EditProductWidgetState extends State<EditProductWidget> {
     _model.expandableExpandableController3 =
         ExpandableController(initialExpanded: false);
     _model.textFieldBarcodeWTextController ??=
-        TextEditingController(text: widget.productDocW?.barcode);
+        TextEditingController(text: widget!.productDocW?.barcode);
     _model.textFieldBarcodeWFocusNode ??= FocusNode();
 
     _model.textFieldHsnWTextController ??=
-        TextEditingController(text: widget.productDocW?.hsnCode);
+        TextEditingController(text: widget!.productDocW?.hsnCode);
     _model.textFieldHsnWFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -235,6 +235,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
             }
             List<CategoryRecord> containerMW2CategoryRecordList =
                 snapshot.data!;
+
             return Container(
               decoration: BoxDecoration(),
               child: FutureBuilder<List<CategoryRecord>>(
@@ -243,12 +244,12 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                   queryBuilder: (categoryRecord) => categoryRecord.where(
                     'id',
                     isEqualTo: valueOrDefault<String>(
-                              widget.proDoc?.category,
+                              widget!.proDoc?.category,
                               'a',
                             ) !=
                             ''
                         ? valueOrDefault<String>(
-                            widget.proDoc?.category,
+                            widget!.proDoc?.category,
                             'a',
                           )
                         : null,
@@ -271,6 +272,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                   }
                   List<CategoryRecord> containerMW1CategoryRecordList =
                       snapshot.data!;
+
                   final containerMW1CategoryRecord =
                       containerMW1CategoryRecordList.isNotEmpty
                           ? containerMW1CategoryRecordList.first
@@ -1818,7 +1820,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                     child: CheckboxListTile(
                                                       value: _model
                                                               .wightCheckboMValue ??=
-                                                          widget.proDoc!
+                                                          widget!.proDoc!
                                                               .weighable,
                                                       onChanged:
                                                           (newValue) async {
@@ -1875,7 +1877,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                     child: CheckboxListTile(
                                                       value: _model
                                                               .stockCheckboxMValue ??=
-                                                          widget.proDoc!
+                                                          widget!.proDoc!
                                                               .stockable,
                                                       onChanged:
                                                           (newValue) async {
@@ -2056,7 +2058,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                           controller: _model.taxDropDownMValueController ??=
                                                                               FormFieldController<String>(
                                                                             _model.taxDropDownMValue ??=
-                                                                                functions.getTaxIdEdit1(widget.proDoc?.taxIndex),
+                                                                                functions.getTaxIdEdit1(widget!.proDoc?.taxIndex),
                                                                           ),
                                                                           options: [
                                                                             'GST0',
@@ -2118,7 +2120,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                           controller: _model.unitDropDownMValueController ??=
                                                                               FormFieldController<String>(
                                                                             _model.unitDropDownMValue ??=
-                                                                                functions.getUnitTypesEdit1(widget.proDoc?.unitId),
+                                                                                functions.getUnitTypesEdit1(widget!.proDoc?.unitId),
                                                                           ),
                                                                           options: [
                                                                             'KILOGRAM',
@@ -2435,6 +2437,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                         dropDownServicePointRecordList =
                                                                         snapshot
                                                                             .data!;
+
                                                                     return FlutterFlowDropDown<
                                                                         String>(
                                                                       controller: _model
@@ -2443,7 +2446,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                               String>(
                                                                         _model.dropDownValue ??=
                                                                             valueOrDefault<String>(
-                                                                          widget
+                                                                          widget!
                                                                               .proDoc
                                                                               ?.kitchenId,
                                                                           '\"',
@@ -2902,19 +2905,20 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                 );
                                                 _shouldSetState = true;
 
-                                                await widget.proDoc!.reference
+                                                await widget!.proDoc!.reference
                                                     .update(
                                                         createProductRecordData(
-                                                  id: widget.proDoc?.id,
+                                                  id: widget!.proDoc?.id,
                                                   category: _model
                                                       .category2?.reference.id,
                                                   unitId: _model.unitIdM,
                                                   taxIndex: _model.taxIdM,
-                                                  active: widget.proDoc?.active,
+                                                  active:
+                                                      widget!.proDoc?.active,
                                                   barcode: _model
                                                       .textFieldBarcodeMTextController
                                                       .text,
-                                                  cess: widget.proDoc?.cess,
+                                                  cess: widget!.proDoc?.cess,
                                                   code: int.tryParse(_model
                                                       .textFieldCodeMTextController
                                                       .text),
@@ -2926,7 +2930,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                       .textFieldDiscountPerMTextController1
                                                       .text),
                                                   keyCount:
-                                                      widget.proDoc?.keyCount,
+                                                      widget!.proDoc?.keyCount,
                                                   kitchenId:
                                                       _model.dropDownValue,
                                                   mrpPrice: double.tryParse(_model
@@ -2936,9 +2940,9 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                       .toCapitalLetter(_model
                                                           .productNameMTextController
                                                           .text),
-                                                  onlinePrice: widget
+                                                  onlinePrice: widget!
                                                       .proDoc?.onlinePrice,
-                                                  onlineSynced: widget
+                                                  onlineSynced: widget!
                                                       .proDoc?.onlineSynced,
                                                   price: valueOrDefault<double>(
                                                     double.tryParse(_model
@@ -2956,7 +2960,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                     0.0,
                                                   )),
                                                   recipeId:
-                                                      widget.proDoc?.recipeId,
+                                                      widget!.proDoc?.recipeId,
                                                   regionalName: _model
                                                       .textFieldRegionalNameMTextController
                                                       .text,
@@ -2964,13 +2968,13 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                       .textFieldRecorderLevelMTextController
                                                       .text),
                                                   selected:
-                                                      widget.proDoc?.selected,
+                                                      widget!.proDoc?.selected,
                                                   shortName: _model
                                                       .textFieldShortNameMTextController
                                                       .text,
                                                   stockable: _model
                                                       .stockCheckboxMValue,
-                                                  type: widget.proDoc?.type,
+                                                  type: widget!.proDoc?.type,
                                                   weighable:
                                                       _model.wightCheckboMValue,
                                                   currentStock: double.tryParse(
@@ -4659,7 +4663,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                     child: CheckboxListTile(
                                                       value: _model
                                                               .wightCheckboWNValue ??=
-                                                          widget.productDocW!
+                                                          widget!.productDocW!
                                                               .weighable,
                                                       onChanged:
                                                           (newValue) async {
@@ -4716,7 +4720,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                     child: CheckboxListTile(
                                                       value: _model
                                                               .stockCheckboxWNValue ??=
-                                                          widget.productDocW!
+                                                          widget!.productDocW!
                                                               .stockable,
                                                       onChanged:
                                                           (newValue) async {
@@ -4897,7 +4901,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                           controller: _model.taxDropDownTaxWValueController ??=
                                                                               FormFieldController<String>(
                                                                             _model.taxDropDownTaxWValue ??=
-                                                                                functions.getTaxIdEdit2(widget.productDocW?.taxIndex),
+                                                                                functions.getTaxIdEdit2(widget!.productDocW?.taxIndex),
                                                                           ),
                                                                           options: [
                                                                             'GST0',
@@ -4960,7 +4964,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                           controller: _model.unitDropDownWValueController ??=
                                                                               FormFieldController<String>(
                                                                             _model.unitDropDownWValue ??=
-                                                                                functions.getUnitTypesEdit1(widget.productDocW?.unitId),
+                                                                                functions.getUnitTypesEdit1(widget!.productDocW?.unitId),
                                                                           ),
                                                                           options: [
                                                                             'KILOGRAM',
@@ -5566,12 +5570,12 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                 );
                                                 _shouldSetState = true;
 
-                                                await widget
+                                                await widget!
                                                     .productDocW!.reference
                                                     .update(
                                                         createProductRecordData(
-                                                  id: widget.productDocW?.id,
-                                                  active: widget
+                                                  id: widget!.productDocW?.id,
+                                                  active: widget!
                                                       .productDocW?.active,
                                                   barcode:
                                                       valueOrDefault<String>(
@@ -5583,7 +5587,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                   category: _model
                                                       .category5?.reference.id,
                                                   cess:
-                                                      widget.productDocW?.cess,
+                                                      widget!.productDocW?.cess,
                                                   code: int.tryParse(_model
                                                       .textFieldCodeWTextController
                                                       .text),
@@ -5602,9 +5606,9 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                         .text),
                                                     0.0,
                                                   ),
-                                                  keyCount: widget
+                                                  keyCount: widget!
                                                       .productDocW?.keyCount,
-                                                  kitchenId: widget
+                                                  kitchenId: widget!
                                                       .productDocW?.kitchenId,
                                                   mrpPrice:
                                                       valueOrDefault<double>(
@@ -5619,11 +5623,11 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                           .text),
                                                   onlinePrice:
                                                       valueOrDefault<double>(
-                                                    widget.productDocW
+                                                    widget!.productDocW
                                                         ?.onlinePrice,
                                                     0.0,
                                                   ),
-                                                  onlineSynced: widget
+                                                  onlineSynced: widget!
                                                       .productDocW
                                                       ?.onlineSynced,
                                                   price: valueOrDefault<double>(
@@ -5645,7 +5649,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                     )),
                                                     '0',
                                                   ),
-                                                  recipeId: widget
+                                                  recipeId: widget!
                                                       .productDocW?.recipeId,
                                                   regionalName: _model
                                                       .textFieldRegionalNameWTextController
@@ -5657,7 +5661,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                         .text),
                                                     0,
                                                   ),
-                                                  selected: widget
+                                                  selected: widget!
                                                       .productDocW?.selected,
                                                   shortName: _model
                                                       .textFieldShortNameWTextController
@@ -5666,7 +5670,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                       .stockCheckboxWNValue,
                                                   taxIndex: _model.taxId1W,
                                                   type: valueOrDefault<int>(
-                                                    widget.productDocW?.type,
+                                                    widget!.productDocW?.type,
                                                     0,
                                                   ),
                                                   unitId: _model.unitId1W,

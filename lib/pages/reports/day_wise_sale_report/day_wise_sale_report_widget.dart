@@ -73,6 +73,7 @@ class _DayWiseSaleReportWidgetState extends State<DayWiseSaleReportWidget> {
               );
             }
             List<ShiftRecord> containerShiftRecordList = snapshot.data!;
+
             return Container(
               decoration: BoxDecoration(),
               child: Column(
@@ -197,6 +198,7 @@ class _DayWiseSaleReportWidgetState extends State<DayWiseSaleReportWidget> {
                             builder: (context) {
                               final dayMList =
                                   containerShiftRecordList.toList();
+
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 scrollDirection: Axis.vertical,
@@ -1442,6 +1444,7 @@ class _DayWiseSaleReportWidgetState extends State<DayWiseSaleReportWidget> {
                             builder: (context) {
                               final dayWList =
                                   containerShiftRecordList.toList();
+
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 scrollDirection: Axis.vertical,

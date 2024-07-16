@@ -47,27 +47,27 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
     });
 
     _model.textController1 ??=
-        TextEditingController(text: widget.servPtDoc?.name);
+        TextEditingController(text: widget!.servPtDoc?.name);
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.textField2TextController ??=
-        TextEditingController(text: widget.servPtDoc?.printerIpAddress);
+        TextEditingController(text: widget!.servPtDoc?.printerIpAddress);
     _model.textField2FocusNode ??= FocusNode();
 
     _model.textField3TextController ??=
-        TextEditingController(text: widget.servPtDoc?.port?.toString());
+        TextEditingController(text: widget!.servPtDoc?.port?.toString());
     _model.textField3FocusNode ??= FocusNode();
 
     _model.textController4 ??=
-        TextEditingController(text: widget.servPtDoc?.header);
+        TextEditingController(text: widget!.servPtDoc?.header);
     _model.textFieldFocusNode2 ??= FocusNode();
 
     _model.textController5 ??=
-        TextEditingController(text: widget.servPtDoc?.subHeader);
+        TextEditingController(text: widget!.servPtDoc?.subHeader);
     _model.textFieldFocusNode3 ??= FocusNode();
 
     _model.textController6 ??=
-        TextEditingController(text: widget.servPtDoc?.footer);
+        TextEditingController(text: widget!.servPtDoc?.footer);
     _model.textFieldFocusNode4 ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -362,7 +362,7 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
                                   controller:
                                       _model.radioButton1ValueController ??=
                                           FormFieldController<String>(
-                                              widget.servPtDoc?.paperSize == 2
+                                              widget!.servPtDoc?.paperSize == 2
                                                   ? '2 Inch'
                                                   : '3 Inch'),
                                   optionHeight: 32.0,
@@ -446,9 +446,9 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
                                   controller:
                                       _model.radioButton2ValueController ??=
                                           FormFieldController<String>(() {
-                                    if (widget.servPtDoc?.printerType == 0) {
+                                    if (widget!.servPtDoc?.printerType == 0) {
                                       return 'Serial';
-                                    } else if (widget.servPtDoc?.printerType ==
+                                    } else if (widget!.servPtDoc?.printerType ==
                                         1) {
                                       return 'Ethernet';
                                     } else {
@@ -1195,7 +1195,7 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
                                           _model.wait = true;
                                           setState(() {});
 
-                                          await widget.servPtDoc!.reference
+                                          await widget!.servPtDoc!.reference
                                               .update(
                                                   createServicePointRecordData(
                                             footer: _model.textController6.text,

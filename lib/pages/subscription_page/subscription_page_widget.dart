@@ -74,6 +74,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
               );
             }
             List<OutletRecord> containerOutletRecordList = snapshot.data!;
+
             // Return an empty Container when the item does not exist.
             if (snapshot.data!.isEmpty) {
               return Container();

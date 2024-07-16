@@ -98,6 +98,7 @@ class _AddCategoryPageWidgetState extends State<AddCategoryPageWidget> {
               );
             }
             List<CategoryRecord> containerCategoryRecordList = snapshot.data!;
+
             final containerCategoryRecord =
                 containerCategoryRecordList.isNotEmpty
                     ? containerCategoryRecordList.first

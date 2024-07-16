@@ -47,7 +47,7 @@ class _AddPremisesWidgetState extends State<AddPremisesWidget> {
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.textController2 ??=
-        TextEditingController(text: widget.codeLen.toString());
+        TextEditingController(text: widget!.codeLen.toString());
     _model.textFieldFocusNode2 ??= FocusNode();
 
     _model.textController3 ??= TextEditingController();
@@ -96,6 +96,7 @@ class _AddPremisesWidgetState extends State<AddPremisesWidget> {
         }
         List<UserProfileRecord> addPremisesUserProfileRecordList =
             snapshot.data!;
+
         return GestureDetector(
           onTap: () => _model.unfocusNode.canRequestFocus
               ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -809,7 +810,7 @@ class _AddPremisesWidgetState extends State<AddPremisesWidget> {
                                                 FFAppState().outletRef!);
                                         await premisesRecordReference
                                             .set(createPremisesRecordData(
-                                          code: widget.codeLen,
+                                          code: widget!.codeLen,
                                           createdTime: getCurrentTimestamp,
                                           name: _model.textController1.text,
                                           range: int.tryParse(
@@ -823,7 +824,7 @@ class _AddPremisesWidgetState extends State<AddPremisesWidget> {
                                         _model.created =
                                             PremisesRecord.getDocumentFromData(
                                                 createPremisesRecordData(
-                                                  code: widget.codeLen,
+                                                  code: widget!.codeLen,
                                                   createdTime:
                                                       getCurrentTimestamp,
                                                   name: _model

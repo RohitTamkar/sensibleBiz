@@ -182,7 +182,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                       child: AlertDialog(
                                                         title: Text('Check In'),
                                                         content: Text(
-                                                            'Bill No${_model.billDocumnetQR?.billNo}'),
+                                                            'Bill No ${_model.billDocumnetQR?.billNo}'),
                                                         actions: [
                                                           TextButton(
                                                             onPressed: () =>
@@ -663,6 +663,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                   }
                   List<BillSaleSummaryRecord>
                       containerBillSaleSummaryRecordList = snapshot.data!;
+
                   return Container(
                     width: double.infinity,
                     height: 100.0,
@@ -874,6 +875,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                   final billWiseSaleReport =
                                       containerBillSaleSummaryRecordList
                                           .toList();
+
                                   return ListView.separated(
                                     padding: EdgeInsets.zero,
                                     primary: false,
@@ -1164,6 +1166,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                               List<UserProfileRecord>
                                   listViewUserProfileRecordList =
                                   snapshot.data!;
+
                               // Return an empty Container when the item does not exist.
                               if (snapshot.data!.isEmpty) {
                                 return Container();

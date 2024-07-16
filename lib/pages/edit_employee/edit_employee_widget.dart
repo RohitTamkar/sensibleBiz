@@ -44,27 +44,27 @@ class _EditEmployeeWidgetState extends State<EditEmployeeWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.shortNamePS = widget.ref?.shortName;
+      _model.shortNamePS = widget!.ref?.shortName;
       setState(() {});
     });
 
     _model.employeeNameTextController ??=
-        TextEditingController(text: widget.ref?.name);
+        TextEditingController(text: widget!.ref?.name);
     _model.employeeNameFocusNode ??= FocusNode();
 
     _model.mobileTextFieldTextController ??=
-        TextEditingController(text: widget.ref?.mobile);
+        TextEditingController(text: widget!.ref?.mobile);
     _model.mobileTextFieldFocusNode ??= FocusNode();
 
     _model.searchCodeTextController ??=
-        TextEditingController(text: widget.ref?.searchCode?.toString());
+        TextEditingController(text: widget!.ref?.searchCode?.toString());
     _model.searchCodeFocusNode ??= FocusNode();
 
     _model.shortNameTextController ??= TextEditingController();
     _model.shortNameFocusNode ??= FocusNode();
 
     _model.balenceTextController ??=
-        TextEditingController(text: widget.ref?.balanceAmt);
+        TextEditingController(text: widget!.ref?.balanceAmt);
     _model.balenceFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -161,14 +161,14 @@ class _EditEmployeeWidgetState extends State<EditEmployeeWidget> {
                                   _model.wait = true;
                                   setState(() {});
 
-                                  await widget.ref!.reference
+                                  await widget!.ref!.reference
                                       .update(createEmployeeRecordData(
                                     allowadvancepayment: false,
                                     balanceAmt:
                                         _model.balenceTextController.text,
                                     dateOfJoining: _model.datePicked != null
                                         ? functions.getDayId(_model.datePicked!)
-                                        : widget.ref?.dateOfJoining,
+                                        : widget!.ref?.dateOfJoining,
                                     mobile: _model
                                         .mobileTextFieldTextController.text,
                                     name:
@@ -176,7 +176,7 @@ class _EditEmployeeWidgetState extends State<EditEmployeeWidget> {
                                     searchCode: int.tryParse(
                                         _model.searchCodeTextController.text),
                                     shortName: _model.shortNamePS,
-                                    id: widget.ref?.id,
+                                    id: widget!.ref?.id,
                                   ));
                                   _model.wait = false;
                                   setState(() {});
@@ -901,7 +901,7 @@ class _EditEmployeeWidgetState extends State<EditEmployeeWidget> {
                                         10.0, 0.0, 0.0, 0.0),
                                     child: Text(
                                       valueOrDefault<String>(
-                                        widget.ref?.dateOfJoining,
+                                        widget!.ref?.dateOfJoining,
                                         '-',
                                       ),
                                       style: FlutterFlowTheme.of(context)

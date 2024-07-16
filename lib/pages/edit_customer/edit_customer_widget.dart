@@ -42,33 +42,33 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.birthday = widget.ref?.birthdayDate;
-      _model.anniversPs = widget.ref?.anniversaryDate;
+      _model.birthday = widget!.ref?.birthdayDate;
+      _model.anniversPs = widget!.ref?.anniversaryDate;
       setState(() {});
     });
 
     _model.employeeNameTextController ??=
-        TextEditingController(text: widget.ref?.name);
+        TextEditingController(text: widget!.ref?.name);
     _model.employeeNameFocusNode ??= FocusNode();
 
     _model.mobileTextFieldTextController ??=
-        TextEditingController(text: widget.ref?.contact);
+        TextEditingController(text: widget!.ref?.contact);
     _model.mobileTextFieldFocusNode ??= FocusNode();
 
     _model.searchCodeTextController ??=
-        TextEditingController(text: widget.ref?.altContact);
+        TextEditingController(text: widget!.ref?.altContact);
     _model.searchCodeFocusNode ??= FocusNode();
 
     _model.shortNameTextController ??=
-        TextEditingController(text: widget.ref?.email);
+        TextEditingController(text: widget!.ref?.email);
     _model.shortNameFocusNode ??= FocusNode();
 
     _model.gSTnumTextController ??=
-        TextEditingController(text: widget.ref?.gstNo);
+        TextEditingController(text: widget!.ref?.gstNo);
     _model.gSTnumFocusNode ??= FocusNode();
 
     _model.addressTextController ??=
-        TextEditingController(text: widget.ref?.address);
+        TextEditingController(text: widget!.ref?.address);
     _model.addressFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -165,7 +165,7 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
                                   _model.wait = true;
                                   setState(() {});
 
-                                  await widget.ref!.reference
+                                  await widget!.ref!.reference
                                       .update(createCustomerRecordData(
                                     name:
                                         _model.employeeNameTextController.text,
@@ -1435,7 +1435,7 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
                                         ),
                                         child: Checkbox(
                                           value: _model.checkboxValue ??=
-                                              widget.ref!.allowedCredit,
+                                              widget!.ref!.allowedCredit,
                                           onChanged: (newValue) async {
                                             setState(() => _model
                                                 .checkboxValue = newValue!);

@@ -403,6 +403,7 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                               List<CategoryRecord>
                                                   listViewCategoryRecordList =
                                                   snapshot.data!;
+
                                               return ListView.builder(
                                                 padding: EdgeInsets.zero,
                                                 shrinkWrap: true,
@@ -749,6 +750,7 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                         FFAppState()
                                                             .prdJsonList
                                                             .toList();
+
                                                     return ListView.builder(
                                                       padding: EdgeInsets.zero,
                                                       scrollDirection:

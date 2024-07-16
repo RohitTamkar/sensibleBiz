@@ -82,7 +82,7 @@ class _TransferDataCompoWidgetState extends State<TransferDataCompoWidget> {
               children: [
                 Text(
                   valueOrDefault<String>(
-                    widget.selectedOutletName,
+                    widget!.selectedOutletName,
                     '-',
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(

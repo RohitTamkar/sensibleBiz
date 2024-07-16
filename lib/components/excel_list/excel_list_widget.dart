@@ -63,60 +63,62 @@ class _ExcelListWidgetState extends State<ExcelListWidget> {
     super.initState();
     _model = createModel(context, () => ExcelListModel());
 
-    _model.textController1 ??= TextEditingController(text: widget.prdname);
+    _model.textController1 ??= TextEditingController(text: widget!.prdname);
     _model.textFieldFocusNode1 ??= FocusNode();
 
-    _model.textController2 ??= TextEditingController(text: widget.regionalName);
+    _model.textController2 ??=
+        TextEditingController(text: widget!.regionalName);
     _model.textFieldFocusNode2 ??= FocusNode();
 
     _model.textController3 ??=
-        TextEditingController(text: widget.defaultPrice?.toString());
+        TextEditingController(text: widget!.defaultPrice?.toString());
     _model.textFieldFocusNode3 ??= FocusNode();
 
     _model.textController4 ??=
-        TextEditingController(text: widget.price1?.toString());
+        TextEditingController(text: widget!.price1?.toString());
     _model.textFieldFocusNode4 ??= FocusNode();
 
     _model.textController5 ??=
-        TextEditingController(text: widget.mrpPrice?.toString());
+        TextEditingController(text: widget!.mrpPrice?.toString());
     _model.textFieldFocusNode5 ??= FocusNode();
 
-    _model.textController6 ??= TextEditingController(text: widget.shortName);
+    _model.textController6 ??= TextEditingController(text: widget!.shortName);
     _model.textFieldFocusNode6 ??= FocusNode();
 
     _model.textController7 ??=
-        TextEditingController(text: widget.purchasePrice?.toString());
+        TextEditingController(text: widget!.purchasePrice?.toString());
     _model.textFieldFocusNode7 ??= FocusNode();
 
-    _model.textController8 ??= TextEditingController(text: widget.categoryname);
+    _model.textController8 ??=
+        TextEditingController(text: widget!.categoryname);
     _model.textFieldFocusNode8 ??= FocusNode();
 
     _model.textController9 ??=
-        TextEditingController(text: widget.catehoryNo?.toString());
+        TextEditingController(text: widget!.catehoryNo?.toString());
     _model.textFieldFocusNode9 ??= FocusNode();
 
     _model.textController10 ??=
-        TextEditingController(text: widget.tax?.toString());
+        TextEditingController(text: widget!.tax?.toString());
     _model.textFieldFocusNode10 ??= FocusNode();
 
-    _model.textController11 ??= TextEditingController(text: widget.barcode);
+    _model.textController11 ??= TextEditingController(text: widget!.barcode);
     _model.textFieldFocusNode11 ??= FocusNode();
 
-    _model.textController12 ??= TextEditingController(text: widget.unittype);
+    _model.textController12 ??= TextEditingController(text: widget!.unittype);
     _model.textFieldFocusNode12 ??= FocusNode();
 
     _model.textController13 ??=
-        TextEditingController(text: widget.stock?.toString());
+        TextEditingController(text: widget!.stock?.toString());
     _model.textFieldFocusNode13 ??= FocusNode();
 
-    _model.textController14 ??= TextEditingController(text: widget.weightable);
+    _model.textController14 ??= TextEditingController(text: widget!.weightable);
     _model.textFieldFocusNode14 ??= FocusNode();
 
     _model.textController15 ??=
-        TextEditingController(text: widget.searchcode?.toString());
+        TextEditingController(text: widget!.searchcode?.toString());
     _model.textFieldFocusNode15 ??= FocusNode();
 
-    _model.textController16 ??= TextEditingController(text: widget.dayType);
+    _model.textController16 ??= TextEditingController(text: widget!.dayType);
     _model.textFieldFocusNode16 ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));

@@ -189,6 +189,7 @@ class _EmployeeAllPageWidgetState extends State<EmployeeAllPageWidget> {
                                 }
                                 List<EmployeeRecord>
                                     listViewEmployeeRecordList = snapshot.data!;
+
                                 return InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,

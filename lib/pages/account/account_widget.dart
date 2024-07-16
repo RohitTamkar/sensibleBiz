@@ -305,6 +305,7 @@ class _AccountWidgetState extends State<AccountWidget>
           );
         }
         List<UserDeletionRecord> accountUserDeletionRecordList = snapshot.data!;
+
         final accountUserDeletionRecord =
             accountUserDeletionRecordList.isNotEmpty
                 ? accountUserDeletionRecordList.first
@@ -364,6 +365,7 @@ class _AccountWidgetState extends State<AccountWidget>
                               List<UserProfileRecord>
                                   containerUserProfileRecordList =
                                   snapshot.data!;
+
                               final containerUserProfileRecord =
                                   containerUserProfileRecordList.isNotEmpty
                                       ? containerUserProfileRecordList.first

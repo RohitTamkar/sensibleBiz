@@ -187,6 +187,7 @@ class _StockWidgetState extends State<StockWidget> {
                                 List<UserProfileRecord>
                                     containerUserProfileRecordList =
                                     snapshot.data!;
+
                                 // Return an empty Container when the item does not exist.
                                 if (snapshot.data!.isEmpty) {
                                   return Container();
@@ -233,6 +234,7 @@ class _StockWidgetState extends State<StockWidget> {
                                       List<OutletRecord>
                                           dropDownOutletRecordList =
                                           snapshot.data!;
+
                                       return FlutterFlowDropDown<String>(
                                         controller: _model
                                                 .dropDownValueController ??=
@@ -541,6 +543,7 @@ class _StockWidgetState extends State<StockWidget> {
                                             builder: (context) {
                                               final list =
                                                   _model.prd?.toList() ?? [];
+
                                               return ListView.builder(
                                                 padding: EdgeInsets.zero,
                                                 scrollDirection: Axis.vertical,
