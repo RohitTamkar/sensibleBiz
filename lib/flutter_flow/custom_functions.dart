@@ -837,3 +837,38 @@ String getYesterdayDayId(String date) {
   String formattedDate = yesterday.toIso8601String().split('T').first;
   return formattedDate;
 }
+
+double roundOff1Copy(double number) {
+  print("Tax");
+  print(number);
+  double output;
+
+  output = double.parse(number.toStringAsFixed(3));
+  print("output");
+  print(output);
+
+  return output;
+}
+
+List<BillSaleSummaryRecord> orderByBillSale(
+  List<BillSaleSummaryRecord> docs,
+  String type,
+) {
+  int compareDates(String? a, String? b) {
+    if (a == null && b == null) return 0;
+    if (a == null) return -1; // Treat null as earlier than any date
+    if (b == null) return 1;
+    return a.compareTo(b);
+  }
+
+  if (type == "a") {
+    docs.sort((a, b) => compareDates(a.billNo, b.billNo)); // Ascending order
+  } else if (type == "d") {
+    docs.sort((a, b) => compareDates(b.billNo, a.billNo)); // Descending order
+  }
+  return docs;
+}
+
+int stringToInteger(String? val1) {
+  return int.parse('$val1');
+}

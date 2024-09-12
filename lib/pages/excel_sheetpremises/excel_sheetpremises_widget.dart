@@ -43,10 +43,10 @@ class _ExcelSheetpremisesWidgetState extends State<ExcelSheetpremisesWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       FFAppState().startLoop = 0;
-      setState(() {});
+      safeSetState(() {});
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -61,9 +61,7 @@ class _ExcelSheetpremisesWidgetState extends State<ExcelSheetpremisesWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -131,7 +129,7 @@ class _ExcelSheetpremisesWidgetState extends State<ExcelSheetpremisesWidget> {
                                   FFAppState().endLoop =
                                       FFAppState().readProductlist.length;
                                   FFAppState().loopExcelDouble = 0.0;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   var confirmDialogResponse =
                                       await showDialog<bool>(
                                             context: context,
@@ -407,10 +405,10 @@ class _ExcelSheetpremisesWidgetState extends State<ExcelSheetpremisesWidget> {
                                       ));
                                       FFAppState().startLoop =
                                           FFAppState().startLoop + 1;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       FFAppState().loopExcelDouble =
                                           FFAppState().loopExcelDouble + 1.0;
-                                      setState(() {});
+                                      safeSetState(() {});
                                     }
                                     await showDialog(
                                       context: context,
@@ -437,7 +435,7 @@ class _ExcelSheetpremisesWidgetState extends State<ExcelSheetpremisesWidget> {
 
                                   context.safePop();
 
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 text: 'Upload',
                                 options: FFButtonOptions(

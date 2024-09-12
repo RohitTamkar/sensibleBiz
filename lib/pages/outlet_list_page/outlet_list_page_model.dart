@@ -22,7 +22,6 @@ import 'package:provider/provider.dart';
 class OutletListPageModel extends FlutterFlowModel<OutletListPageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for ListView widget.
 
   PagingController<DocumentSnapshot?, OutletRecord>? listViewPagingController;
@@ -36,7 +35,6 @@ class OutletListPageModel extends FlutterFlowModel<OutletListPageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     listViewStreamSubscriptions.forEach((s) => s?.cancel());
     listViewPagingController?.dispose();
   }

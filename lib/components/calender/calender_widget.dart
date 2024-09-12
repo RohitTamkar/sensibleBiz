@@ -30,7 +30,7 @@ class _CalenderWidgetState extends State<CalenderWidget> {
     super.initState();
     _model = createModel(context, () => CalenderModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -138,7 +138,8 @@ class _CalenderWidgetState extends State<CalenderWidget> {
                 initialDate: getCurrentTimestamp,
                 rowHeight: 35.0,
                 onChange: (DateTimeRange? newSelectedDate) {
-                  setState(() => _model.calendarSelectedDay = newSelectedDate);
+                  safeSetState(
+                      () => _model.calendarSelectedDay = newSelectedDate);
                 },
                 titleStyle: TextStyle(),
                 dayOfWeekStyle: TextStyle(),

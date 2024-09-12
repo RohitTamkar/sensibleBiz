@@ -34,7 +34,7 @@ class _DevicePageWidgetState extends State<DevicePageWidget> {
     super.initState();
     _model = createModel(context, () => DevicePageModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -49,9 +49,7 @@ class _DevicePageWidgetState extends State<DevicePageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -169,7 +167,7 @@ class _DevicePageWidgetState extends State<DevicePageWidget> {
                                     if (isWeb) {
                                       FFAppState().expDay = functions
                                           .setExpiryTime(getCurrentTimestamp);
-                                      setState(() {});
+                                      safeSetState(() {});
                                     } else {
                                       context.safePop();
                                       return;
@@ -719,7 +717,7 @@ class _DevicePageWidgetState extends State<DevicePageWidget> {
                                                                   0.0),
                                                       child: Text(
                                                         dateTimeFormat(
-                                                          'yMMMd',
+                                                          "yMMMd",
                                                           deviceWListItem
                                                               .createDate!,
                                                           locale:
@@ -782,10 +780,10 @@ class _DevicePageWidgetState extends State<DevicePageWidget> {
                                                                 .active,
                                                         onChanged:
                                                             (newValue) async {
-                                                          setState(() => _model
-                                                                      .checkboxValueMap[
-                                                                  deviceWListItem] =
-                                                              newValue!);
+                                                          safeSetState(() =>
+                                                              _model.checkboxValueMap[
+                                                                      deviceWListItem] =
+                                                                  newValue!);
                                                         },
                                                         side: BorderSide(
                                                           width: 2,

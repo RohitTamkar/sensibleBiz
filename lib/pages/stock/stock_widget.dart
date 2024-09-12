@@ -42,7 +42,7 @@ class _StockWidgetState extends State<StockWidget> {
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -57,9 +57,7 @@ class _StockWidgetState extends State<StockWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -187,7 +185,6 @@ class _StockWidgetState extends State<StockWidget> {
                                 List<UserProfileRecord>
                                     containerUserProfileRecordList =
                                     snapshot.data!;
-
                                 // Return an empty Container when the item does not exist.
                                 if (snapshot.data!.isEmpty) {
                                   return Container();
@@ -196,6 +193,7 @@ class _StockWidgetState extends State<StockWidget> {
                                     containerUserProfileRecordList.isNotEmpty
                                         ? containerUserProfileRecordList.first
                                         : null;
+
                                 return Container(
                                   width: double.infinity,
                                   height: 50.0,
@@ -243,7 +241,7 @@ class _StockWidgetState extends State<StockWidget> {
                                             .map((e) => e.name)
                                             .toList(),
                                         onChanged: (val) async {
-                                          setState(
+                                          safeSetState(
                                               () => _model.dropDownValue = val);
                                           FFAppState().selectedOutletFromStock =
                                               dropDownOutletRecordList
@@ -471,7 +469,7 @@ class _StockWidgetState extends State<StockWidget> {
                                           },
                                         );
 
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       text: 'Button',
                                       options: FFButtonOptions(
@@ -653,7 +651,8 @@ class _StockWidgetState extends State<StockWidget> {
                                                                     FFAppState()
                                                                             .stock +
                                                                         -1.0;
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               },
                                                             ),
                                                             Expanded(
@@ -714,7 +713,8 @@ class _StockWidgetState extends State<StockWidget> {
                                                                     FFAppState()
                                                                             .stock +
                                                                         1.0;
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               },
                                                             ),
                                                           ],
@@ -901,7 +901,7 @@ class _StockWidgetState extends State<StockWidget> {
                                             FFButtonWidget(
                                               onPressed: () async {
                                                 FFAppState().stock = 0.0;
-                                                setState(() {});
+                                                safeSetState(() {});
                                               },
                                               text: 'Add Stock',
                                               icon: Icon(

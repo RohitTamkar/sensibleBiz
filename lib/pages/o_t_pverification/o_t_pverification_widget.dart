@@ -35,7 +35,7 @@ class _OTPverificationWidgetState extends State<OTPverificationWidget> {
     _model.mObileTextFieldTextController ??= TextEditingController();
     _model.mObileTextFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -48,9 +48,7 @@ class _OTPverificationWidgetState extends State<OTPverificationWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -349,15 +347,6 @@ class _OTPverificationWidgetState extends State<OTPverificationWidget> {
                                           selectedColor:
                                               FlutterFlowTheme.of(context)
                                                   .secondaryText,
-                                          activeFillColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
-                                          inactiveFillColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .customColor2,
-                                          selectedFillColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondaryText,
                                         ),
                                         controller: _model.pinCodeController,
                                         onChanged: (_) {},
@@ -416,7 +405,8 @@ class _OTPverificationWidgetState extends State<OTPverificationWidget> {
                                                 shouldUpdate) {
                                               _model.timerMilliseconds = value;
                                               _model.timerValue = displayTime;
-                                              if (shouldUpdate) setState(() {});
+                                              if (shouldUpdate)
+                                                safeSetState(() {});
                                             },
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)
@@ -502,7 +492,7 @@ class _OTPverificationWidgetState extends State<OTPverificationWidget> {
                                                       context.mounted);
 
                                                   if (_shouldSetState)
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   return;
                                                 } else {
                                                   context.pushNamedAuth(
@@ -511,7 +501,7 @@ class _OTPverificationWidgetState extends State<OTPverificationWidget> {
                                                 }
 
                                                 if (_shouldSetState)
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                               },
                                               text: 'Next',
                                               options: FFButtonOptions(

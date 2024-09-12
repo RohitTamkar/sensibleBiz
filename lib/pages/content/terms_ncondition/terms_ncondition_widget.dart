@@ -29,7 +29,7 @@ class _TermsNconditionWidgetState extends State<TermsNconditionWidget> {
     super.initState();
     _model = createModel(context, () => TermsNconditionModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -42,9 +42,7 @@ class _TermsNconditionWidgetState extends State<TermsNconditionWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -86,7 +84,7 @@ class _TermsNconditionWidgetState extends State<TermsNconditionWidget> {
                               if (isWeb) {
                                 FFAppState().expDay = functions
                                     .setExpiryTime(getCurrentTimestamp);
-                                setState(() {});
+                                safeSetState(() {});
                               } else {
                                 context.pop();
                                 return;

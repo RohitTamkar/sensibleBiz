@@ -50,7 +50,7 @@ class _DeleteUserProfileWidgetState extends State<DeleteUserProfileWidget> {
 
     _model.textFieldFocusNode6 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -65,9 +65,7 @@ class _DeleteUserProfileWidgetState extends State<DeleteUserProfileWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -178,11 +176,11 @@ class _DeleteUserProfileWidgetState extends State<DeleteUserProfileWidget> {
                                 List<UserProfileRecord>
                                     containerUserProfileRecordList =
                                     snapshot.data!;
-
                                 final containerUserProfileRecord =
                                     containerUserProfileRecordList.isNotEmpty
                                         ? containerUserProfileRecordList.first
                                         : null;
+
                                 return Container(
                                   width: MediaQuery.sizeOf(context).width * 0.5,
                                   decoration: BoxDecoration(),
@@ -965,7 +963,7 @@ class _DeleteUserProfileWidgetState extends State<DeleteUserProfileWidget> {
                                                                     suffixIcon:
                                                                         InkWell(
                                                                       onTap: () =>
-                                                                          setState(
+                                                                          safeSetState(
                                                                         () => _model.passwordVisibility =
                                                                             !_model.passwordVisibility,
                                                                       ),
@@ -1078,7 +1076,7 @@ class _DeleteUserProfileWidgetState extends State<DeleteUserProfileWidget> {
                                                                       TextEditingController(
                                                                     text:
                                                                         dateTimeFormat(
-                                                                      'yMMMd',
+                                                                      "yMMMd",
                                                                       DateTime.fromMillisecondsSinceEpoch(
                                                                           containerUserProfileRecord!
                                                                               .createdDate),
@@ -1237,7 +1235,6 @@ class _DeleteUserProfileWidgetState extends State<DeleteUserProfileWidget> {
                                                 List<UserDeletionRecord>
                                                     containerUserDeletionRecordList =
                                                     snapshot.data!;
-
                                                 // Return an empty Container when the item does not exist.
                                                 if (snapshot.data!.isEmpty) {
                                                   return Container();
@@ -1248,6 +1245,7 @@ class _DeleteUserProfileWidgetState extends State<DeleteUserProfileWidget> {
                                                         ? containerUserDeletionRecordList
                                                             .first
                                                         : null;
+
                                                 return Container(
                                                   width:
                                                       MediaQuery.sizeOf(context)
@@ -1312,7 +1310,7 @@ class _DeleteUserProfileWidgetState extends State<DeleteUserProfileWidget> {
                                                         children: [
                                                           Text(
                                                             'Your Account will be deleted on ${dateTimeFormat(
-                                                              'yMMMd',
+                                                              "yMMMd",
                                                               DateTime.fromMillisecondsSinceEpoch(
                                                                   containerUserDeletionRecord!
                                                                       .dateOfDeletion),
@@ -1414,7 +1412,7 @@ class _DeleteUserProfileWidgetState extends State<DeleteUserProfileWidget> {
                                                             },
                                                           );
                                                           if (_shouldSetState)
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                           return;
                                                         } else {
                                                           await showModalBottomSheet(
@@ -1429,14 +1427,8 @@ class _DeleteUserProfileWidgetState extends State<DeleteUserProfileWidget> {
                                                               return WebViewAware(
                                                                 child:
                                                                     GestureDetector(
-                                                                  onTap: () => _model
-                                                                          .unfocusNode
-                                                                          .canRequestFocus
-                                                                      ? FocusScope.of(
-                                                                              context)
-                                                                          .requestFocus(_model
-                                                                              .unfocusNode)
-                                                                      : FocusScope.of(
+                                                                  onTap: () =>
+                                                                      FocusScope.of(
                                                                               context)
                                                                           .unfocus(),
                                                                   child:
@@ -1456,7 +1448,7 @@ class _DeleteUserProfileWidgetState extends State<DeleteUserProfileWidget> {
                                                         }
 
                                                         if (_shouldSetState)
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         return;
                                                       } else {
                                                         await showModalBottomSheet(
@@ -1471,14 +1463,8 @@ class _DeleteUserProfileWidgetState extends State<DeleteUserProfileWidget> {
                                                             return WebViewAware(
                                                               child:
                                                                   GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
+                                                                onTap: () =>
+                                                                    FocusScope.of(
                                                                             context)
                                                                         .unfocus(),
                                                                 child: Padding(
@@ -1497,7 +1483,7 @@ class _DeleteUserProfileWidgetState extends State<DeleteUserProfileWidget> {
                                                       }
 
                                                       if (_shouldSetState)
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                     },
                                                     text:
                                                         'Request for Deletion',

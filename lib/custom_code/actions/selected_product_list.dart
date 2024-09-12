@@ -22,7 +22,7 @@ Future<dynamic> selectedProductList(
         "name": item.name,
         "currentStock": item.currentStock,
         "code": item.code,
-        "reqStock": 1,
+        "reqStock": 0,
         "totalStock": 0,
         "ref": item.reference
       });

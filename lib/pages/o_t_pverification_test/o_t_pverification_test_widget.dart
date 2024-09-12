@@ -50,7 +50,7 @@ class _OTPverificationTestWidgetState extends State<OTPverificationTestWidget> {
     _model.mObileTextFieldTextController ??= TextEditingController();
     _model.mObileTextFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -65,9 +65,7 @@ class _OTPverificationTestWidgetState extends State<OTPverificationTestWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -308,7 +306,7 @@ class _OTPverificationTestWidgetState extends State<OTPverificationTestWidget> {
                                             ),
                                             onPressed: () async {
                                               FFAppState().currentMobile = '';
-                                              setState(() {});
+                                              safeSetState(() {});
 
                                               context.pushNamed(
                                                   'PhoneAuthPageTest');
@@ -370,15 +368,6 @@ class _OTPverificationTestWidgetState extends State<OTPverificationTestWidget> {
                                           selectedColor:
                                               FlutterFlowTheme.of(context)
                                                   .secondaryText,
-                                          activeFillColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
-                                          inactiveFillColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .customColor2,
-                                          selectedFillColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondaryText,
                                         ),
                                         controller: _model.pinCodeController,
                                         onChanged: (_) {},
@@ -437,7 +426,8 @@ class _OTPverificationTestWidgetState extends State<OTPverificationTestWidget> {
                                                 shouldUpdate) {
                                               _model.timerMilliseconds = value;
                                               _model.timerValue = displayTime;
-                                              if (shouldUpdate) setState(() {});
+                                              if (shouldUpdate)
+                                                safeSetState(() {});
                                             },
                                             textAlign: TextAlign.start,
                                             style: FlutterFlowTheme.of(context)
@@ -574,7 +564,7 @@ class _OTPverificationTestWidgetState extends State<OTPverificationTestWidget> {
                                                     );
                                                   } else {
                                                     if (_shouldSetState)
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     return;
                                                   }
                                                 } else {
@@ -592,7 +582,7 @@ class _OTPverificationTestWidgetState extends State<OTPverificationTestWidget> {
                                                 }
 
                                                 if (_shouldSetState)
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                               },
                                               text: 'Next',
                                               options: FFButtonOptions(

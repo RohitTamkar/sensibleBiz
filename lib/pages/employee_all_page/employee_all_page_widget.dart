@@ -31,7 +31,7 @@ class _EmployeeAllPageWidgetState extends State<EmployeeAllPageWidget> {
     super.initState();
     _model = createModel(context, () => EmployeeAllPageModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -46,9 +46,7 @@ class _EmployeeAllPageWidgetState extends State<EmployeeAllPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -100,7 +98,7 @@ class _EmployeeAllPageWidgetState extends State<EmployeeAllPageWidget> {
 
                                     FFAppState().expDay = functions
                                         .setExpiryTime(getCurrentTimestamp);
-                                    setState(() {});
+                                    safeSetState(() {});
                                   } else {
                                     context.pushNamed('MastersPage');
 
@@ -198,7 +196,7 @@ class _EmployeeAllPageWidgetState extends State<EmployeeAllPageWidget> {
                                   onTap: () async {
                                     _model.count1 =
                                         listViewEmployeeRecordList.length;
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   child: ListView.builder(
                                     padding: EdgeInsets.zero,

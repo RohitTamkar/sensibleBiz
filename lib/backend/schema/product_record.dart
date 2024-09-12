@@ -171,6 +171,11 @@ class ProductRecord extends FirestoreRecord {
   String get dayType => _dayType ?? '';
   bool hasDayType() => _dayType != null;
 
+  // "wholeSaleAmount" field.
+  double? _wholeSaleAmount;
+  double get wholeSaleAmount => _wholeSaleAmount ?? 0.0;
+  bool hasWholeSaleAmount() => _wholeSaleAmount != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -205,6 +210,7 @@ class ProductRecord extends FirestoreRecord {
     _hsnCode = snapshotData['hsnCode'] as String?;
     _discountAmount = castToType<double>(snapshotData['discountAmount']);
     _dayType = snapshotData['dayType'] as String?;
+    _wholeSaleAmount = castToType<double>(snapshotData['wholeSaleAmount']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -278,6 +284,7 @@ Map<String, dynamic> createProductRecordData({
   String? hsnCode,
   double? discountAmount,
   String? dayType,
+  double? wholeSaleAmount,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -312,6 +319,7 @@ Map<String, dynamic> createProductRecordData({
       'hsnCode': hsnCode,
       'discountAmount': discountAmount,
       'dayType': dayType,
+      'wholeSaleAmount': wholeSaleAmount,
     }.withoutNulls,
   );
 
@@ -353,7 +361,8 @@ class ProductRecordDocumentEquality implements Equality<ProductRecord> {
         e1?.currentStock == e2?.currentStock &&
         e1?.hsnCode == e2?.hsnCode &&
         e1?.discountAmount == e2?.discountAmount &&
-        e1?.dayType == e2?.dayType;
+        e1?.dayType == e2?.dayType &&
+        e1?.wholeSaleAmount == e2?.wholeSaleAmount;
   }
 
   @override
@@ -388,7 +397,8 @@ class ProductRecordDocumentEquality implements Equality<ProductRecord> {
         e?.currentStock,
         e?.hsnCode,
         e?.discountAmount,
-        e?.dayType
+        e?.dayType,
+        e?.wholeSaleAmount
       ]);
 
   @override

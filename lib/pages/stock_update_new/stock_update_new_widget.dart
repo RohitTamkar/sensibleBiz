@@ -9,7 +9,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/backend/schema/structs/index.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -24,11 +23,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
-import 'stock_update_copy_model.dart';
-export 'stock_update_copy_model.dart';
+import 'stock_update_new_model.dart';
+export 'stock_update_new_model.dart';
 
-class StockUpdateCopyWidget extends StatefulWidget {
-  const StockUpdateCopyWidget({
+class StockUpdateNewWidget extends StatefulWidget {
+  const StockUpdateNewWidget({
     super.key,
     required this.outlet,
   });
@@ -36,29 +35,29 @@ class StockUpdateCopyWidget extends StatefulWidget {
   final OutletRecord? outlet;
 
   @override
-  State<StockUpdateCopyWidget> createState() => _StockUpdateCopyWidgetState();
+  State<StockUpdateNewWidget> createState() => _StockUpdateNewWidgetState();
 }
 
-class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
-  late StockUpdateCopyModel _model;
+class _StockUpdateNewWidgetState extends State<StockUpdateNewWidget> {
+  late StockUpdateNewModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => StockUpdateCopyModel());
+    _model = createModel(context, () => StockUpdateNewModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
+      safeSetState(() {
         _model.dropDownValueController?.reset();
       });
       FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
-      setState(() {});
+      safeSetState(() {});
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -73,9 +72,7 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -115,7 +112,7 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                             onPressed: () async {
                               context.safePop();
                               FFAppState().productCart = [];
-                              setState(() {});
+                              safeSetState(() {});
                             },
                           ),
                           StreamBuilder<OutletRecord>(
@@ -236,7 +233,7 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                               if (isWeb) {
                                 FFAppState().expDay = functions
                                     .setExpiryTime(getCurrentTimestamp);
-                                setState(() {});
+                                safeSetState(() {});
                               } else {
                                 return;
                               }
@@ -259,7 +256,7 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                               }
                               FFAppState().selectedDate =
                                   functions.getDayId(_model.datePicked!);
-                              setState(() {});
+                              safeSetState(() {});
                             },
                           ),
                         ],
@@ -345,7 +342,7 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                                           .map((e) => e.name)
                                                           .toList(),
                                                   onChanged: (val) async {
-                                                    setState(() => _model
+                                                    safeSetState(() => _model
                                                             .dropDownNewValue =
                                                         val);
                                                     _model.resCopy =
@@ -358,9 +355,9 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                                     FFAppState()
                                                         .addToProductCart(
                                                             _model.resCopy!);
-                                                    setState(() {});
+                                                    safeSetState(() {});
 
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   },
                                                   width: 607.0,
                                                   height: 50.0,
@@ -520,8 +517,9 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                               options: dropDownProductRecordList
                                                   .map((e) => e.name)
                                                   .toList(),
-                                              onChanged: (val) => setState(() =>
-                                                  _model.dropDownValue = val),
+                                              onChanged: (val) => safeSetState(
+                                                  () => _model.dropDownValue =
+                                                      val),
                                               width: double.infinity,
                                               height: 50.0,
                                               searchHintTextStyle:
@@ -617,135 +615,120 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                 ),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 0.0, 0.0, 0.0),
+                                      10.0, 0.0, 10.0, 0.0),
                                   child: Row(
-                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    10.0, 0.0, 0.0, 0.0),
-                                            child: Text(
-                                              'CODE',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMediumFamily,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMediumFamily),
-                                                      ),
-                                            ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10.0, 0.0, 0.0, 0.0),
+                                          child: Text(
+                                            'CODE',
+                                            style: FlutterFlowTheme.of(context)
+                                                .labelMedium
+                                                .override(
+                                                  fontFamily:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMediumFamily,
+                                                  letterSpacing: 0.0,
+                                                  useGoogleFonts: GoogleFonts
+                                                          .asMap()
+                                                      .containsKey(
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMediumFamily),
+                                                ),
                                           ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    15.0, 0.0, 0.0, 0.0),
-                                            child: Text(
-                                              'NAME',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMediumFamily,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .info,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMediumFamily),
-                                                      ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            180.0, 0.0, 0.0, 0.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              'CURRENT STOCK',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMediumFamily,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMediumFamily),
-                                                      ),
-                                            ),
-                                          ],
                                         ),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            150.0, 0.0, 0.0, 0.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              'REQ STOCK',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMediumFamily,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .success,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMediumFamily),
-                                                      ),
-                                            ),
-                                          ],
+                                      Expanded(
+                                        flex: 6,
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10.0, 0.0, 0.0, 0.0),
+                                          child: Text(
+                                            'NAME',
+                                            style: FlutterFlowTheme.of(context)
+                                                .labelMedium
+                                                .override(
+                                                  fontFamily:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMediumFamily,
+                                                  letterSpacing: 0.0,
+                                                  useGoogleFonts: GoogleFonts
+                                                          .asMap()
+                                                      .containsKey(
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMediumFamily),
+                                                ),
+                                          ),
                                         ),
+                                      ),
+                                      Expanded(
+                                        flex: 3,
+                                        child: Text(
+                                          'CURRENT STOCK',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMediumFamily,
+                                                letterSpacing: 0.0,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelMediumFamily),
+                                              ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Text(
+                                          'REQ STOCK',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMediumFamily,
+                                                letterSpacing: 0.0,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelMediumFamily),
+                                              ),
+                                        ),
+                                      ),
+                                      Text(
+                                        'Delete',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMediumFamily,
+                                              letterSpacing: 0.0,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMediumFamily),
+                                            ),
                                       ),
                                     ],
                                   ),
@@ -771,7 +754,7 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(10.0),
+                                  padding: EdgeInsets.all(5.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
@@ -861,7 +844,7 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                                               ),
                                                             ),
                                                             Expanded(
-                                                              flex: 7,
+                                                              flex: 6,
                                                               child: Padding(
                                                                 padding:
                                                                     EdgeInsetsDirectional
@@ -890,7 +873,7 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                                               ),
                                                             ),
                                                             Expanded(
-                                                              flex: 7,
+                                                              flex: 3,
                                                               child: Padding(
                                                                 padding:
                                                                     EdgeInsetsDirectional
@@ -899,11 +882,18 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                                                             0.0,
                                                                             10.0,
                                                                             0.0),
-                                                                child: Text(
-                                                                  getJsonField(
-                                                                    listItem,
-                                                                    r'''$.currentStock''',
-                                                                  ).toString(),
+                                                                child:
+                                                                    AutoSizeText(
+                                                                  functions
+                                                                      .roundOff1Copy(
+                                                                          getJsonField(
+                                                                        listItem,
+                                                                        r'''$.currentStock''',
+                                                                      ))
+                                                                      .toString(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .titleMedium
@@ -922,6 +912,33 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                                                 ),
                                                               ),
                                                             ),
+                                                            Expanded(
+                                                              flex: 2,
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            7.0,
+                                                                            0.0),
+                                                                child:
+                                                                    RequestedStockWidget(
+                                                                  key: Key(
+                                                                      'Keybre_${listIndex}_of_${list.length}'),
+                                                                  parameter1:
+                                                                      getJsonField(
+                                                                    listItem,
+                                                                    r'''$.reqStock''',
+                                                                  ),
+                                                                  parameter2:
+                                                                      getJsonField(
+                                                                    listItem,
+                                                                    r'''$''',
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
                                                             FlutterFlowIconButton(
                                                               borderColor:
                                                                   FlutterFlowTheme.of(
@@ -933,9 +950,8 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                                               fillColor: FlutterFlowTheme
                                                                       .of(context)
                                                                   .primaryBtnText,
-                                                              icon: FaIcon(
-                                                                FontAwesomeIcons
-                                                                    .minus,
+                                                              icon: Icon(
+                                                                Icons.delete,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .error,
@@ -960,89 +976,80 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                                                         .toList()
                                                                         .cast<
                                                                             dynamic>();
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
 
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               },
                                                             ),
-                                                            Expanded(
-                                                              flex: 2,
-                                                              child:
-                                                                  RequestedStockWidget(
-                                                                key: Key(
-                                                                    'Keybre_${listIndex}_of_${list.length}'),
-                                                                parameter1:
-                                                                    getJsonField(
-                                                                  listItem,
-                                                                  r'''$.reqStock''',
-                                                                ),
-                                                                parameter2:
-                                                                    getJsonField(
-                                                                  listItem,
-                                                                  r'''$''',
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              width: MediaQuery
-                                                                          .sizeOf(
-                                                                              context)
-                                                                      .width *
-                                                                  0.03,
-                                                              height: 35.0,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryBackground,
-                                                              ),
-                                                              child:
-                                                                  FlutterFlowIconButton(
-                                                                borderColor:
-                                                                    FlutterFlowTheme.of(
+                                                            if (responsiveVisibility(
+                                                              context: context,
+                                                              phone: false,
+                                                              tablet: false,
+                                                              tabletLandscape:
+                                                                  false,
+                                                              desktop: false,
+                                                            ))
+                                                              Container(
+                                                                width: MediaQuery.sizeOf(
                                                                             context)
-                                                                        .success,
-                                                                borderRadius:
-                                                                    5.0,
-                                                                borderWidth:
-                                                                    1.0,
-                                                                buttonSize:
-                                                                    35.0,
-                                                                fillColor: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBtnText,
-                                                                icon: Icon(
-                                                                  Icons.add,
+                                                                        .width *
+                                                                    0.03,
+                                                                height: 35.0,
+                                                                decoration:
+                                                                    BoxDecoration(
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .success,
-                                                                  size: 18.0,
+                                                                      .secondaryBackground,
                                                                 ),
-                                                                onPressed:
-                                                                    () async {
-                                                                  _model.res1Copy =
-                                                                      await actions
-                                                                          .incrementStock(
-                                                                    getJsonField(
-                                                                      listItem,
-                                                                      r'''$''',
-                                                                    ),
-                                                                    FFAppState()
-                                                                        .selBill,
-                                                                  );
-                                                                  FFAppState().productCart = _model
-                                                                      .res1Copy!
-                                                                      .toList()
-                                                                      .cast<
-                                                                          dynamic>();
-                                                                  setState(
-                                                                      () {});
+                                                                child:
+                                                                    FlutterFlowIconButton(
+                                                                  borderColor:
+                                                                      FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .success,
+                                                                  borderRadius:
+                                                                      5.0,
+                                                                  borderWidth:
+                                                                      1.0,
+                                                                  buttonSize:
+                                                                      35.0,
+                                                                  fillColor: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBtnText,
+                                                                  icon: Icon(
+                                                                    Icons.add,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .success,
+                                                                    size: 18.0,
+                                                                  ),
+                                                                  onPressed:
+                                                                      () async {
+                                                                    _model.res1Copy =
+                                                                        await actions
+                                                                            .incrementStock(
+                                                                      getJsonField(
+                                                                        listItem,
+                                                                        r'''$''',
+                                                                      ),
+                                                                      FFAppState()
+                                                                          .selBill,
+                                                                    );
+                                                                    FFAppState().productCart = _model
+                                                                        .res1Copy!
+                                                                        .toList()
+                                                                        .cast<
+                                                                            dynamic>();
+                                                                    safeSetState(
+                                                                        () {});
 
-                                                                  setState(
-                                                                      () {});
-                                                                },
+                                                                    safeSetState(
+                                                                        () {});
+                                                                  },
+                                                                ),
                                                               ),
-                                                            ),
                                                           ],
                                                         ),
                                                       ),
@@ -1093,13 +1100,13 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                             List<UserProfileRecord>
                                                 rowUserProfileRecordList =
                                                 snapshot.data!;
-
                                             final rowUserProfileRecord =
                                                 rowUserProfileRecordList
                                                         .isNotEmpty
                                                     ? rowUserProfileRecordList
                                                         .first
                                                     : null;
+
                                             return Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -1141,10 +1148,10 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                                                     _model
                                                                         .issueDoc!
                                                                         .first);
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       } else {
                                                         FFAppState().count = 1;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       }
 
                                                       _model.cartREsult =
@@ -1192,7 +1199,7 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                                               false;
                                                       if (!confirmDialogResponse) {
                                                         if (_shouldSetState)
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         return;
                                                       }
 
@@ -1243,7 +1250,7 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                                       });
                                                       FFAppState().loopStart =
                                                           0;
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                       while (FFAppState()
                                                               .loopStart <
                                                           FFAppState()
@@ -1270,12 +1277,12 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                                             FFAppState()
                                                                     .loopStart +
                                                                 1;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       }
                                                       FFAppState().productCart =
                                                           [];
-                                                      setState(() {});
-                                                      setState(() {
+                                                      safeSetState(() {});
+                                                      safeSetState(() {
                                                         _model
                                                             .dropDownValueController
                                                             ?.reset();
@@ -1307,7 +1314,7 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                                         },
                                                       );
                                                       if (_shouldSetState)
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                     },
                                                     text: 'Add Stock',
                                                     icon: Icon(
@@ -1456,7 +1463,6 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                       List<StockLogRecord>
                                           listViewStockLogRecordList =
                                           snapshot.data!;
-
                                       if (listViewStockLogRecordList.isEmpty) {
                                         return Container(
                                           width:
@@ -1465,6 +1471,7 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                           child: NoDataWidget(),
                                         );
                                       }
+
                                       return ListView.builder(
                                         padding: EdgeInsets.zero,
                                         scrollDirection: Axis.vertical,
@@ -1599,7 +1606,7 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                                                                     'vanaz',
                                                                                     listViewStockLogRecord.requestedId,
                                                                                     dateTimeFormat(
-                                                                                      'yMMMd',
+                                                                                      "yMMMd",
                                                                                       listViewStockLogRecord.createdDate,
                                                                                       locale: FFLocalizations.of(context).languageCode,
                                                                                     ),
@@ -1847,7 +1854,7 @@ class _StockUpdateCopyWidgetState extends State<StockUpdateCopyWidget> {
                                                                                 Padding(
                                                                                   padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
                                                                                   child: Text(
-                                                                                    list1Item.currentStock.toString(),
+                                                                                    functions.roundOff1Copy(list1Item.currentStock).toString(),
                                                                                     textAlign: TextAlign.start,
                                                                                     style: FlutterFlowTheme.of(context).titleMedium.override(
                                                                                           fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,

@@ -17,7 +17,6 @@ import 'package:provider/provider.dart';
 class OnboardingScreenModel extends FlutterFlowModel<OnboardingScreenWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for PageView widget.
   PageController? pageViewController1;
 
@@ -39,7 +38,5 @@ class OnboardingScreenModel extends FlutterFlowModel<OnboardingScreenWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

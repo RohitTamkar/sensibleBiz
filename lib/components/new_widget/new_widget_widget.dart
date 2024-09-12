@@ -37,7 +37,7 @@ class _NewWidgetWidgetState extends State<NewWidgetWidget> {
     _model.textController3 ??= TextEditingController();
     _model.textFieldFocusNode3 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {
           _model.textController1?.text = '1';
           _model.textController2?.text = '2';
           _model.textController3?.text = '3';

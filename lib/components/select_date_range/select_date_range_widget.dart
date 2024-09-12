@@ -1,4 +1,4 @@
-import '/components/custom_date_range/custom_date_range_widget.dart';
+import '/components/custom_date_range_copy/custom_date_range_copy_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -32,7 +32,7 @@ class _SelectDateRangeWidgetState extends State<SelectDateRangeWidget> {
     super.initState();
     _model = createModel(context, () => SelectDateRangeModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -78,7 +78,7 @@ class _SelectDateRangeWidgetState extends State<SelectDateRangeWidget> {
                 onPressed: () async {
                   FFAppState().selectedDate =
                       functions.getDayId(getCurrentTimestamp);
-                  setState(() {});
+                  safeSetState(() {});
                   Navigator.pop(context);
                 },
                 text: 'Today',
@@ -110,7 +110,7 @@ class _SelectDateRangeWidgetState extends State<SelectDateRangeWidget> {
               onPressed: () async {
                 FFAppState().selectedDate = functions
                     .getYesterdayDayId(functions.getDayId(getCurrentTimestamp));
-                setState(() {});
+                safeSetState(() {});
                 Navigator.pop(context);
               },
               text: 'Yesterday',
@@ -147,7 +147,7 @@ class _SelectDateRangeWidgetState extends State<SelectDateRangeWidget> {
                     return WebViewAware(
                       child: Padding(
                         padding: MediaQuery.viewInsetsOf(context),
-                        child: CustomDateRangeWidget(),
+                        child: CustomDateRangeCopyWidget(),
                       ),
                     );
                   },

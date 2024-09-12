@@ -41,7 +41,7 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
     super.initState();
     _model = createModel(context, () => CategoryListModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -56,9 +56,7 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -126,7 +124,7 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
 
                                       FFAppState().expDay = functions
                                           .setExpiryTime(getCurrentTimestamp);
-                                      setState(() {});
+                                      safeSetState(() {});
                                     } else {
                                       context.pushNamed('MastersPage');
 
@@ -479,7 +477,7 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
                                                                         true;
                                                                   } else {
                                                                     if (_shouldSetState)
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     return;
                                                                   }
@@ -515,13 +513,13 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
                                                                       },
                                                                     );
                                                                     if (_shouldSetState)
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     return;
                                                                   }
 
                                                                   if (_shouldSetState)
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
                                                                 },
                                                               ),
@@ -898,7 +896,7 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
                                                                         true;
                                                                   } else {
                                                                     if (_shouldSetState)
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     return;
                                                                   }
@@ -934,13 +932,13 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
                                                                       },
                                                                     );
                                                                     if (_shouldSetState)
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     return;
                                                                   }
 
                                                                   if (_shouldSetState)
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
                                                                 },
                                                               ),

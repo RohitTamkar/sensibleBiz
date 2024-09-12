@@ -47,10 +47,10 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
       FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
       FFAppState().selectedLastDate = functions.getDayId(getCurrentTimestamp);
       FFAppState().selectedStartDate = functions.getDayId(getCurrentTimestamp);
-      setState(() {});
+      safeSetState(() {});
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -65,9 +65,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -227,26 +225,23 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                         context)),
                                                 child: WebViewAware(
                                                   child: GestureDetector(
-                                                    onTap: () => _model
-                                                            .unfocusNode
-                                                            .canRequestFocus
-                                                        ? FocusScope.of(context)
-                                                            .requestFocus(_model
-                                                                .unfocusNode)
-                                                        : FocusScope.of(context)
-                                                            .unfocus(),
+                                                    onTap: () => FocusScope.of(
+                                                            dialogContext)
+                                                        .unfocus(),
                                                     child:
                                                         CheckInSuccessWidget(),
                                                   ),
                                                 ),
                                               );
                                             },
-                                          ).then((value) => setState(() {}));
+                                          );
 
-                                          if (_shouldSetState) setState(() {});
+                                          if (_shouldSetState)
+                                            safeSetState(() {});
                                           return;
                                         } else {
-                                          if (_shouldSetState) setState(() {});
+                                          if (_shouldSetState)
+                                            safeSetState(() {});
                                           return;
                                         }
                                       } else {
@@ -311,15 +306,9 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                                   context)),
                                                   child: WebViewAware(
                                                     child: GestureDetector(
-                                                      onTap: () => _model
-                                                              .unfocusNode
-                                                              .canRequestFocus
-                                                          ? FocusScope.of(
-                                                                  context)
-                                                              .requestFocus(_model
-                                                                  .unfocusNode)
-                                                          : FocusScope.of(
-                                                                  context)
+                                                      onTap: () =>
+                                                          FocusScope.of(
+                                                                  dialogContext)
                                                               .unfocus(),
                                                       child:
                                                           CheckOutSuccessWidget(),
@@ -327,14 +316,14 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                   ),
                                                 );
                                               },
-                                            ).then((value) => setState(() {}));
+                                            );
 
                                             if (_shouldSetState)
-                                              setState(() {});
+                                              safeSetState(() {});
                                             return;
                                           } else {
                                             if (_shouldSetState)
-                                              setState(() {});
+                                              safeSetState(() {});
                                             return;
                                           }
                                         } else {
@@ -352,28 +341,24 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                         context)),
                                                 child: WebViewAware(
                                                   child: GestureDetector(
-                                                    onTap: () => _model
-                                                            .unfocusNode
-                                                            .canRequestFocus
-                                                        ? FocusScope.of(context)
-                                                            .requestFocus(_model
-                                                                .unfocusNode)
-                                                        : FocusScope.of(context)
-                                                            .unfocus(),
+                                                    onTap: () => FocusScope.of(
+                                                            dialogContext)
+                                                        .unfocus(),
                                                     child:
                                                         SessionExpiredWidget(),
                                                   ),
                                                 ),
                                               );
                                             },
-                                          ).then((value) => setState(() {}));
+                                          );
 
-                                          if (_shouldSetState) setState(() {});
+                                          if (_shouldSetState)
+                                            safeSetState(() {});
                                           return;
                                         }
                                       }
 
-                                      if (_shouldSetState) setState(() {});
+                                      if (_shouldSetState) safeSetState(() {});
                                     },
                                   ),
                                 ),
@@ -403,19 +388,15 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                     Directionality.of(context)),
                                             child: WebViewAware(
                                               child: GestureDetector(
-                                                onTap: () => _model.unfocusNode
-                                                        .canRequestFocus
-                                                    ? FocusScope.of(context)
-                                                        .requestFocus(
-                                                            _model.unfocusNode)
-                                                    : FocusScope.of(context)
+                                                onTap: () =>
+                                                    FocusScope.of(dialogContext)
                                                         .unfocus(),
                                                 child: CalenderWidget(),
                                               ),
                                             ),
                                           );
                                         },
-                                      ).then((value) => setState(() {}));
+                                      );
                                     },
                                   ),
                                 ),
@@ -440,7 +421,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                     FFAppState().loggedInUser = [];
                                     FFAppState().userAccessList =
                                         UserListStruct();
-                                    setState(() {});
+                                    safeSetState(() {});
                                     GoRouter.of(context).prepareAuthEvent();
                                     await authManager.signOut();
                                     GoRouter.of(context)
@@ -477,13 +458,8 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                       builder: (context) {
                                         return WebViewAware(
                                           child: GestureDetector(
-                                            onTap: () => _model
-                                                    .unfocusNode.canRequestFocus
-                                                ? FocusScope.of(context)
-                                                    .requestFocus(
-                                                        _model.unfocusNode)
-                                                : FocusScope.of(context)
-                                                    .unfocus(),
+                                            onTap: () => FocusScope.of(context)
+                                                .unfocus(),
                                             child: Padding(
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),
@@ -503,7 +479,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                             FFAppState().selectedLastDate !=
                                                 '')) {
                                       FFAppState().billSaleStructState = [];
-                                      setState(() {});
+                                      safeSetState(() {});
                                       _model.billSaleSummeryDoc =
                                           await queryBillSaleSummaryRecordOnce(
                                         parent: FFAppState().outletRef,
@@ -525,7 +501,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                 ),
                                       );
                                       FFAppState().billStartLoop = 0;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       while (FFAppState().billStartLoop <
                                           _model.billSaleSummeryDoc!.length) {
                                         FFAppState().addToBillSaleStructState(
@@ -567,10 +543,10 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                   FFAppState().billStartLoop]
                                               ?.createdDate,
                                         ));
-                                        setState(() {});
+                                        safeSetState(() {});
                                         FFAppState().billStartLoop =
                                             FFAppState().billStartLoop + 1;
-                                        setState(() {});
+                                        safeSetState(() {});
                                       }
                                       _model.url =
                                           await actions.generatePdfFile(
@@ -622,7 +598,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                       );
                                     }
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                 ),
                             ],
@@ -874,6 +850,9 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                 builder: (context) {
                                   final billWiseSaleReport =
                                       containerBillSaleSummaryRecordList
+                                          .sortedList(
+                                              keyOf: (e) => e.billNo,
+                                              desc: true)
                                           .toList();
 
                                   return ListView.separated(
@@ -946,6 +925,9 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                                 fontFamily: FlutterFlowTheme.of(
                                                                         context)
                                                                     .labelMediumFamily,
+                                                                fontSize: isiOS
+                                                                    ? 11.0
+                                                                    : 14.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 useGoogleFonts: GoogleFonts
@@ -969,6 +951,9 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                               FlutterFlowTheme.of(
                                                                       context)
                                                                   .labelMediumFamily,
+                                                          fontSize: isiOS
+                                                              ? 11.0
+                                                              : 14.0,
                                                           letterSpacing: 0.0,
                                                           useGoogleFonts: GoogleFonts
                                                                   .asMap()
@@ -1102,7 +1087,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                   () async {
                                     if (listViewUserProfileRecord!
                                         .userAccess.bizAppScanQR) {
-                                      setState(() {});
+                                      safeSetState(() {});
                                       return;
                                     }
 
@@ -1134,7 +1119,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                     FFAppState().loggedInUser = [];
                                     FFAppState().userAccessList =
                                         UserListStruct();
-                                    setState(() {});
+                                    safeSetState(() {});
                                     GoRouter.of(context).prepareAuthEvent();
                                     await authManager.signOut();
                                     GoRouter.of(context)
@@ -1143,7 +1128,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                     context.pushNamedAuth(
                                         'Login', context.mounted);
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   }();
                                 }
                                 _model.listViewPreviousSnapshot = snapshot;
@@ -1166,7 +1151,6 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                               List<UserProfileRecord>
                                   listViewUserProfileRecordList =
                                   snapshot.data!;
-
                               // Return an empty Container when the item does not exist.
                               if (snapshot.data!.isEmpty) {
                                 return Container();
@@ -1175,6 +1159,7 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                   listViewUserProfileRecordList.isNotEmpty
                                       ? listViewUserProfileRecordList.first
                                       : null;
+
                               return ListView(
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,

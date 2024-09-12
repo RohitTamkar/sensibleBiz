@@ -43,7 +43,7 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
 
     _model.textFieldFocusNode6 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -58,9 +58,7 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -93,7 +91,6 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
               }
               List<UserProfileRecord> containerUserProfileRecordList =
                   snapshot.data!;
-
               // Return an empty Container when the item does not exist.
               if (snapshot.data!.isEmpty) {
                 return Container();
@@ -102,6 +99,7 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                   containerUserProfileRecordList.isNotEmpty
                       ? containerUserProfileRecordList.first
                       : null;
+
               return Container(
                 decoration: BoxDecoration(),
                 child: Column(
@@ -776,7 +774,7 @@ class _EditUserProfileWidgetState extends State<EditUserProfileWidget> {
                                                       FFAppState().passcode =
                                                           _model.textController3
                                                               .text;
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                     } else {
                                                       await showDialog(
                                                         context: context,

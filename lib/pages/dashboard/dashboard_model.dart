@@ -29,7 +29,6 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class DashboardModel extends FlutterFlowModel<DashboardWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Custom Action - getShiftDetails] action in Dashboard widget.
   List<dynamic>? loadShiftData;
   // Stores action output result for [Custom Action - getShiftSummary] action in Dashboard widget.
@@ -109,7 +108,6 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     instantTimer?.cancel();
     expandableExpandableController1.dispose();
     expandableExpandableController2.dispose();

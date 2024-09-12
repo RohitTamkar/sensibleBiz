@@ -19,7 +19,6 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class EditUserModel extends FlutterFlowModel<EditUserWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for TextFieldName widget.
   FocusNode? textFieldNameFocusNode;
   TextEditingController? textFieldNameTextController;
@@ -72,7 +71,6 @@ class EditUserModel extends FlutterFlowModel<EditUserWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldNameFocusNode?.dispose();
     textFieldNameTextController?.dispose();
 

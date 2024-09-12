@@ -50,7 +50,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
 
     _model.pINTextFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -65,9 +65,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -132,7 +130,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
 
                                       FFAppState().expDay = functions
                                           .setExpiryTime(getCurrentTimestamp);
-                                      setState(() {});
+                                      safeSetState(() {});
                                     } else {
                                       context.pushNamed('MastersPage');
 
@@ -249,7 +247,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                         onChanged: (_) => EasyDebounce.debounce(
                                           '_model.textFieldNameTextController',
                                           Duration(milliseconds: 2000),
-                                          () => setState(() {}),
+                                          () => safeSetState(() {}),
                                         ),
                                         autofocus: false,
                                         textCapitalization:
@@ -367,7 +365,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                               EasyDebounce.debounce(
                                             '_model.textFieldMobileTextController',
                                             Duration(milliseconds: 2000),
-                                            () => setState(() {}),
+                                            () => safeSetState(() {}),
                                           ),
                                           autofocus: false,
                                           readOnly: true,
@@ -456,7 +454,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                         onChanged: (_) => EasyDebounce.debounce(
                                           '_model.textFieldMobilenewTextController',
                                           Duration(milliseconds: 2000),
-                                          () => setState(() {}),
+                                          () => safeSetState(() {}),
                                         ),
                                         autofocus: false,
                                         obscureText: false,
@@ -577,7 +575,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                         onChanged: (_) => EasyDebounce.debounce(
                                           '_model.textFieldEmailTextController',
                                           Duration(milliseconds: 2000),
-                                          () => setState(() {}),
+                                          () => safeSetState(() {}),
                                         ),
                                         autofocus: false,
                                         obscureText: false,
@@ -697,7 +695,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                         onChanged: (_) => EasyDebounce.debounce(
                                           '_model.pINTextFieldTextController',
                                           Duration(milliseconds: 2000),
-                                          () => setState(() {}),
+                                          () => safeSetState(() {}),
                                         ),
                                         autofocus: false,
                                         obscureText:
@@ -750,7 +748,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                               FlutterFlowTheme.of(context)
                                                   .secondaryBackground,
                                           suffixIcon: InkWell(
-                                            onTap: () => setState(
+                                            onTap: () => safeSetState(
                                               () => _model
                                                       .pINTextFieldVisibility =
                                                   !_model
@@ -877,7 +875,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                                                     .reports,
                                                             onChanged:
                                                                 (newValue) async {
-                                                              setState(() =>
+                                                              safeSetState(() =>
                                                                   _model.reportCheckValue =
                                                                       newValue!);
                                                             },
@@ -956,7 +954,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                                                     .settings,
                                                             onChanged:
                                                                 (newValue) async {
-                                                              setState(() =>
+                                                              safeSetState(() =>
                                                                   _model.settingCheckValue =
                                                                       newValue!);
                                                             },
@@ -1035,7 +1033,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                                                     .stockOut,
                                                             onChanged:
                                                                 (newValue) async {
-                                                              setState(() =>
+                                                              safeSetState(() =>
                                                                   _model.stockoutValue =
                                                                       newValue!);
                                                             },
@@ -1114,7 +1112,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                                                     .payment,
                                                             onChanged:
                                                                 (newValue) async {
-                                                              setState(() =>
+                                                              safeSetState(() =>
                                                                   _model.paymentCheckboxValue =
                                                                       newValue!);
                                                             },
@@ -1193,7 +1191,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                                                     .productAdd,
                                                             onChanged:
                                                                 (newValue) async {
-                                                              setState(() =>
+                                                              safeSetState(() =>
                                                                   _model.prodcutAddCheckboxValue =
                                                                       newValue!);
                                                             },
@@ -1280,7 +1278,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                                                     .editBill,
                                                             onChanged:
                                                                 (newValue) async {
-                                                              setState(() =>
+                                                              safeSetState(() =>
                                                                   _model.editBillCheckboxValue =
                                                                       newValue!);
                                                             },
@@ -1359,7 +1357,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                                                     .shiftReport,
                                                             onChanged:
                                                                 (newValue) async {
-                                                              setState(() =>
+                                                              safeSetState(() =>
                                                                   _model.shiftReportCheckboxValue =
                                                                       newValue!);
                                                             },
@@ -1438,7 +1436,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                                                     .goodsReceived,
                                                             onChanged:
                                                                 (newValue) async {
-                                                              setState(() =>
+                                                              safeSetState(() =>
                                                                   _model.goodsReceivedCheckboxValue =
                                                                       newValue!);
                                                             },
@@ -1517,7 +1515,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                                                     .bizAppScanQR,
                                                             onChanged:
                                                                 (newValue) async {
-                                                              setState(() =>
+                                                              safeSetState(() =>
                                                                   _model.bizAppCheckboxValue =
                                                                       newValue!);
                                                             },
@@ -1596,7 +1594,7 @@ class _EditUserWidgetState extends State<EditUserWidget> {
                                                                     .kOTModify,
                                                             onChanged:
                                                                 (newValue) async {
-                                                              setState(() =>
+                                                              safeSetState(() =>
                                                                   _model.kOTmodifyCheckboxValue =
                                                                       newValue!);
                                                             },

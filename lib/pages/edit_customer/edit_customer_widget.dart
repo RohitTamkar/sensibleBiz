@@ -44,7 +44,7 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.birthday = widget!.ref?.birthdayDate;
       _model.anniversPs = widget!.ref?.anniversaryDate;
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.employeeNameTextController ??=
@@ -71,7 +71,7 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
         TextEditingController(text: widget!.ref?.address);
     _model.addressFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -84,9 +84,7 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -163,7 +161,7 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
                                     return;
                                   }
                                   _model.wait = true;
-                                  setState(() {});
+                                  safeSetState(() {});
 
                                   await widget!.ref!.reference
                                       .update(createCustomerRecordData(
@@ -181,7 +179,7 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
                                     gstNo: _model.gSTnumTextController.text,
                                   ));
                                   _model.wait = false;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {
@@ -734,7 +732,7 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
                                             }
                                             _model.birthday = functions
                                                 .getDayId(_model.datePicked1!);
-                                            setState(() {});
+                                            safeSetState(() {});
                                           },
                                           child: Container(
                                             width: double.infinity,
@@ -938,7 +936,7 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
                                               _model.anniversPs =
                                                   functions.getDayId(
                                                       _model.datePicked2!);
-                                              setState(() {});
+                                              safeSetState(() {});
                                             },
                                             child: Container(
                                               width: double.infinity,
@@ -1130,7 +1128,7 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
                                         }
                                         _model.anniversPs = functions
                                             .getDayId(_model.datePicked3!);
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       child: Container(
                                         width: double.infinity,
@@ -1437,7 +1435,7 @@ class _EditCustomerWidgetState extends State<EditCustomerWidget> {
                                           value: _model.checkboxValue ??=
                                               widget!.ref!.allowedCredit,
                                           onChanged: (newValue) async {
-                                            setState(() => _model
+                                            safeSetState(() => _model
                                                 .checkboxValue = newValue!);
                                           },
                                           side: BorderSide(

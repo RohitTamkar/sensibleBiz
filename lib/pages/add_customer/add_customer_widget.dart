@@ -61,7 +61,7 @@ class _AddCustomerWidgetState extends State<AddCustomerWidget> {
     _model.oldBalenceTextController ??= TextEditingController();
     _model.oldBalenceFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -76,9 +76,7 @@ class _AddCustomerWidgetState extends State<AddCustomerWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -155,7 +153,7 @@ class _AddCustomerWidgetState extends State<AddCustomerWidget> {
                                     return;
                                   }
                                   _model.wait = true;
-                                  setState(() {});
+                                  safeSetState(() {});
 
                                   var customerRecordReference =
                                       CustomerRecord.createDoc(
@@ -215,7 +213,7 @@ class _AddCustomerWidgetState extends State<AddCustomerWidget> {
                                     id: _model.createdCust?.reference.id,
                                   ));
                                   _model.wait = false;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {
@@ -236,7 +234,7 @@ class _AddCustomerWidgetState extends State<AddCustomerWidget> {
                                   );
                                   context.safePop();
 
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 text: 'Save',
                                 options: FFButtonOptions(
@@ -1203,7 +1201,7 @@ class _AddCustomerWidgetState extends State<AddCustomerWidget> {
                                       }
                                       _model.birthday = functions
                                           .getDayId(_model.datePicked1!);
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     child: Container(
                                       width: double.infinity,
@@ -1383,7 +1381,7 @@ class _AddCustomerWidgetState extends State<AddCustomerWidget> {
                                         }
                                         _model.anniversary = functions
                                             .getDayId(_model.datePicked2!);
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       child: Container(
                                         width: double.infinity,
@@ -1565,7 +1563,7 @@ class _AddCustomerWidgetState extends State<AddCustomerWidget> {
                                     }
                                     _model.anniversary =
                                         functions.getDayId(_model.datePicked3!);
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   child: Container(
                                     width: double.infinity,
@@ -1682,7 +1680,7 @@ class _AddCustomerWidgetState extends State<AddCustomerWidget> {
                                 child: Checkbox(
                                   value: _model.checkboxValue ??= false,
                                   onChanged: (newValue) async {
-                                    setState(
+                                    safeSetState(
                                         () => _model.checkboxValue = newValue!);
                                   },
                                   side: BorderSide(

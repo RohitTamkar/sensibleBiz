@@ -29,7 +29,9 @@ Future<dynamic> docToJsonCopy(
       'currentStock': data.currentStock,
       'catId': data.category,
       'catTotal': x.toString(),
-      'qty': prdQty
+      'qty': prdQty,
+      'barcode': data.barcode,
+      'hsnCode': data.hsnCode
     });
   }
   return prdJson[0];

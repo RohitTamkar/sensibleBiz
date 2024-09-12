@@ -30,7 +30,7 @@ class _EndcalenderWidgetState extends State<EndcalenderWidget> {
     super.initState();
     _model = createModel(context, () => EndcalenderModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -136,7 +136,8 @@ class _EndcalenderWidgetState extends State<EndcalenderWidget> {
                 initialDate: getCurrentTimestamp,
                 rowHeight: 35.0,
                 onChange: (DateTimeRange? newSelectedDate) {
-                  setState(() => _model.calendarSelectedDay = newSelectedDate);
+                  safeSetState(
+                      () => _model.calendarSelectedDay = newSelectedDate);
                 },
                 titleStyle: TextStyle(),
                 dayOfWeekStyle: TextStyle(),

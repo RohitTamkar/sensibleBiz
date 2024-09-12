@@ -34,7 +34,7 @@ class _DeacivateSheetWidgetState extends State<DeacivateSheetWidget> {
     super.initState();
     _model = createModel(context, () => DeacivateSheetModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -161,7 +161,7 @@ class _DeacivateSheetWidgetState extends State<DeacivateSheetWidget> {
                 FFButtonWidget(
                   onPressed: () async {
                     FFAppState().deactivate = false;
-                    setState(() {});
+                    safeSetState(() {});
                     context.safePop();
                   },
                   text: 'Cancel',
@@ -191,7 +191,7 @@ class _DeacivateSheetWidgetState extends State<DeacivateSheetWidget> {
                 FFButtonWidget(
                   onPressed: () async {
                     FFAppState().deactivate = true;
-                    setState(() {});
+                    safeSetState(() {});
 
                     await UserDeletionRecord.collection
                         .doc()

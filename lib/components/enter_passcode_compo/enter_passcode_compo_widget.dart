@@ -38,7 +38,7 @@ class _EnterPasscodeCompoWidgetState extends State<EnterPasscodeCompoWidget> {
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -75,7 +75,7 @@ class _EnterPasscodeCompoWidgetState extends State<EnterPasscodeCompoWidget> {
                     highlightColor: Colors.transparent,
                     onTap: () async {
                       FFAppState().flag = false;
-                      setState(() {});
+                      safeSetState(() {});
                       Navigator.pop(context);
                     },
                     child: Icon(
@@ -147,7 +147,7 @@ class _EnterPasscodeCompoWidgetState extends State<EnterPasscodeCompoWidget> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     suffixIcon: InkWell(
-                      onTap: () => setState(
+                      onTap: () => safeSetState(
                         () => _model.passwordVisibility =
                             !_model.passwordVisibility,
                       ),
@@ -186,15 +186,15 @@ class _EnterPasscodeCompoWidgetState extends State<EnterPasscodeCompoWidget> {
                   singleRecord: true,
                 ).then((s) => s.firstOrNull);
                 FFAppState().passcode = _model.userRes!.quickPin;
-                setState(() {});
+                safeSetState(() {});
                 _model.psPasss = _model.textController.text;
-                setState(() {});
+                safeSetState(() {});
                 if (_model.psPasss == FFAppState().passcode) {
                   FFAppState().flag = true;
-                  setState(() {});
+                  safeSetState(() {});
                 } else {
                   FFAppState().flag = false;
-                  setState(() {});
+                  safeSetState(() {});
                   await showDialog(
                     context: context,
                     builder: (alertDialogContext) {
@@ -216,7 +216,7 @@ class _EnterPasscodeCompoWidgetState extends State<EnterPasscodeCompoWidget> {
 
                 Navigator.pop(context);
 
-                setState(() {});
+                safeSetState(() {});
               },
               text: 'Submit',
               options: FFButtonOptions(

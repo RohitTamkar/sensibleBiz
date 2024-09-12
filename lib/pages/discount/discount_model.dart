@@ -42,7 +42,6 @@ class DiscountModel extends FlutterFlowModel<DiscountWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in Discount widget.
   List<ProductRecord>? products;
   // Stores action output result for [Custom Action - updateDiscountToJson] action in Discount widget.
@@ -80,7 +79,6 @@ class DiscountModel extends FlutterFlowModel<DiscountWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
   }

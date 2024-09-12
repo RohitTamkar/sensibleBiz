@@ -17,7 +17,6 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class AddCategoryPageModel extends FlutterFlowModel<AddCategoryPageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey1 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
   // State field(s) for CategoryNameM widget.
@@ -77,7 +76,6 @@ class AddCategoryPageModel extends FlutterFlowModel<AddCategoryPageWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     categoryNameMFocusNode?.dispose();
     categoryNameMTextController?.dispose();
 

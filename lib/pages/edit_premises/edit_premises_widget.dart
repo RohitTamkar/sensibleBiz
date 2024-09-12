@@ -58,7 +58,7 @@ class _EditPremisesWidgetState extends State<EditPremisesWidget> {
         TextEditingController(text: widget!.premDoc?.range?.toString());
     _model.textFieldFocusNode4 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -100,9 +100,7 @@ class _EditPremisesWidgetState extends State<EditPremisesWidget> {
             snapshot.data!;
 
         return GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -173,10 +171,12 @@ class _EditPremisesWidgetState extends State<EditPremisesWidget> {
                                     borderRadius: 30.0,
                                     borderWidth: 1.0,
                                     buttonSize: 45.0,
+                                    fillColor:
+                                        FlutterFlowTheme.of(context).primary,
                                     icon: Icon(
                                       Icons.add,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                     ),
                                     onPressed: () {
                                       print('IconButton pressed ...');
@@ -447,14 +447,14 @@ class _EditPremisesWidgetState extends State<EditPremisesWidget> {
                                           'GST2'
                                         ],
                                         onChanged: (val) async {
-                                          setState(
+                                          safeSetState(
                                               () => _model.taxMValue = val);
                                           _model.taxIndexOutput =
                                               await actions.getTaxIdCopy(
                                             _model.taxMValue,
                                           );
 
-                                          setState(() {});
+                                          safeSetState(() {});
                                         },
                                         width:
                                             MediaQuery.sizeOf(context).width *
@@ -483,9 +483,11 @@ class _EditPremisesWidgetState extends State<EditPremisesWidget> {
                                         ),
                                         fillColor: Colors.white,
                                         elevation: 2.0,
-                                        borderColor: Colors.transparent,
+                                        borderColor:
+                                            FlutterFlowTheme.of(context)
+                                                .alternate,
                                         borderWidth: 0.0,
-                                        borderRadius: 0.0,
+                                        borderRadius: 8.0,
                                         margin: EdgeInsetsDirectional.fromSTEB(
                                             12.0, 4.0, 12.0, 4.0),
                                         hidesUnderline: true,
@@ -495,83 +497,75 @@ class _EditPremisesWidgetState extends State<EditPremisesWidget> {
                                     ],
                                   ),
                                 ),
-                                if (responsiveVisibility(
-                                  context: context,
-                                  phone: false,
-                                  tablet: false,
-                                  tabletLandscape: false,
-                                  desktop: false,
-                                ))
-                                  Align(
-                                    alignment: AlignmentDirectional(-1.0, -1.0),
-                                    child: FlutterFlowDropDown<String>(
-                                      controller:
-                                          _model.dropDownValueController ??=
-                                              FormFieldController<String>(
-                                        _model.dropDownValue ??=
-                                            widget!.premDoc?.userId != null &&
-                                                    widget!.premDoc?.userId !=
-                                                        ''
-                                                ? valueOrDefault<String>(
-                                                    widget!.premDoc?.userId,
-                                                    '-',
-                                                  )
-                                                : '-',
-                                      ),
-                                      options: List<String>.from(
-                                          editPremisesUserProfileRecordList
-                                              .map((e) => e.id)
-                                              .toList()),
-                                      optionLabels:
-                                          editPremisesUserProfileRecordList
-                                              .map((e) => e.name)
-                                              .toList(),
-                                      onChanged: (val) => setState(
-                                          () => _model.dropDownValue = val),
-                                      width: 300.0,
-                                      height: 50.0,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMediumFamily,
-                                            letterSpacing: 0.0,
-                                            useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey(
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMediumFamily),
-                                          ),
-                                      hintText: valueOrDefault<String>(
-                                        editPremisesUserProfileRecordList
-                                            .where((e) =>
-                                                e.id == widget!.premDoc?.userId)
-                                            .toList()
-                                            .first
-                                            .name,
-                                        'Please Select User',
-                                      ),
-                                      icon: Icon(
-                                        Icons.keyboard_arrow_down_rounded,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        size: 24.0,
-                                      ),
-                                      fillColor: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      elevation: 2.0,
-                                      borderColor: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      borderWidth: 2.0,
-                                      borderRadius: 8.0,
-                                      margin: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 4.0, 16.0, 4.0),
-                                      hidesUnderline: true,
-                                      isOverButton: true,
-                                      isSearchable: false,
-                                      isMultiSelect: false,
+                                Align(
+                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  child: FlutterFlowDropDown<String>(
+                                    controller:
+                                        _model.dropDownValueController ??=
+                                            FormFieldController<String>(
+                                      _model.dropDownValue ??=
+                                          widget!.premDoc?.userId != null &&
+                                                  widget!.premDoc?.userId != ''
+                                              ? valueOrDefault<String>(
+                                                  widget!.premDoc?.userId,
+                                                  '-',
+                                                )
+                                              : '-',
                                     ),
+                                    options: List<String>.from(
+                                        editPremisesUserProfileRecordList
+                                            .map((e) => e.id)
+                                            .toList()),
+                                    optionLabels:
+                                        editPremisesUserProfileRecordList
+                                            .map((e) => e.name)
+                                            .toList(),
+                                    onChanged: (val) => safeSetState(
+                                        () => _model.dropDownValue = val),
+                                    width: 300.0,
+                                    height: 50.0,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMediumFamily,
+                                          letterSpacing: 0.0,
+                                          useGoogleFonts: GoogleFonts.asMap()
+                                              .containsKey(
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMediumFamily),
+                                        ),
+                                    hintText: valueOrDefault<String>(
+                                      editPremisesUserProfileRecordList
+                                          .where((e) =>
+                                              e.id == widget!.premDoc?.userId)
+                                          .toList()
+                                          .first
+                                          .name,
+                                      'Please Select User',
+                                    ),
+                                    icon: Icon(
+                                      Icons.keyboard_arrow_down_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 24.0,
+                                    ),
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    elevation: 2.0,
+                                    borderColor:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    borderWidth: 2.0,
+                                    borderRadius: 8.0,
+                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 4.0, 16.0, 4.0),
+                                    hidesUnderline: true,
+                                    isOverButton: true,
+                                    isSearchable: false,
+                                    isMultiSelect: false,
                                   ),
+                                ),
                                 Align(
                                   alignment: AlignmentDirectional(-1.0, -1.0),
                                   child: Text(
@@ -595,7 +589,7 @@ class _EditPremisesWidgetState extends State<EditPremisesWidget> {
                                   alignment: AlignmentDirectional(-1.0, -1.0),
                                   child: FlutterFlowRadioButton(
                                     options: ['Table', 'Room', 'Bill'].toList(),
-                                    onChanged: (val) => setState(() {}),
+                                    onChanged: (val) => safeSetState(() {}),
                                     controller:
                                         _model.radioButtonValueController ??=
                                             FormFieldController<String>(
@@ -833,14 +827,15 @@ class _EditPremisesWidgetState extends State<EditPremisesWidget> {
 
                                         await widget!.premDoc!.reference
                                             .update(createPremisesRecordData(
-                                          name: _model.textController1.text,
+                                          name: functions.toCapitalLetter(
+                                              _model.textController1.text),
                                           range: int.tryParse(
                                               _model.textController4.text),
                                           tables: int.tryParse(
                                               _model.textController3.text),
                                           taxIndex: _model.taxIndexOutput,
                                           type: _model.radioButtonValue,
-                                          userId: '',
+                                          userId: _model.dropDownValue,
                                         ));
                                         await showDialog(
                                           context: context,

@@ -1,10 +1,14 @@
 export 'is_user_profile_valid.dart' show isUserProfileValid;
+export 'get_shift_details_copy.dart' show getShiftDetailsCopy;
 export 'generate_excelof_customer.dart' show generateExcelofCustomer;
+export 'decrement_stock_new1.dart' show decrementStockNew1;
 export 'category_dup_actionby_name.dart' show categoryDupActionbyName;
 export 'product_dup_action.dart' show productDupAction;
 export 'select_checkbox_tax_all.dart' show selectCheckboxTaxAll;
 export 'product_doc_to_json_list.dart' show productDocToJsonList;
 export 'select_checkbox_tax_s_ingle.dart' show selectCheckboxTaxSIngle;
+export 'genrate_excel_for_product_wise_sale_report_for_web.dart'
+    show genrateExcelForProductWiseSaleReportForWeb;
 export 'decrement_stock_new.dart' show decrementStockNew;
 export 'docs_to_jsonfor_tax.dart' show docsToJsonforTax;
 export 'selected_product_list_copy.dart' show selectedProductListCopy;
@@ -65,3 +69,4 @@ export 'generate_bill_wise_data_excel.dart' show generateBillWiseDataExcel;
 export 'generate_pdf_file.dart' show generatePdfFile;
 export 'genrate_excel_for_product_wise_sale_report.dart'
     show genrateExcelForProductWiseSaleReport;
+export 'increment_stock_new.dart' show incrementStockNew;

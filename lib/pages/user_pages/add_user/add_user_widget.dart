@@ -49,7 +49,7 @@ class _AddUserWidgetState extends State<AddUserWidget> {
     _model.pINTextFieldTextController ??= TextEditingController();
     _model.pINTextFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -64,9 +64,7 @@ class _AddUserWidgetState extends State<AddUserWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -112,7 +110,7 @@ class _AddUserWidgetState extends State<AddUserWidget> {
 
                                   FFAppState().expDay = functions
                                       .setExpiryTime(getCurrentTimestamp);
-                                  setState(() {});
+                                  safeSetState(() {});
                                 } else {
                                   context.pushNamed('MastersPage');
 
@@ -226,7 +224,7 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                       onChanged: (_) => EasyDebounce.debounce(
                                         '_model.textFieldNameTextController',
                                         Duration(milliseconds: 2000),
-                                        () => setState(() {}),
+                                        () => safeSetState(() {}),
                                       ),
                                       autofocus: false,
                                       textCapitalization:
@@ -335,7 +333,7 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                         onChanged: (_) => EasyDebounce.debounce(
                                           '_model.textFieldMobileTextController',
                                           Duration(milliseconds: 2000),
-                                          () => setState(() {}),
+                                          () => safeSetState(() {}),
                                         ),
                                         autofocus: false,
                                         readOnly: true,
@@ -420,7 +418,7 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                       onChanged: (_) => EasyDebounce.debounce(
                                         '_model.textFieldMobilenewTextController',
                                         Duration(milliseconds: 2000),
-                                        () => setState(() {}),
+                                        () => safeSetState(() {}),
                                       ),
                                       autofocus: false,
                                       obscureText: false,
@@ -528,7 +526,7 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                       onChanged: (_) => EasyDebounce.debounce(
                                         '_model.textFieldEmailTextController',
                                         Duration(milliseconds: 2000),
-                                        () => setState(() {}),
+                                        () => safeSetState(() {}),
                                       ),
                                       autofocus: false,
                                       obscureText: false,
@@ -635,7 +633,7 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                       onChanged: (_) => EasyDebounce.debounce(
                                         '_model.pINTextFieldTextController',
                                         Duration(milliseconds: 2000),
-                                        () => setState(() {}),
+                                        () => safeSetState(() {}),
                                       ),
                                       autofocus: false,
                                       obscureText:
@@ -682,7 +680,7 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                         fillColor: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
                                         suffixIcon: InkWell(
-                                          onTap: () => setState(
+                                          onTap: () => safeSetState(
                                             () => _model
                                                     .pINTextFieldVisibility =
                                                 !_model.pINTextFieldVisibility,
@@ -801,9 +799,9 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                                               false,
                                                           onChanged:
                                                               (newValue) async {
-                                                            setState(() => _model
-                                                                    .reportCheckValue =
-                                                                newValue!);
+                                                            safeSetState(() =>
+                                                                _model.reportCheckValue =
+                                                                    newValue!);
                                                           },
                                                           side: BorderSide(
                                                             width: 2,
@@ -880,9 +878,9 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                                               false,
                                                           onChanged:
                                                               (newValue) async {
-                                                            setState(() => _model
-                                                                    .settingCheckValue =
-                                                                newValue!);
+                                                            safeSetState(() =>
+                                                                _model.settingCheckValue =
+                                                                    newValue!);
                                                           },
                                                           side: BorderSide(
                                                             width: 2,
@@ -959,9 +957,9 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                                               false,
                                                           onChanged:
                                                               (newValue) async {
-                                                            setState(() => _model
-                                                                    .stockoutValue =
-                                                                newValue!);
+                                                            safeSetState(() =>
+                                                                _model.stockoutValue =
+                                                                    newValue!);
                                                           },
                                                           side: BorderSide(
                                                             width: 2,
@@ -1038,9 +1036,9 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                                               false,
                                                           onChanged:
                                                               (newValue) async {
-                                                            setState(() => _model
-                                                                    .paymentCheckboxValue =
-                                                                newValue!);
+                                                            safeSetState(() =>
+                                                                _model.paymentCheckboxValue =
+                                                                    newValue!);
                                                           },
                                                           side: BorderSide(
                                                             width: 2,
@@ -1117,9 +1115,9 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                                               false,
                                                           onChanged:
                                                               (newValue) async {
-                                                            setState(() => _model
-                                                                    .prodcutAddCheckboxValue =
-                                                                newValue!);
+                                                            safeSetState(() =>
+                                                                _model.prodcutAddCheckboxValue =
+                                                                    newValue!);
                                                           },
                                                           side: BorderSide(
                                                             width: 2,
@@ -1203,9 +1201,9 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                                               false,
                                                           onChanged:
                                                               (newValue) async {
-                                                            setState(() => _model
-                                                                    .editBillCheckboxValue =
-                                                                newValue!);
+                                                            safeSetState(() =>
+                                                                _model.editBillCheckboxValue =
+                                                                    newValue!);
                                                           },
                                                           side: BorderSide(
                                                             width: 2,
@@ -1282,9 +1280,9 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                                               false,
                                                           onChanged:
                                                               (newValue) async {
-                                                            setState(() => _model
-                                                                    .shiftReportCheckboxValue =
-                                                                newValue!);
+                                                            safeSetState(() =>
+                                                                _model.shiftReportCheckboxValue =
+                                                                    newValue!);
                                                           },
                                                           side: BorderSide(
                                                             width: 2,
@@ -1361,9 +1359,9 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                                               false,
                                                           onChanged:
                                                               (newValue) async {
-                                                            setState(() => _model
-                                                                    .goodsReceivedCheckboxValue =
-                                                                newValue!);
+                                                            safeSetState(() =>
+                                                                _model.goodsReceivedCheckboxValue =
+                                                                    newValue!);
                                                           },
                                                           side: BorderSide(
                                                             width: 2,
@@ -1440,9 +1438,9 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                                               false,
                                                           onChanged:
                                                               (newValue) async {
-                                                            setState(() => _model
-                                                                    .bizAppCheckboxValue =
-                                                                newValue!);
+                                                            safeSetState(() =>
+                                                                _model.bizAppCheckboxValue =
+                                                                    newValue!);
                                                           },
                                                           side: BorderSide(
                                                             width: 2,
@@ -1519,9 +1517,9 @@ class _AddUserWidgetState extends State<AddUserWidget> {
                                                               false,
                                                           onChanged:
                                                               (newValue) async {
-                                                            setState(() => _model
-                                                                    .kOTmodifyCheckboxValue =
-                                                                newValue!);
+                                                            safeSetState(() =>
+                                                                _model.kOTmodifyCheckboxValue =
+                                                                    newValue!);
                                                           },
                                                           side: BorderSide(
                                                             width: 2,
@@ -1702,7 +1700,7 @@ class _AddUserWidgetState extends State<AddUserWidget> {
 
                                   context.pushNamed('userList');
 
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 text: 'Add User',
                                 options: FFButtonOptions(

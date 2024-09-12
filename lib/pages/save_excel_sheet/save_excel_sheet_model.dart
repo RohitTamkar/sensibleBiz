@@ -22,7 +22,6 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class SaveExcelSheetModel extends FlutterFlowModel<SaveExcelSheetWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in SaveExcelSheet widget.
   List<CategoryRecord>? fetchedCat;
   // Stores action output result for [Firestore Query - Query a collection] action in SaveExcelSheet widget.
@@ -38,7 +37,5 @@ class SaveExcelSheetModel extends FlutterFlowModel<SaveExcelSheetWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

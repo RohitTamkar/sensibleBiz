@@ -59,7 +59,7 @@ export '/pages/add_category_page/add_category_page_widget.dart'
     show AddCategoryPageWidget;
 export '/pages/add_product/add_product_widget.dart' show AddProductWidget;
 export '/pages/edit_product/edit_product_widget.dart' show EditProductWidget;
-export '/pages/reports/stock_report_copy/stock_report_copy_widget.dart'
+export '/pages/stock_report_copy/stock_report_copy_widget.dart'
     show StockReportCopyWidget;
 export '/pages/stock_update/stock_update_widget.dart' show StockUpdateWidget;
 export '/pages/phone_auth_page_test/phone_auth_page_test_widget.dart'
@@ -106,5 +106,6 @@ export '/pages/reports/bill_wise_sale_report/bill_wise_sale_report_widget.dart'
 export '/pages/user_pages/user_list/user_list_widget.dart' show UserListWidget;
 export '/pages/user_pages/add_user/add_user_widget.dart' show AddUserWidget;
 export '/pages/user_pages/edit_user/edit_user_widget.dart' show EditUserWidget;
-export '/pages/stock_update_copy/stock_update_copy_widget.dart'
-    show StockUpdateCopyWidget;
+export '/pages/stock_update_new/stock_update_new_widget.dart'
+    show StockUpdateNewWidget;
+export '/pages/stock_out/stock_out_widget.dart' show StockOutWidget;

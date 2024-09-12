@@ -38,10 +38,10 @@ class _StockReportWidgetState extends State<StockReportWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
-      setState(() {});
+      safeSetState(() {});
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -56,9 +56,7 @@ class _StockReportWidgetState extends State<StockReportWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -141,7 +139,7 @@ class _StockReportWidgetState extends State<StockReportWidget> {
                                   if (isWeb) {
                                     FFAppState().expDay = functions
                                         .setExpiryTime(getCurrentTimestamp);
-                                    setState(() {});
+                                    safeSetState(() {});
                                   } else {
                                     return;
                                   }
@@ -164,7 +162,7 @@ class _StockReportWidgetState extends State<StockReportWidget> {
                                   }
                                   FFAppState().selectedDate =
                                       functions.getDayId(_model.datePicked!);
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                               ),
                             ],
@@ -369,39 +367,48 @@ class _StockReportWidgetState extends State<StockReportWidget> {
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  child: Container(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 0.1,
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.05,
-                                    decoration: BoxDecoration(),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        AutoSizeText(
-                                          'Status',
-                                          style: FlutterFlowTheme.of(context)
-                                              .titleSmall
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmallFamily,
-                                                letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .titleSmallFamily),
-                                              ),
-                                        ),
-                                      ],
+                                if (responsiveVisibility(
+                                  context: context,
+                                  phone: false,
+                                  tablet: false,
+                                  tabletLandscape: false,
+                                  desktop: false,
+                                ))
+                                  Expanded(
+                                    child: Container(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          0.1,
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              0.05,
+                                      decoration: BoxDecoration(),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          AutoSizeText(
+                                            'Status',
+                                            style: FlutterFlowTheme.of(context)
+                                                .titleSmall
+                                                .override(
+                                                  fontFamily:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmallFamily,
+                                                  letterSpacing: 0.0,
+                                                  useGoogleFonts: GoogleFonts
+                                                          .asMap()
+                                                      .containsKey(
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmallFamily),
+                                                ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
                                 FlutterFlowIconButton(
                                   borderColor: Colors.transparent,
                                   borderRadius: 20.0,
@@ -459,13 +466,13 @@ class _StockReportWidgetState extends State<StockReportWidget> {
                               }
                               List<StockLogRecord> listViewStockLogRecordList =
                                   snapshot.data!;
-
                               if (listViewStockLogRecordList.isEmpty) {
                                 return Container(
                                   width: MediaQuery.sizeOf(context).width * 1.0,
                                   child: NoDataWidget(),
                                 );
                               }
+
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 scrollDirection: Axis.vertical,
@@ -616,7 +623,7 @@ class _StockReportWidgetState extends State<StockReportWidget> {
                                                                             AutoSizeText(
                                                                               valueOrDefault<String>(
                                                                                 dateTimeFormat(
-                                                                                  'd/M/y',
+                                                                                  "d/M/y",
                                                                                   listViewStockLogRecord.createdDate,
                                                                                   locale: FFLocalizations.of(context).languageCode,
                                                                                 ),
@@ -660,7 +667,7 @@ class _StockReportWidgetState extends State<StockReportWidget> {
                                                                               MainAxisAlignment.center,
                                                                           children: [
                                                                             AutoSizeText(
-                                                                              listViewStockLogRecord.stockType,
+                                                                              listViewStockLogRecord.stockType == 'ADD' ? 'IN' : 'OUT',
                                                                               textAlign: TextAlign.center,
                                                                               style: FlutterFlowTheme.of(context).titleMedium.override(
                                                                                     fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,
@@ -675,45 +682,57 @@ class _StockReportWidgetState extends State<StockReportWidget> {
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  Expanded(
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          5.0,
-                                                                          0.0,
-                                                                          0.0),
+                                                                  if (responsiveVisibility(
+                                                                    context:
+                                                                        context,
+                                                                    phone:
+                                                                        false,
+                                                                    tablet:
+                                                                        false,
+                                                                    tabletLandscape:
+                                                                        false,
+                                                                    desktop:
+                                                                        false,
+                                                                  ))
+                                                                    Expanded(
                                                                       child:
-                                                                          Container(
-                                                                        width: MediaQuery.sizeOf(context).width *
-                                                                            0.1,
-                                                                        height: MediaQuery.sizeOf(context).height *
-                                                                            0.05,
-                                                                        decoration:
-                                                                            BoxDecoration(),
+                                                                          Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            5.0,
+                                                                            0.0,
+                                                                            0.0),
                                                                         child:
-                                                                            Column(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: [
-                                                                            AutoSizeText(
-                                                                              listViewStockLogRecord.status,
-                                                                              textAlign: TextAlign.center,
-                                                                              style: FlutterFlowTheme.of(context).titleMedium.override(
-                                                                                    fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,
-                                                                                    color: FlutterFlowTheme.of(context).info,
-                                                                                    letterSpacing: 0.0,
-                                                                                    fontWeight: FontWeight.bold,
-                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleMediumFamily),
-                                                                                  ),
-                                                                            ),
-                                                                          ],
+                                                                            Container(
+                                                                          width:
+                                                                              MediaQuery.sizeOf(context).width * 0.1,
+                                                                          height:
+                                                                              MediaQuery.sizeOf(context).height * 0.05,
+                                                                          decoration:
+                                                                              BoxDecoration(),
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: [
+                                                                              AutoSizeText(
+                                                                                listViewStockLogRecord.status,
+                                                                                textAlign: TextAlign.center,
+                                                                                style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                      fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,
+                                                                                      color: FlutterFlowTheme.of(context).info,
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleMediumFamily),
+                                                                                    ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                  ),
                                                                   FlutterFlowIconButton(
                                                                     borderRadius:
                                                                         20.0,
@@ -738,6 +757,70 @@ class _StockReportWidgetState extends State<StockReportWidget> {
                                                                   ),
                                                                 ],
                                                               ),
+                                                            ),
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          180.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Text(
+                                                                        'Current Stock',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                              fontSize: 15.0,
+                                                                              letterSpacing: 0.0,
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          70.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Text(
+                                                                        'ReqStock',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                              fontSize: 15.0,
+                                                                              letterSpacing: 0.0,
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
                                                             ),
                                                           ],
                                                         ),
@@ -821,8 +904,10 @@ class _StockReportWidgetState extends State<StockReportWidget> {
                                                               Expanded(
                                                                 flex: 3,
                                                                 child: Text(
-                                                                  prdListItem
-                                                                      .currentStock
+                                                                  functions
+                                                                      .roundOff1Copy(
+                                                                          prdListItem
+                                                                              .currentStock)
                                                                       .toString(),
                                                                   textAlign:
                                                                       TextAlign

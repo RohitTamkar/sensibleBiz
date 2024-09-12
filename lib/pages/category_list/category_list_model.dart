@@ -19,7 +19,6 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class CategoryListModel extends FlutterFlowModel<CategoryListWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in IconButton widget.
   List<ProductRecord>? res;
   // Stores action output result for [Firestore Query - Query a collection] action in IconButton widget.
@@ -29,7 +28,5 @@ class CategoryListModel extends FlutterFlowModel<CategoryListWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

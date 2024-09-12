@@ -37,7 +37,7 @@ class _LoginCopyWidgetState extends State<LoginCopyWidget> {
     _model.textFieldQuickTextController2 ??= TextEditingController();
     _model.textFieldQuickFocusNode2 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -50,9 +50,7 @@ class _LoginCopyWidgetState extends State<LoginCopyWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -526,7 +524,7 @@ class _LoginCopyWidgetState extends State<LoginCopyWidget> {
                                                             .of(context)
                                                         .secondaryBackground,
                                                     suffixIcon: InkWell(
-                                                      onTap: () => setState(
+                                                      onTap: () => safeSetState(
                                                         () => _model
                                                                 .textFieldQuickVisibility1 =
                                                             !_model
@@ -1366,7 +1364,7 @@ class _LoginCopyWidgetState extends State<LoginCopyWidget> {
                                                                   suffixIcon:
                                                                       InkWell(
                                                                     onTap: () =>
-                                                                        setState(
+                                                                        safeSetState(
                                                                       () => _model
                                                                               .textFieldQuickVisibility2 =
                                                                           !_model

@@ -12,7 +12,6 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class LoginModel extends FlutterFlowModel<LoginWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for TextFieldNumber widget.
   FocusNode? textFieldNumberFocusNode1;
   TextEditingController? textFieldNumberTextController1;
@@ -52,7 +51,6 @@ class LoginModel extends FlutterFlowModel<LoginWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldNumberFocusNode1?.dispose();
     textFieldNumberTextController1?.dispose();
 

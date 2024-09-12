@@ -65,7 +65,7 @@ class _CreateUserProfileWidgetState extends State<CreateUserProfileWidget> {
     _model.pINTextFieldTextController2 ??= TextEditingController();
     _model.pINTextFieldFocusNode2 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -80,9 +80,7 @@ class _CreateUserProfileWidgetState extends State<CreateUserProfileWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -244,7 +242,7 @@ class _CreateUserProfileWidgetState extends State<CreateUserProfileWidget> {
                                                   EasyDebounce.debounce(
                                                 '_model.textFieldNameTextController1',
                                                 Duration(milliseconds: 2000),
-                                                () => setState(() {}),
+                                                () => safeSetState(() {}),
                                               ),
                                               autofocus: true,
                                               textCapitalization:
@@ -375,7 +373,7 @@ class _CreateUserProfileWidgetState extends State<CreateUserProfileWidget> {
                                                     EasyDebounce.debounce(
                                                   '_model.textFieldMobileTextController1',
                                                   Duration(milliseconds: 2000),
-                                                  () => setState(() {}),
+                                                  () => safeSetState(() {}),
                                                 ),
                                                 autofocus: false,
                                                 readOnly: true,
@@ -477,7 +475,7 @@ class _CreateUserProfileWidgetState extends State<CreateUserProfileWidget> {
                                                   EasyDebounce.debounce(
                                                 '_model.textFieldMobileTextController2',
                                                 Duration(milliseconds: 2000),
-                                                () => setState(() {}),
+                                                () => safeSetState(() {}),
                                               ),
                                               autofocus: true,
                                               obscureText: false,
@@ -608,7 +606,7 @@ class _CreateUserProfileWidgetState extends State<CreateUserProfileWidget> {
                                                   EasyDebounce.debounce(
                                                 '_model.textFieldEmailTextController1',
                                                 Duration(milliseconds: 2000),
-                                                () => setState(() {}),
+                                                () => safeSetState(() {}),
                                               ),
                                               autofocus: true,
                                               obscureText: false,
@@ -739,7 +737,7 @@ class _CreateUserProfileWidgetState extends State<CreateUserProfileWidget> {
                                                   EasyDebounce.debounce(
                                                 '_model.pINTextFieldTextController1',
                                                 Duration(milliseconds: 2000),
-                                                () => setState(() {}),
+                                                () => safeSetState(() {}),
                                               ),
                                               autofocus: true,
                                               obscureText: !_model
@@ -798,7 +796,7 @@ class _CreateUserProfileWidgetState extends State<CreateUserProfileWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
                                                 suffixIcon: InkWell(
-                                                  onTap: () => setState(
+                                                  onTap: () => safeSetState(
                                                     () => _model
                                                             .pINTextFieldVisibility1 =
                                                         !_model
@@ -979,11 +977,11 @@ class _CreateUserProfileWidgetState extends State<CreateUserProfileWidget> {
                                         );
                                         FFAppState().currentMobile =
                                             '${_model.textFieldMobileTextController2.text}';
-                                        setState(() {});
+                                        safeSetState(() {});
 
                                         context.pushNamed('OutletListPage');
 
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       text: 'Submit',
                                       options: FFButtonOptions(
@@ -1110,7 +1108,7 @@ class _CreateUserProfileWidgetState extends State<CreateUserProfileWidget> {
                                                   EasyDebounce.debounce(
                                                 '_model.textFieldNameTextController2',
                                                 Duration(milliseconds: 2000),
-                                                () => setState(() {}),
+                                                () => safeSetState(() {}),
                                               ),
                                               autofocus: false,
                                               textCapitalization:
@@ -1240,7 +1238,7 @@ class _CreateUserProfileWidgetState extends State<CreateUserProfileWidget> {
                                                   EasyDebounce.debounce(
                                                 '_model.textFieldMobileTextController3',
                                                 Duration(milliseconds: 2000),
-                                                () => setState(() {}),
+                                                () => safeSetState(() {}),
                                               ),
                                               autofocus: true,
                                               readOnly: true,
@@ -1338,7 +1336,7 @@ class _CreateUserProfileWidgetState extends State<CreateUserProfileWidget> {
                                                     EasyDebounce.debounce(
                                                   '_model.textFieldMobileTextController4',
                                                   Duration(milliseconds: 2000),
-                                                  () => setState(() {}),
+                                                  () => safeSetState(() {}),
                                                 ),
                                                 autofocus: true,
                                                 obscureText: false,
@@ -1478,7 +1476,7 @@ class _CreateUserProfileWidgetState extends State<CreateUserProfileWidget> {
                                                   EasyDebounce.debounce(
                                                 '_model.textFieldEmailTextController2',
                                                 Duration(milliseconds: 2000),
-                                                () => setState(() {}),
+                                                () => safeSetState(() {}),
                                               ),
                                               autofocus: true,
                                               obscureText: false,
@@ -1609,7 +1607,7 @@ class _CreateUserProfileWidgetState extends State<CreateUserProfileWidget> {
                                                   EasyDebounce.debounce(
                                                 '_model.pINTextFieldTextController2',
                                                 Duration(milliseconds: 2000),
-                                                () => setState(() {}),
+                                                () => safeSetState(() {}),
                                               ),
                                               autofocus: true,
                                               obscureText: !_model
@@ -1668,7 +1666,7 @@ class _CreateUserProfileWidgetState extends State<CreateUserProfileWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
                                                 suffixIcon: InkWell(
-                                                  onTap: () => setState(
+                                                  onTap: () => safeSetState(
                                                     () => _model
                                                             .pINTextFieldVisibility2 =
                                                         !_model
@@ -1797,11 +1795,11 @@ class _CreateUserProfileWidgetState extends State<CreateUserProfileWidget> {
                                         );
                                         FFAppState().currentMobile =
                                             '+91${_model.textFieldMobileTextController4.text}';
-                                        setState(() {});
+                                        safeSetState(() {});
 
                                         context.pushNamed('OutletListPage');
 
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       text: 'Submit',
                                       options: FFButtonOptions(

@@ -48,13 +48,13 @@ class _PremisesWidgetState extends State<PremisesWidget> {
         parent: FFAppState().outletRef,
       );
       _model.localPrewmises = _model.fetchedPrem!
-          .sortedList((e) => e.code)
+          .sortedList(keyOf: (e) => e.code, desc: false)
           .toList()
           .cast<PremisesRecord>();
-      setState(() {});
+      safeSetState(() {});
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -69,9 +69,7 @@ class _PremisesWidgetState extends State<PremisesWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -84,7 +82,7 @@ class _PremisesWidgetState extends State<PremisesWidget> {
               highlightColor: Colors.transparent,
               onTap: () async {
                 _model.deleteAllb = false;
-                setState(() {});
+                safeSetState(() {});
               },
               child: Container(
                 decoration: BoxDecoration(),
@@ -127,7 +125,7 @@ class _PremisesWidgetState extends State<PremisesWidget> {
                                         size: 30.0,
                                       ),
                                       onPressed: () async {
-                                        context.pushNamed('ProductList');
+                                        context.pushNamed('MastersPage');
                                       },
                                     ),
                                     Flexible(
@@ -202,7 +200,7 @@ class _PremisesWidgetState extends State<PremisesWidget> {
                                         ),
                                         onPressed: () async {
                                           _model.deleteAllb = true;
-                                          setState(() {});
+                                          safeSetState(() {});
                                         },
                                       ),
                                   ],
@@ -605,9 +603,9 @@ class _PremisesWidgetState extends State<PremisesWidget> {
                         false;
                     if (confirmDialogResponse) {
                       _model.deleteAllb = false;
-                      setState(() {});
+                      safeSetState(() {});
                       FFAppState().startLoop = 0;
-                      setState(() {});
+                      safeSetState(() {});
                       while (
                           FFAppState().startLoop < _model.fetchedPrem!.length) {
                         await _model
@@ -615,9 +613,9 @@ class _PremisesWidgetState extends State<PremisesWidget> {
                             .delete();
                         _model.removeAtIndexFromLocalPrewmises(
                             FFAppState().startLoop);
-                        setState(() {});
+                        safeSetState(() {});
                         FFAppState().startLoop = FFAppState().startLoop + 1;
-                        setState(() {});
+                        safeSetState(() {});
                       }
                       await showDialog(
                         context: context,

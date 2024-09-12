@@ -14,7 +14,6 @@ import 'package:provider/provider.dart';
 class DevicePageModel extends FlutterFlowModel<DevicePageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for Checkbox widget.
   Map<DeviceRecord, bool> checkboxValueMap = {};
   List<DeviceRecord> get checkboxCheckedItems =>
@@ -24,7 +23,5 @@ class DevicePageModel extends FlutterFlowModel<DevicePageWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

@@ -38,10 +38,10 @@ class _StockReportCopyWidgetState extends State<StockReportCopyWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
-      setState(() {});
+      safeSetState(() {});
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -56,9 +56,7 @@ class _StockReportCopyWidgetState extends State<StockReportCopyWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -141,7 +139,7 @@ class _StockReportCopyWidgetState extends State<StockReportCopyWidget> {
                                   if (isWeb) {
                                     FFAppState().expDay = functions
                                         .setExpiryTime(getCurrentTimestamp);
-                                    setState(() {});
+                                    safeSetState(() {});
                                   } else {
                                     return;
                                   }
@@ -164,7 +162,7 @@ class _StockReportCopyWidgetState extends State<StockReportCopyWidget> {
                                   }
                                   FFAppState().selectedDate =
                                       functions.getDayId(_model.datePicked!);
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                               ),
                             ],
@@ -459,13 +457,13 @@ class _StockReportCopyWidgetState extends State<StockReportCopyWidget> {
                               }
                               List<StockLogRecord> listViewStockLogRecordList =
                                   snapshot.data!;
-
                               if (listViewStockLogRecordList.isEmpty) {
                                 return Container(
                                   width: MediaQuery.sizeOf(context).width * 1.0,
                                   child: NoDataWidget(),
                                 );
                               }
+
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 scrollDirection: Axis.vertical,
@@ -616,7 +614,7 @@ class _StockReportCopyWidgetState extends State<StockReportCopyWidget> {
                                                                             AutoSizeText(
                                                                               valueOrDefault<String>(
                                                                                 dateTimeFormat(
-                                                                                  'd/M/y',
+                                                                                  "d/M/y",
                                                                                   listViewStockLogRecord.createdDate,
                                                                                   locale: FFLocalizations.of(context).languageCode,
                                                                                 ),

@@ -46,10 +46,10 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
         _model.productDocs!.toList(),
       );
       FFAppState().productJsonList = _model.docsJson!.toList().cast<dynamic>();
-      setState(() {});
+      safeSetState(() {});
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -64,9 +64,7 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -121,7 +119,7 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
 
                                         FFAppState().expDay = functions
                                             .setExpiryTime(getCurrentTimestamp);
-                                        setState(() {});
+                                        safeSetState(() {});
                                       } else {
                                         context.pushNamed('MastersPage');
 
@@ -284,7 +282,7 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
                                                             plistItem] ??= false,
                                                         onChanged:
                                                             (newValue) async {
-                                                          setState(() =>
+                                                          safeSetState(() =>
                                                               _model.checkboxValueMap[
                                                                       plistItem] =
                                                                   newValue!);
@@ -295,7 +293,7 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
                                                               plistItem,
                                                               r'''$.id''',
                                                             ).toString());
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                           }
                                                         },
                                                         side: BorderSide(
@@ -393,7 +391,7 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
                                   );
                                   _model.startLoop = 0;
                                   _model.waitLoader = true;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   while (_model.startLoop! <
                                       FFAppState()
                                           .premisesUpdateCheckboxList
@@ -412,10 +410,10 @@ class _PremisesShowWidgetState extends State<PremisesShowWidget> {
                                           ).toString(),
                                         ));
                                     _model.startLoop = _model.startLoop! + 1;
-                                    setState(() {});
+                                    safeSetState(() {});
                                   }
                                   _model.waitLoader = false;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {

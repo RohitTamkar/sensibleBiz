@@ -45,7 +45,7 @@ class _EditEmployeeWidgetState extends State<EditEmployeeWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.shortNamePS = widget!.ref?.shortName;
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.employeeNameTextController ??=
@@ -67,7 +67,7 @@ class _EditEmployeeWidgetState extends State<EditEmployeeWidget> {
         TextEditingController(text: widget!.ref?.balanceAmt);
     _model.balenceFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -80,9 +80,7 @@ class _EditEmployeeWidgetState extends State<EditEmployeeWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -159,7 +157,7 @@ class _EditEmployeeWidgetState extends State<EditEmployeeWidget> {
                                     return;
                                   }
                                   _model.wait = true;
-                                  setState(() {});
+                                  safeSetState(() {});
 
                                   await widget!.ref!.reference
                                       .update(createEmployeeRecordData(
@@ -179,7 +177,7 @@ class _EditEmployeeWidgetState extends State<EditEmployeeWidget> {
                                     id: widget!.ref?.id,
                                   ));
                                   _model.wait = false;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {
@@ -282,9 +280,9 @@ class _EditEmployeeWidgetState extends State<EditEmployeeWidget> {
                                                   .text,
                                             );
                                             _model.shortNamePS = _model.getName;
-                                            setState(() {});
+                                            safeSetState(() {});
 
-                                            setState(() {});
+                                            safeSetState(() {});
                                           },
                                         ),
                                         autofocus: true,
@@ -612,7 +610,7 @@ class _EditEmployeeWidgetState extends State<EditEmployeeWidget> {
                                           () async {
                                             _model.shortNamePS = _model
                                                 .shortNameTextController.text;
-                                            setState(() {});
+                                            safeSetState(() {});
                                           },
                                         ),
                                         autofocus: true,

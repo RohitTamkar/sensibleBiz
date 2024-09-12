@@ -77,7 +77,7 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -92,9 +92,7 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -181,7 +179,7 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                               if (isWeb) {
                                 FFAppState().expDay = functions
                                     .setExpiryTime(getCurrentTimestamp);
-                                setState(() {});
+                                safeSetState(() {});
                               } else {
                                 context.safePop();
                                 return;
@@ -269,7 +267,7 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                               onPressed: () async {
                                 FFAppState().iterator = 0;
                                 FFAppState().countExcel = 0;
-                                setState(() {});
+                                safeSetState(() {});
                                 _model.readexceldataCopy =
                                     await actions.readFromCsv(
                                   context,
@@ -279,14 +277,14 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                                     .readexceldataCopy!
                                     .toList()
                                     .cast<ProductMasterListStruct>();
-                                setState(() {});
+                                safeSetState(() {});
                                 FFAppState().countExcel =
                                     FFAppState().readProductlist.length;
-                                setState(() {});
+                                safeSetState(() {});
 
                                 context.pushNamed('ExcelSheet');
 
-                                setState(() {});
+                                safeSetState(() {});
                               },
                               text: 'Upload File',
                               options: FFButtonOptions(
@@ -356,7 +354,7 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                                 highlightColor: Colors.transparent,
                                 onLongPress: () async {
                                   FFAppState().flag = true;
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 child: FFButtonWidget(
                                   onPressed: () async {
@@ -369,22 +367,22 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                                         .readexceldata!
                                         .toList()
                                         .cast<ProductMasterListStruct>();
-                                    setState(() {});
+                                    safeSetState(() {});
                                     FFAppState().iterator = 0;
                                     FFAppState().countExcel = 0;
-                                    setState(() {});
+                                    safeSetState(() {});
                                     FFAppState().readProductlist = _model
                                         .readexceldata!
                                         .toList()
                                         .cast<ProductMasterListStruct>();
-                                    setState(() {});
+                                    safeSetState(() {});
                                     FFAppState().countExcel =
                                         FFAppState().readProductlist.length;
-                                    setState(() {});
+                                    safeSetState(() {});
 
                                     context.pushNamed('ExcelSheet');
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   text: 'Upload File',
                                   options: FFButtonOptions(
@@ -432,7 +430,7 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                                       multiFile: false,
                                     );
                                     if (selectedFiles != null) {
-                                      setState(
+                                      safeSetState(
                                           () => _model.isDataUploading = true);
                                       var selectedUploadedFiles =
                                           <FFUploadedFile>[];
@@ -451,12 +449,12 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                                       }
                                       if (selectedUploadedFiles.length ==
                                           selectedFiles.length) {
-                                        setState(() {
+                                        safeSetState(() {
                                           _model.uploadedLocalFile =
                                               selectedUploadedFiles.first;
                                         });
                                       } else {
-                                        setState(() {});
+                                        safeSetState(() {});
                                         return;
                                       }
                                     }
@@ -479,22 +477,22 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                                           .readexceldata22!
                                           .toList()
                                           .cast<ProductMasterListStruct>();
-                                      setState(() {});
+                                      safeSetState(() {});
                                       FFAppState().iterator = 0;
                                       FFAppState().countExcel = 0;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       FFAppState().readProductlist = _model
                                           .readexceldata22!
                                           .toList()
                                           .cast<ProductMasterListStruct>();
-                                      setState(() {});
+                                      safeSetState(() {});
                                       FFAppState().countExcel =
                                           FFAppState().readProductlist.length;
-                                      setState(() {});
+                                      safeSetState(() {});
 
                                       context.pushNamed('ExcelSheetpremises');
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     text: 'Upload  With Premises',
                                     options: FFButtonOptions(

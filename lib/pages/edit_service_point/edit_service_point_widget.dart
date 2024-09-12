@@ -43,7 +43,7 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.booleanPaperSize = false;
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.textController1 ??=
@@ -70,7 +70,7 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
         TextEditingController(text: widget!.servPtDoc?.footer);
     _model.textFieldFocusNode4 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -85,9 +85,7 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -313,7 +311,7 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
                                     size: 24.0,
                                   ),
                                   onPressed: () async {
-                                    setState(() {
+                                    safeSetState(() {
                                       _model.textController1?.clear();
                                     });
                                   },
@@ -358,7 +356,7 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
                               children: [
                                 FlutterFlowRadioButton(
                                   options: ['2 Inch', '3 Inch'].toList(),
-                                  onChanged: (val) => setState(() {}),
+                                  onChanged: (val) => safeSetState(() {}),
                                   controller:
                                       _model.radioButton1ValueController ??=
                                           FormFieldController<String>(
@@ -442,7 +440,7 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
                                 FlutterFlowRadioButton(
                                   options:
                                       ['Serial', 'Ethernet', 'USB'].toList(),
-                                  onChanged: (val) => setState(() {}),
+                                  onChanged: (val) => safeSetState(() {}),
                                   controller:
                                       _model.radioButton2ValueController ??=
                                           FormFieldController<String>(() {
@@ -668,7 +666,7 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
                                                 size: 24.0,
                                               ),
                                               onPressed: () async {
-                                                setState(() {
+                                                safeSetState(() {
                                                   _model
                                                       .textField2TextController
                                                       ?.clear();
@@ -835,7 +833,7 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
                                               size: 24.0,
                                             ),
                                             onPressed: () async {
-                                              setState(() {
+                                              safeSetState(() {
                                                 _model.textField3TextController
                                                     ?.clear();
                                               });
@@ -1193,7 +1191,7 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
                                             return;
                                           }
                                           _model.wait = true;
-                                          setState(() {});
+                                          safeSetState(() {});
 
                                           await widget!.servPtDoc!.reference
                                               .update(
@@ -1236,7 +1234,7 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
                                                 : '',
                                           ));
                                           _model.wait = false;
-                                          setState(() {});
+                                          safeSetState(() {});
                                           await showDialog(
                                             context: context,
                                             builder: (alertDialogContext) {
@@ -1256,7 +1254,7 @@ class _EditServicePointWidgetState extends State<EditServicePointWidget> {
                                               );
                                             },
                                           );
-                                          setState(() {
+                                          safeSetState(() {
                                             _model.textController1?.clear();
                                             _model.textController4?.clear();
                                             _model.textController5?.clear();

@@ -126,7 +126,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
     _model.hsnWTextController ??= TextEditingController();
     _model.hsnWFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -141,9 +141,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -1225,7 +1223,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                           ))
                                                                       .toList(),
                                                               onChanged: (val) =>
-                                                                  setState(() =>
+                                                                  safeSetState(() =>
                                                                       _model.catDropDownMValue =
                                                                           val),
                                                               width: MediaQuery
@@ -1381,7 +1379,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                       Duration(
                                                                           milliseconds:
                                                                               2000),
-                                                                      () => setState(
+                                                                      () => safeSetState(
                                                                           () {}),
                                                                     ),
                                                                     autofocus:
@@ -1564,7 +1562,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                         Duration(
                                                                             milliseconds:
                                                                                 2000),
-                                                                        () => setState(
+                                                                        () => safeSetState(
                                                                             () {}),
                                                                       ),
                                                                       autofocus:
@@ -1757,7 +1755,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                       Duration(
                                                                           milliseconds:
                                                                               2000),
-                                                                      () => setState(
+                                                                      () => safeSetState(
                                                                           () {}),
                                                                     ),
                                                                     autofocus:
@@ -1949,7 +1947,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                         Duration(
                                                                             milliseconds:
                                                                                 2000),
-                                                                        () => setState(
+                                                                        () => safeSetState(
                                                                             () {}),
                                                                       ),
                                                                       autofocus:
@@ -2142,7 +2140,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                       Duration(
                                                                           milliseconds:
                                                                               2000),
-                                                                      () => setState(
+                                                                      () => safeSetState(
                                                                           () {}),
                                                                     ),
                                                                     autofocus:
@@ -2344,7 +2342,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                         Duration(
                                                                             milliseconds:
                                                                                 2000),
-                                                                        () => setState(
+                                                                        () => safeSetState(
                                                                             () {}),
                                                                       ),
                                                                       autofocus:
@@ -2482,7 +2480,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                   false,
                                                               onChanged:
                                                                   (newValue) async {
-                                                                setState(() =>
+                                                                safeSetState(() =>
                                                                     _model.wightCheckboMValue =
                                                                         newValue!);
                                                               },
@@ -2536,7 +2534,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                   false,
                                                               onChanged:
                                                                   (newValue) async {
-                                                                setState(() =>
+                                                                safeSetState(() =>
                                                                     _model.stockCheckboxMValue =
                                                                         newValue!);
                                                               },
@@ -2705,7 +2703,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                       'PIECE'
                                                                     ],
                                                                     onChanged: (val) =>
-                                                                        setState(() =>
+                                                                        safeSetState(() =>
                                                                             _model.unitTypeMValue =
                                                                                 val),
                                                                     width: MediaQuery.sizeOf(context)
@@ -2795,7 +2793,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                 'GST2'
                                                               ],
                                                               onChanged: (val) =>
-                                                                  setState(() =>
+                                                                  safeSetState(() =>
                                                                       _model.taxMValue =
                                                                           val),
                                                               width: MediaQuery
@@ -2885,7 +2883,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                   'NON AC'
                                                                 ],
                                                                 onChanged: (val) =>
-                                                                    setState(() =>
+                                                                    safeSetState(() =>
                                                                         _model.servicePointMValue1 =
                                                                             val),
                                                                 width: MediaQuery.sizeOf(
@@ -3359,7 +3357,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                             0.0,
                                                           ),
                                                           keyCount: 0,
-                                                          kitchenId: '\"',
+                                                          kitchenId: '',
                                                           mrpPrice:
                                                               valueOrDefault<
                                                                   double>(
@@ -3468,8 +3466,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                     0.0,
                                                                   ),
                                                                   keyCount: 0,
-                                                                  kitchenId:
-                                                                      '\"',
+                                                                  kitchenId: '',
                                                                   mrpPrice:
                                                                       valueOrDefault<
                                                                           double>(
@@ -3579,7 +3576,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                             );
                                                           },
                                                         );
-                                                        setState(() {
+                                                        safeSetState(() {
                                                           _model
                                                               .productNameMTextController
                                                               ?.clear();
@@ -3622,7 +3619,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                         context.pushNamed(
                                                             'ProductList');
 
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       text: 'Save',
                                                       options: FFButtonOptions(
@@ -4718,7 +4715,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                       ))
                                                                   .toList(),
                                                           onChanged: (val) =>
-                                                              setState(() =>
+                                                              safeSetState(() =>
                                                                   _model.catDropDownWValue =
                                                                       val),
                                                           width:
@@ -4841,8 +4838,9 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                   Duration(
                                                                       milliseconds:
                                                                           2000),
-                                                                  () => setState(
-                                                                      () {}),
+                                                                  () =>
+                                                                      safeSetState(
+                                                                          () {}),
                                                                 ),
                                                                 autofocus:
                                                                     false,
@@ -5039,7 +5037,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                     Duration(
                                                                         milliseconds:
                                                                             2000),
-                                                                    () => setState(
+                                                                    () => safeSetState(
                                                                         () {}),
                                                                   ),
                                                                   autofocus:
@@ -5235,8 +5233,9 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                   Duration(
                                                                       milliseconds:
                                                                           2000),
-                                                                  () => setState(
-                                                                      () {}),
+                                                                  () =>
+                                                                      safeSetState(
+                                                                          () {}),
                                                                 ),
                                                                 autofocus:
                                                                     false,
@@ -5436,7 +5435,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                     Duration(
                                                                         milliseconds:
                                                                             2000),
-                                                                    () => setState(
+                                                                    () => safeSetState(
                                                                         () {}),
                                                                   ),
                                                                   autofocus:
@@ -5632,8 +5631,9 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                   Duration(
                                                                       milliseconds:
                                                                           2000),
-                                                                  () => setState(
-                                                                      () {}),
+                                                                  () =>
+                                                                      safeSetState(
+                                                                          () {}),
                                                                 ),
                                                                 autofocus:
                                                                     false,
@@ -5849,7 +5849,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                     Duration(
                                                                         milliseconds:
                                                                             2000),
-                                                                    () => setState(
+                                                                    () => safeSetState(
                                                                         () {}),
                                                                   ),
                                                                   autofocus:
@@ -5991,9 +5991,9 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                               false,
                                                           onChanged:
                                                               (newValue) async {
-                                                            setState(() => _model
-                                                                    .wightCheckboWNValue =
-                                                                newValue!);
+                                                            safeSetState(() =>
+                                                                _model.wightCheckboWNValue =
+                                                                    newValue!);
                                                           },
                                                           title: Text(
                                                             'Weightable',
@@ -6046,9 +6046,9 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                               false,
                                                           onChanged:
                                                               (newValue) async {
-                                                            setState(() => _model
-                                                                    .stockCheckboxWNValue =
-                                                                newValue!);
+                                                            safeSetState(() =>
+                                                                _model.stockCheckboxWNValue =
+                                                                    newValue!);
                                                           },
                                                           title: Text(
                                                             'Stockable',
@@ -6217,7 +6217,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                   'PIECE'
                                                                 ],
                                                                 onChanged: (val) =>
-                                                                    setState(() =>
+                                                                    safeSetState(() =>
                                                                         _model.unitTypeWValue =
                                                                             val),
                                                                 width: MediaQuery.sizeOf(
@@ -6307,7 +6307,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                             'GST2'
                                                           ],
                                                           onChanged: (val) =>
-                                                              setState(() =>
+                                                              safeSetState(() =>
                                                                   _model.taxWValue =
                                                                       val),
                                                           width:
@@ -6398,7 +6398,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                               'NON AC'
                                                             ],
                                                             onChanged: (val) =>
-                                                                setState(() =>
+                                                                safeSetState(() =>
                                                                     _model.servicePointMValue2 =
                                                                         val),
                                                             width: MediaQuery
@@ -6740,7 +6740,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                         0.0,
                                                       ),
                                                       keyCount: 0,
-                                                      kitchenId: '\"',
+                                                      kitchenId: '',
                                                       mrpPrice: valueOrDefault<
                                                           double>(
                                                         double.tryParse(_model
@@ -6860,7 +6860,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                 0.0,
                                                               ),
                                                               keyCount: 0,
-                                                              kitchenId: '\"',
+                                                              kitchenId: '',
                                                               mrpPrice:
                                                                   valueOrDefault<
                                                                       double>(
@@ -6977,7 +6977,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                         );
                                                       },
                                                     );
-                                                    setState(() {
+                                                    safeSetState(() {
                                                       _model
                                                           .productNameWTextController
                                                           ?.clear();
@@ -7018,7 +7018,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                     context.pushNamed(
                                                         'ProductList');
 
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   },
                                                   text: 'Save',
                                                   options: FFButtonOptions(

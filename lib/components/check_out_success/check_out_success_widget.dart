@@ -29,7 +29,7 @@ class _CheckOutSuccessWidgetState extends State<CheckOutSuccessWidget> {
     super.initState();
     _model = createModel(context, () => CheckOutSuccessModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

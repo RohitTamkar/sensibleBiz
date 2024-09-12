@@ -45,7 +45,7 @@ class _EditOutletWidgetState extends State<EditOutletWidget> {
     _model.textFieldStateTextController ??= TextEditingController();
     _model.textFieldStateFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -58,9 +58,7 @@ class _EditOutletWidgetState extends State<EditOutletWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -190,7 +188,7 @@ class _EditOutletWidgetState extends State<EditOutletWidget> {
                                               EasyDebounce.debounce(
                                             '_model.textController1',
                                             Duration(milliseconds: 2000),
-                                            () => setState(() {}),
+                                            () => safeSetState(() {}),
                                           ),
                                           autofocus: false,
                                           obscureText: false,
@@ -310,7 +308,7 @@ class _EditOutletWidgetState extends State<EditOutletWidget> {
                                               EasyDebounce.debounce(
                                             '_model.textController2',
                                             Duration(milliseconds: 2000),
-                                            () => setState(() {}),
+                                            () => safeSetState(() {}),
                                           ),
                                           autofocus: false,
                                           obscureText: false,
@@ -429,7 +427,7 @@ class _EditOutletWidgetState extends State<EditOutletWidget> {
                                                 .dropDownValueController ??=
                                             FormFieldController<String>(null),
                                         options: ['Option 1'],
-                                        onChanged: (val) => setState(
+                                        onChanged: (val) => safeSetState(
                                             () => _model.dropDownValue = val),
                                         width:
                                             MediaQuery.sizeOf(context).width *

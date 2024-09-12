@@ -25,7 +25,6 @@ class UploadExcelSheetPageModel
     extends FlutterFlowModel<UploadExcelSheetPageWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Custom Action - readFromCsv] action in Button widget.
   List<ProductMasterListStruct>? readexceldataCopy;
   // Stores action output result for [Custom Action - readFromCsv] action in Button widget.
@@ -42,7 +41,5 @@ class UploadExcelSheetPageModel
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

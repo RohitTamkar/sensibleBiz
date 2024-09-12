@@ -30,7 +30,6 @@ class EditCustomerModel extends FlutterFlowModel<EditCustomerWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for EmployeeName widget.
   FocusNode? employeeNameFocusNode;
@@ -94,7 +93,6 @@ class EditCustomerModel extends FlutterFlowModel<EditCustomerWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     employeeNameFocusNode?.dispose();
     employeeNameTextController?.dispose();
 

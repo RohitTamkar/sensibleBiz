@@ -72,7 +72,6 @@ class ProductListModel extends FlutterFlowModel<ProductListWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in ProductList widget.
   List<ProductRecord>? prdList;
   // Stores action output result for [Custom Action - sortProducts] action in ProductList widget.
@@ -110,7 +109,6 @@ class ProductListModel extends FlutterFlowModel<ProductListWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     expandableExpandableController.dispose();
     loaderModel.dispose();
   }

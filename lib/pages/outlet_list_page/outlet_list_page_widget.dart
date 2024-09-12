@@ -69,7 +69,7 @@ class _OutletListPageWidgetState extends State<OutletListPageWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -84,9 +84,7 @@ class _OutletListPageWidgetState extends State<OutletListPageWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -118,11 +116,11 @@ class _OutletListPageWidgetState extends State<OutletListPageWidget>
               }
               List<UserProfileRecord> containerUserProfileRecordList =
                   snapshot.data!;
-
               final containerUserProfileRecord =
                   containerUserProfileRecordList.isNotEmpty
                       ? containerUserProfileRecordList.first
                       : null;
+
               return Container(
                 decoration: BoxDecoration(),
                 child: Column(
@@ -435,7 +433,7 @@ class _OutletListPageWidgetState extends State<OutletListPageWidget>
                                                         FFAppState().expDay =
                                                             functions.setExpiryTime(
                                                                 getCurrentTimestamp);
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       } else {
                                                         FFAppState().outletId =
                                                             listViewOutletRecord
@@ -908,7 +906,7 @@ class _OutletListPageWidgetState extends State<OutletListPageWidget>
                                           }.withoutNulls,
                                         );
 
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,

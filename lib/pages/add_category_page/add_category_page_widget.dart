@@ -55,7 +55,7 @@ class _AddCategoryPageWidgetState extends State<AddCategoryPageWidget> {
     _model.categoryNoWTextController ??= TextEditingController();
     _model.categoryNoWFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -70,9 +70,7 @@ class _AddCategoryPageWidgetState extends State<AddCategoryPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -98,11 +96,11 @@ class _AddCategoryPageWidgetState extends State<AddCategoryPageWidget> {
               );
             }
             List<CategoryRecord> containerCategoryRecordList = snapshot.data!;
-
             final containerCategoryRecord =
                 containerCategoryRecordList.isNotEmpty
                     ? containerCategoryRecordList.first
                     : null;
+
             return Container(
               decoration: BoxDecoration(),
               child: Column(
@@ -144,7 +142,7 @@ class _AddCategoryPageWidgetState extends State<AddCategoryPageWidget> {
                                     if (isWeb) {
                                       FFAppState().expDay = functions
                                           .setExpiryTime(getCurrentTimestamp);
-                                      setState(() {});
+                                      safeSetState(() {});
                                     } else {
                                       return;
                                     }
@@ -533,7 +531,7 @@ class _AddCategoryPageWidgetState extends State<AddCategoryPageWidget> {
                                       id: functions
                                           .getCatIdByRef(_model.doc!.reference),
                                     ));
-                                    setState(() {
+                                    safeSetState(() {
                                       _model.categoryNameMTextController
                                           ?.clear();
                                       _model.regionalNameWTextController
@@ -548,7 +546,7 @@ class _AddCategoryPageWidgetState extends State<AddCategoryPageWidget> {
 
                                     context.pushNamed('CategoryList');
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   text: 'Add',
                                   options: FFButtonOptions(
@@ -961,7 +959,7 @@ class _AddCategoryPageWidgetState extends State<AddCategoryPageWidget> {
                                         id: functions.getCatIdByRef(
                                             _model.docCopy!.reference),
                                       ));
-                                      setState(() {
+                                      safeSetState(() {
                                         _model.categoryNameMTextController
                                             ?.clear();
                                         _model.regionalNameWTextController
@@ -979,11 +977,11 @@ class _AddCategoryPageWidgetState extends State<AddCategoryPageWidget> {
                                       context.pushNamed('CategoryList');
                                     } else {
                                       context.safePop();
-                                      if (_shouldSetState) setState(() {});
+                                      if (_shouldSetState) safeSetState(() {});
                                       return;
                                     }
 
-                                    if (_shouldSetState) setState(() {});
+                                    if (_shouldSetState) safeSetState(() {});
                                   },
                                   text: 'Add',
                                   options: FFButtonOptions(

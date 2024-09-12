@@ -263,7 +263,7 @@ class _AccountWidgetState extends State<AccountWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -305,15 +305,13 @@ class _AccountWidgetState extends State<AccountWidget>
           );
         }
         List<UserDeletionRecord> accountUserDeletionRecordList = snapshot.data!;
-
         final accountUserDeletionRecord =
             accountUserDeletionRecordList.isNotEmpty
                 ? accountUserDeletionRecordList.first
                 : null;
+
         return GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -365,11 +363,11 @@ class _AccountWidgetState extends State<AccountWidget>
                               List<UserProfileRecord>
                                   containerUserProfileRecordList =
                                   snapshot.data!;
-
                               final containerUserProfileRecord =
                                   containerUserProfileRecordList.isNotEmpty
                                       ? containerUserProfileRecordList.first
                                       : null;
+
                               return Container(
                                 width: MediaQuery.sizeOf(context).width * 0.85,
                                 decoration: BoxDecoration(),
@@ -682,7 +680,7 @@ class _AccountWidgetState extends State<AccountWidget>
                                       if (isWeb) {
                                         FFAppState().expDay = functions
                                             .setExpiryTime(getCurrentTimestamp);
-                                        setState(() {});
+                                        safeSetState(() {});
                                       } else {
                                         return;
                                       }
@@ -799,7 +797,7 @@ class _AccountWidgetState extends State<AccountWidget>
                                     if (isWeb) {
                                       FFAppState().expDay = functions
                                           .setExpiryTime(getCurrentTimestamp);
-                                      setState(() {});
+                                      safeSetState(() {});
                                     } else {
                                       return;
                                     }
@@ -1019,7 +1017,7 @@ class _AccountWidgetState extends State<AccountWidget>
                                     if (isWeb) {
                                       FFAppState().expDay = functions
                                           .setExpiryTime(getCurrentTimestamp);
-                                      setState(() {});
+                                      safeSetState(() {});
                                     } else {
                                       return;
                                     }
@@ -1156,12 +1154,8 @@ class _AccountWidgetState extends State<AccountWidget>
                                           builder: (context) {
                                             return WebViewAware(
                                               child: GestureDetector(
-                                                onTap: () => _model.unfocusNode
-                                                        .canRequestFocus
-                                                    ? FocusScope.of(context)
-                                                        .requestFocus(
-                                                            _model.unfocusNode)
-                                                    : FocusScope.of(context)
+                                                onTap: () =>
+                                                    FocusScope.of(context)
                                                         .unfocus(),
                                                 child: Padding(
                                                   padding:
@@ -1205,12 +1199,8 @@ class _AccountWidgetState extends State<AccountWidget>
                                         builder: (context) {
                                           return WebViewAware(
                                             child: GestureDetector(
-                                              onTap: () => _model.unfocusNode
-                                                      .canRequestFocus
-                                                  ? FocusScope.of(context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode)
-                                                  : FocusScope.of(context)
+                                              onTap: () =>
+                                                  FocusScope.of(context)
                                                       .unfocus(),
                                               child: Padding(
                                                 padding:
@@ -1358,7 +1348,7 @@ class _AccountWidgetState extends State<AccountWidget>
                                   FFAppState().outletId = '';
                                   FFAppState().outletName = '';
                                   FFAppState().outletRef = null;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   var confirmDialogResponse =
                                       await showDialog<bool>(
                                             context: context,

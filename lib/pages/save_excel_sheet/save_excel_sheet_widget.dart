@@ -51,12 +51,12 @@ class _SaveExcelSheetWidgetState extends State<SaveExcelSheetWidget> {
         parent: FFAppState().outletRef,
       );
       FFAppState().startLoop = 0;
-      setState(() {});
+      safeSetState(() {});
       while (FFAppState().startLoop < _model.fetchedPrd!.length) {
         await actions.generateExcel(
           FFAppState().outletName,
           dateTimeFormat(
-            'd/M/y',
+            "d/M/y",
             getCurrentTimestamp,
             locale: FFLocalizations.of(context).languageCode,
           ),
@@ -71,7 +71,7 @@ class _SaveExcelSheetWidgetState extends State<SaveExcelSheetWidget> {
       }
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -86,9 +86,7 @@ class _SaveExcelSheetWidgetState extends State<SaveExcelSheetWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -175,7 +173,7 @@ class _SaveExcelSheetWidgetState extends State<SaveExcelSheetWidget> {
                               if (isWeb) {
                                 FFAppState().expDay = functions
                                     .setExpiryTime(getCurrentTimestamp);
-                                setState(() {});
+                                safeSetState(() {});
                               } else {
                                 context.safePop();
                                 return;
@@ -287,12 +285,8 @@ class _SaveExcelSheetWidgetState extends State<SaveExcelSheetWidget> {
                                           .resolve(Directionality.of(context)),
                                       child: WebViewAware(
                                         child: GestureDetector(
-                                          onTap: () => _model
-                                                  .unfocusNode.canRequestFocus
-                                              ? FocusScope.of(context)
-                                                  .requestFocus(
-                                                      _model.unfocusNode)
-                                              : FocusScope.of(context)
+                                          onTap: () =>
+                                              FocusScope.of(dialogContext)
                                                   .unfocus(),
                                           child: Container(
                                             height: MediaQuery.sizeOf(context)
@@ -307,7 +301,7 @@ class _SaveExcelSheetWidgetState extends State<SaveExcelSheetWidget> {
                                       ),
                                     );
                                   },
-                                ).then((value) => setState(() {}));
+                                );
 
                                 if (FFAppState().emailId != null &&
                                     FFAppState().emailId != '') {
@@ -378,7 +372,7 @@ class _SaveExcelSheetWidgetState extends State<SaveExcelSheetWidget> {
                                         },
                                       );
                                       FFAppState().emailId = '';
-                                      setState(() {});
+                                      safeSetState(() {});
                                       context.safePop();
                                     } else {
                                       await showDialog(
@@ -401,11 +395,11 @@ class _SaveExcelSheetWidgetState extends State<SaveExcelSheetWidget> {
                                       );
                                     }
 
-                                    if (_shouldSetState) setState(() {});
+                                    if (_shouldSetState) safeSetState(() {});
                                     return;
                                   }
                                 }
-                                if (_shouldSetState) setState(() {});
+                                if (_shouldSetState) safeSetState(() {});
                               },
                               text: 'Save File',
                               options: FFButtonOptions(

@@ -47,12 +47,12 @@ class _StockWeightCombinePageWidgetState
         _model.products!.toList(),
       );
       FFAppState().prdJsonList = _model.json!.toList().cast<dynamic>();
-      setState(() {});
+      safeSetState(() {});
       _model.waitLoader = false;
-      setState(() {});
+      safeSetState(() {});
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -67,9 +67,7 @@ class _StockWeightCombinePageWidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -117,7 +115,7 @@ class _StockWeightCombinePageWidgetState
                                 ),
                                 onPressed: () async {
                                   FFAppState().prdJsonList = [];
-                                  setState(() {});
+                                  safeSetState(() {});
                                   context.safePop();
                                 },
                               ),
@@ -294,7 +292,7 @@ class _StockWeightCombinePageWidgetState
                                       value: _model.stockableCheckboxValue ??=
                                           false,
                                       onChanged: (newValue) async {
-                                        setState(() =>
+                                        safeSetState(() =>
                                             _model.stockableCheckboxValue =
                                                 newValue!);
                                         if (newValue!) {
@@ -309,9 +307,9 @@ class _StockWeightCombinePageWidgetState
                                               .result!
                                               .toList()
                                               .cast<dynamic>();
-                                          setState(() {});
+                                          safeSetState(() {});
 
-                                          setState(() {});
+                                          safeSetState(() {});
                                         } else {
                                           _model.resultcopy =
                                               await actions.selectCheckbox(
@@ -324,9 +322,9 @@ class _StockWeightCombinePageWidgetState
                                               .resultcopy!
                                               .toList()
                                               .cast<dynamic>();
-                                          setState(() {});
+                                          safeSetState(() {});
 
-                                          setState(() {});
+                                          safeSetState(() {});
                                         }
                                       },
                                       side: BorderSide(
@@ -359,7 +357,7 @@ class _StockWeightCombinePageWidgetState
                                       value: _model.weightableCheckboxValue ??=
                                           false,
                                       onChanged: (newValue) async {
-                                        setState(() =>
+                                        safeSetState(() =>
                                             _model.weightableCheckboxValue =
                                                 newValue!);
                                         if (newValue!) {
@@ -374,9 +372,9 @@ class _StockWeightCombinePageWidgetState
                                               .result1!
                                               .toList()
                                               .cast<dynamic>();
-                                          setState(() {});
+                                          safeSetState(() {});
 
-                                          setState(() {});
+                                          safeSetState(() {});
                                         } else {
                                           _model.result1Copy =
                                               await actions.selectCheckbox(
@@ -389,9 +387,9 @@ class _StockWeightCombinePageWidgetState
                                               .result1Copy!
                                               .toList()
                                               .cast<dynamic>();
-                                          setState(() {});
+                                          safeSetState(() {});
 
-                                          setState(() {});
+                                          safeSetState(() {});
                                         }
                                       },
                                       side: BorderSide(
@@ -502,7 +500,7 @@ class _StockWeightCombinePageWidgetState
                                                       ),
                                                       onChanged:
                                                           (newValue) async {
-                                                        setState(() => _model
+                                                        safeSetState(() => _model
                                                                     .checkboxValueMap1[
                                                                 productListItem] =
                                                             newValue!);
@@ -527,7 +525,7 @@ class _StockWeightCombinePageWidgetState
                                                           FFAppState()
                                                               .update(() {});
 
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         } else {
                                                           _model.checkBoxClickCopy =
                                                               await actions
@@ -549,7 +547,7 @@ class _StockWeightCombinePageWidgetState
                                                           FFAppState()
                                                               .update(() {});
 
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         }
                                                       },
                                                       side: BorderSide(
@@ -604,7 +602,7 @@ class _StockWeightCombinePageWidgetState
                                                       ),
                                                       onChanged:
                                                           (newValue) async {
-                                                        setState(() => _model
+                                                        safeSetState(() => _model
                                                                     .checkboxValueMap2[
                                                                 productListItem] =
                                                             newValue!);
@@ -629,7 +627,7 @@ class _StockWeightCombinePageWidgetState
                                                           FFAppState()
                                                               .update(() {});
 
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         } else {
                                                           _model.checkBoxClick1 =
                                                               await actions
@@ -651,7 +649,7 @@ class _StockWeightCombinePageWidgetState
                                                           FFAppState()
                                                               .update(() {});
 
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         }
                                                       },
                                                       side: BorderSide(
@@ -734,9 +732,9 @@ class _StockWeightCombinePageWidgetState
                                 child: FFButtonWidget(
                                   onPressed: () async {
                                     _model.waitLoader = true;
-                                    setState(() {});
+                                    safeSetState(() {});
                                     _model.startLoop = 0;
-                                    setState(() {});
+                                    safeSetState(() {});
                                     while (_model.startLoop! <
                                         FFAppState().prdJsonList.length) {
                                       await functions
@@ -760,10 +758,10 @@ class _StockWeightCombinePageWidgetState
                                             ),
                                           ));
                                       _model.startLoop = _model.startLoop! + 1;
-                                      setState(() {});
+                                      safeSetState(() {});
                                     }
                                     _model.waitLoader = false;
-                                    setState(() {});
+                                    safeSetState(() {});
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {

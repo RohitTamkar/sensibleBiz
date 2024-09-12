@@ -29,7 +29,6 @@ class AddEmployeeModel extends FlutterFlowModel<AddEmployeeWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // Stores action output result for [Firestore Query - Query a collection] action in AddEmployee widget.
   List<EmployeeRecord>? count;
@@ -87,7 +86,6 @@ class AddEmployeeModel extends FlutterFlowModel<AddEmployeeWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     employeeNameFocusNode?.dispose();
     employeeNameTextController?.dispose();
 

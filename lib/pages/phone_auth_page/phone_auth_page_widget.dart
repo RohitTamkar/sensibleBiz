@@ -30,7 +30,7 @@ class _PhoneAuthPageWidgetState extends State<PhoneAuthPageWidget> {
     _model.textFieldNumberFocusNode ??= FocusNode();
 
     authManager.handlePhoneAuthStateChanges(context);
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -43,9 +43,7 @@ class _PhoneAuthPageWidgetState extends State<PhoneAuthPageWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -363,7 +361,7 @@ class _PhoneAuthPageWidgetState extends State<PhoneAuthPageWidget> {
                                     onPressed: () async {
                                       FFAppState().currentMobile =
                                           '+91${_model.textFieldNumberTextController.text}';
-                                      setState(() {});
+                                      safeSetState(() {});
                                       final phoneNumberVal =
                                           '+91${_model.textFieldNumberTextController.text}';
                                       if (phoneNumberVal == null ||

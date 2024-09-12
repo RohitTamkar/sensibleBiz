@@ -20,14 +20,11 @@ import 'package:provider/provider.dart';
 class StockReportModel extends FlutterFlowModel<StockReportWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   DateTime? datePicked;
 
   @override
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

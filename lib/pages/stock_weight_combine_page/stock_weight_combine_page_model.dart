@@ -47,7 +47,6 @@ class StockWeightCombinePageModel
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in stockWeightCombinePage widget.
   List<ProductRecord>? products;
   // Stores action output result for [Custom Action - docsToJson] action in stockWeightCombinePage widget.
@@ -91,7 +90,5 @@ class StockWeightCombinePageModel
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

@@ -33,7 +33,7 @@ class _PremTypeWidgetState extends State<PremTypeWidget> {
     super.initState();
     _model = createModel(context, () => PremTypeModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

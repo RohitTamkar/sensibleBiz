@@ -32,7 +32,7 @@ class _EmailInputWidgetState extends State<EmailInputWidget> {
     _model.textController ??= TextEditingController(text: FFAppState().emailId);
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -72,7 +72,7 @@ class _EmailInputWidgetState extends State<EmailInputWidget> {
                       highlightColor: Colors.transparent,
                       onTap: () async {
                         FFAppState().flag = false;
-                        setState(() {});
+                        safeSetState(() {});
                         Navigator.pop(context);
                       },
                       child: Icon(
@@ -170,9 +170,9 @@ class _EmailInputWidgetState extends State<EmailInputWidget> {
                     return;
                   }
                   FFAppState().flag = true;
-                  setState(() {});
+                  safeSetState(() {});
                   FFAppState().emailId = _model.textController.text;
-                  setState(() {});
+                  safeSetState(() {});
                   Navigator.pop(context);
                 },
                 text: 'Submit',

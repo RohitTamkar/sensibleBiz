@@ -40,9 +40,9 @@ class _DiscountWidgetState extends State<DiscountWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       FFAppState().prdJsonList = [];
-      setState(() {});
+      safeSetState(() {});
       FFAppState().taxIndexSTate = 0;
-      setState(() {});
+      safeSetState(() {});
       _model.products = await queryProductRecordOnce(
         parent: FFAppState().outletRef,
         queryBuilder: (productRecord) => productRecord.orderBy('code'),
@@ -51,16 +51,16 @@ class _DiscountWidgetState extends State<DiscountWidget> {
         _model.products!.toList(),
       );
       FFAppState().prdJsonList = _model.json!.toList().cast<dynamic>();
-      setState(() {});
+      safeSetState(() {});
       _model.all = true;
       _model.updateStatus = false;
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -75,9 +75,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -119,7 +117,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                 ),
                                 onPressed: () async {
                                   FFAppState().showMenuProduct = false;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   if (_model.updateStatus == false) {
                                     context.safePop();
                                   } else {
@@ -235,9 +233,9 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                             _model.selectedId = '';
                                             _model.selectAllBoolean = false;
                                             _model.all = true;
-                                            setState(() {});
+                                            safeSetState(() {});
                                             FFAppState().prdJsonList = [];
-                                            setState(() {});
+                                            safeSetState(() {});
                                             _model.products2 =
                                                 await queryProductRecordOnce(
                                               parent: FFAppState().outletRef,
@@ -252,9 +250,9 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                 .json2!
                                                 .toList()
                                                 .cast<dynamic>();
-                                            setState(() {});
+                                            safeSetState(() {});
 
-                                            setState(() {});
+                                            safeSetState(() {});
                                           },
                                           text: 'All',
                                           options: FFButtonOptions(
@@ -362,7 +360,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                       onTap: () async {
                                                         FFAppState()
                                                             .prdJsonList = [];
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                         _model.all = false;
                                                         _model.selectedId = functions
                                                             .getReferenceCategory(
@@ -370,7 +368,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                     .outletRef!,
                                                                 listViewCategoryRecord
                                                                     .reference);
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                         _model.products1 =
                                                             await queryProductRecordOnce(
                                                           parent: FFAppState()
@@ -396,9 +394,9 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                 .toList()
                                                                 .cast<
                                                                     dynamic>();
-                                                        setState(() {});
+                                                        safeSetState(() {});
 
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       child: Container(
                                                         decoration:
@@ -483,7 +481,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                       () async {
                                         _model.discValue = int.parse(
                                             _model.textController.text);
-                                        setState(() {});
+                                        safeSetState(() {});
                                       },
                                     ),
                                     autofocus: true,
@@ -774,7 +772,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                     true)
                                                                 ? null
                                                                 : (newValue) async {
-                                                                    setState(() =>
+                                                                    safeSetState(() =>
                                                                         _model.selectAllCheckboxValue =
                                                                             newValue!);
                                                                     if (newValue!) {
@@ -784,7 +782,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                               '') {
                                                                         _model.updateStatus =
                                                                             true;
-                                                                        setState(
+                                                                        safeSetState(
                                                                             () {});
                                                                         _model.result =
                                                                             await actions.updateAddDiscountAction(
@@ -801,7 +799,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                             .result!
                                                                             .toList()
                                                                             .cast<dynamic>();
-                                                                        setState(
+                                                                        safeSetState(
                                                                             () {});
                                                                       } else {
                                                                         await showDialog(
@@ -825,7 +823,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                         );
                                                                       }
 
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     } else {
                                                                       if (_model.textController.text !=
@@ -834,7 +832,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                               '') {
                                                                         _model.updateStatus =
                                                                             true;
-                                                                        setState(
+                                                                        safeSetState(
                                                                             () {});
                                                                         _model.result2 =
                                                                             await actions.updateAddDiscountAction(
@@ -851,7 +849,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                             .result2!
                                                                             .toList()
                                                                             .cast<dynamic>();
-                                                                        setState(
+                                                                        safeSetState(
                                                                             () {});
                                                                       } else {
                                                                         await showDialog(
@@ -875,7 +873,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                         );
                                                                       }
 
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     }
                                                                   },
@@ -1081,11 +1079,11 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                           onChanged: (_model.waitUpload == true)
                                                                               ? null
                                                                               : (newValue) async {
-                                                                                  setState(() => _model.checkboxValueMap[taxProdList1Item] = newValue!);
+                                                                                  safeSetState(() => _model.checkboxValueMap[taxProdList1Item] = newValue!);
                                                                                   if (newValue!) {
                                                                                     if (_model.textController.text != null && _model.textController.text != '') {
                                                                                       _model.updateStatus = true;
-                                                                                      setState(() {});
+                                                                                      safeSetState(() {});
                                                                                       _model.result1 = await actions.selectCheckboxDiscountSIngle(
                                                                                         true,
                                                                                         FFAppState().prdJsonList.toList(),
@@ -1093,7 +1091,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                                         taxProdList1Item,
                                                                                       );
                                                                                       FFAppState().prdJsonList = _model.result1!.toList().cast<dynamic>();
-                                                                                      setState(() {});
+                                                                                      safeSetState(() {});
                                                                                     } else {
                                                                                       await showDialog(
                                                                                         context: context,
@@ -1113,10 +1111,10 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                                       );
                                                                                     }
 
-                                                                                    setState(() {});
+                                                                                    safeSetState(() {});
                                                                                   } else {
                                                                                     _model.updateStatus = true;
-                                                                                    setState(() {});
+                                                                                    safeSetState(() {});
                                                                                     _model.result3 = await actions.selectCheckboxDiscountSIngle(
                                                                                       false,
                                                                                       FFAppState().prdJsonList.toList(),
@@ -1124,9 +1122,9 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                                                       taxProdList1Item,
                                                                                     );
                                                                                     FFAppState().prdJsonList = _model.result3!.toList().cast<dynamic>();
-                                                                                    setState(() {});
+                                                                                    safeSetState(() {});
 
-                                                                                    setState(() {});
+                                                                                    safeSetState(() {});
                                                                                   }
                                                                                 },
                                                                           side:
@@ -1175,7 +1173,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                       onPressed: () async {
                                                         FFAppState()
                                                             .productListSTockableUpdate = [];
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                         context.safePop();
                                                       },
                                                       text: 'Cancel',
@@ -1242,7 +1240,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                           _model.startLoop = 0;
                                                           _model.waitUpload =
                                                               true;
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                           while (_model
                                                                   .startLoop! <
                                                               FFAppState()
@@ -1268,16 +1266,16 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                             _model.startLoop =
                                                                 _model.startLoop! +
                                                                     1;
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                           }
                                                           _model.updateStatus =
                                                               false;
                                                           _model.waitUpload =
                                                               false;
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                           _model.waitUpload =
                                                               false;
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                           await showDialog(
                                                             context: context,
                                                             builder:
@@ -1328,7 +1326,7 @@ class _DiscountWidgetState extends State<DiscountWidget> {
                                                           );
                                                           _model.updateStatus =
                                                               false;
-                                                          setState(() {});
+                                                          safeSetState(() {});
 
                                                           context.pushNamed(
                                                               'Discount');

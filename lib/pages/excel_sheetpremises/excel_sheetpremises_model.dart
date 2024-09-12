@@ -25,7 +25,6 @@ class ExcelSheetpremisesModel
     extends FlutterFlowModel<ExcelSheetpremisesWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   CategoryRecord? categoryid;
   // Stores action output result for [Custom Action - getUnitTypes] action in Button widget.
@@ -41,7 +40,5 @@ class ExcelSheetpremisesModel
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

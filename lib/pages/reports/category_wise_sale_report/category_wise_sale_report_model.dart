@@ -27,7 +27,6 @@ class CategoryWiseSaleReportModel
     extends FlutterFlowModel<CategoryWiseSaleReportWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   DateTime? datePicked;
   // Stores action output result for [Custom Action - getShiftDetails] action in IconButton widget.
   List<dynamic>? shiftdetails2;
@@ -52,7 +51,5 @@ class CategoryWiseSaleReportModel
   }
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

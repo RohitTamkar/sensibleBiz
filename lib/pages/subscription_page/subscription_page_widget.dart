@@ -29,7 +29,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
     super.initState();
     _model = createModel(context, () => SubscriptionPageModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -44,9 +44,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -74,7 +72,6 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
               );
             }
             List<OutletRecord> containerOutletRecordList = snapshot.data!;
-
             // Return an empty Container when the item does not exist.
             if (snapshot.data!.isEmpty) {
               return Container();
@@ -82,6 +79,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
             final containerOutletRecord = containerOutletRecordList.isNotEmpty
                 ? containerOutletRecordList.first
                 : null;
+
             return Container(
               decoration: BoxDecoration(),
               child: Column(
@@ -122,7 +120,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                                     if (isWeb) {
                                       FFAppState().expDay = functions
                                           .setExpiryTime(getCurrentTimestamp);
-                                      setState(() {});
+                                      safeSetState(() {});
                                     } else {
                                       context.safePop();
                                       return;
@@ -428,7 +426,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                                                                 ),
                                                                 Text(
                                                                   dateTimeFormat(
-                                                                    'yMMMd',
+                                                                    "yMMMd",
                                                                     DateTime.fromMillisecondsSinceEpoch(
                                                                         valueOrDefault<
                                                                             int>(
@@ -506,7 +504,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                                                                 ),
                                                                 Text(
                                                                   dateTimeFormat(
-                                                                    'yMMMd',
+                                                                    "yMMMd",
                                                                     DateTime.fromMillisecondsSinceEpoch(
                                                                         valueOrDefault<
                                                                             int>(
@@ -1021,7 +1019,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                                                                     ),
                                                                     Text(
                                                                       dateTimeFormat(
-                                                                        'yMMMd',
+                                                                        "yMMMd",
                                                                         DateTime.fromMillisecondsSinceEpoch(
                                                                             valueOrDefault<int>(
                                                                           containerOutletRecord
@@ -1102,7 +1100,7 @@ class _SubscriptionPageWidgetState extends State<SubscriptionPageWidget> {
                                                                     ),
                                                                     Text(
                                                                       dateTimeFormat(
-                                                                        'yMMMd',
+                                                                        "yMMMd",
                                                                         DateTime.fromMillisecondsSinceEpoch(
                                                                             valueOrDefault<int>(
                                                                           containerOutletRecord

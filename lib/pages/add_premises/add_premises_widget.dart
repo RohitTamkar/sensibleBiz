@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class _AddPremisesWidgetState extends State<AddPremisesWidget> {
     _model.textController4 ??= TextEditingController();
     _model.textFieldFocusNode4 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -98,9 +99,7 @@ class _AddPremisesWidgetState extends State<AddPremisesWidget> {
             snapshot.data!;
 
         return GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -173,8 +172,8 @@ class _AddPremisesWidgetState extends State<AddPremisesWidget> {
                                     buttonSize: 45.0,
                                     icon: Icon(
                                       Icons.add,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                     ),
                                     onPressed: () {
                                       print('IconButton pressed ...');
@@ -435,14 +434,14 @@ class _AddPremisesWidgetState extends State<AddPremisesWidget> {
                                           'GST2'
                                         ],
                                         onChanged: (val) async {
-                                          setState(
+                                          safeSetState(
                                               () => _model.taxMValue = val);
                                           _model.taxIndexOutput =
                                               await actions.getTaxIdCopy(
                                             _model.taxMValue,
                                           );
 
-                                          setState(() {});
+                                          safeSetState(() {});
                                         },
                                         width:
                                             MediaQuery.sizeOf(context).width *
@@ -467,9 +466,11 @@ class _AddPremisesWidgetState extends State<AddPremisesWidget> {
                                         hintText: 'Tax',
                                         fillColor: Colors.white,
                                         elevation: 2.0,
-                                        borderColor: Colors.transparent,
+                                        borderColor:
+                                            FlutterFlowTheme.of(context)
+                                                .alternate,
                                         borderWidth: 0.0,
-                                        borderRadius: 0.0,
+                                        borderRadius: 8.0,
                                         margin: EdgeInsetsDirectional.fromSTEB(
                                             12.0, 4.0, 12.0, 4.0),
                                         hidesUnderline: true,
@@ -479,74 +480,63 @@ class _AddPremisesWidgetState extends State<AddPremisesWidget> {
                                     ],
                                   ),
                                 ),
-                                if (responsiveVisibility(
-                                  context: context,
-                                  phone: false,
-                                  tablet: false,
-                                  tabletLandscape: false,
-                                  desktop: false,
-                                ))
-                                  Align(
-                                    alignment: AlignmentDirectional(-1.0, -1.0),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 5.0),
-                                      child: FlutterFlowDropDown<String>(
-                                        controller: _model
-                                                .dropDownUserValueController ??=
-                                            FormFieldController<String>(
-                                          _model.dropDownUserValue ??= '',
-                                        ),
-                                        options: List<String>.from(
-                                            addPremisesUserProfileRecordList
-                                                .map((e) => e.reference.id)
-                                                .toList()),
-                                        optionLabels:
-                                            addPremisesUserProfileRecordList
-                                                .map((e) => e.name)
-                                                .toList(),
-                                        onChanged: (val) => setState(() =>
-                                            _model.dropDownUserValue = val),
-                                        width: 300.0,
-                                        height: 50.0,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily,
-                                              letterSpacing: 0.0,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily),
-                                            ),
-                                        hintText: 'Please select...',
-                                        icon: Icon(
-                                          Icons.keyboard_arrow_down_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          size: 24.0,
-                                        ),
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        elevation: 2.0,
-                                        borderColor:
-                                            FlutterFlowTheme.of(context)
-                                                .alternate,
-                                        borderWidth: 2.0,
-                                        borderRadius: 8.0,
-                                        margin: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 4.0, 16.0, 4.0),
-                                        hidesUnderline: true,
-                                        isOverButton: true,
-                                        isSearchable: false,
-                                        isMultiSelect: false,
+                                Align(
+                                  alignment: AlignmentDirectional(-1.0, -1.0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 5.0),
+                                    child: FlutterFlowDropDown<String>(
+                                      controller:
+                                          _model.dropDownUserValueController ??=
+                                              FormFieldController<String>(
+                                        _model.dropDownUserValue ??= '',
                                       ),
+                                      options: List<String>.from(
+                                          addPremisesUserProfileRecordList
+                                              .map((e) => e.id)
+                                              .toList()),
+                                      optionLabels:
+                                          addPremisesUserProfileRecordList
+                                              .map((e) => e.name)
+                                              .toList(),
+                                      onChanged: (val) => safeSetState(
+                                          () => _model.dropDownUserValue = val),
+                                      width: 300.0,
+                                      height: 50.0,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMediumFamily,
+                                            letterSpacing: 0.0,
+                                            useGoogleFonts: GoogleFonts.asMap()
+                                                .containsKey(
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMediumFamily),
+                                          ),
+                                      icon: Icon(
+                                        Icons.keyboard_arrow_down_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                      fillColor: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      elevation: 2.0,
+                                      borderColor: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      borderWidth: 2.0,
+                                      borderRadius: 8.0,
+                                      margin: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 4.0, 16.0, 4.0),
+                                      hidesUnderline: true,
+                                      isOverButton: true,
+                                      isSearchable: false,
+                                      isMultiSelect: false,
                                     ),
                                   ),
+                                ),
                                 Align(
                                   alignment: AlignmentDirectional(-1.0, -1.0),
                                   child: Text(
@@ -570,7 +560,7 @@ class _AddPremisesWidgetState extends State<AddPremisesWidget> {
                                   alignment: AlignmentDirectional(-1.0, -1.0),
                                   child: FlutterFlowRadioButton(
                                     options: ['Table', 'Room', 'Bill'].toList(),
-                                    onChanged: (val) => setState(() {}),
+                                    onChanged: (val) => safeSetState(() {}),
                                     controller:
                                         _model.radioButtonValueController ??=
                                             FormFieldController<String>(null),
@@ -798,10 +788,100 @@ class _AddPremisesWidgetState extends State<AddPremisesWidget> {
                                     alignment: AlignmentDirectional(0.0, 1.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
+                                        var _shouldSetState = false;
                                         if (_model.formKey.currentState ==
                                                 null ||
                                             !_model.formKey.currentState!
                                                 .validate()) {
+                                          return;
+                                        }
+                                        if (_model.taxMValue == null) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Please Select TAX Percentage',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                            ),
+                                          );
+                                          return;
+                                        }
+                                        if (_model.dropDownUserValue == null) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Please Select Captain',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                            ),
+                                          );
+                                          return;
+                                        }
+                                        if (_model.radioButtonValue == null) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Please Select Premise Type',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                            ),
+                                          );
+                                          return;
+                                        }
+                                        if (!(_model.dropDownUserValue !=
+                                                null &&
+                                            _model.dropDownUserValue != '')) {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return WebViewAware(
+                                                child: AlertDialog(
+                                                  content: Text(
+                                                      'Please Select Captain'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext),
+                                                      child: Text('Ok'),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          );
+                                          if (_shouldSetState)
+                                            safeSetState(() {});
                                           return;
                                         }
 
@@ -812,14 +892,15 @@ class _AddPremisesWidgetState extends State<AddPremisesWidget> {
                                             .set(createPremisesRecordData(
                                           code: widget!.codeLen,
                                           createdTime: getCurrentTimestamp,
-                                          name: _model.textController1.text,
+                                          name: functions.toCapitalLetter(
+                                              _model.textController1.text),
                                           range: int.tryParse(
                                               _model.textController4.text),
                                           tables: int.tryParse(
                                               _model.textController3.text),
                                           taxIndex: _model.taxIndexOutput,
                                           type: _model.radioButtonValue,
-                                          userId: '',
+                                          userId: _model.dropDownUserValue,
                                         ));
                                         _model.created =
                                             PremisesRecord.getDocumentFromData(
@@ -827,8 +908,10 @@ class _AddPremisesWidgetState extends State<AddPremisesWidget> {
                                                   code: widget!.codeLen,
                                                   createdTime:
                                                       getCurrentTimestamp,
-                                                  name: _model
-                                                      .textController1.text,
+                                                  name: functions
+                                                      .toCapitalLetter(_model
+                                                          .textController1
+                                                          .text),
                                                   range: int.tryParse(_model
                                                       .textController4.text),
                                                   tables: int.tryParse(_model
@@ -836,9 +919,11 @@ class _AddPremisesWidgetState extends State<AddPremisesWidget> {
                                                   taxIndex:
                                                       _model.taxIndexOutput,
                                                   type: _model.radioButtonValue,
-                                                  userId: '',
+                                                  userId:
+                                                      _model.dropDownUserValue,
                                                 ),
                                                 premisesRecordReference);
+                                        _shouldSetState = true;
 
                                         await _model.created!.reference
                                             .update(createPremisesRecordData(
@@ -866,7 +951,8 @@ class _AddPremisesWidgetState extends State<AddPremisesWidget> {
 
                                         context.pushNamed('Premises');
 
-                                        setState(() {});
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
                                       },
                                       text: 'Save',
                                       options: FFButtonOptions(

@@ -17,7 +17,6 @@ import 'package:provider/provider.dart';
 class ReportsModel extends FlutterFlowModel<ReportsWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Custom Action - getShiftDetails] action in Button widget.
   List<dynamic>? shiftdetails2;
   // Stores action output result for [Custom Action - getProductSale] action in Button widget.
@@ -55,7 +54,5 @@ class ReportsModel extends FlutterFlowModel<ReportsWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

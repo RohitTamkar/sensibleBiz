@@ -44,7 +44,7 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
         parent: FFAppState().outletRef,
       );
       _model.countPS = functions.getCatCount(_model.count!.length);
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.employeeNameTextController ??= TextEditingController();
@@ -60,7 +60,7 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
     _model.balenceTextController ??= TextEditingController();
     _model.balenceFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -75,9 +75,7 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -124,7 +122,7 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
                                   size: 30.0,
                                 ),
                                 onPressed: () async {
-                                  setState(() {
+                                  safeSetState(() {
                                     _model.mobileTextFieldTextController
                                         ?.clear();
                                     _model.shortNameTextController?.clear();
@@ -163,7 +161,7 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
                                       return;
                                     }
                                     _model.wait = true;
-                                    setState(() {});
+                                    safeSetState(() {});
 
                                     var employeeRecordReference =
                                         EmployeeRecord.createDoc(
@@ -213,7 +211,7 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
                                       id: _model.created?.reference.id,
                                     ));
                                     _model.wait = false;
-                                    setState(() {});
+                                    safeSetState(() {});
                                     await showDialog(
                                       context: context,
                                       builder: (alertDialogContext) {
@@ -232,7 +230,7 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
                                         );
                                       },
                                     );
-                                    setState(() {
+                                    safeSetState(() {
                                       _model.mobileTextFieldTextController
                                           ?.clear();
                                       _model.shortNameTextController?.clear();
@@ -242,7 +240,7 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
                                     });
                                     context.safePop();
 
-                                    setState(() {});
+                                    safeSetState(() {});
                                   },
                                   text: 'Save',
                                   options: FFButtonOptions(
@@ -330,7 +328,7 @@ class _AddEmployeeWidgetState extends State<AddEmployeeWidget> {
                                                   .text,
                                             );
 
-                                            setState(() {});
+                                            safeSetState(() {});
                                           },
                                         ),
                                         autofocus: true,

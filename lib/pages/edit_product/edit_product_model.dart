@@ -24,7 +24,6 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class EditProductModel extends FlutterFlowModel<EditProductWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey2 = GlobalKey<FormState>();
   final formKey1 = GlobalKey<FormState>();
   // Stores action output result for [Backend Call - Read Document] action in EditProduct widget.
@@ -261,7 +260,6 @@ class EditProductModel extends FlutterFlowModel<EditProductWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldCodeMFocusNode?.dispose();
     textFieldCodeMTextController?.dispose();
 

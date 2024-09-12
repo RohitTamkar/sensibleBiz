@@ -20,7 +20,6 @@ class CreateUserProfileTestModel
     extends FlutterFlowModel<CreateUserProfileTestWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for TextFieldName widget.
   FocusNode? textFieldNameFocusNode1;
@@ -120,7 +119,6 @@ class CreateUserProfileTestModel
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldNameFocusNode1?.dispose();
     textFieldNameTextController1?.dispose();
 

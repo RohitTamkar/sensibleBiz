@@ -21,7 +21,6 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class SplashScreenModel extends FlutterFlowModel<SplashScreenWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in SplashScreen widget.
   UserProfileRecord? userDoc;
 
@@ -29,7 +28,5 @@ class SplashScreenModel extends FlutterFlowModel<SplashScreenWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

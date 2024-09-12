@@ -27,7 +27,6 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class StockRequestModel extends FlutterFlowModel<StockRequestWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   DateTime? datePicked;
   // State field(s) for DropDown widget.
   String? dropDownValue;
@@ -51,7 +50,5 @@ class StockRequestModel extends FlutterFlowModel<StockRequestWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

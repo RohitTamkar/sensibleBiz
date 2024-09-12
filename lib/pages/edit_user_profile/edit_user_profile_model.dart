@@ -16,7 +16,6 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class EditUserProfileModel extends FlutterFlowModel<EditUserProfileWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode1;
@@ -48,7 +47,6 @@ class EditUserProfileModel extends FlutterFlowModel<EditUserProfileWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldFocusNode1?.dispose();
     textController1?.dispose();
 

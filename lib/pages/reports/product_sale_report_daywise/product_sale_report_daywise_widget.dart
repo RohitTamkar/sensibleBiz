@@ -1,8 +1,8 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
+import '/components/custom_date_range_copy/custom_date_range_copy_widget.dart';
 import '/components/no_data/no_data_widget.dart';
-import '/components/select_date_range/select_date_range_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -14,7 +14,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -63,16 +62,21 @@ class _ProductSaleReportDaywiseWidgetState
         ),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
-      FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
-      setState(() {});
+      FFAppState().sStartDate =
+          functions.getMillisecondsFromDate(dateTimeFormat(
+        "d/M/y",
+        getCurrentTimestamp,
+        locale: FFLocalizations.of(context).languageCode,
+      ));
+      FFAppState().update(() {});
       FFAppState().isLoding = true;
-      setState(() {});
+      safeSetState(() {});
       if (widget!.prdTestList?.length != 0) {
         FFAppState().isLoding = false;
-        setState(() {});
+        safeSetState(() {});
       } else {
         FFAppState().isLoding = true;
-        setState(() {});
+        safeSetState(() {});
         await showDialog(
           context: context,
           builder: (alertDialogContext) {
@@ -110,7 +114,7 @@ class _ProductSaleReportDaywiseWidgetState
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -125,9 +129,7 @@ class _ProductSaleReportDaywiseWidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -159,7 +161,6 @@ class _ProductSaleReportDaywiseWidgetState
                     );
                   }
                   List<OutletRecord> containerOutletRecordList = snapshot.data!;
-
                   // Return an empty Container when the item does not exist.
                   if (snapshot.data!.isEmpty) {
                     return Container();
@@ -168,6 +169,7 @@ class _ProductSaleReportDaywiseWidgetState
                       containerOutletRecordList.isNotEmpty
                           ? containerOutletRecordList.first
                           : null;
+
                   return Container(
                     width: MediaQuery.sizeOf(context).width * 1.0,
                     height: 100.0,
@@ -227,107 +229,151 @@ class _ProductSaleReportDaywiseWidgetState
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  FlutterFlowIconButton(
-                                    borderColor: Colors.transparent,
-                                    borderRadius: 30.0,
-                                    borderWidth: 1.0,
-                                    buttonSize: 40.0,
-                                    icon: Icon(
-                                      Icons.calendar_today_sharp,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBtnText,
-                                      size: 22.0,
-                                    ),
-                                    onPressed: () async {
-                                      if (isWeb) {
-                                        FFAppState().expDay = functions
-                                            .setExpiryTime(getCurrentTimestamp);
-                                        setState(() {});
-                                      }
-                                      final _datePickedDate =
-                                          await showDatePicker(
-                                        context: context,
-                                        initialDate: getCurrentTimestamp,
-                                        firstDate: DateTime(1900),
-                                        lastDate: getCurrentTimestamp,
-                                      );
-
-                                      if (_datePickedDate != null) {
-                                        safeSetState(() {
-                                          _model.datePicked = DateTime(
-                                            _datePickedDate.year,
-                                            _datePickedDate.month,
-                                            _datePickedDate.day,
-                                          );
-                                        });
-                                      }
-                                      FFAppState().selectedDate = functions
-                                          .getDayId(_model.datePicked!);
-                                      FFAppState().isLoding = true;
-                                      setState(() {});
-                                      FFAppState().finalCategoryReport = [];
-                                      FFAppState().productCart = [];
-                                      FFAppState().categoryCart = [];
-                                      setState(() {});
-                                      _model.shiftdetails3 =
-                                          await actions.getShiftDetails(
-                                        FFAppState().outletId,
-                                        FFAppState().selectedDate,
-                                      );
-                                      _model.prdJson3 =
-                                          await actions.getProductSale(
-                                        _model.shiftdetails3!.toList(),
-                                      );
-                                      FFAppState().iLoopStart = 0;
-                                      setState(() {});
-                                      while (FFAppState().iLoopStart <
-                                          _model.prdJson3!.length) {
-                                        _model.productDetail3 =
-                                            await ProductRecord.getDocumentOnce(
-                                                functions.productRef(
-                                                    getJsonField(
-                                                      _model.prdJson3![
-                                                          FFAppState()
-                                                              .iLoopStart],
-                                                      r'''$.prdId''',
-                                                    ).toString(),
-                                                    FFAppState().outletId));
-                                        _model.productJson3 =
-                                            await actions.docToJsonCopy(
-                                          _model.productDetail3!,
-                                          getJsonField(
-                                            _model.prdJson3![
-                                                FFAppState().iLoopStart],
-                                            r'''$.price''',
-                                          ),
-                                          getJsonField(
-                                            _model.prdJson3![
-                                                FFAppState().iLoopStart],
-                                            r'''$.qty''',
-                                          ),
+                                  Builder(
+                                    builder: (context) => FlutterFlowIconButton(
+                                      borderColor: Colors.transparent,
+                                      borderRadius: 30.0,
+                                      borderWidth: 1.0,
+                                      buttonSize: 40.0,
+                                      icon: Icon(
+                                        Icons.calendar_today_sharp,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBtnText,
+                                        size: 22.0,
+                                      ),
+                                      onPressed: () async {
+                                        if (isWeb) {}
+                                        await showDialog(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return WebViewAware(
+                                              child: AlertDialog(
+                                                title: Text('Test 1'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
                                         );
-                                        FFAppState().iLoopStart =
-                                            FFAppState().iLoopStart + 1;
-                                        FFAppState().addToProductCart(
-                                            _model.productJson3!);
-                                        setState(() {});
-                                      }
-                                      _model.finalList4 =
-                                          await actions.getReport(
-                                        FFAppState().productCart.toList(),
-                                        FFAppState().categoryCart.toList(),
-                                        'product',
-                                      );
-                                      FFAppState().finalCategoryReport = _model
-                                          .finalList4!
-                                          .toList()
-                                          .cast<dynamic>();
-                                      setState(() {});
-                                      FFAppState().isLoding = false;
-                                      setState(() {});
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: WebViewAware(
+                                                child: GestureDetector(
+                                                  onTap: () => FocusScope.of(
+                                                          dialogContext)
+                                                      .unfocus(),
+                                                  child:
+                                                      CustomDateRangeCopyWidget(),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
 
-                                      setState(() {});
-                                    },
+                                        FFAppState().isLoding = true;
+                                        safeSetState(() {});
+                                        FFAppState().finalCategoryReport = [];
+                                        FFAppState().productCart = [];
+                                        FFAppState().categoryCart = [];
+                                        safeSetState(() {});
+                                        await showDialog(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return WebViewAware(
+                                              child: AlertDialog(
+                                                title: Text('Test 2'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                        _model.shiftdetails6 =
+                                            await actions.getShiftDetailsCopy(
+                                          FFAppState().outletId,
+                                          FFAppState().sStartDate,
+                                          FFAppState().sEndDate,
+                                        );
+                                        _model.prdJson3 =
+                                            await actions.getProductSale(
+                                          _model.shiftdetails6!.toList(),
+                                        );
+                                        FFAppState().iLoopStart = 0;
+                                        safeSetState(() {});
+                                        while (FFAppState().iLoopStart <
+                                            _model.prdJson3!.length) {
+                                          _model.productDetail3 =
+                                              await ProductRecord
+                                                  .getDocumentOnce(
+                                                      functions.productRef(
+                                                          getJsonField(
+                                                            _model.prdJson3![
+                                                                FFAppState()
+                                                                    .iLoopStart],
+                                                            r'''$.prdId''',
+                                                          ).toString(),
+                                                          FFAppState()
+                                                              .outletId));
+                                          _model.productJson3 =
+                                              await actions.docToJsonCopy(
+                                            _model.productDetail3!,
+                                            getJsonField(
+                                              _model.prdJson3![
+                                                  FFAppState().iLoopStart],
+                                              r'''$.price''',
+                                            ),
+                                            getJsonField(
+                                              _model.prdJson3![
+                                                  FFAppState().iLoopStart],
+                                              r'''$.qty''',
+                                            ),
+                                          );
+                                          FFAppState().iLoopStart =
+                                              FFAppState().iLoopStart + 1;
+                                          FFAppState().addToProductCart(
+                                              _model.productJson3!);
+                                          safeSetState(() {});
+                                        }
+                                        _model.finalList4 =
+                                            await actions.getReport(
+                                          FFAppState().productCart.toList(),
+                                          FFAppState().categoryCart.toList(),
+                                          'product',
+                                        );
+                                        FFAppState().finalCategoryReport =
+                                            _model.finalList4!
+                                                .toList()
+                                                .cast<dynamic>();
+                                        FFAppState().update(() {});
+                                        FFAppState().isLoding = false;
+                                        safeSetState(() {});
+
+                                        safeSetState(() {});
+                                      },
+                                    ),
                                   ),
                                 ],
                               ),
@@ -343,139 +389,113 @@ class _ProductSaleReportDaywiseWidgetState
                                 ),
                                 onPressed: () async {
                                   var _shouldSetState = false;
-                                  if (true) {
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      enableDrag: false,
-                                      context: context,
-                                      builder: (context) {
-                                        return WebViewAware(
-                                          child: GestureDetector(
-                                            onTap: () => _model
-                                                    .unfocusNode.canRequestFocus
-                                                ? FocusScope.of(context)
-                                                    .requestFocus(
-                                                        _model.unfocusNode)
-                                                : FocusScope.of(context)
-                                                    .unfocus(),
-                                            child: Padding(
-                                              padding: MediaQuery.viewInsetsOf(
-                                                  context),
-                                              child: SelectDateRangeWidget(),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ).then((value) => safeSetState(() {}));
-                                  } else {
-                                    _model.base64Link = await actions
-                                        .genrateExcelForProductWiseSaleReport(
-                                      FFAppState().finalCategoryReport.toList(),
-                                      FFAppState().selectedDate,
-                                    );
-                                    _shouldSetState = true;
-                                    _model.apiResultOfMailSend =
-                                        await SendMailCall.call(
-                                      outletName: FFAppState().outletName,
-                                      file: _model.base64Link,
-                                      fileName: 'ProductWiseSale',
-                                      toEmail: _model.userDetails?.email,
-                                      branchName: containerOutletRecord?.branch,
-                                      username: _model.userDetails?.name,
-                                      mobileNo: _model.userDetails?.mobile,
-                                      roll: _model.userDetails?.roll,
-                                    );
+                                  _model.base64Link = await actions
+                                      .genrateExcelForProductWiseSaleReportForWeb(
+                                    FFAppState().finalCategoryReport.toList(),
+                                    FFAppState().selectedDate,
+                                    FFAppState().selectedLastDate,
+                                  );
+                                  _shouldSetState = true;
+                                  _model.apiResultOfMailSend =
+                                      await SendMailCall.call(
+                                    outletName: FFAppState().outletName,
+                                    file: _model.base64Link,
+                                    fileName: 'ProductWiseSale',
+                                    toEmail: _model.userDetails?.email,
+                                    branchName: containerOutletRecord?.branch,
+                                    username: _model.userDetails?.name,
+                                    mobileNo: _model.userDetails?.mobile,
+                                    roll: _model.userDetails?.roll,
+                                  );
 
-                                    _shouldSetState = true;
-                                    var confirmDialogResponse =
-                                        await showDialog<bool>(
-                                              context: context,
-                                              builder: (alertDialogContext) {
-                                                return WebViewAware(
-                                                  child: AlertDialog(
-                                                    title: Text(
-                                                        'Confirm Your Email !'),
-                                                    content: Text(_model
-                                                        .userDetails!.email),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext,
-                                                                false),
-                                                        child: Text('Cancel'),
-                                                      ),
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext,
-                                                                true),
-                                                        child: Text('Confirm'),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                            ) ??
-                                            false;
-                                    if (confirmDialogResponse) {
-                                      if ((_model
-                                              .apiResultOfMailSend?.succeeded ??
-                                          true)) {
-                                        await showDialog(
-                                          context: context,
-                                          builder: (alertDialogContext) {
-                                            return WebViewAware(
-                                              child: AlertDialog(
-                                                title: Text('Success'),
-                                                content: Text(
-                                                    'Email Sent Successfully.'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.pop(
-                                                            alertDialogContext),
-                                                    child: Text('Ok'),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        );
-                                        if (_shouldSetState) setState(() {});
-                                        return;
-                                      } else {
-                                        await showDialog(
-                                          context: context,
-                                          builder: (alertDialogContext) {
-                                            return WebViewAware(
-                                              child: AlertDialog(
-                                                title: Text('Failed'),
-                                                content: Text(
-                                                    'Email Sent Failed.Try Again'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.pop(
-                                                            alertDialogContext),
-                                                    child: Text('Ok'),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        );
-                                        if (_shouldSetState) setState(() {});
-                                        return;
-                                      }
+                                  _shouldSetState = true;
+                                  var confirmDialogResponse =
+                                      await showDialog<bool>(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return WebViewAware(
+                                                child: AlertDialog(
+                                                  title: Text(
+                                                      'Confirm Your Email !'),
+                                                  content: Text(_model
+                                                      .userDetails!.email),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext,
+                                                              false),
+                                                      child: Text('Cancel'),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext,
+                                                              true),
+                                                      child: Text('Confirm'),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          ) ??
+                                          false;
+                                  if (confirmDialogResponse) {
+                                    if ((_model
+                                            .apiResultOfMailSend?.succeeded ??
+                                        true)) {
+                                      await showDialog(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return WebViewAware(
+                                            child: AlertDialog(
+                                              title: Text('Success'),
+                                              content: Text(
+                                                  'Email Sent Successfully.'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext),
+                                                  child: Text('Ok'),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
+                                      if (_shouldSetState) safeSetState(() {});
+                                      return;
                                     } else {
-                                      if (_shouldSetState) setState(() {});
+                                      await showDialog(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return WebViewAware(
+                                            child: AlertDialog(
+                                              title: Text('Failed'),
+                                              content: Text(
+                                                  'Email Sent Failed.Try Again'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext),
+                                                  child: Text('Ok'),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
+                                      if (_shouldSetState) safeSetState(() {});
                                       return;
                                     }
+                                  } else {
+                                    if (_shouldSetState) safeSetState(() {});
+                                    return;
                                   }
 
-                                  if (_shouldSetState) setState(() {});
+                                  if (_shouldSetState) safeSetState(() {});
                                 },
                               ),
                             ],
@@ -538,10 +558,7 @@ class _ProductSaleReportDaywiseWidgetState
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 0.0, 0.0),
                                 child: Text(
-                                  valueOrDefault<String>(
-                                    FFAppState().selectedDate,
-                                    '0',
-                                  ),
+                                  FFAppState().selectedDate,
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
@@ -627,7 +644,7 @@ class _ProductSaleReportDaywiseWidgetState
                                         },
                                       );
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     child: Icon(
                                       Icons.cloud_download,
@@ -638,6 +655,49 @@ class _ProductSaleReportDaywiseWidgetState
                                   ),
                               ],
                             ),
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    20.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  'Sale Date:',
+                                  style: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .titleSmallFamily,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey(
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmallFamily),
+                                      ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    20.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  FFAppState().selectedLastDate,
+                                  style: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: FlutterFlowTheme.of(context)
+                                            .titleSmallFamily,
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        letterSpacing: 0.0,
+                                        useGoogleFonts: GoogleFonts.asMap()
+                                            .containsKey(
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmallFamily),
+                                      ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -810,7 +870,7 @@ class _ProductSaleReportDaywiseWidgetState
                                                           0.0, 0.0, 0.0, 3.0),
                                                   child: Container(
                                                     width: double.infinity,
-                                                    height: 65.0,
+                                                    height: 90.0,
                                                     decoration: BoxDecoration(
                                                       color: FlutterFlowTheme
                                                               .of(context)
@@ -1140,6 +1200,174 @@ class _ProductSaleReportDaywiseWidgetState
                                                             ),
                                                           ],
                                                         ),
+                                                        Divider(
+                                                          thickness: 2.0,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
+                                                        ),
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Text(
+                                                                    '   Barcode',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                          fontSize:
+                                                                              12.0,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w600,
+                                                                          useGoogleFonts:
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            10.0,
+                                                                            0.0),
+                                                                    child: Text(
+                                                                      'HSN Code',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                            useGoogleFonts:
+                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          10.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Text(
+                                                                    getJsonField(
+                                                                      prdListNewItem,
+                                                                      r'''$.barcode''',
+                                                                    ).toString(),
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          useGoogleFonts:
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          10.0,
+                                                                          0.0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Text(
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      getJsonField(
+                                                                        prdListNewItem,
+                                                                        r'''$.hsnCode''',
+                                                                      )?.toString(),
+                                                                      '0',
+                                                                    ),
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          useGoogleFonts:
+                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
@@ -1190,6 +1418,56 @@ class _ProductSaleReportDaywiseWidgetState
                                                 flex: 6,
                                                 child: Text(
                                                   'Name',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMediumFamily,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMediumFamily),
+                                                      ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 2,
+                                                child: Text(
+                                                  'Barcode',
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMediumFamily,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMediumFamily),
+                                                      ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 2,
+                                                child: Text(
+                                                  'HSN',
+                                                  textAlign: TextAlign.center,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .labelMedium
@@ -1374,6 +1652,68 @@ class _ProductSaleReportDaywiseWidgetState
                                                                       ),
                                                                 ),
                                                               ),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            flex: 2,
+                                                            child: Text(
+                                                              getJsonField(
+                                                                prdListNewItem,
+                                                                r'''$.barcode''',
+                                                              ).toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .labelMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .labelMediumFamily,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            FlutterFlowTheme.of(context).labelMediumFamily),
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            flex: 2,
+                                                            child: Text(
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                getJsonField(
+                                                                  prdListNewItem,
+                                                                  r'''$.hsnCode''',
+                                                                )?.toString(),
+                                                                '0',
+                                                              ),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .labelMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .labelMediumFamily,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            FlutterFlowTheme.of(context).labelMediumFamily),
+                                                                  ),
                                                             ),
                                                           ),
                                                           Expanded(

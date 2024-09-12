@@ -32,7 +32,7 @@ class _SelectDateWidgetState extends State<SelectDateWidget> {
     super.initState();
     _model = createModel(context, () => SelectDateModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

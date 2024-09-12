@@ -52,14 +52,14 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
-      setState(() {});
+      safeSetState(() {});
       _model.loadShiftData = await actions.getShiftDetails(
         FFAppState().outletId,
         functions.getDayId(getCurrentTimestamp),
       );
       FFAppState().shiftDetailsList =
           _model.loadShiftData!.toList().cast<dynamic>();
-      setState(() {});
+      safeSetState(() {});
       _model.loadShiftSummary = await actions.getShiftSummary(
         _model.loadShiftData!.toList(),
         '1',
@@ -67,7 +67,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
       FFAppState().selectedShift = '1';
       FFAppState().shiftDetail = _model.loadShiftSummary!;
       FFAppState().isShiftSelected = true;
-      setState(() {});
+      safeSetState(() {});
       _model.loadTime = await actions.diffBetweenDates(
         getCurrentTimestamp,
         getJsonField(
@@ -76,7 +76,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
         ),
       );
       FFAppState().synchTime = _model.loadTime!;
-      setState(() {});
+      safeSetState(() {});
       if (!isWeb) {
         return;
       }
@@ -90,7 +90,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
             FFAppState().outletId = '';
             FFAppState().outletName = '';
             FFAppState().outletRef = null;
-            setState(() {});
+            safeSetState(() {});
             await showDialog(
               context: context,
               builder: (alertDialogContext) {
@@ -122,7 +122,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
         ExpandableController(initialExpanded: false);
     _model.expandableExpandableController2 =
         ExpandableController(initialExpanded: false);
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -137,9 +137,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -212,7 +210,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                     FFAppState().expDay =
                                                         functions.setExpiryTime(
                                                             getCurrentTimestamp);
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   } else {
                                                     return;
                                                   }
@@ -293,7 +291,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                     FFAppState().expDay =
                                                         functions.setExpiryTime(
                                                             getCurrentTimestamp);
-                                                    setState(() {});
+                                                    safeSetState(() {});
 
                                                     context.pushNamed(
                                                         'UploadExcelSheetPage');
@@ -450,7 +448,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                     functions
                                                                         .setExpiryTime(
                                                                             getCurrentTimestamp);
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               } else {
                                                                 context
                                                                     .pushNamed(
@@ -590,7 +589,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                     functions
                                                                         .setExpiryTime(
                                                                             getCurrentTimestamp);
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
 
                                                                 context.pushNamed(
                                                                     'ProductList');
@@ -694,7 +694,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                   functions
                                                                       .setExpiryTime(
                                                                           getCurrentTimestamp);
-                                                              setState(() {});
+                                                              safeSetState(
+                                                                  () {});
 
                                                               context.pushNamed(
                                                                   'EditUserProfile');
@@ -1381,10 +1382,10 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                   FFAppState().expDay =
                                                       functions.setExpiryTime(
                                                           getCurrentTimestamp);
-                                                  setState(() {});
+                                                  safeSetState(() {});
 
                                                   context.pushNamed(
-                                                    'StockUpdateCopy',
+                                                    'StockUpdateNew',
                                                     queryParameters: {
                                                       'outlet': serializeParam(
                                                         widget!.outletDetails,
@@ -1437,6 +1438,97 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                       ),
                                                       Text(
                                                         'Stock',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineMediumFamily,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .headlineMediumFamily),
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 2.0),
+                                              child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  FFAppState().expDay =
+                                                      functions.setExpiryTime(
+                                                          getCurrentTimestamp);
+                                                  safeSetState(() {});
+
+                                                  context.pushNamed(
+                                                    'StockOut',
+                                                    queryParameters: {
+                                                      'outlet': serializeParam(
+                                                        widget!.outletDetails,
+                                                        ParamType.Document,
+                                                      ),
+                                                    }.withoutNulls,
+                                                    extra: <String, dynamic>{
+                                                      'outlet':
+                                                          widget!.outletDetails,
+                                                    },
+                                                  );
+                                                },
+                                                child: Container(
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          1.0,
+                                                  height: 50.0,
+                                                  decoration: BoxDecoration(),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    5.0,
+                                                                    0.0),
+                                                        child: Container(
+                                                          width: 40.0,
+                                                          height: 40.0,
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          child: Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    0.0, 0.0),
+                                                            child: Icon(
+                                                              Icons.loupe,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryText,
+                                                              size: 28.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Stock Out',
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1706,14 +1798,16 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                     functions
                                                                         .setExpiryTime(
                                                                             getCurrentTimestamp);
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                                 FFAppState()
                                                                     .finalCategoryReport = [];
                                                                 FFAppState()
                                                                     .productCart = [];
                                                                 FFAppState()
                                                                     .categoryCart = [];
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                                 _model.shiftdetailsDashboard1 =
                                                                     await actions
                                                                         .getShiftDetails(
@@ -1732,7 +1826,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                 );
                                                                 FFAppState()
                                                                     .iLoopStart = 0;
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                                 while (FFAppState()
                                                                         .iLoopStart <
                                                                     _model
@@ -1772,7 +1867,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                       .addToProductCart(
                                                                           _model
                                                                               .productJson5!);
-                                                                  setState(
+                                                                  safeSetState(
                                                                       () {});
                                                                 }
                                                                 _model.catJson5 =
@@ -1786,7 +1881,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                 );
                                                                 FFAppState()
                                                                     .jLoopStart = 0;
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                                 while (FFAppState()
                                                                         .jLoopStart <
                                                                     _model
@@ -1820,7 +1916,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                       .addToCategoryCart(
                                                                           _model
                                                                               .categoryJson5!);
-                                                                  setState(
+                                                                  safeSetState(
                                                                       () {});
                                                                 }
                                                                 _model.finalList5 =
@@ -1841,7 +1937,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                         .toList()
                                                                         .cast<
                                                                             dynamic>();
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
 
                                                                 context
                                                                     .pushNamed(
@@ -1860,7 +1957,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                   }.withoutNulls,
                                                                 );
 
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               },
                                                               text:
                                                                   'Category Wise',
@@ -1938,14 +2036,16 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                     functions
                                                                         .setExpiryTime(
                                                                             getCurrentTimestamp);
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                                 FFAppState()
                                                                     .finalCategoryReport = [];
                                                                 FFAppState()
                                                                     .productCart = [];
                                                                 FFAppState()
                                                                     .categoryCart = [];
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                                 _model.shiftdetailsDashboard =
                                                                     await actions
                                                                         .getShiftDetails(
@@ -1964,7 +2064,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                 );
                                                                 FFAppState()
                                                                     .iLoopStart = 0;
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                                 while (FFAppState()
                                                                         .iLoopStart <
                                                                     _model
@@ -2004,7 +2105,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                       .addToProductCart(
                                                                           _model
                                                                               .productJsonDashboard!);
-                                                                  setState(
+                                                                  safeSetState(
                                                                       () {});
                                                                 }
                                                                 _model.finalListDashboard =
@@ -2025,7 +2126,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                         .toList()
                                                                         .cast<
                                                                             dynamic>();
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
 
                                                                 context
                                                                     .pushNamed(
@@ -2044,7 +2146,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                   }.withoutNulls,
                                                                 );
 
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               },
                                                               text:
                                                                   'Product Wise',
@@ -2123,7 +2226,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                     functions
                                                                         .setExpiryTime(
                                                                             getCurrentTimestamp);
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
 
                                                                 context.pushNamed(
                                                                     'StockReportam');
@@ -2133,7 +2237,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                     functions
                                                                         .setExpiryTime(
                                                                             getCurrentTimestamp);
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               },
                                                               text:
                                                                   'Stock Report',
@@ -2212,7 +2317,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                     functions
                                                                         .setExpiryTime(
                                                                             getCurrentTimestamp);
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
 
                                                                 context.pushNamed(
                                                                     'DayWiseSaleReport');
@@ -2222,7 +2328,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                     functions
                                                                         .setExpiryTime(
                                                                             getCurrentTimestamp);
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               },
                                                               text:
                                                                   'Daywise Report',
@@ -2327,7 +2434,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                   }.withoutNulls,
                                                                 );
 
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               },
                                                               text:
                                                                   'GST Report',
@@ -2495,7 +2603,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                     FFAppState().expDay =
                                                         functions.setExpiryTime(
                                                             getCurrentTimestamp);
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   } else {
                                                     return;
                                                   }
@@ -2576,7 +2684,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                   FFAppState().expDay =
                                                       functions.setExpiryTime(
                                                           getCurrentTimestamp);
-                                                  setState(() {});
+                                                  safeSetState(() {});
 
                                                   context.pushNamed(
                                                       'deleteUserProfile');
@@ -2698,7 +2806,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                         '';
                                                     FFAppState().outletRef =
                                                         null;
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                     GoRouter.of(context)
                                                         .prepareAuthEvent();
                                                     await authManager.signOut();
@@ -2835,7 +2943,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                           FFAppState().expDay =
                                               functions.setExpiryTime(
                                                   getCurrentTimestamp);
-                                          setState(() {});
+                                          safeSetState(() {});
                                           if (MediaQuery.sizeOf(context).width <
                                                   kBreakpointSmall
                                               ? true
@@ -2884,13 +2992,13 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                 List<OutletRecord>
                                                     containerOutletRecordList =
                                                     snapshot.data!;
-
                                                 final containerOutletRecord =
                                                     containerOutletRecordList
                                                             .isNotEmpty
                                                         ? containerOutletRecordList
                                                             .first
                                                         : null;
+
                                                 return Container(
                                                   width:
                                                       MediaQuery.sizeOf(context)
@@ -3071,7 +3179,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                 },
                                                               );
 
-                                                              setState(() {});
+                                                              safeSetState(
+                                                                  () {});
                                                             },
                                                             child: AutoSizeText(
                                                               containerOutletRecord!
@@ -3272,12 +3381,12 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                             },
                                                           );
                                                           if (_shouldSetState)
-                                                            setState(() {});
+                                                            safeSetState(() {});
                                                           return;
                                                         }
 
                                                         if (_shouldSetState)
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         return;
                                                       } else {
                                                         _model.billDocumnetQR =
@@ -3361,12 +3470,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                       WebViewAware(
                                                                     child:
                                                                         GestureDetector(
-                                                                      onTap: () => _model
-                                                                              .unfocusNode
-                                                                              .canRequestFocus
-                                                                          ? FocusScope.of(context).requestFocus(_model
-                                                                              .unfocusNode)
-                                                                          : FocusScope.of(context)
+                                                                      onTap: () =>
+                                                                          FocusScope.of(dialogContext)
                                                                               .unfocus(),
                                                                       child:
                                                                           CheckInSuccessWidget(),
@@ -3374,16 +3479,16 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                   ),
                                                                 );
                                                               },
-                                                            ).then((value) =>
-                                                                setState(
-                                                                    () {}));
+                                                            );
 
                                                             if (_shouldSetState)
-                                                              setState(() {});
+                                                              safeSetState(
+                                                                  () {});
                                                             return;
                                                           } else {
                                                             if (_shouldSetState)
-                                                              setState(() {});
+                                                              safeSetState(
+                                                                  () {});
                                                             return;
                                                           }
                                                         } else {
@@ -3453,25 +3558,24 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                         WebViewAware(
                                                                       child:
                                                                           GestureDetector(
-                                                                        onTap: () => _model.unfocusNode.canRequestFocus
-                                                                            ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                                                                            : FocusScope.of(context).unfocus(),
+                                                                        onTap: () =>
+                                                                            FocusScope.of(dialogContext).unfocus(),
                                                                         child:
                                                                             CheckOutSuccessWidget(),
                                                                       ),
                                                                     ),
                                                                   );
                                                                 },
-                                                              ).then((value) =>
-                                                                  setState(
-                                                                      () {}));
+                                                              );
 
                                                               if (_shouldSetState)
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               return;
                                                             } else {
                                                               if (_shouldSetState)
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               return;
                                                             }
                                                           } else {
@@ -3497,12 +3601,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                       WebViewAware(
                                                                     child:
                                                                         GestureDetector(
-                                                                      onTap: () => _model
-                                                                              .unfocusNode
-                                                                              .canRequestFocus
-                                                                          ? FocusScope.of(context).requestFocus(_model
-                                                                              .unfocusNode)
-                                                                          : FocusScope.of(context)
+                                                                      onTap: () =>
+                                                                          FocusScope.of(dialogContext)
                                                                               .unfocus(),
                                                                       child:
                                                                           SessionExpiredWidget(),
@@ -3510,19 +3610,18 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                   ),
                                                                 );
                                                               },
-                                                            ).then((value) =>
-                                                                setState(
-                                                                    () {}));
+                                                            );
 
                                                             if (_shouldSetState)
-                                                              setState(() {});
+                                                              safeSetState(
+                                                                  () {});
                                                             return;
                                                           }
                                                         }
                                                       }
 
                                                       if (_shouldSetState)
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                     },
                                                   ),
                                                 ),
@@ -3667,7 +3766,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                               functions.getDayId(
                                                                   _model
                                                                       .datePicked!);
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                           _model.clickShiftData =
                                                               await actions
                                                                   .getShiftDetails(
@@ -3701,7 +3800,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                   .toList()
                                                                   .cast<
                                                                       dynamic>();
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                           _model.clickTime =
                                                               await actions
                                                                   .diffBetweenDates(
@@ -3715,9 +3814,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                           FFAppState()
                                                                   .synchTime =
                                                               _model.clickTime!;
-                                                          setState(() {});
+                                                          safeSetState(() {});
 
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         },
                                                       ),
                                                     ),
@@ -3866,9 +3965,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                                                   var _shouldSetState = false;
                                                                                                   if (isWeb) {
                                                                                                     FFAppState().expDay = functions.setExpiryTime(getCurrentTimestamp);
-                                                                                                    setState(() {});
+                                                                                                    safeSetState(() {});
                                                                                                   } else {
-                                                                                                    if (_shouldSetState) setState(() {});
+                                                                                                    if (_shouldSetState) safeSetState(() {});
                                                                                                     return;
                                                                                                   }
 
@@ -3891,9 +3990,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                                                   ).toString();
                                                                                                   FFAppState().shiftDetail = _model.shiftClickW!;
                                                                                                   FFAppState().isShiftSelected = true;
-                                                                                                  setState(() {});
+                                                                                                  safeSetState(() {});
                                                                                                   FFAppState().shiftDetailsList = _model.buttonShiftDataWeb!.toList().cast<dynamic>();
-                                                                                                  setState(() {});
+                                                                                                  safeSetState(() {});
                                                                                                   _model.time = await actions.diffBetweenDates(
                                                                                                     getCurrentTimestamp,
                                                                                                     getJsonField(
@@ -3903,8 +4002,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                                                   );
                                                                                                   _shouldSetState = true;
                                                                                                   FFAppState().synchTime = _model.time!;
-                                                                                                  setState(() {});
-                                                                                                  if (_shouldSetState) setState(() {});
+                                                                                                  safeSetState(() {});
+                                                                                                  if (_shouldSetState) safeSetState(() {});
                                                                                                 },
                                                                                                 text: 'Shift ${getJsonField(
                                                                                                   listItem,
@@ -6396,9 +6495,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                                   ).toString();
                                                                                   FFAppState().shiftDetail = _model.shiftClick!;
                                                                                   FFAppState().isShiftSelected = true;
-                                                                                  setState(() {});
+                                                                                  safeSetState(() {});
                                                                                   FFAppState().shiftDetailsList = _model.buttonShiftData!.toList().cast<dynamic>();
-                                                                                  setState(() {});
+                                                                                  safeSetState(() {});
                                                                                   _model.time2 = await actions.diffBetweenDates(
                                                                                     getCurrentTimestamp,
                                                                                     getJsonField(
@@ -6407,9 +6506,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                                     ),
                                                                                   );
                                                                                   FFAppState().synchTime = _model.time2!;
-                                                                                  setState(() {});
+                                                                                  safeSetState(() {});
 
-                                                                                  setState(() {});
+                                                                                  safeSetState(() {});
                                                                                 },
                                                                                 text: 'Shift ${valueOrDefault<String>(
                                                                                   getJsonField(

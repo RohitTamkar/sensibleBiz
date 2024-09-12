@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 class PhoneAuthPageTestModel extends FlutterFlowModel<PhoneAuthPageTestWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for TextFieldNumber widget.
   FocusNode? textFieldNumberFocusNode;
   TextEditingController? textFieldNumberTextController;
@@ -23,7 +22,6 @@ class PhoneAuthPageTestModel extends FlutterFlowModel<PhoneAuthPageTestWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldNumberFocusNode?.dispose();
     textFieldNumberTextController?.dispose();
   }

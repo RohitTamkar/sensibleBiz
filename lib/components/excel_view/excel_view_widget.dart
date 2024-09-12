@@ -109,7 +109,7 @@ class _ExcelViewWidgetState extends State<ExcelViewWidget> {
         TextEditingController(text: widget!.parameter13?.toString());
     _model.textFieldFocusNode14 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

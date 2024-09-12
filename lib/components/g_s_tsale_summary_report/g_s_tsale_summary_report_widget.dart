@@ -31,7 +31,7 @@ class _GSTsaleSummaryReportWidgetState
     super.initState();
     _model = createModel(context, () => GSTsaleSummaryReportModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

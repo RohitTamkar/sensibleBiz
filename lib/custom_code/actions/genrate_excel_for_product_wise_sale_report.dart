@@ -53,6 +53,8 @@ Future<String> genrateExcelForProductWiseSaleReport(
   // Add product details to the sheet
   sheet.appendRow([
     TextCellValue('Product Name'),
+    TextCellValue('Barcode'),
+    TextCellValue('HSN'),
     TextCellValue('Quantity'),
     TextCellValue('Price'),
     TextCellValue('Total'),
@@ -68,6 +70,8 @@ Future<String> genrateExcelForProductWiseSaleReport(
     totalAmt += product['catTotal'];
     sheet.appendRow([
       TextCellValue(product['name'].toString()),
+      TextCellValue(product['barcode'].toString()),
+      TextCellValue(product['hsnCode'].toString()),
       TextCellValue(product['qty'].toString()),
       TextCellValue(product['price'].toString()),
       TextCellValue(product['catTotal'].toString()),

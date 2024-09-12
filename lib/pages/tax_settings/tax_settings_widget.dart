@@ -41,10 +41,10 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       FFAppState().prdJsonList = [];
-      setState(() {});
+      safeSetState(() {});
       if (FFAppState().categoryId != null && FFAppState().categoryId != '') {
         _model.selectedId = FFAppState().categoryId;
-        setState(() {});
+        safeSetState(() {});
         _model.products1 = await queryProductRecordOnce(
           parent: FFAppState().outletRef,
           queryBuilder: (productRecord) => productRecord.where(
@@ -56,7 +56,7 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
           _model.products1!.toList(),
         );
         FFAppState().prdJsonList = _model.jsonbyCat!.toList().cast<dynamic>();
-        setState(() {});
+        safeSetState(() {});
       } else {
         _model.products6 = await queryProductRecordOnce(
           parent: FFAppState().outletRef,
@@ -66,23 +66,23 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
           _model.products6!.toList(),
         );
         FFAppState().prdJsonList = _model.json1!.toList().cast<dynamic>();
-        setState(() {});
+        safeSetState(() {});
       }
 
       if (_model.selectedId != null && _model.selectedId != '') {
         _model.all = false;
         _model.updateStatus = false;
         _model.waitUpload = false;
-        setState(() {});
+        safeSetState(() {});
       } else {
         _model.all = true;
         _model.updateStatus = false;
         _model.waitUpload = false;
-        setState(() {});
+        safeSetState(() {});
       }
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -97,9 +97,7 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -141,7 +139,7 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                 ),
                                 onPressed: () async {
                                   FFAppState().showMenuProduct = false;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   if (_model.updateStatus == false) {
                                     context.safePop();
                                   } else {
@@ -206,7 +204,7 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                       'VAT22'
                                     ],
                                     onChanged: (val) async {
-                                      setState(
+                                      safeSetState(
                                           () => _model.dropDownValue = val);
                                       _model.taxIndexOutput =
                                           await actions.getTaxIdCopy(
@@ -214,9 +212,9 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                       );
                                       FFAppState().taxIndexSTate =
                                           _model.taxIndexOutput!;
-                                      setState(() {});
+                                      safeSetState(() {});
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     width: 90.0,
                                     height: 35.0,
@@ -302,10 +300,10 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                           onPressed: () async {
                                             _model.selectAllBoolean = false;
                                             _model.all = true;
-                                            setState(() {});
+                                            safeSetState(() {});
                                             FFAppState().prdJsonList = [];
                                             FFAppState().categoryId = '';
-                                            setState(() {});
+                                            safeSetState(() {});
                                             _model.products12 =
                                                 await queryProductRecordOnce(
                                               parent: FFAppState().outletRef,
@@ -320,13 +318,13 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                 .json12!
                                                 .toList()
                                                 .cast<dynamic>();
-                                            setState(() {});
+                                            safeSetState(() {});
                                             _model.all = true;
                                             _model.updateStatus = false;
                                             _model.waitUpload = false;
-                                            setState(() {});
+                                            safeSetState(() {});
 
-                                            setState(() {});
+                                            safeSetState(() {});
                                           },
                                           text: 'All',
                                           options: FFButtonOptions(
@@ -439,13 +437,13 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                                     .outletRef!,
                                                                 listViewCategoryRecord
                                                                     .reference);
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                         FFAppState()
                                                             .prdJsonList = [];
                                                         FFAppState()
                                                                 .categoryId =
                                                             _model.selectedId;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                         _model.productscat =
                                                             await queryProductRecordOnce(
                                                           parent: FFAppState()
@@ -471,9 +469,9 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                                 .toList()
                                                                 .cast<
                                                                     dynamic>();
-                                                        setState(() {});
+                                                        safeSetState(() {});
 
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       },
                                                       child: Container(
                                                         decoration:
@@ -633,7 +631,7 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                                   true)
                                                               ? null
                                                               : (newValue) async {
-                                                                  setState(() =>
+                                                                  safeSetState(() =>
                                                                       _model.selectAllCheckboxValue =
                                                                           newValue!);
                                                                   if (newValue!) {
@@ -643,7 +641,7 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                                             '') {
                                                                       _model.updateStatus =
                                                                           true;
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                       _model.result =
                                                                           await actions
@@ -661,7 +659,7 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                                           .toList()
                                                                           .cast<
                                                                               dynamic>();
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     } else {
                                                                       await showDialog(
@@ -686,7 +684,7 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                                       );
                                                                     }
 
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
                                                                   } else {
                                                                     _model.result2 =
@@ -705,10 +703,10 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                                         .toList()
                                                                         .cast<
                                                                             dynamic>();
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
 
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
                                                                   }
                                                                 },
@@ -918,10 +916,10 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                                                 true)
                                                                             ? null
                                                                             : (newValue) async {
-                                                                                setState(() => _model.checkboxValueMap[taxProdList1Item] = newValue!);
+                                                                                safeSetState(() => _model.checkboxValueMap[taxProdList1Item] = newValue!);
                                                                                 if (newValue!) {
                                                                                   _model.updateStatus = true;
-                                                                                  setState(() {});
+                                                                                  safeSetState(() {});
                                                                                   _model.result1 = await actions.selectCheckboxTaxSIngle(
                                                                                     true,
                                                                                     FFAppState().prdJsonList.toList(),
@@ -929,9 +927,9 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                                                     taxProdList1Item,
                                                                                   );
                                                                                   FFAppState().prdJsonList = _model.result1!.toList().cast<dynamic>();
-                                                                                  setState(() {});
+                                                                                  safeSetState(() {});
 
-                                                                                  setState(() {});
+                                                                                  safeSetState(() {});
                                                                                 } else {
                                                                                   _model.result3 = await actions.selectCheckboxTaxSIngle(
                                                                                     false,
@@ -940,9 +938,9 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                                                     taxProdList1Item,
                                                                                   );
                                                                                   FFAppState().prdJsonList = _model.result3!.toList().cast<dynamic>();
-                                                                                  setState(() {});
+                                                                                  safeSetState(() {});
 
-                                                                                  setState(() {});
+                                                                                  safeSetState(() {});
                                                                                 }
                                                                               },
                                                                         side:
@@ -991,7 +989,7 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                       onPressed: () async {
                                                         FFAppState()
                                                             .productListSTockableUpdate = [];
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                         context.safePop();
                                                       },
                                                       text: 'Cancel',
@@ -1067,7 +1065,7 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                                         0;
                                                                     _model.waitUpload =
                                                                         true;
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
                                                                     while (_model
                                                                             .startLoop! <
@@ -1088,7 +1086,7 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                                       _model.startLoop =
                                                                           _model.startLoop! +
                                                                               1;
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {});
                                                                     }
                                                                     await showDialog(
@@ -1115,7 +1113,7 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                                         false;
                                                                     _model.waitUpload =
                                                                         false;
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
 
                                                                     context.pushNamed(
@@ -1143,7 +1141,7 @@ class _TaxSettingsWidgetState extends State<TaxSettingsWidget> {
                                                                     );
                                                                     _model.updateStatus =
                                                                         false;
-                                                                    setState(
+                                                                    safeSetState(
                                                                         () {});
 
                                                                     context.pushNamed(

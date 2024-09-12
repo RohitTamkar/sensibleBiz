@@ -121,7 +121,7 @@ class _ExcelListWidgetState extends State<ExcelListWidget> {
     _model.textController16 ??= TextEditingController(text: widget!.dayType);
     _model.textFieldFocusNode16 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -38,7 +38,7 @@ class _AddServicePointWidgetState extends State<AddServicePointWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.booleanPaperSize = false;
-      setState(() {});
+      safeSetState(() {});
     });
 
     _model.textController1 ??= TextEditingController();
@@ -59,7 +59,7 @@ class _AddServicePointWidgetState extends State<AddServicePointWidget> {
     _model.textController6 ??= TextEditingController();
     _model.textFieldFocusNode4 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -74,9 +74,7 @@ class _AddServicePointWidgetState extends State<AddServicePointWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -302,7 +300,7 @@ class _AddServicePointWidgetState extends State<AddServicePointWidget> {
                                     size: 24.0,
                                   ),
                                   onPressed: () async {
-                                    setState(() {
+                                    safeSetState(() {
                                       _model.textController1?.clear();
                                     });
                                   },
@@ -347,7 +345,7 @@ class _AddServicePointWidgetState extends State<AddServicePointWidget> {
                               children: [
                                 FlutterFlowRadioButton(
                                   options: ['2 Inch', '3 Inch'].toList(),
-                                  onChanged: (val) => setState(() {}),
+                                  onChanged: (val) => safeSetState(() {}),
                                   controller:
                                       _model.radioButton1ValueController ??=
                                           FormFieldController<String>(null),
@@ -428,7 +426,7 @@ class _AddServicePointWidgetState extends State<AddServicePointWidget> {
                                 FlutterFlowRadioButton(
                                   options:
                                       ['Serial', 'Ethernet', 'USB'].toList(),
-                                  onChanged: (val) => setState(() {}),
+                                  onChanged: (val) => safeSetState(() {}),
                                   controller:
                                       _model.radioButton2ValueController ??=
                                           FormFieldController<String>(null),
@@ -645,7 +643,7 @@ class _AddServicePointWidgetState extends State<AddServicePointWidget> {
                                                 size: 24.0,
                                               ),
                                               onPressed: () async {
-                                                setState(() {
+                                                safeSetState(() {
                                                   _model
                                                       .textField2TextController
                                                       ?.clear();
@@ -812,7 +810,7 @@ class _AddServicePointWidgetState extends State<AddServicePointWidget> {
                                               size: 24.0,
                                             ),
                                             onPressed: () async {
-                                              setState(() {
+                                              safeSetState(() {
                                                 _model.textField3TextController
                                                     ?.clear();
                                               });
@@ -1109,7 +1107,7 @@ class _AddServicePointWidgetState extends State<AddServicePointWidget> {
                                         return;
                                       }
                                       _model.wait = true;
-                                      setState(() {});
+                                      safeSetState(() {});
 
                                       var servicePointRecordReference =
                                           ServicePointRecord.createDoc(
@@ -1204,7 +1202,7 @@ class _AddServicePointWidgetState extends State<AddServicePointWidget> {
                                         id: _model.created?.reference.id,
                                       ));
                                       _model.wait = false;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       await showDialog(
                                         context: context,
                                         builder: (alertDialogContext) {
@@ -1224,7 +1222,7 @@ class _AddServicePointWidgetState extends State<AddServicePointWidget> {
                                           );
                                         },
                                       );
-                                      setState(() {
+                                      safeSetState(() {
                                         _model.textController1?.clear();
                                         _model.textController4?.clear();
                                         _model.textController5?.clear();
@@ -1232,7 +1230,7 @@ class _AddServicePointWidgetState extends State<AddServicePointWidget> {
                                       });
                                       context.safePop();
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     text: 'Save',
                                     options: FFButtonOptions(

@@ -28,7 +28,6 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey1 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
   // Stores action output result for [Firestore Query - Query a collection] action in AddProduct widget.
@@ -230,7 +229,6 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     codeMFocusNode?.dispose();
     codeMTextController?.dispose();
 

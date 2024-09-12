@@ -39,7 +39,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     _model.textFieldQuickTextController2 ??= TextEditingController();
     _model.textFieldQuickFocusNode2 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -54,9 +54,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -530,7 +528,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                             .of(context)
                                                         .secondaryBackground,
                                                     suffixIcon: InkWell(
-                                                      onTap: () => setState(
+                                                      onTap: () => safeSetState(
                                                         () => _model
                                                                 .textFieldQuickVisibility1 =
                                                             !_model
@@ -591,7 +589,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       var _shouldSetState = false;
                                       FFAppState().currentMobile =
                                           '+91${_model.textFieldNumberTextController1.text}';
-                                      setState(() {});
+                                      safeSetState(() {});
                                       _model.res = await actions.login(
                                         '+91${_model.textFieldNumberTextController1.text}',
                                         _model
@@ -602,7 +600,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         FFAppState().loggedIn = true;
                                         FFAppState().passcode = _model
                                             .textFieldQuickTextController1.text;
-                                        setState(() {});
+                                        safeSetState(() {});
                                         if ((FFAppState().currentUserRole ==
                                                 'user') &&
                                             (FFAppState()
@@ -652,7 +650,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           FFAppState().passcode = _model
                                               .textFieldQuickTextController1
                                               .text;
-                                          setState(() {});
+                                          safeSetState(() {});
                                           if ((FFAppState().currentUserRole ==
                                                   'user') &&
                                               (FFAppState()
@@ -691,7 +689,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             }
                                           }
 
-                                          if (_shouldSetState) setState(() {});
+                                          if (_shouldSetState)
+                                            safeSetState(() {});
                                           return;
                                         }
                                         await showDialog(
@@ -713,11 +712,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             );
                                           },
                                         );
-                                        if (_shouldSetState) setState(() {});
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
                                         return;
                                       }
 
-                                      if (_shouldSetState) setState(() {});
+                                      if (_shouldSetState) safeSetState(() {});
                                     },
                                     text: 'Login',
                                     options: FFButtonOptions(
@@ -759,7 +759,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         FFAppState().loggedInUser = [];
                                         FFAppState().loggedIn = false;
                                         FFAppState().currentMobile = '';
-                                        setState(() {});
+                                        safeSetState(() {});
 
                                         context.pushNamed('CreateUserProfile');
                                       },
@@ -838,165 +838,169 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Align(
-                                      alignment:
-                                          AlignmentDirectional(0.0, -1.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    3.0, 0.0, 3.0, 0.0),
-                                            child: FFButtonWidget(
-                                              onPressed: () {
-                                                print('Button pressed ...');
-                                              },
-                                              text: 'Home',
-                                              options: FFButtonOptions(
-                                                height: 40.0,
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        15.0, 0.0, 15.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleSmallFamily,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmallFamily),
-                                                        ),
-                                                elevation: 0.0,
-                                                borderSide: BorderSide(
+                                    if (FFAppState().hide)
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(0.0, -1.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(3.0, 0.0, 3.0, 0.0),
+                                              child: FFButtonWidget(
+                                                onPressed: () {
+                                                  print('Button pressed ...');
+                                                },
+                                                text: 'Home',
+                                                options: FFButtonOptions(
+                                                  height: 40.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          15.0, 0.0, 15.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .info,
-                                                  width: 0.5,
+                                                      .secondaryBackground,
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .override(
+                                                            fontFamily:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmallFamily,
+                                                            letterSpacing: 0.0,
+                                                            useGoogleFonts: GoogleFonts
+                                                                    .asMap()
+                                                                .containsKey(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmallFamily),
+                                                          ),
+                                                  elevation: 0.0,
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .info,
+                                                    width: 0.5,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
                                                 ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
                                               ),
                                             ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    3.0, 0.0, 3.0, 0.0),
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                context.pushNamed('AboutUs');
-                                              },
-                                              text: 'About Us',
-                                              options: FFButtonOptions(
-                                                height: 40.0,
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        15.0, 0.0, 15.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleSmallFamily,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmallFamily),
-                                                        ),
-                                                elevation: 0.0,
-                                                borderSide: BorderSide(
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(3.0, 0.0, 3.0, 0.0),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  context.pushNamed('AboutUs');
+                                                },
+                                                text: 'About Us',
+                                                options: FFButtonOptions(
+                                                  height: 40.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          15.0, 0.0, 15.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .info,
-                                                  width: 0.5,
+                                                      .secondaryBackground,
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .override(
+                                                            fontFamily:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmallFamily,
+                                                            letterSpacing: 0.0,
+                                                            useGoogleFonts: GoogleFonts
+                                                                    .asMap()
+                                                                .containsKey(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmallFamily),
+                                                          ),
+                                                  elevation: 0.0,
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .info,
+                                                    width: 0.5,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
                                                 ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
                                               ),
                                             ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    3.0, 0.0, 3.0, 0.0),
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                await launchURL(
-                                                    'https://sensiblebizwebapp.flutterflow.app/userManualUserView');
-                                              },
-                                              text: 'User Manual',
-                                              options: FFButtonOptions(
-                                                height: 40.0,
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        15.0, 0.0, 15.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleSmallFamily,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmallFamily),
-                                                        ),
-                                                elevation: 0.0,
-                                                borderSide: BorderSide(
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(3.0, 0.0, 3.0, 0.0),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  await launchURL(
+                                                      'https://sensiblebizwebapp.flutterflow.app/userManualUserView');
+                                                },
+                                                text: 'User Manual',
+                                                options: FFButtonOptions(
+                                                  height: 40.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          15.0, 0.0, 15.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .info,
-                                                  width: 0.5,
+                                                      .secondaryBackground,
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .override(
+                                                            fontFamily:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmallFamily,
+                                                            letterSpacing: 0.0,
+                                                            useGoogleFonts: GoogleFonts
+                                                                    .asMap()
+                                                                .containsKey(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmallFamily),
+                                                          ),
+                                                  elevation: 0.0,
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .info,
+                                                    width: 0.5,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
                                                 ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
                                     Expanded(
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -1509,7 +1513,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                                   suffixIcon:
                                                                       InkWell(
                                                                     onTap: () =>
-                                                                        setState(
+                                                                        safeSetState(
                                                                       () => _model
                                                                               .textFieldQuickVisibility2 =
                                                                           !_model
@@ -1572,7 +1576,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     var _shouldSetState = false;
                                                     FFAppState().currentMobile =
                                                         '+91${_model.textFieldNumberTextController2.text}';
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                     _model.res1 =
                                                         await actions.login(
                                                       '+91${_model.textFieldNumberTextController2.text}',
@@ -1584,7 +1588,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     if (_model.res1!) {
                                                       FFAppState().loggedIn =
                                                           true;
-                                                      setState(() {});
+                                                      safeSetState(() {});
 
                                                       context.pushNamed(
                                                           'OutletListPage');
@@ -1606,7 +1610,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                             _model
                                                                 .textFieldQuickTextController1
                                                                 .text;
-                                                        setState(() {});
+                                                        safeSetState(() {});
 
                                                         context.pushNamed(
                                                             'OutletListPage');
@@ -1636,17 +1640,17 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                           },
                                                         );
                                                         if (_shouldSetState)
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         return;
                                                       }
 
                                                       if (_shouldSetState)
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       return;
                                                     }
 
                                                     if (_shouldSetState)
-                                                      setState(() {});
+                                                      safeSetState(() {});
                                                   },
                                                   text: 'Login',
                                                   options: FFButtonOptions(
@@ -1708,7 +1712,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                           false;
                                                       FFAppState()
                                                           .currentMobile = '';
-                                                      setState(() {});
+                                                      safeSetState(() {});
 
                                                       context.pushNamed(
                                                           'CreateUserProfile');

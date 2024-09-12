@@ -1258,6 +1258,18 @@ class FFAppState extends ChangeNotifier {
   set selectedStartDate(String value) {
     _selectedStartDate = value;
   }
+
+  int _sStartDate = 0;
+  int get sStartDate => _sStartDate;
+  set sStartDate(int value) {
+    _sStartDate = value;
+  }
+
+  int _sEndDate = 0;
+  int get sEndDate => _sEndDate;
+  set sEndDate(int value) {
+    _sEndDate = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

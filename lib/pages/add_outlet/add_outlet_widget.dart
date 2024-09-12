@@ -47,7 +47,7 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
     _model.textController3 ??= TextEditingController(text: widget!.qr);
     _model.textFieldFocusNode3 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -62,9 +62,7 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -227,7 +225,7 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
                                                 EasyDebounce.debounce(
                                               '_model.textController1',
                                               Duration(milliseconds: 2000),
-                                              () => setState(() {}),
+                                              () => safeSetState(() {}),
                                             ),
                                             autofocus: true,
                                             obscureText: false,
@@ -402,7 +400,7 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
                                                 EasyDebounce.debounce(
                                               '_model.textController2',
                                               Duration(milliseconds: 2000),
-                                              () => setState(() {}),
+                                              () => safeSetState(() {}),
                                             ),
                                             autofocus: true,
                                             obscureText: false,
@@ -548,7 +546,7 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
                                                 EasyDebounce.debounce(
                                               '_model.textController3',
                                               Duration(milliseconds: 2000),
-                                              () => setState(() {}),
+                                              () => safeSetState(() {}),
                                             ),
                                             autofocus: true,
                                             readOnly: true,
@@ -730,11 +728,11 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
                               List<UserProfileRecord>
                                   containerUserProfileRecordList =
                                   snapshot.data!;
-
                               final containerUserProfileRecord =
                                   containerUserProfileRecordList.isNotEmpty
                                       ? containerUserProfileRecordList.first
                                       : null;
+
                               return Container(
                                 width: 100.0,
                                 height: 100.0,
@@ -768,11 +766,11 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
                                     }
                                     List<DeviceRecord> buttonDeviceRecordList =
                                         snapshot.data!;
-
                                     final buttonDeviceRecord =
                                         buttonDeviceRecordList.isNotEmpty
                                             ? buttonDeviceRecordList.first
                                             : null;
+
                                     return InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -886,9 +884,9 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
                                           FFAppState().outletId =
                                               functions.newCustomFunction2(
                                                   _model.outletDoc!.reference);
-                                          setState(() {});
+                                          safeSetState(() {});
 
-                                          setState(() {});
+                                          safeSetState(() {});
                                         },
                                         text: 'Save',
                                         options: FFButtonOptions(

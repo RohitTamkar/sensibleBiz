@@ -22,7 +22,6 @@ class OTPverificationTestModel
     extends FlutterFlowModel<OTPverificationTestWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for MObileTextField widget.
   FocusNode? mObileTextFieldFocusNode;
   TextEditingController? mObileTextFieldTextController;
@@ -52,7 +51,6 @@ class OTPverificationTestModel
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     mObileTextFieldFocusNode?.dispose();
     mObileTextFieldTextController?.dispose();
 

@@ -27,7 +27,6 @@ class AddCustomerModel extends FlutterFlowModel<AddCustomerWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   CustomerRecord? createdCust;
@@ -99,7 +98,6 @@ class AddCustomerModel extends FlutterFlowModel<AddCustomerWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     nameFocusNode?.dispose();
     nameTextController?.dispose();
 

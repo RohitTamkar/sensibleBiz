@@ -49,14 +49,14 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
+      safeSetState(() {
         _model.dropDownValueController?.reset();
       });
       FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
-      setState(() {});
+      safeSetState(() {});
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -71,9 +71,7 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -113,7 +111,7 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                             onPressed: () async {
                               context.safePop();
                               FFAppState().productCart = [];
-                              setState(() {});
+                              safeSetState(() {});
                             },
                           ),
                           StreamBuilder<OutletRecord>(
@@ -234,7 +232,7 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                               if (isWeb) {
                                 FFAppState().expDay = functions
                                     .setExpiryTime(getCurrentTimestamp);
-                                setState(() {});
+                                safeSetState(() {});
                               } else {
                                 return;
                               }
@@ -257,7 +255,7 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                               }
                               FFAppState().selectedDate =
                                   functions.getDayId(_model.datePicked!);
-                              setState(() {});
+                              safeSetState(() {});
                             },
                           ),
                         ],
@@ -324,7 +322,7 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                         .map((e) => e.name)
                                         .toList(),
                                     onChanged: (val) async {
-                                      setState(
+                                      safeSetState(
                                           () => _model.dropDownValue = val);
                                       _model.res =
                                           await actions.selectedProductList(
@@ -333,9 +331,9 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                       );
                                       FFAppState()
                                           .addToProductCart(_model.res!);
-                                      setState(() {});
+                                      safeSetState(() {});
 
-                                      setState(() {});
+                                      safeSetState(() {});
                                     },
                                     width: double.infinity,
                                     height: 50.0,
@@ -756,9 +754,11 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                                                         .toList()
                                                                         .cast<
                                                                             dynamic>();
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
 
-                                                                setState(() {});
+                                                                safeSetState(
+                                                                    () {});
                                                               },
                                                             ),
                                                             Expanded(
@@ -848,10 +848,10 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                                                       .toList()
                                                                       .cast<
                                                                           dynamic>();
-                                                                  setState(
+                                                                  safeSetState(
                                                                       () {});
 
-                                                                  setState(
+                                                                  safeSetState(
                                                                       () {});
                                                                 },
                                                               ),
@@ -906,13 +906,13 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                             List<UserProfileRecord>
                                                 rowUserProfileRecordList =
                                                 snapshot.data!;
-
                                             final rowUserProfileRecord =
                                                 rowUserProfileRecordList
                                                         .isNotEmpty
                                                     ? rowUserProfileRecordList
                                                         .first
                                                     : null;
+
                                             return Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -953,10 +953,10 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                                                     _model
                                                                         .issueDocCopy!
                                                                         .first);
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       } else {
                                                         FFAppState().count = 1;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       }
 
                                                       _model.cartREsult1 =
@@ -1004,7 +1004,7 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                                               false;
                                                       if (!confirmDialogResponse) {
                                                         if (_shouldSetState)
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         return;
                                                       }
 
@@ -1055,8 +1055,8 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                                       });
                                                       FFAppState().productCart =
                                                           [];
-                                                      setState(() {});
-                                                      setState(() {
+                                                      safeSetState(() {});
+                                                      safeSetState(() {
                                                         _model
                                                             .dropDownValueController
                                                             ?.reset();
@@ -1085,7 +1085,7 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                                         },
                                                       );
                                                       if (_shouldSetState)
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                     },
                                                     text: 'Adjust Stock',
                                                     icon: Icon(
@@ -1177,10 +1177,10 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                                                     _model
                                                                         .issueDoc!
                                                                         .first);
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       } else {
                                                         FFAppState().count = 1;
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                       }
 
                                                       _model.cartREsult =
@@ -1228,7 +1228,7 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                                               false;
                                                       if (!confirmDialogResponse) {
                                                         if (_shouldSetState)
-                                                          setState(() {});
+                                                          safeSetState(() {});
                                                         return;
                                                       }
 
@@ -1279,8 +1279,8 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                                       });
                                                       FFAppState().productCart =
                                                           [];
-                                                      setState(() {});
-                                                      setState(() {
+                                                      safeSetState(() {});
+                                                      safeSetState(() {
                                                         _model
                                                             .dropDownValueController
                                                             ?.reset();
@@ -1309,7 +1309,7 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                                         },
                                                       );
                                                       if (_shouldSetState)
-                                                        setState(() {});
+                                                        safeSetState(() {});
                                                     },
                                                     text: 'Add Stock',
                                                     icon: Icon(
@@ -1456,7 +1456,6 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                       List<StockLogRecord>
                                           listViewStockLogRecordList =
                                           snapshot.data!;
-
                                       if (listViewStockLogRecordList.isEmpty) {
                                         return Container(
                                           width:
@@ -1465,6 +1464,7 @@ class _StockRequestWidgetState extends State<StockRequestWidget> {
                                           child: NoDataWidget(),
                                         );
                                       }
+
                                       return ListView.builder(
                                         padding: EdgeInsets.zero,
                                         scrollDirection: Axis.vertical,

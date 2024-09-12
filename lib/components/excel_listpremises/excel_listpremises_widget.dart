@@ -119,7 +119,7 @@ class _ExcelListpremisesWidgetState extends State<ExcelListpremisesWidget> {
     _model.textController15 ??= TextEditingController(text: widget!.priceTable);
     _model.textFieldFocusNode15 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

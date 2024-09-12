@@ -35,7 +35,7 @@ class _TransferDataCompoWidgetState extends State<TransferDataCompoWidget> {
     super.initState();
     _model = createModel(context, () => TransferDataCompoModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -123,7 +123,7 @@ class _TransferDataCompoWidgetState extends State<TransferDataCompoWidget> {
                   child: FFButtonWidget(
                     onPressed: () async {
                       FFAppState().falg2 = false;
-                      setState(() {});
+                      safeSetState(() {});
                       Navigator.pop(context);
                     },
                     text: 'Cancle',
@@ -158,7 +158,7 @@ class _TransferDataCompoWidgetState extends State<TransferDataCompoWidget> {
                   child: FFButtonWidget(
                     onPressed: () async {
                       FFAppState().falg2 = true;
-                      setState(() {});
+                      safeSetState(() {});
                       Navigator.pop(context);
                     },
                     text: 'Update',

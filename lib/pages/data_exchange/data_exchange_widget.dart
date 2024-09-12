@@ -42,14 +42,14 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.wait = true;
-      setState(() {});
+      safeSetState(() {});
       _model.wait = false;
-      setState(() {});
+      safeSetState(() {});
       FFAppState().loopExcelDouble = 0.0;
-      setState(() {});
+      safeSetState(() {});
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -64,9 +64,7 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -118,7 +116,7 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                   if (isWeb) {
                                     FFAppState().expDay = functions
                                         .setExpiryTime(getCurrentTimestamp);
-                                    setState(() {});
+                                    safeSetState(() {});
                                   } else {
                                     return;
                                   }
@@ -212,11 +210,11 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                               List<UserProfileRecord>
                                   containerUserProfileRecordList =
                                   snapshot.data!;
-
                               final containerUserProfileRecord =
                                   containerUserProfileRecordList.isNotEmpty
                                       ? containerUserProfileRecordList.first
                                       : null;
+
                               return Container(
                                 width: double.infinity,
                                 height: MediaQuery.sizeOf(context).height * 0.8,
@@ -306,15 +304,9 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                                     context)),
                                                     child: WebViewAware(
                                                       child: GestureDetector(
-                                                        onTap: () => _model
-                                                                .unfocusNode
-                                                                .canRequestFocus
-                                                            ? FocusScope.of(
-                                                                    context)
-                                                                .requestFocus(_model
-                                                                    .unfocusNode)
-                                                            : FocusScope.of(
-                                                                    context)
+                                                        onTap: () =>
+                                                            FocusScope.of(
+                                                                    dialogContext)
                                                                 .unfocus(),
                                                         child: Container(
                                                           height:
@@ -334,8 +326,7 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                     ),
                                                   );
                                                 },
-                                              ).then(
-                                                  (value) => setState(() {}));
+                                              );
                                             } else {
                                               await showDialog(
                                                 context: context,
@@ -354,15 +345,9 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                                     context)),
                                                     child: WebViewAware(
                                                       child: GestureDetector(
-                                                        onTap: () => _model
-                                                                .unfocusNode
-                                                                .canRequestFocus
-                                                            ? FocusScope.of(
-                                                                    context)
-                                                                .requestFocus(_model
-                                                                    .unfocusNode)
-                                                            : FocusScope.of(
-                                                                    context)
+                                                        onTap: () =>
+                                                            FocusScope.of(
+                                                                    dialogContext)
                                                                 .unfocus(),
                                                         child: Container(
                                                           height:
@@ -382,8 +367,7 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                     ),
                                                   );
                                                 },
-                                              ).then(
-                                                  (value) => setState(() {}));
+                                              );
                                             }
 
                                             if (FFAppState().flag) {
@@ -405,16 +389,9 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                                       context)),
                                                       child: WebViewAware(
                                                         child: GestureDetector(
-                                                          onTap: () => _model
-                                                                  .unfocusNode
-                                                                  .canRequestFocus
-                                                              ? FocusScope.of(
-                                                                      context)
-                                                                  .requestFocus(
-                                                                      _model
-                                                                          .unfocusNode)
-                                                              : FocusScope.of(
-                                                                      context)
+                                                          onTap: () =>
+                                                              FocusScope.of(
+                                                                      dialogContext)
                                                                   .unfocus(),
                                                           child: Container(
                                                             height: MediaQuery
@@ -438,8 +415,7 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                       ),
                                                     );
                                                   },
-                                                ).then(
-                                                    (value) => setState(() {}));
+                                                );
                                               } else {
                                                 await showDialog(
                                                   context: context,
@@ -458,16 +434,9 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                                       context)),
                                                       child: WebViewAware(
                                                         child: GestureDetector(
-                                                          onTap: () => _model
-                                                                  .unfocusNode
-                                                                  .canRequestFocus
-                                                              ? FocusScope.of(
-                                                                      context)
-                                                                  .requestFocus(
-                                                                      _model
-                                                                          .unfocusNode)
-                                                              : FocusScope.of(
-                                                                      context)
+                                                          onTap: () =>
+                                                              FocusScope.of(
+                                                                      dialogContext)
                                                                   .unfocus(),
                                                           child: Container(
                                                             height: MediaQuery
@@ -491,8 +460,7 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                       ),
                                                     );
                                                   },
-                                                ).then(
-                                                    (value) => setState(() {}));
+                                                );
                                               }
 
                                               if (FFAppState().falg2 == true) {
@@ -500,9 +468,9 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                     listViewOutletRecord
                                                         .reference;
                                                 _model.startLoop = 0;
-                                                setState(() {});
+                                                safeSetState(() {});
                                                 _model.wait = true;
-                                                setState(() {});
+                                                safeSetState(() {});
                                                 _model.selectedCat =
                                                     await queryCategoryRecordOnce(
                                                   parent: _model.outletId,
@@ -568,10 +536,10 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                   }
                                                   _model.startLoop =
                                                       _model.startLoop! + 1;
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 }
                                                 _model.startLoop = 0;
-                                                setState(() {});
+                                                safeSetState(() {});
                                                 while (_model.startLoop! <
                                                     _model
                                                         .selectedPrd!.length) {
@@ -586,7 +554,7 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                   if (_model.res1 == true) {
                                                     _model.startLoop =
                                                         _model.startLoop! + 1;
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   } else {
                                                     var productRecordReference =
                                                         ProductRecord.createDoc(
@@ -873,7 +841,7 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                             productRecordReference);
                                                     _model.startLoop =
                                                         _model.startLoop! + 1;
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   }
                                                 }
                                                 _model.catIdUp =
@@ -887,7 +855,7 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                       FFAppState().outletRef,
                                                 );
                                                 _model.startLoop = 0;
-                                                setState(() {});
+                                                safeSetState(() {});
                                                 while (_model.startLoop! <
                                                     _model.prdLst2!.length) {
                                                   _model.str =
@@ -908,10 +876,10 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                   ));
                                                   _model.startLoop =
                                                       _model.startLoop! + 1;
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 }
                                                 _model.startLoop = 0;
-                                                setState(() {});
+                                                safeSetState(() {});
                                                 while (_model.startLoop! <
                                                     _model.catIdUp!.length) {
                                                   await _model
@@ -928,11 +896,11 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                   ));
                                                   _model.startLoop =
                                                       _model.startLoop! + 1;
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                                 }
                                                 _model.wait = false;
                                                 _model.startLoop = 0;
-                                                setState(() {});
+                                                safeSetState(() {});
                                                 await showDialog(
                                                   context: context,
                                                   builder:
@@ -956,7 +924,7 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                               }
                                             }
 
-                                            setState(() {});
+                                            safeSetState(() {});
                                           },
                                           onLongPress: () async {},
                                           child: Container(
@@ -1092,7 +1060,7 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                   decoration: BoxDecoration(),
                   child: wrapWithModel(
                     model: _model.loaderModel,
-                    updateCallback: () => setState(() {}),
+                    updateCallback: () => safeSetState(() {}),
                     child: LoaderWidget(),
                   ),
                 ),

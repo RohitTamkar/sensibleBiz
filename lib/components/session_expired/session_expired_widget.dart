@@ -29,7 +29,7 @@ class _SessionExpiredWidgetState extends State<SessionExpiredWidget> {
     super.initState();
     _model = createModel(context, () => SessionExpiredModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

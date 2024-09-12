@@ -54,15 +54,15 @@ class _CategoryWiseSaleReportWidgetState
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
-      setState(() {});
+      safeSetState(() {});
       FFAppState().isLoding = true;
-      setState(() {});
+      safeSetState(() {});
       if (widget!.catTestList?.length != 0) {
         FFAppState().isLoding = false;
-        setState(() {});
+        safeSetState(() {});
       } else {
         FFAppState().isLoding = false;
-        setState(() {});
+        safeSetState(() {});
         await showDialog(
           context: context,
           builder: (alertDialogContext) {
@@ -100,7 +100,7 @@ class _CategoryWiseSaleReportWidgetState
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -115,9 +115,7 @@ class _CategoryWiseSaleReportWidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -200,7 +198,7 @@ class _CategoryWiseSaleReportWidgetState
                                   if (isWeb) {
                                     FFAppState().expDay = functions
                                         .setExpiryTime(getCurrentTimestamp);
-                                    setState(() {});
+                                    safeSetState(() {});
                                   }
                                   final _datePickedDate = await showDatePicker(
                                     context: context,
@@ -221,11 +219,11 @@ class _CategoryWiseSaleReportWidgetState
                                   FFAppState().finalCategoryReport = [];
                                   FFAppState().productCart = [];
                                   FFAppState().categoryCart = [];
-                                  setState(() {});
+                                  safeSetState(() {});
                                   FFAppState().selectedDate =
                                       functions.getDayId(_model.datePicked!);
                                   FFAppState().isLoding = true;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   _model.shiftdetails2 =
                                       await actions.getShiftDetails(
                                     FFAppState().outletId,
@@ -236,7 +234,7 @@ class _CategoryWiseSaleReportWidgetState
                                     _model.shiftdetails2!.toList(),
                                   );
                                   FFAppState().iLoopStart = 0;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   while (FFAppState().iLoopStart <
                                       _model.prdJson2!.length) {
                                     _model.productDetail1 =
@@ -266,7 +264,7 @@ class _CategoryWiseSaleReportWidgetState
                                         FFAppState().iLoopStart + 1;
                                     FFAppState()
                                         .addToProductCart(_model.productJson2!);
-                                    setState(() {});
+                                    safeSetState(() {});
                                   }
                                   _model.catJson2 =
                                       await actions.getCatEiseSale(
@@ -274,7 +272,7 @@ class _CategoryWiseSaleReportWidgetState
                                     FFAppState().outletId,
                                   );
                                   FFAppState().jLoopStart = 0;
-                                  setState(() {});
+                                  safeSetState(() {});
                                   while (FFAppState().jLoopStart <
                                       _model.catJson2!.length) {
                                     _model.catDetails1 =
@@ -295,7 +293,7 @@ class _CategoryWiseSaleReportWidgetState
                                         FFAppState().jLoopStart + 1;
                                     FFAppState().addToCategoryCart(
                                         _model.categoryJson2!);
-                                    setState(() {});
+                                    safeSetState(() {});
                                   }
                                   _model.finalList2 = await actions.getReport(
                                     FFAppState().productCart.toList(),
@@ -307,9 +305,9 @@ class _CategoryWiseSaleReportWidgetState
                                       .finalList2!
                                       .toList()
                                       .cast<dynamic>();
-                                  setState(() {});
+                                  safeSetState(() {});
 
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                               ),
                             ],

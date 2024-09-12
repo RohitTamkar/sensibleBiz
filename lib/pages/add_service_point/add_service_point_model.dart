@@ -30,7 +30,6 @@ class AddServicePointModel extends FlutterFlowModel<AddServicePointWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode1;
@@ -78,7 +77,6 @@ class AddServicePointModel extends FlutterFlowModel<AddServicePointWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldFocusNode1?.dispose();
     textController1?.dispose();
 

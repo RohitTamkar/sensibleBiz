@@ -49,7 +49,7 @@ class _EditPriceWidgetState extends State<EditPriceWidget> {
         TextEditingController(text: widget!.three?.toString());
     _model.textFieldFocusNode3 ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

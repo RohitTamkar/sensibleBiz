@@ -28,7 +28,6 @@ class CustomerPageModel extends FlutterFlowModel<CustomerPageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in IconButton widget.
   List<CustomerRecord>? fetchedCust;
   // Stores action output result for [Custom Action - generateExcelofCustomer] action in IconButton widget.
@@ -42,7 +41,5 @@ class CustomerPageModel extends FlutterFlowModel<CustomerPageWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

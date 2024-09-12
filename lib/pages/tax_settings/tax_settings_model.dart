@@ -41,7 +41,6 @@ class TaxSettingsModel extends FlutterFlowModel<TaxSettingsWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in taxSettings widget.
   List<ProductRecord>? products1;
   // Stores action output result for [Custom Action - docsToJsonforTax] action in taxSettings widget.
@@ -83,7 +82,5 @@ class TaxSettingsModel extends FlutterFlowModel<TaxSettingsWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

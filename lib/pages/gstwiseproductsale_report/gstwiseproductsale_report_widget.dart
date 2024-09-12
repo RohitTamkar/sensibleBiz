@@ -63,21 +63,21 @@ class _GstwiseproductsaleReportWidgetState
         singleRecord: true,
       ).then((s) => s.firstOrNull);
       FFAppState().productSaleJson = widget!.json!;
-      setState(() {});
+      safeSetState(() {});
       FFAppState().selectedDate = functions.getDayId(getCurrentTimestamp);
-      setState(() {});
+      safeSetState(() {});
       FFAppState().isLoding = true;
-      setState(() {});
+      safeSetState(() {});
       if (getJsonField(
             widget!.json,
             r'''$[:].details[:].products[:]''',
           ) !=
           null) {
         FFAppState().isLoding = false;
-        setState(() {});
+        safeSetState(() {});
       } else {
         FFAppState().isLoding = true;
-        setState(() {});
+        safeSetState(() {});
         await showDialog(
           context: context,
           builder: (alertDialogContext) {
@@ -115,7 +115,7 @@ class _GstwiseproductsaleReportWidgetState
       ),
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -130,9 +130,7 @@ class _GstwiseproductsaleReportWidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -164,7 +162,6 @@ class _GstwiseproductsaleReportWidgetState
                     );
                   }
                   List<OutletRecord> containerOutletRecordList = snapshot.data!;
-
                   // Return an empty Container when the item does not exist.
                   if (snapshot.data!.isEmpty) {
                     return Container();
@@ -173,6 +170,7 @@ class _GstwiseproductsaleReportWidgetState
                       containerOutletRecordList.isNotEmpty
                           ? containerOutletRecordList.first
                           : null;
+
                   return Container(
                     width: MediaQuery.sizeOf(context).width * 1.0,
                     height: 100.0,
@@ -220,7 +218,7 @@ class _GstwiseproductsaleReportWidgetState
                                     FFAppState().endDate?.toString(),
                                   );
 
-                                  setState(() {});
+                                  safeSetState(() {});
                                 },
                                 child: AutoSizeText(
                                   'Gst Sale Report',
@@ -375,14 +373,17 @@ class _GstwiseproductsaleReportWidgetState
                                             );
                                           }
 
-                                          if (_shouldSetState) setState(() {});
+                                          if (_shouldSetState)
+                                            safeSetState(() {});
                                           return;
                                         } else {
-                                          if (_shouldSetState) setState(() {});
+                                          if (_shouldSetState)
+                                            safeSetState(() {});
                                           return;
                                         }
 
-                                        if (_shouldSetState) setState(() {});
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
                                       },
                                     ),
                                   ),
@@ -402,7 +403,7 @@ class _GstwiseproductsaleReportWidgetState
                                       if (isWeb) {
                                         FFAppState().expDay = functions
                                             .setExpiryTime(getCurrentTimestamp);
-                                        setState(() {});
+                                        safeSetState(() {});
                                       }
                                       final _datePickedDate =
                                           await showDatePicker(
@@ -424,7 +425,7 @@ class _GstwiseproductsaleReportWidgetState
                                       FFAppState().selectedDate = functions
                                           .getDayId(_model.datePicked!);
                                       FFAppState().isLoding = true;
-                                      setState(() {});
+                                      safeSetState(() {});
                                       _model.customdatewisegst =
                                           await DayWiseSaleCall.call(
                                         outletId:
@@ -436,17 +437,17 @@ class _GstwiseproductsaleReportWidgetState
                                       FFAppState().productSaleJson =
                                           (_model.customdatewisegst?.jsonBody ??
                                               '');
-                                      setState(() {});
+                                      safeSetState(() {});
                                       if (getJsonField(
                                             FFAppState().productSaleJson,
                                             r'''$[:].details[:].products[:]''',
                                           ) !=
                                           null) {
                                         FFAppState().isLoding = false;
-                                        setState(() {});
+                                        safeSetState(() {});
                                       } else {
                                         FFAppState().isLoding = true;
-                                        setState(() {});
+                                        safeSetState(() {});
                                         await showDialog(
                                           context: context,
                                           builder: (alertDialogContext) {
@@ -468,11 +469,12 @@ class _GstwiseproductsaleReportWidgetState
                                             );
                                           },
                                         );
-                                        if (_shouldSetState) setState(() {});
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
                                         return;
                                       }
 
-                                      if (_shouldSetState) setState(() {});
+                                      if (_shouldSetState) safeSetState(() {});
                                     },
                                   ),
                                 ],

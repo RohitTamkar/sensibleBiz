@@ -194,7 +194,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
         TextEditingController(text: widget!.productDocW?.hsnCode);
     _model.textFieldHsnWFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -209,9 +209,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -272,11 +270,11 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                   }
                   List<CategoryRecord> containerMW1CategoryRecordList =
                       snapshot.data!;
-
                   final containerMW1CategoryRecord =
                       containerMW1CategoryRecordList.isNotEmpty
                           ? containerMW1CategoryRecordList.first
                           : null;
+
                   return Container(
                     decoration: BoxDecoration(),
                     child: Column(
@@ -436,7 +434,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                       '_model.textFieldCodeMTextController',
                                                       Duration(
                                                           milliseconds: 2000),
-                                                      () => setState(() {}),
+                                                      () => safeSetState(() {}),
                                                     ),
                                                     autofocus: false,
                                                     readOnly: true,
@@ -1156,9 +1154,9 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                     e.name)
                                                                 .toList(),
                                                         onChanged: (val) =>
-                                                            setState(() => _model
-                                                                    .catDropDownMValue =
-                                                                val),
+                                                            safeSetState(() =>
+                                                                _model.catDropDownMValue =
+                                                                    val),
                                                         width:
                                                             MediaQuery.sizeOf(
                                                                         context)
@@ -1238,7 +1236,8 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                         '_model.textFieldRegionalNameMTextController',
                                                         Duration(
                                                             milliseconds: 2000),
-                                                        () => setState(() {}),
+                                                        () =>
+                                                            safeSetState(() {}),
                                                       ),
                                                       autofocus: false,
                                                       obscureText: false,
@@ -1377,7 +1376,8 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                         '_model.textFieldRecorderLevelMTextController',
                                                         Duration(
                                                             milliseconds: 2000),
-                                                        () => setState(() {}),
+                                                        () =>
+                                                            safeSetState(() {}),
                                                       ),
                                                       autofocus: false,
                                                       obscureText: false,
@@ -1531,7 +1531,8 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                         '_model.textFieldDiscountPerMTextController1',
                                                         Duration(
                                                             milliseconds: 2000),
-                                                        () => setState(() {}),
+                                                        () =>
+                                                            safeSetState(() {}),
                                                       ),
                                                       autofocus: false,
                                                       obscureText: false,
@@ -1672,7 +1673,8 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                         '_model.textFieldDiscountPerMTextController2',
                                                         Duration(
                                                             milliseconds: 2000),
-                                                        () => setState(() {}),
+                                                        () =>
+                                                            safeSetState(() {}),
                                                       ),
                                                       autofocus: false,
                                                       obscureText: false,
@@ -1824,7 +1826,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                               .weighable,
                                                       onChanged:
                                                           (newValue) async {
-                                                        setState(() => _model
+                                                        safeSetState(() => _model
                                                                 .wightCheckboMValue =
                                                             newValue!);
                                                       },
@@ -1881,7 +1883,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                               .stockable,
                                                       onChanged:
                                                           (newValue) async {
-                                                        setState(() => _model
+                                                        safeSetState(() => _model
                                                                 .stockCheckboxMValue =
                                                             newValue!);
                                                       },
@@ -2071,7 +2073,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                             'GST2'
                                                                           ],
                                                                           onChanged: (val) =>
-                                                                              setState(() => _model.taxDropDownMValue = val),
+                                                                              safeSetState(() => _model.taxDropDownMValue = val),
                                                                           width:
                                                                               180.0,
                                                                           height:
@@ -2138,7 +2140,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                             'PIECE'
                                                                           ],
                                                                           onChanged: (val) =>
-                                                                              setState(() => _model.unitDropDownMValue = val),
+                                                                              safeSetState(() => _model.unitDropDownMValue = val),
                                                                           width:
                                                                               MediaQuery.sizeOf(context).width * 0.6,
                                                                           height:
@@ -2203,7 +2205,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                           Duration(
                                                                               milliseconds: 2000),
                                                                           () =>
-                                                                              setState(() {}),
+                                                                              safeSetState(() {}),
                                                                         ),
                                                                         autofocus:
                                                                             false,
@@ -2308,7 +2310,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                           Duration(
                                                                               milliseconds: 2000),
                                                                           () =>
-                                                                              setState(() {}),
+                                                                              safeSetState(() {}),
                                                                         ),
                                                                         autofocus:
                                                                             false,
@@ -2462,7 +2464,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                           .toList(),
                                                                       onChanged:
                                                                           (val) =>
-                                                                              setState(() => _model.dropDownValue = val),
+                                                                              safeSetState(() => _model.dropDownValue = val),
                                                                       width:
                                                                           300.0,
                                                                       height:
@@ -2478,6 +2480,14 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                             useGoogleFonts:
                                                                                 GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           ),
+                                                                      hintText:
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                        widget!
+                                                                            .proDoc
+                                                                            ?.kitchenId,
+                                                                        '\"',
+                                                                      ),
                                                                       icon:
                                                                           Icon(
                                                                         Icons
@@ -2873,7 +2883,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                 } else {
                                                   context.safePop();
                                                   if (_shouldSetState)
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   return;
                                                 }
 
@@ -3011,7 +3021,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                     .pushNamed('ProductList');
 
                                                 if (_shouldSetState)
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                               },
                                               text: 'Update',
                                               options: FFButtonOptions(
@@ -3141,7 +3151,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                       '_model.textFieldCodeWTextController',
                                                       Duration(
                                                           milliseconds: 2000),
-                                                      () => setState(() {}),
+                                                      () => safeSetState(() {}),
                                                     ),
                                                     autofocus: true,
                                                     readOnly: true,
@@ -3999,9 +4009,9 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                     e.name)
                                                                 .toList(),
                                                         onChanged: (val) =>
-                                                            setState(() => _model
-                                                                    .catDropDownWValue =
-                                                                val),
+                                                            safeSetState(() =>
+                                                                _model.catDropDownWValue =
+                                                                    val),
                                                         width:
                                                             MediaQuery.sizeOf(
                                                                         context)
@@ -4081,7 +4091,8 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                         '_model.textFieldRegionalNameWTextController',
                                                         Duration(
                                                             milliseconds: 2000),
-                                                        () => setState(() {}),
+                                                        () =>
+                                                            safeSetState(() {}),
                                                       ),
                                                       autofocus: false,
                                                       obscureText: false,
@@ -4220,7 +4231,8 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                         '_model.textFieldRecorderLevelWTextController',
                                                         Duration(
                                                             milliseconds: 2000),
-                                                        () => setState(() {}),
+                                                        () =>
+                                                            safeSetState(() {}),
                                                       ),
                                                       autofocus: false,
                                                       obscureText: false,
@@ -4374,7 +4386,8 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                         '_model.textFieldDiscountPerWTextController1',
                                                         Duration(
                                                             milliseconds: 2000),
-                                                        () => setState(() {}),
+                                                        () =>
+                                                            safeSetState(() {}),
                                                       ),
                                                       autofocus: false,
                                                       obscureText: false,
@@ -4515,7 +4528,8 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                         '_model.textFieldDiscountPerWTextController2',
                                                         Duration(
                                                             milliseconds: 2000),
-                                                        () => setState(() {}),
+                                                        () =>
+                                                            safeSetState(() {}),
                                                       ),
                                                       autofocus: false,
                                                       obscureText: false,
@@ -4667,7 +4681,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                               .weighable,
                                                       onChanged:
                                                           (newValue) async {
-                                                        setState(() => _model
+                                                        safeSetState(() => _model
                                                                 .wightCheckboWNValue =
                                                             newValue!);
                                                       },
@@ -4724,7 +4738,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                               .stockable,
                                                       onChanged:
                                                           (newValue) async {
-                                                        setState(() => _model
+                                                        safeSetState(() => _model
                                                                 .stockCheckboxWNValue =
                                                             newValue!);
                                                       },
@@ -4915,7 +4929,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                             'VAT22'
                                                                           ],
                                                                           onChanged: (val) =>
-                                                                              setState(() => _model.taxDropDownTaxWValue = val),
+                                                                              safeSetState(() => _model.taxDropDownTaxWValue = val),
                                                                           width:
                                                                               180.0,
                                                                           height:
@@ -4982,7 +4996,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                             'PIECE'
                                                                           ],
                                                                           onChanged: (val) =>
-                                                                              setState(() => _model.unitDropDownWValue = val),
+                                                                              safeSetState(() => _model.unitDropDownWValue = val),
                                                                           width:
                                                                               MediaQuery.sizeOf(context).width * 0.6,
                                                                           height:
@@ -5043,7 +5057,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                             'Option 1'
                                                                           ],
                                                                           onChanged: (val) =>
-                                                                              setState(() => _model.serviceDropDownValue = val),
+                                                                              safeSetState(() => _model.serviceDropDownValue = val),
                                                                           width:
                                                                               MediaQuery.sizeOf(context).width * 0.6,
                                                                           height:
@@ -5102,7 +5116,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                           Duration(
                                                                               milliseconds: 2000),
                                                                           () =>
-                                                                              setState(() {}),
+                                                                              safeSetState(() {}),
                                                                         ),
                                                                         autofocus:
                                                                             false,
@@ -5538,7 +5552,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                 } else {
                                                   context.safePop();
                                                   if (_shouldSetState)
-                                                    setState(() {});
+                                                    safeSetState(() {});
                                                   return;
                                                 }
 
@@ -5717,7 +5731,7 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                     .pushNamed('ProductList');
 
                                                 if (_shouldSetState)
-                                                  setState(() {});
+                                                  safeSetState(() {});
                                               },
                                               text: 'Update',
                                               options: FFButtonOptions(

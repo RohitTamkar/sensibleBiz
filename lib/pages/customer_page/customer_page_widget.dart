@@ -37,7 +37,7 @@ class _CustomerPageWidgetState extends State<CustomerPageWidget> {
     super.initState();
     _model = createModel(context, () => CustomerPageModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -52,9 +52,7 @@ class _CustomerPageWidgetState extends State<CustomerPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -106,7 +104,7 @@ class _CustomerPageWidgetState extends State<CustomerPageWidget> {
 
                                     FFAppState().expDay = functions
                                         .setExpiryTime(getCurrentTimestamp);
-                                    setState(() {});
+                                    safeSetState(() {});
                                   } else {
                                     context.pushNamed('MastersPage');
 
@@ -155,7 +153,7 @@ class _CustomerPageWidgetState extends State<CustomerPageWidget> {
                                         await actions.generateExcelofCustomer(
                                       FFAppState().outletName,
                                       dateTimeFormat(
-                                        'yMMMd',
+                                        "yMMMd",
                                         getCurrentTimestamp,
                                         locale: FFLocalizations.of(context)
                                             .languageCode,
@@ -186,12 +184,8 @@ class _CustomerPageWidgetState extends State<CustomerPageWidget> {
                                                   Directionality.of(context)),
                                           child: WebViewAware(
                                             child: GestureDetector(
-                                              onTap: () => _model.unfocusNode
-                                                      .canRequestFocus
-                                                  ? FocusScope.of(context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode)
-                                                  : FocusScope.of(context)
+                                              onTap: () =>
+                                                  FocusScope.of(dialogContext)
                                                       .unfocus(),
                                               child: Container(
                                                 height:
@@ -208,7 +202,7 @@ class _CustomerPageWidgetState extends State<CustomerPageWidget> {
                                           ),
                                         );
                                       },
-                                    ).then((value) => setState(() {}));
+                                    );
 
                                     if (FFAppState().emailId != null &&
                                         FFAppState().emailId != '') {
@@ -281,7 +275,7 @@ class _CustomerPageWidgetState extends State<CustomerPageWidget> {
                                             },
                                           );
                                           FFAppState().emailId = '';
-                                          setState(() {});
+                                          safeSetState(() {});
                                         } else {
                                           await showDialog(
                                             context: context,
@@ -304,11 +298,12 @@ class _CustomerPageWidgetState extends State<CustomerPageWidget> {
                                           );
                                         }
 
-                                        if (_shouldSetState) setState(() {});
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
                                         return;
                                       }
                                     }
-                                    if (_shouldSetState) setState(() {});
+                                    if (_shouldSetState) safeSetState(() {});
                                   },
                                 ),
                               ),

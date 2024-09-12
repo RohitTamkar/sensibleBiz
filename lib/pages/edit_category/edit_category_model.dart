@@ -17,7 +17,6 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class EditCategoryModel extends FlutterFlowModel<EditCategoryWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey2 = GlobalKey<FormState>();
   final formKey1 = GlobalKey<FormState>();
   // State field(s) for NameM widget.
@@ -69,7 +68,6 @@ class EditCategoryModel extends FlutterFlowModel<EditCategoryWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     nameMFocusNode?.dispose();
     nameMTextController?.dispose();
 

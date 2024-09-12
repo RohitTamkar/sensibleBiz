@@ -21,7 +21,6 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class StockModel extends FlutterFlowModel<StockWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
@@ -46,7 +45,6 @@ class StockModel extends FlutterFlowModel<StockWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldFocusNode1?.dispose();
     textController1?.dispose();
 

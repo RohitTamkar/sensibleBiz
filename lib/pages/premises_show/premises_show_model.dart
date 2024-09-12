@@ -37,7 +37,6 @@ class PremisesShowModel extends FlutterFlowModel<PremisesShowWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in PremisesShow widget.
   List<ProductRecord>? productDocs;
   // Stores action output result for [Custom Action - productDocToJsonList] action in PremisesShow widget.
@@ -51,7 +50,5 @@ class PremisesShowModel extends FlutterFlowModel<PremisesShowWidget> {
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

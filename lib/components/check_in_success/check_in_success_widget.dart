@@ -29,7 +29,7 @@ class _CheckInSuccessWidgetState extends State<CheckInSuccessWidget> {
     super.initState();
     _model = createModel(context, () => CheckInSuccessModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

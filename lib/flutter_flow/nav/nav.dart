@@ -725,12 +725,25 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'StockUpdateCopy',
-          path: '/stockUpdateCopy',
+          name: 'StockUpdateNew',
+          path: '/stockUpdateNew',
           asyncParams: {
             'outlet': getDoc(['OUTLET'], OutletRecord.fromSnapshot),
           },
-          builder: (context, params) => StockUpdateCopyWidget(
+          builder: (context, params) => StockUpdateNewWidget(
+            outlet: params.getParam(
+              'outlet',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'StockOut',
+          path: '/StockOut',
+          asyncParams: {
+            'outlet': getDoc(['OUTLET'], OutletRecord.fromSnapshot),
+          },
+          builder: (context, params) => StockOutWidget(
             outlet: params.getParam(
               'outlet',
               ParamType.Document,

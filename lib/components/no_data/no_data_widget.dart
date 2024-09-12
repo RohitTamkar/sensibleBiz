@@ -28,7 +28,7 @@ class _NoDataWidgetState extends State<NoDataWidget> {
     super.initState();
     _model = createModel(context, () => NoDataModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

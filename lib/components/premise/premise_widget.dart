@@ -46,7 +46,7 @@ class _PremiseWidgetState extends State<PremiseWidget> {
     ).toString().toString());
     _model.textFieldFocusNode ??= FocusNode();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -96,7 +96,7 @@ class _PremiseWidgetState extends State<PremiseWidget> {
                           FFAppState().productJsonList.toList())
                       .toList()
                       .cast<dynamic>();
-                  setState(() {});
+                  safeSetState(() {});
                   ScaffoldMessenger.of(context).clearSnackBars();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

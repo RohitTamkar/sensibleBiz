@@ -27,7 +27,6 @@ class BillWiseSaleReportModel
     extends FlutterFlowModel<BillWiseSaleReportWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   var billNumberQR = '';
   // Stores action output result for [Firestore Query - Query a collection] action in IconButton widget.
   BillSaleSummaryRecord? billDocumnetQR;
@@ -41,7 +40,5 @@ class BillWiseSaleReportModel
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
+  void dispose() {}
 }

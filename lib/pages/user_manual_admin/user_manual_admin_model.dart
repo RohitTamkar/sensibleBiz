@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 class UserManualAdminModel extends FlutterFlowModel<UserManualAdminWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode1;
   TextEditingController? textController1;
@@ -46,7 +45,6 @@ class UserManualAdminModel extends FlutterFlowModel<UserManualAdminWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldFocusNode1?.dispose();
     textController1?.dispose();
 

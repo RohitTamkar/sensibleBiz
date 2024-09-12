@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 class LoginCopyModel extends FlutterFlowModel<LoginCopyWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for TextFieldNumber widget.
   FocusNode? textFieldNumberFocusNode1;
   TextEditingController? textFieldNumberTextController1;
@@ -42,7 +41,6 @@ class LoginCopyModel extends FlutterFlowModel<LoginCopyWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldNumberFocusNode1?.dispose();
     textFieldNumberTextController1?.dispose();
 

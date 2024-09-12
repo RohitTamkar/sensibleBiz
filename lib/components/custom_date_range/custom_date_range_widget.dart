@@ -32,7 +32,7 @@ class _CustomDateRangeWidgetState extends State<CustomDateRangeWidget> {
     super.initState();
     _model = createModel(context, () => CustomDateRangeModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -143,7 +143,7 @@ class _CustomDateRangeWidgetState extends State<CustomDateRangeWidget> {
                         });
                       }
                       FFAppState().startDate = _model.datePicked1;
-                      setState(() {});
+                      safeSetState(() {});
                     },
                     text: '',
                     icon: Icon(
@@ -220,7 +220,7 @@ class _CustomDateRangeWidgetState extends State<CustomDateRangeWidget> {
                         });
                       }
                       FFAppState().endDate = _model.datePicked2;
-                      setState(() {});
+                      safeSetState(() {});
                     },
                     text: 'Date Picker',
                     icon: Icon(
@@ -261,7 +261,7 @@ class _CustomDateRangeWidgetState extends State<CustomDateRangeWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 6.0),
               child: Text(
                 'Selected Start Date :${dateTimeFormat(
-                  'd/M/y',
+                  "d/M/y",
                   FFAppState().startDate,
                   locale: FFLocalizations.of(context).languageCode,
                 )}',
@@ -279,7 +279,7 @@ class _CustomDateRangeWidgetState extends State<CustomDateRangeWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 6.0),
               child: Text(
                 'Selected  End Date : ${dateTimeFormat(
-                  'd/M/y',
+                  "d/M/y",
                   FFAppState().endDate,
                   locale: FFLocalizations.of(context).languageCode,
                 )}',
@@ -299,7 +299,7 @@ class _CustomDateRangeWidgetState extends State<CustomDateRangeWidget> {
                     functions.getDayId(_model.datePicked1!);
                 FFAppState().selectedLastDate =
                     functions.getDayId(_model.datePicked2!);
-                setState(() {});
+                safeSetState(() {});
                 await showDialog(
                   context: context,
                   builder: (alertDialogContext) {
@@ -317,7 +317,6 @@ class _CustomDateRangeWidgetState extends State<CustomDateRangeWidget> {
                     );
                   },
                 );
-                Navigator.pop(context);
                 Navigator.pop(context);
               },
               text: 'Submit',

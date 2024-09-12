@@ -18,7 +18,6 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class AddOutletModel extends FlutterFlowModel<AddOutletWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode1;
   TextEditingController? textController1;
@@ -39,7 +38,6 @@ class AddOutletModel extends FlutterFlowModel<AddOutletWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldFocusNode1?.dispose();
     textController1?.dispose();
 

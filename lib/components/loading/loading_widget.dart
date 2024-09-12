@@ -34,7 +34,7 @@ class _LoadingWidgetState extends State<LoadingWidget> {
       await Future.delayed(const Duration(milliseconds: 3000));
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

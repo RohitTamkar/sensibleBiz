@@ -45,7 +45,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
       if (isWeb) {
         FFAppState().setDay = getCurrentTimestamp;
         FFAppState().expDay = functions.setExpiryTime(FFAppState().setDay!);
-        setState(() {});
+        safeSetState(() {});
         if (FFAppState().loggedIn) {
           if (FFAppState().outletId != null && FFAppState().outletId != '') {
             context.pushNamed('Dashboard');
@@ -152,7 +152,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
       this,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -167,9 +167,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,

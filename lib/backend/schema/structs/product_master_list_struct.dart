@@ -47,6 +47,7 @@ class ProductMasterListStruct extends FFFirebaseStruct {
     String? weightable,
     double? defaultPrice,
     String? dayType,
+    double? wholeSaleAmount,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _id = id,
         _active = active,
@@ -85,6 +86,7 @@ class ProductMasterListStruct extends FFFirebaseStruct {
         _weightable = weightable,
         _defaultPrice = defaultPrice,
         _dayType = dayType,
+        _wholeSaleAmount = wholeSaleAmount,
         super(firestoreUtilData);
 
   // "id" field.
@@ -386,6 +388,16 @@ class ProductMasterListStruct extends FFFirebaseStruct {
 
   bool hasDayType() => _dayType != null;
 
+  // "wholeSaleAmount" field.
+  double? _wholeSaleAmount;
+  double get wholeSaleAmount => _wholeSaleAmount ?? 0.0;
+  set wholeSaleAmount(double? val) => _wholeSaleAmount = val;
+
+  void incrementWholeSaleAmount(double amount) =>
+      wholeSaleAmount = wholeSaleAmount + amount;
+
+  bool hasWholeSaleAmount() => _wholeSaleAmount != null;
+
   static ProductMasterListStruct fromMap(Map<String, dynamic> data) =>
       ProductMasterListStruct(
         id: data['id'] as String?,
@@ -425,6 +437,7 @@ class ProductMasterListStruct extends FFFirebaseStruct {
         weightable: data['weightable'] as String?,
         defaultPrice: castToType<double>(data['defaultPrice']),
         dayType: data['dayType'] as String?,
+        wholeSaleAmount: castToType<double>(data['wholeSaleAmount']),
       );
 
   static ProductMasterListStruct? maybeFromMap(dynamic data) => data is Map
@@ -469,6 +482,7 @@ class ProductMasterListStruct extends FFFirebaseStruct {
         'weightable': _weightable,
         'defaultPrice': _defaultPrice,
         'dayType': _dayType,
+        'wholeSaleAmount': _wholeSaleAmount,
       }.withoutNulls;
 
   @override
@@ -620,6 +634,10 @@ class ProductMasterListStruct extends FFFirebaseStruct {
         'dayType': serializeParam(
           _dayType,
           ParamType.String,
+        ),
+        'wholeSaleAmount': serializeParam(
+          _wholeSaleAmount,
+          ParamType.double,
         ),
       }.withoutNulls;
 
@@ -811,6 +829,11 @@ class ProductMasterListStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        wholeSaleAmount: deserializeParam(
+          data['wholeSaleAmount'],
+          ParamType.double,
+          false,
+        ),
       );
 
   @override
@@ -855,7 +878,8 @@ class ProductMasterListStruct extends FFFirebaseStruct {
         viewType == other.viewType &&
         weightable == other.weightable &&
         defaultPrice == other.defaultPrice &&
-        dayType == other.dayType;
+        dayType == other.dayType &&
+        wholeSaleAmount == other.wholeSaleAmount;
   }
 
   @override
@@ -896,7 +920,8 @@ class ProductMasterListStruct extends FFFirebaseStruct {
         viewType,
         weightable,
         defaultPrice,
-        dayType
+        dayType,
+        wholeSaleAmount
       ]);
 }
 
@@ -938,6 +963,7 @@ ProductMasterListStruct createProductMasterListStruct({
   String? weightable,
   double? defaultPrice,
   String? dayType,
+  double? wholeSaleAmount,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -981,6 +1007,7 @@ ProductMasterListStruct createProductMasterListStruct({
       weightable: weightable,
       defaultPrice: defaultPrice,
       dayType: dayType,
+      wholeSaleAmount: wholeSaleAmount,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
