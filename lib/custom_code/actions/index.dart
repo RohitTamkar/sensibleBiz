@@ -3,6 +3,7 @@ export 'get_shift_details_copy.dart' show getShiftDetailsCopy;
 export 'generate_excelof_customer.dart' show generateExcelofCustomer;
 export 'decrement_stock_new1.dart' show decrementStockNew1;
 export 'category_dup_actionby_name.dart' show categoryDupActionbyName;
+export 'doc_to_json_copy_copy.dart' show docToJsonCopyCopy;
 export 'product_dup_action.dart' show productDupAction;
 export 'select_checkbox_tax_all.dart' show selectCheckboxTaxAll;
 export 'product_doc_to_json_list.dart' show productDocToJsonList;

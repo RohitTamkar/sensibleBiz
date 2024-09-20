@@ -245,24 +245,6 @@ class _ProductSaleReportDaywiseWidgetState
                                         if (isWeb) {}
                                         await showDialog(
                                           context: context,
-                                          builder: (alertDialogContext) {
-                                            return WebViewAware(
-                                              child: AlertDialog(
-                                                title: Text('Test 1'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.pop(
-                                                            alertDialogContext),
-                                                    child: Text('Ok'),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        );
-                                        await showDialog(
-                                          context: context,
                                           builder: (dialogContext) {
                                             return Dialog(
                                               elevation: 0,
@@ -293,24 +275,6 @@ class _ProductSaleReportDaywiseWidgetState
                                         FFAppState().productCart = [];
                                         FFAppState().categoryCart = [];
                                         safeSetState(() {});
-                                        await showDialog(
-                                          context: context,
-                                          builder: (alertDialogContext) {
-                                            return WebViewAware(
-                                              child: AlertDialog(
-                                                title: Text('Test 2'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.pop(
-                                                            alertDialogContext),
-                                                    child: Text('Ok'),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        );
                                         _model.shiftdetails6 =
                                             await actions.getShiftDetailsCopy(
                                           FFAppState().outletId,
@@ -326,36 +290,60 @@ class _ProductSaleReportDaywiseWidgetState
                                         while (FFAppState().iLoopStart <
                                             _model.prdJson3!.length) {
                                           _model.productDetail3 =
-                                              await ProductRecord
-                                                  .getDocumentOnce(
-                                                      functions.productRef(
-                                                          getJsonField(
-                                                            _model.prdJson3![
-                                                                FFAppState()
-                                                                    .iLoopStart],
-                                                            r'''$.prdId''',
-                                                          ).toString(),
-                                                          FFAppState()
-                                                              .outletId));
-                                          _model.productJson3 =
-                                              await actions.docToJsonCopy(
-                                            _model.productDetail3!,
-                                            getJsonField(
-                                              _model.prdJson3![
-                                                  FFAppState().iLoopStart],
-                                              r'''$.price''',
+                                              await queryProductRecordOnce(
+                                            parent: FFAppState().outletRef,
+                                            queryBuilder: (productRecord) =>
+                                                productRecord.where(
+                                              'id',
+                                              isEqualTo: getJsonField(
+                                                _model.prdJson3?[
+                                                    FFAppState().iLoopStart],
+                                                r'''$.prdId''',
+                                              ).toString(),
                                             ),
-                                            getJsonField(
-                                              _model.prdJson3![
-                                                  FFAppState().iLoopStart],
-                                              r'''$.qty''',
-                                            ),
-                                          );
-                                          FFAppState().iLoopStart =
-                                              FFAppState().iLoopStart + 1;
-                                          FFAppState().addToProductCart(
-                                              _model.productJson3!);
-                                          safeSetState(() {});
+                                            singleRecord: true,
+                                          ).then((s) => s.firstOrNull);
+                                          if ((_model.productDetail3 != null) ==
+                                              false) {
+                                            _model.productJson5 =
+                                                await actions.docToJsonCopyCopy(
+                                              getJsonField(
+                                                _model.prdJson3![
+                                                    FFAppState().iLoopStart],
+                                                r'''$.price''',
+                                              ),
+                                              getJsonField(
+                                                _model.prdJson3![
+                                                    FFAppState().iLoopStart],
+                                                r'''$.qty''',
+                                              ),
+                                            );
+                                            FFAppState().iLoopStart =
+                                                FFAppState().iLoopStart + 1;
+                                            FFAppState().addToProductCart(
+                                                _model.productJson5!);
+                                            safeSetState(() {});
+                                          } else {
+                                            _model.productJson3 =
+                                                await actions.docToJsonCopy(
+                                              _model.productDetail3!,
+                                              getJsonField(
+                                                _model.prdJson3![
+                                                    FFAppState().iLoopStart],
+                                                r'''$.price''',
+                                              ),
+                                              getJsonField(
+                                                _model.prdJson3![
+                                                    FFAppState().iLoopStart],
+                                                r'''$.qty''',
+                                              ),
+                                            );
+                                            FFAppState().iLoopStart =
+                                                FFAppState().iLoopStart + 1;
+                                            FFAppState().addToProductCart(
+                                                _model.productJson3!);
+                                            safeSetState(() {});
+                                          }
                                         }
                                         _model.finalList4 =
                                             await actions.getReport(
@@ -536,134 +524,126 @@ class _ProductSaleReportDaywiseWidgetState
                           Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  'Sale Date:',
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .titleSmallFamily,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily),
-                                      ),
-                                ),
+                              Text(
+                                'ST Date:',
+                                style: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .titleSmallFamily,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmallFamily),
+                                    ),
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  FFAppState().selectedDate,
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .titleSmallFamily,
-                                        color:
-                                            FlutterFlowTheme.of(context).info,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily),
-                                      ),
-                                ),
+                              Text(
+                                FFAppState().selectedDate,
+                                style: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .titleSmallFamily,
+                                      color: FlutterFlowTheme.of(context).info,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmallFamily),
+                                    ),
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 20.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                if (responsiveVisibility(
-                                  context: context,
-                                  phone: false,
-                                  tablet: false,
-                                ))
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      await showDialog(
-                                        context: context,
-                                        builder: (alertDialogContext) {
-                                          return WebViewAware(
-                                            child: AlertDialog(
-                                              title: Text(isiOS.toString()),
-                                              content: Text(
-                                                  'Product Report Downloading'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext),
-                                                  child: Text('Ok'),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      );
-                                      _model.res = await actions
-                                          .exportToExcelProductReport(
-                                        getJsonField(
-                                          FFAppState().productSaleJson,
-                                          r'''$[:].details[:].products''',
-                                          true,
-                                        )!,
-                                        getCurrentTimestamp,
-                                      );
-                                      await showDialog(
-                                        context: context,
-                                        builder: (alertDialogContext) {
-                                          return WebViewAware(
-                                            child: AlertDialog(
-                                              title: Text('Alert'),
-                                              content: Text(
-                                                  'Product Report Download Successfully'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext),
-                                                  child: Text('Ok'),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      );
+                          if (FFAppState().hide)
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 20.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  if (responsiveVisibility(
+                                    context: context,
+                                    phone: false,
+                                    tablet: false,
+                                  ))
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return WebViewAware(
+                                              child: AlertDialog(
+                                                title: Text(isiOS.toString()),
+                                                content: Text(
+                                                    'Product Report Downloading'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                        _model.res = await actions
+                                            .exportToExcelProductReport(
+                                          getJsonField(
+                                            FFAppState().productSaleJson,
+                                            r'''$[:].details[:].products''',
+                                            true,
+                                          )!,
+                                          getCurrentTimestamp,
+                                        );
+                                        await showDialog(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return WebViewAware(
+                                              child: AlertDialog(
+                                                title: Text('Alert'),
+                                                content: Text(
+                                                    'Product Report Download Successfully'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
 
-                                      safeSetState(() {});
-                                    },
-                                    child: Icon(
-                                      Icons.cloud_download,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      size: 35.0,
+                                        safeSetState(() {});
+                                      },
+                                      child: Icon(
+                                        Icons.cloud_download,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 35.0,
+                                      ),
                                     ),
-                                  ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
                           Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 0.0, 0.0, 0.0),
+                                    5.0, 0.0, 0.0, 0.0),
                                 child: Text(
-                                  'Sale Date:',
+                                  'EN Date:',
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
@@ -677,25 +657,20 @@ class _ProductSaleReportDaywiseWidgetState
                                       ),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  FFAppState().selectedLastDate,
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: FlutterFlowTheme.of(context)
-                                            .titleSmallFamily,
-                                        color:
-                                            FlutterFlowTheme.of(context).info,
-                                        letterSpacing: 0.0,
-                                        useGoogleFonts: GoogleFonts.asMap()
-                                            .containsKey(
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily),
-                                      ),
-                                ),
+                              Text(
+                                FFAppState().selectedLastDate,
+                                style: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .titleSmallFamily,
+                                      color: FlutterFlowTheme.of(context).info,
+                                      letterSpacing: 0.0,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmallFamily),
+                                    ),
                               ),
                             ],
                           ),

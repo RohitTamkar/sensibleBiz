@@ -199,23 +199,43 @@ class _StockUpdateNewWidgetState extends State<StockUpdateNewWidget> {
                             },
                           ),
                           Expanded(
-                            child: AutoSizeText(
-                              'Stock Management ',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .headlineMedium
-                                  .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .headlineMediumFamily,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBtnText,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .headlineMediumFamily),
-                                  ),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed(
+                                  'StockUpdateNewCopy',
+                                  queryParameters: {
+                                    'outlet': serializeParam(
+                                      widget!.outlet,
+                                      ParamType.Document,
+                                    ),
+                                  }.withoutNulls,
+                                  extra: <String, dynamic>{
+                                    'outlet': widget!.outlet,
+                                  },
+                                );
+                              },
+                              child: AutoSizeText(
+                                'Stock Management ',
+                                textAlign: TextAlign.center,
+                                style: FlutterFlowTheme.of(context)
+                                    .headlineMedium
+                                    .override(
+                                      fontFamily: FlutterFlowTheme.of(context)
+                                          .headlineMediumFamily,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBtnText,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      useGoogleFonts: GoogleFonts.asMap()
+                                          .containsKey(
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineMediumFamily),
+                                    ),
+                              ),
                             ),
                           ),
                           FlutterFlowIconButton(

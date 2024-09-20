@@ -923,6 +923,8 @@ class _AddCategoryPageWidgetState extends State<AddCategoryPageWidget> {
                                             ? ''
                                             : _model.regionalNameWTextController
                                                 .text,
+                                        dayType: '',
+                                        selected: false,
                                       ));
                                       _model.docCopy =
                                           CategoryRecord.getDocumentFromData(
@@ -950,6 +952,8 @@ class _AddCategoryPageWidgetState extends State<AddCategoryPageWidget> {
                                                     : _model
                                                         .regionalNameWTextController
                                                         .text,
+                                                dayType: '',
+                                                selected: false,
                                               ),
                                               categoryRecordReference);
                                       _shouldSetState = true;

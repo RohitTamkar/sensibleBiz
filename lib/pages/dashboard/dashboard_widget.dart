@@ -1470,6 +1470,81 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
+                                                  context.pushNamed(
+                                                      'multicounterOutlet');
+                                                },
+                                                child: Container(
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          1.0,
+                                                  height: 50.0,
+                                                  decoration: BoxDecoration(),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    5.0,
+                                                                    0.0),
+                                                        child: Container(
+                                                          width: 40.0,
+                                                          height: 40.0,
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          child: Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    0.0, 0.0),
+                                                            child: Icon(
+                                                              Icons.loupe,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryText,
+                                                              size: 28.0,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Stock Transfer',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineMediumFamily,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .headlineMediumFamily),
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 2.0),
+                                              child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
                                                   FFAppState().expDay =
                                                       functions.setExpiryTime(
                                                           getCurrentTimestamp);

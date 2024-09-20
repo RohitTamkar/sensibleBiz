@@ -407,7 +407,7 @@ DocumentReference productRef(
 ) {
   DocumentReference x =
       FirebaseFirestore.instance.doc('/OUTLET/$outletId/PRODUCT/$id');
-  print(x);
+  // print(x);
   return FirebaseFirestore.instance.doc('/OUTLET/$outletId/PRODUCT/$id');
 }
 
@@ -559,6 +559,8 @@ DocumentReference getCatRefById(
   String id,
   String outletId,
 ) {
+  print(outletId);
+  print(id);
   return FirebaseFirestore.instance
       .doc("/OUTLET/" + outletId + '/CATEGORY/$id');
 }

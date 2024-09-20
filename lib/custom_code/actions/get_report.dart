@@ -46,10 +46,10 @@ Future<List<dynamic>> getReport(
   finalList.add({"details": list});
 //  print(finalList);
   if (type == "product") {
-    print(productsList);
+    // print(productsList);
     return productsList;
   } else if (type == "category") {
-    print(listOfCategory);
+    // print(listOfCategory);
     return listOfCategory;
   } else {
     return finalList;

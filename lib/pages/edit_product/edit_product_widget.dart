@@ -50,6 +50,23 @@ class _EditProductWidgetState extends State<EditProductWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.catResultM = await CategoryRecord.getDocumentOnce(functions
           .getCatRefById(widget!.proDoc!.category, FFAppState().outletRef!.id));
+      await showDialog(
+        context: context,
+        builder: (alertDialogContext) {
+          return WebViewAware(
+            child: AlertDialog(
+              title: Text(_model.catResultM!.name),
+              content: Text(widget!.proDoc!.category),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(alertDialogContext),
+                  child: Text('Ok'),
+                ),
+              ],
+            ),
+          );
+        },
+      );
     });
 
     _model.textFieldCodeMTextController ??= TextEditingController(

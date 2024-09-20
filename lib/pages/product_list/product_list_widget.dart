@@ -878,6 +878,29 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                                   ),
                                                                   onPressed:
                                                                       () async {
+                                                                    await showDialog(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (alertDialogContext) {
+                                                                        return WebViewAware(
+                                                                          child:
+                                                                              AlertDialog(
+                                                                            title:
+                                                                                Text(listProductMItem.category),
+                                                                            content:
+                                                                                Text(_model.getProductDoc.length.toString()),
+                                                                            actions: [
+                                                                              TextButton(
+                                                                                onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                child: Text('Ok'),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                    );
+
                                                                     context
                                                                         .pushNamed(
                                                                       'EditProduct',

@@ -31,13 +31,8 @@ Future<String> genrateExcelForProductWiseSaleReportForWeb(
   // Add headers to the sheet
   sheet.appendRow([
     TextCellValue('Shop Name'),
-    // TextCellValue(shopName ?? ''),
+    TextCellValue(FFAppState().outletName ?? ''),
   ]);
-/*
-  sheet.appendRow([
-    TextCellValue('Date & Time'),
-    TextCellValue(dateTime ?? ''),
-  ]);*/
 
   sheet.appendRow([
     TextCellValue('Start Date'),
@@ -65,17 +60,22 @@ Future<String> genrateExcelForProductWiseSaleReportForWeb(
   double totalAmt = 0;
 
   for (var product in jsonproduct) {
-    // print(product);
-    // print(product['name']);
-    totalqty += product['qty'];
-    totalAmt += product['catTotal'];
+    // Ensure 'qty' and 'catTotal' are correctly parsed to avoid the type mismatch
+    double qty = product['qty'] is int
+        ? product['qty'].toDouble()
+        : double.tryParse(product['qty'].toString()) ?? 0.0;
+    double catTotal = double.tryParse(product['catTotal'].toString()) ?? 0.0;
+
+    totalqty += qty;
+    totalAmt += catTotal;
+
     sheet.appendRow([
       TextCellValue(product['name'].toString()),
       TextCellValue(product['barcode'].toString()),
       TextCellValue(product['hsnCode'].toString()),
-      TextCellValue(product['qty'].toString()),
+      TextCellValue(qty.toString()),
       TextCellValue(product['price'].toString()),
-      TextCellValue(product['catTotal'].toString()),
+      TextCellValue(catTotal.toString()),
     ]);
   }
 
@@ -83,12 +83,14 @@ Future<String> genrateExcelForProductWiseSaleReportForWeb(
   sheet.appendRow([TextCellValue('')]);
 
   sheet.appendRow([
-    TextCellValue('Total'),
-    TextCellValue(totalqty.toString()),
     TextCellValue(''),
+    TextCellValue(''),
+    TextCellValue('Total Qty'),
+    TextCellValue(totalqty.toString()),
+    TextCellValue('Total Price'),
     TextCellValue(totalAmt.toString()),
   ]);
-  // Add total tax amount to the sheet
+
   // Encode the Excel file
   var fileBytes = excel.encode();
 

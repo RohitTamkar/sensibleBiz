@@ -3389,7 +3389,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                     .text)),
                                                             '0',
                                                           ),
-                                                          recipeId: '\"',
+                                                          recipeId: '',
                                                           regionalName: _model
                                                               .regionalNameMTextController
                                                               .text,
@@ -3499,8 +3499,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                         .text)),
                                                                     '0',
                                                                   ),
-                                                                  recipeId:
-                                                                      '\"',
+                                                                  recipeId: '',
                                                                   regionalName:
                                                                       _model
                                                                           .regionalNameMTextController
@@ -6775,7 +6774,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                         )),
                                                         '0',
                                                       ),
-                                                      recipeId: '\"',
+                                                      recipeId: '',
                                                       regionalName: _model
                                                           .regionalNameWTextController
                                                           .text,
@@ -6803,8 +6802,14 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                             .text),
                                                         0.0,
                                                       ),
-                                                      unitId: _model.unitIdW,
-                                                      taxIndex: _model.taxIdW,
+                                                      unitId:
+                                                          _model.unitIdW == null
+                                                              ? 1
+                                                              : _model.unitIdW,
+                                                      taxIndex:
+                                                          _model.taxIdW == null
+                                                              ? 1
+                                                              : _model.taxIdW,
                                                       hsnCode: valueOrDefault<
                                                           String>(
                                                         _model
@@ -6901,7 +6906,7 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                 )),
                                                                 '0',
                                                               ),
-                                                              recipeId: '\"',
+                                                              recipeId: '',
                                                               regionalName: _model
                                                                   .regionalNameWTextController
                                                                   .text,
@@ -6932,9 +6937,17 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                 0.0,
                                                               ),
                                                               unitId: _model
-                                                                  .unitIdW,
+                                                                          .unitIdW ==
+                                                                      null
+                                                                  ? 1
+                                                                  : _model
+                                                                      .unitIdW,
                                                               taxIndex:
-                                                                  _model.taxIdW,
+                                                                  _model.taxIdW ==
+                                                                          null
+                                                                      ? 1
+                                                                      : _model
+                                                                          .taxIdW,
                                                               hsnCode:
                                                                   valueOrDefault<
                                                                       String>(

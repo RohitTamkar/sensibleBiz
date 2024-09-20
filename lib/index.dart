@@ -109,3 +109,7 @@ export '/pages/user_pages/edit_user/edit_user_widget.dart' show EditUserWidget;
 export '/pages/stock_update_new/stock_update_new_widget.dart'
     show StockUpdateNewWidget;
 export '/pages/stock_out/stock_out_widget.dart' show StockOutWidget;
+export '/pages/stock_update_new_copy/stock_update_new_copy_widget.dart'
+    show StockUpdateNewCopyWidget;
+export '/pages/multicounter_outlet/multicounter_outlet_widget.dart'
+    show MulticounterOutletWidget;

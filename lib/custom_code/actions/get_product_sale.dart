@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'index.dart'; // Imports other custom actions
+import 'index.dart';
 import 'dart:convert';
 
 Future<List<dynamic>> getProductSale(List<dynamic> data) async {
@@ -26,6 +26,7 @@ Future<List<dynamic>> getProductSale(List<dynamic> data) async {
   bool symbolFlag = false;
   for (int i = 0; i < data.length; i++) {
     countMain++;
+    //print(data[i]["productSale"]);
     var entryList = data[i]["productSale"].entries.toList();
     entryList.forEach((item) {
       // print(item);
@@ -47,31 +48,33 @@ Future<List<dynamic>> getProductSale(List<dynamic> data) async {
         });
       }
     });
-    //   if (countMain == data.length) {
-    //     var doc;
-    //     for (int i = 0; i < prd.length; i++) {
-    //       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-    //           .collection('OUTLET')
-    //           .doc(FFAppState().outletId)
-    //           .collection('PRODUCT')
-    //           .where(FieldPath.documentId, isEqualTo: prd[i]["prdId"])
-    //           .get();
-
-    //       querySnapshot.docs.forEach((doc) {
-    //         prdDetails.add({
-    //           "prdId": prd[i]["prdId"],
-    //           "price": prd[i]["price"],
-    //           "qty": prd[i]["qty"],
-    //           "prdName": doc["name"],
-    //           "shortName": doc["shortName"],
-    //           "catId": doc["category"],
-    //           "catTotal": prd[i]["price"] * prd[i]["qty"],
-    //           //"catTotal": price * qty,
-    //         });
-    //       });
-    //     }
-    //   }
-    // }
   }
+
   return prd;
 }
+
+//   if (countMain == data.length) {
+//     var doc;
+//     for (int i = 0; i < prd.length; i++) {
+//       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+//           .collection('OUTLET')
+//           .doc(FFAppState().outletId)
+//           .collection('PRODUCT')
+//           .where(FieldPath.documentId, isEqualTo: prd[i]["prdId"])
+//           .get();
+
+//       querySnapshot.docs.forEach((doc) {
+//         prdDetails.add({
+//           "prdId": prd[i]["prdId"],
+//           "price": prd[i]["price"],
+//           "qty": prd[i]["qty"],
+//           "prdName": doc["name"],
+//           "shortName": doc["shortName"],
+//           "catId": doc["category"],
+//           "catTotal": prd[i]["price"] * prd[i]["qty"],
+//           //"catTotal": price * qty,
+//         });
+//       });
+//     }
+//   }
+// }

@@ -46,6 +46,16 @@ class CategoryRecord extends FirestoreRecord {
   int get type => _type ?? 0;
   bool hasType() => _type != null;
 
+  // "dayType" field.
+  String? _dayType;
+  String get dayType => _dayType ?? '';
+  bool hasDayType() => _dayType != null;
+
+  // "selected" field.
+  bool? _selected;
+  bool get selected => _selected ?? false;
+  bool hasSelected() => _selected != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -55,6 +65,8 @@ class CategoryRecord extends FirestoreRecord {
     _onlineSynced = snapshotData['onlineSynced'] as bool?;
     _regionalName = snapshotData['regionalName'] as String?;
     _type = castToType<int>(snapshotData['type']);
+    _dayType = snapshotData['dayType'] as String?;
+    _selected = snapshotData['selected'] as bool?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -103,6 +115,8 @@ Map<String, dynamic> createCategoryRecordData({
   bool? onlineSynced,
   String? regionalName,
   int? type,
+  String? dayType,
+  bool? selected,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -112,6 +126,8 @@ Map<String, dynamic> createCategoryRecordData({
       'onlineSynced': onlineSynced,
       'regionalName': regionalName,
       'type': type,
+      'dayType': dayType,
+      'selected': selected,
     }.withoutNulls,
   );
 
@@ -128,7 +144,9 @@ class CategoryRecordDocumentEquality implements Equality<CategoryRecord> {
         e1?.name == e2?.name &&
         e1?.onlineSynced == e2?.onlineSynced &&
         e1?.regionalName == e2?.regionalName &&
-        e1?.type == e2?.type;
+        e1?.type == e2?.type &&
+        e1?.dayType == e2?.dayType &&
+        e1?.selected == e2?.selected;
   }
 
   @override
@@ -138,7 +156,9 @@ class CategoryRecordDocumentEquality implements Equality<CategoryRecord> {
         e?.name,
         e?.onlineSynced,
         e?.regionalName,
-        e?.type
+        e?.type,
+        e?.dayType,
+        e?.selected
       ]);
 
   @override

@@ -34,8 +34,10 @@ class ProductSaleReportDaywiseModel
   List<dynamic>? shiftdetails6;
   // Stores action output result for [Custom Action - getProductSale] action in IconButton widget.
   List<dynamic>? prdJson3;
-  // Stores action output result for [Backend Call - Read Document] action in IconButton widget.
+  // Stores action output result for [Firestore Query - Query a collection] action in IconButton widget.
   ProductRecord? productDetail3;
+  // Stores action output result for [Custom Action - docToJsonCopyCopy] action in IconButton widget.
+  dynamic? productJson5;
   // Stores action output result for [Custom Action - docToJsonCopy] action in IconButton widget.
   dynamic? productJson3;
   // Stores action output result for [Custom Action - getReport] action in IconButton widget.
