@@ -1,16 +1,10 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/calender/calender_widget.dart';
-import '/components/select_date/select_date_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -162,176 +156,6 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                                   },
                                 ),
                               ),
-                              if (false &&
-                                  responsiveVisibility(
-                                    context: context,
-                                    tablet: false,
-                                    tabletLandscape: false,
-                                    desktop: false,
-                                  ))
-                                FlutterFlowIconButton(
-                                  borderColor: Colors.transparent,
-                                  borderRadius: 20.0,
-                                  borderWidth: 1.0,
-                                  buttonSize: 40.0,
-                                  icon: Icon(
-                                    Icons.download_sharp,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                    size: 24.0,
-                                  ),
-                                  onPressed: () async {
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      enableDrag: false,
-                                      context: context,
-                                      builder: (context) {
-                                        return WebViewAware(
-                                          child: GestureDetector(
-                                            onTap: () => FocusScope.of(context)
-                                                .unfocus(),
-                                            child: Padding(
-                                              padding: MediaQuery.viewInsetsOf(
-                                                  context),
-                                              child: SelectDateWidget(),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ).then((value) => safeSetState(() {}));
-
-                                    if ((FFAppState().selectedStartDate !=
-                                                null &&
-                                            FFAppState().selectedStartDate !=
-                                                '') &&
-                                        (FFAppState().selectedLastDate !=
-                                                null &&
-                                            FFAppState().selectedLastDate !=
-                                                '')) {
-                                      FFAppState().billSaleStructState = [];
-                                      safeSetState(() {});
-                                      _model.billSaleSummeryDoc =
-                                          await queryBillSaleSummaryRecordOnce(
-                                        parent: FFAppState().outletRef,
-                                        queryBuilder: (billSaleSummaryRecord) =>
-                                            billSaleSummaryRecord
-                                                .where(
-                                                  'createdDate',
-                                                  isGreaterThanOrEqualTo: functions
-                                                      .getMillisecondsFromDate(
-                                                          FFAppState()
-                                                              .selectedStartDate),
-                                                )
-                                                .where(
-                                                  'createdDate',
-                                                  isLessThanOrEqualTo: functions
-                                                      .getMillisecondsFromDate(
-                                                          FFAppState()
-                                                              .selectedLastDate),
-                                                ),
-                                      );
-                                      FFAppState().billStartLoop = 0;
-                                      safeSetState(() {});
-                                      while (FFAppState().billStartLoop <
-                                          _model.billSaleSummeryDoc!.length) {
-                                        FFAppState().addToBillSaleStructState(
-                                            BillSaleSummeryDataTypeStruct(
-                                          billNo: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
-                                              ?.billNo,
-                                          finalTotal: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
-                                              ?.finalTotal,
-                                          id: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
-                                              ?.id,
-                                          serialNo: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
-                                              ?.serialNo,
-                                          userId: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
-                                              ?.userId,
-                                          checkInTime: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
-                                              ?.checkInTime,
-                                          checkOutTime: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
-                                              ?.checkOutTime,
-                                          dayId: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
-                                              ?.dayId,
-                                          createdDate: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
-                                              ?.createdDate,
-                                        ));
-                                        safeSetState(() {});
-                                        FFAppState().billStartLoop =
-                                            FFAppState().billStartLoop + 1;
-                                        safeSetState(() {});
-                                      }
-                                      _model.url =
-                                          await actions.generatePdfFile(
-                                        FFAppState()
-                                            .billSaleStructState
-                                            .toList(),
-                                      );
-                                      await showDialog(
-                                        context: context,
-                                        builder: (alertDialogContext) {
-                                          return WebViewAware(
-                                            child: AlertDialog(
-                                              title: Text(
-                                                  'Excel Download Success.'),
-                                              content: Text(_model.url!),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext),
-                                                  child: Text('Ok'),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    } else {
-                                      await showDialog(
-                                        context: context,
-                                        builder: (alertDialogContext) {
-                                          return WebViewAware(
-                                            child: AlertDialog(
-                                              title:
-                                                  Text('Select Date First..!'),
-                                              content: Text(
-                                                  'Please Select Start Date And End Date..!'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext),
-                                                  child: Text('Ok'),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    }
-
-                                    safeSetState(() {});
-                                  },
-                                ),
                             ],
                           ),
                         ],
@@ -515,26 +339,21 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                               decoration: BoxDecoration(),
                               child: Builder(
                                 builder: (context) {
-                                  final billWiseSaleReport =
-                                      containerInvoiceRecordList
-                                          .sortedList(
-                                              keyOf: (e) => e.billNo,
-                                              desc: true)
-                                          .toList();
+                                  final billList = containerInvoiceRecordList
+                                      .map((e) => e)
+                                      .toList();
 
                                   return ListView.separated(
                                     padding: EdgeInsets.zero,
                                     primary: false,
                                     shrinkWrap: true,
                                     scrollDirection: Axis.vertical,
-                                    itemCount: billWiseSaleReport.length,
+                                    itemCount: billList.length,
                                     separatorBuilder: (_, __) =>
                                         SizedBox(height: 5.0),
-                                    itemBuilder:
-                                        (context, billWiseSaleReportIndex) {
-                                      final billWiseSaleReportItem =
-                                          billWiseSaleReport[
-                                              billWiseSaleReportIndex];
+                                    itemBuilder: (context, billListIndex) {
+                                      final billListItem =
+                                          billList[billListIndex];
                                       return Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 10.0, 0.0, 1.0),
@@ -548,13 +367,12 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                                               'editBillDetails',
                                               queryParameters: {
                                                 'prdDocument': serializeParam(
-                                                  billWiseSaleReportItem,
+                                                  billListItem,
                                                   ParamType.Document,
                                                 ),
                                               }.withoutNulls,
                                               extra: <String, dynamic>{
-                                                'prdDocument':
-                                                    billWiseSaleReportItem,
+                                                'prdDocument': billListItem,
                                               },
                                             );
                                           },
@@ -596,9 +414,9 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                                                 children: [
                                                   Expanded(
                                                     child: Text(
-                                                      '${billWiseSaleReportItem.dayId}  ${valueOrDefault<String>(
+                                                      '${billListItem.dayId}  ${valueOrDefault<String>(
                                                         functions.getTimeFromMilliseonds(
-                                                            billWiseSaleReportItem
+                                                            billListItem
                                                                 .invoiceDate!
                                                                 .millisecondsSinceEpoch),
                                                         '0',
@@ -626,8 +444,7 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                                                   ),
                                                   Expanded(
                                                     child: Text(
-                                                      billWiseSaleReportItem
-                                                          .invoice,
+                                                      billListItem.invoice,
                                                       textAlign:
                                                           TextAlign.center,
                                                       style:
@@ -653,7 +470,7 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                                                   ),
                                                   Expanded(
                                                     child: Text(
-                                                      '₹ ${billWiseSaleReportItem.finalBillAmt.toString()}',
+                                                      '₹ ${billListItem.finalBillAmt.toString()}',
                                                       textAlign: TextAlign.end,
                                                       style:
                                                           FlutterFlowTheme.of(
