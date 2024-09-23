@@ -136,5 +136,17 @@ service cloud.firestore {
       allow read: if true;
     }
 
+
+    match /OUTLET/{parent}/INVOICE/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/INVOICE/{document} {
+      allow read: if true;
+    }
+
   }
 }

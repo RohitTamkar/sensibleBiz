@@ -1502,7 +1502,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                 AlignmentDirectional(
                                                                     0.0, 0.0),
                                                             child: Icon(
-                                                              Icons.loupe,
+                                                              Icons
+                                                                  .transfer_within_a_station,
                                                               color: FlutterFlowTheme
                                                                       .of(context)
                                                                   .primaryText,
@@ -2320,6 +2321,115 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                               icon: Icon(
                                                                 Icons
                                                                     .inventory_outlined,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                                size: 23.0,
+                                                              ),
+                                                              options:
+                                                                  FFButtonOptions(
+                                                                width: 300.0,
+                                                                height: 40.0,
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .all(
+                                                                            0.0),
+                                                                iconPadding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            20.0,
+                                                                            0.0),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBtnText,
+                                                                textStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineSmall
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .headlineSmallFamily,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      useGoogleFonts: GoogleFonts
+                                                                              .asMap()
+                                                                          .containsKey(
+                                                                              FlutterFlowTheme.of(context).headlineSmallFamily),
+                                                                    ),
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Colors
+                                                                      .transparent,
+                                                                ),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            0.0),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .width *
+                                                                  2.2,
+                                                          height: 50.0,
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          child: Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    -1.0, 0.0),
+                                                            child:
+                                                                FFButtonWidget(
+                                                              onPressed:
+                                                                  () async {
+                                                                FFAppState()
+                                                                        .expDay =
+                                                                    functions
+                                                                        .setExpiryTime(
+                                                                            getCurrentTimestamp);
+                                                                safeSetState(
+                                                                    () {});
+
+                                                                context
+                                                                    .pushNamed(
+                                                                  'StockUpdateTransferReport',
+                                                                  queryParameters:
+                                                                      {
+                                                                    'outlet':
+                                                                        serializeParam(
+                                                                      widget!
+                                                                          .outletDetails,
+                                                                      ParamType
+                                                                          .Document,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                  extra: <String,
+                                                                      dynamic>{
+                                                                    'outlet':
+                                                                        widget!
+                                                                            .outletDetails,
+                                                                  },
+                                                                );
+
+                                                                FFAppState()
+                                                                        .expDay =
+                                                                    functions
+                                                                        .setExpiryTime(
+                                                                            getCurrentTimestamp);
+                                                                safeSetState(
+                                                                    () {});
+                                                              },
+                                                              text:
+                                                                  'Stock Transfer Report',
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .transfer_within_a_station,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .primaryText,

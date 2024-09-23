@@ -76,7 +76,7 @@ export '/pages/employee_all_page/employee_all_page_widget.dart'
     show EmployeeAllPageWidget;
 export '/pages/add_employee/add_employee_widget.dart' show AddEmployeeWidget;
 export '/pages/edit_employee/edit_employee_widget.dart' show EditEmployeeWidget;
-export '/pages/reports/stock_reportam/stock_reportam_widget.dart'
+export '/pages/stock_reportam/stock_reportam_widget.dart'
     show StockReportamWidget;
 export '/pages/gstwiseproductsale_report/gstwiseproductsale_report_widget.dart'
     show GstwiseproductsaleReportWidget;
@@ -109,7 +109,12 @@ export '/pages/user_pages/edit_user/edit_user_widget.dart' show EditUserWidget;
 export '/pages/stock_update_new/stock_update_new_widget.dart'
     show StockUpdateNewWidget;
 export '/pages/stock_out/stock_out_widget.dart' show StockOutWidget;
-export '/pages/stock_update_new_copy/stock_update_new_copy_widget.dart'
-    show StockUpdateNewCopyWidget;
+export '/pages/stock_update_transfer/stock_update_transfer_widget.dart'
+    show StockUpdateTransferWidget;
 export '/pages/multicounter_outlet/multicounter_outlet_widget.dart'
     show MulticounterOutletWidget;
+export '/pages/stock_update_transfer_report/stock_update_transfer_report_widget.dart'
+    show StockUpdateTransferReportWidget;
+export '/pages/reports/edit_bill/edit_bill_widget.dart' show EditBillWidget;
+export '/pages/reports/edit_bill_details/edit_bill_details_widget.dart'
+    show EditBillDetailsWidget;

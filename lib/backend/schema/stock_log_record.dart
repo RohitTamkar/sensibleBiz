@@ -106,6 +106,16 @@ class StockLogRecord extends FirestoreRecord {
   int get reqCount => _reqCount ?? 0;
   bool hasReqCount() => _reqCount != null;
 
+  // "toOutletId" field.
+  String? _toOutletId;
+  String get toOutletId => _toOutletId ?? '';
+  bool hasToOutletId() => _toOutletId != null;
+
+  // "fromOutletId" field.
+  String? _fromOutletId;
+  String get fromOutletId => _fromOutletId ?? '';
+  bool hasFromOutletId() => _fromOutletId != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -130,6 +140,8 @@ class StockLogRecord extends FirestoreRecord {
     _reqStock = castToType<double>(snapshotData['reqStock']);
     _stockType = snapshotData['stockType'] as String?;
     _reqCount = castToType<int>(snapshotData['reqCount']);
+    _toOutletId = snapshotData['toOutletId'] as String?;
+    _fromOutletId = snapshotData['fromOutletId'] as String?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -189,6 +201,8 @@ Map<String, dynamic> createStockLogRecordData({
   double? reqStock,
   String? stockType,
   int? reqCount,
+  String? toOutletId,
+  String? fromOutletId,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -209,6 +223,8 @@ Map<String, dynamic> createStockLogRecordData({
       'reqStock': reqStock,
       'stockType': stockType,
       'reqCount': reqCount,
+      'toOutletId': toOutletId,
+      'fromOutletId': fromOutletId,
     }.withoutNulls,
   );
 
@@ -241,7 +257,9 @@ class StockLogRecordDocumentEquality implements Equality<StockLogRecord> {
         e1?.requestedId == e2?.requestedId &&
         e1?.reqStock == e2?.reqStock &&
         e1?.stockType == e2?.stockType &&
-        e1?.reqCount == e2?.reqCount;
+        e1?.reqCount == e2?.reqCount &&
+        e1?.toOutletId == e2?.toOutletId &&
+        e1?.fromOutletId == e2?.fromOutletId;
   }
 
   @override
@@ -263,7 +281,9 @@ class StockLogRecordDocumentEquality implements Equality<StockLogRecord> {
         e?.requestedId,
         e?.reqStock,
         e?.stockType,
-        e?.reqCount
+        e?.reqCount,
+        e?.toOutletId,
+        e?.fromOutletId
       ]);
 
   @override

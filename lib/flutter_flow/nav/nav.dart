@@ -751,12 +751,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'StockUpdateNewCopy',
-          path: '/stockUpdateNew11',
+          name: 'StockUpdateTransfer',
+          path: '/stockUpdateNew111',
           asyncParams: {
             'outlet': getDoc(['OUTLET'], OutletRecord.fromSnapshot),
           },
-          builder: (context, params) => StockUpdateNewCopyWidget(
+          builder: (context, params) => StockUpdateTransferWidget(
             outlet: params.getParam(
               'outlet',
               ParamType.Document,
@@ -767,6 +767,38 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'multicounterOutlet',
           path: '/multicounterOutlet',
           builder: (context, params) => MulticounterOutletWidget(),
+        ),
+        FFRoute(
+          name: 'StockUpdateTransferReport',
+          path: '/stockUpdateNew11',
+          asyncParams: {
+            'outlet': getDoc(['OUTLET'], OutletRecord.fromSnapshot),
+          },
+          builder: (context, params) => StockUpdateTransferReportWidget(
+            outlet: params.getParam(
+              'outlet',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'editBill',
+          path: '/editBill',
+          builder: (context, params) => EditBillWidget(),
+        ),
+        FFRoute(
+          name: 'editBillDetails',
+          path: '/editBillDetails',
+          asyncParams: {
+            'prdDocument':
+                getDoc(['OUTLET', 'INVOICE'], InvoiceRecord.fromSnapshot),
+          },
+          builder: (context, params) => EditBillDetailsWidget(
+            prdDocument: params.getParam(
+              'prdDocument',
+              ParamType.Document,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

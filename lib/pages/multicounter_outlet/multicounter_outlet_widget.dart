@@ -236,6 +236,10 @@ class _MulticounterOutletWidgetState extends State<MulticounterOutletWidget> {
                                               FFAppState().outletRef?.id != ''
                                                   ? FFAppState().outletRef?.id
                                                   : null,
+                                        )
+                                        .where(
+                                          'multiCounter',
+                                          isEqualTo: true,
                                         ),
                                   ),
                                   padding: EdgeInsets.zero,
@@ -281,7 +285,7 @@ class _MulticounterOutletWidgetState extends State<MulticounterOutletWidget> {
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           context.pushNamed(
-                                            'StockUpdateNewCopy',
+                                            'StockUpdateTransfer',
                                             queryParameters: {
                                               'outlet': serializeParam(
                                                 listViewOutletRecord,

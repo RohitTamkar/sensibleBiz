@@ -19,6 +19,34 @@
       ]
     },
     {
+      "collectionGroup": "PRODUCT",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "stockable",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "currentStock",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "OUTLET",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "multiCounter",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "id",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "STOCK_LOG",
       "queryScope": "COLLECTION",
       "fields": [
