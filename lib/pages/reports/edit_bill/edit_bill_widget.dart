@@ -53,148 +53,152 @@ class _EditBillWidgetState extends State<EditBillWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primary,
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Expanded(
-              flex: 4,
-              child: Container(
-                width: double.infinity,
-                height: 100.0,
-                decoration: BoxDecoration(),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              if (FFAppState().currentUserRole == 'admin')
-                                FlutterFlowIconButton(
-                                  borderColor: Colors.transparent,
-                                  borderRadius: 30.0,
-                                  borderWidth: 1.0,
-                                  buttonSize: 50.0,
-                                  icon: Icon(
-                                    Icons.chevron_left,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBtnText,
-                                    size: 30.0,
-                                  ),
-                                  onPressed: () async {
-                                    context.safePop();
-                                  },
-                                ),
-                              Text(
-                                'Edit Bill',
-                                style: FlutterFlowTheme.of(context)
-                                    .headlineMedium
-                                    .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .headlineMediumFamily,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBtnText,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .headlineMediumFamily),
-                                    ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Builder(
-                                builder: (context) => FlutterFlowIconButton(
-                                  borderRadius: 30.0,
-                                  borderWidth: 1.0,
-                                  buttonSize: 50.0,
-                                  icon: Icon(
-                                    Icons.calendar_month,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBtnText,
-                                    size: 24.0,
-                                  ),
-                                  onPressed: () async {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (dialogContext) {
-                                        return Dialog(
-                                          elevation: 0,
-                                          insetPadding: EdgeInsets.zero,
-                                          backgroundColor: Colors.transparent,
-                                          alignment: AlignmentDirectional(
-                                                  0.0, 0.0)
-                                              .resolve(
-                                                  Directionality.of(context)),
-                                          child: WebViewAware(
-                                            child: GestureDetector(
-                                              onTap: () =>
-                                                  FocusScope.of(dialogContext)
-                                                      .unfocus(),
-                                              child: CalenderWidget(),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+    return StreamBuilder<List<BillSaleSummaryRecord>>(
+      stream: queryBillSaleSummaryRecord(
+        parent: FFAppState().outletRef,
+        queryBuilder: (billSaleSummaryRecord) => billSaleSummaryRecord.where(
+          'dayId',
+          isEqualTo: FFAppState().selectedDate,
+        ),
+      ),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primary,
+            body: Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: SpinKitFadingCircle(
+                  color: FlutterFlowTheme.of(context).warning,
+                  size: 50.0,
                 ),
               ),
             ),
-            Expanded(
-              flex: 26,
-              child: StreamBuilder<List<InvoiceRecord>>(
-                stream: queryInvoiceRecord(
-                  parent: FFAppState().outletRef,
-                  queryBuilder: (invoiceRecord) => invoiceRecord.where(
-                    'dayId',
-                    isEqualTo: FFAppState().selectedDate != ''
-                        ? FFAppState().selectedDate
-                        : null,
+          );
+        }
+        List<BillSaleSummaryRecord> editBillBillSaleSummaryRecordList =
+            snapshot.data!;
+
+        return GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Scaffold(
+            key: scaffoldKey,
+            backgroundColor: FlutterFlowTheme.of(context).primary,
+            body: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: Container(
+                    width: double.infinity,
+                    height: 100.0,
+                    decoration: BoxDecoration(),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              20.0, 0.0, 20.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  if (FFAppState().currentUserRole == 'admin')
+                                    FlutterFlowIconButton(
+                                      borderColor: Colors.transparent,
+                                      borderRadius: 30.0,
+                                      borderWidth: 1.0,
+                                      buttonSize: 50.0,
+                                      icon: Icon(
+                                        Icons.chevron_left,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBtnText,
+                                        size: 30.0,
+                                      ),
+                                      onPressed: () async {
+                                        context.safePop();
+                                      },
+                                    ),
+                                  Text(
+                                    'Edit Bill',
+                                    style: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .override(
+                                          fontFamily:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineMediumFamily,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBtnText,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                          useGoogleFonts: GoogleFonts.asMap()
+                                              .containsKey(
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineMediumFamily),
+                                        ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Builder(
+                                    builder: (context) => FlutterFlowIconButton(
+                                      borderRadius: 30.0,
+                                      borderWidth: 1.0,
+                                      buttonSize: 50.0,
+                                      icon: Icon(
+                                        Icons.calendar_month,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBtnText,
+                                        size: 24.0,
+                                      ),
+                                      onPressed: () async {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: WebViewAware(
+                                                child: GestureDetector(
+                                                  onTap: () => FocusScope.of(
+                                                          dialogContext)
+                                                      .unfocus(),
+                                                  child: CalenderWidget(),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 50.0,
-                        height: 50.0,
-                        child: SpinKitFadingCircle(
-                          color: FlutterFlowTheme.of(context).warning,
-                          size: 50.0,
-                        ),
-                      ),
-                    );
-                  }
-                  List<InvoiceRecord> containerInvoiceRecordList =
-                      snapshot.data!;
-
-                  return Container(
+                Expanded(
+                  flex: 26,
+                  child: Container(
                     width: double.infinity,
                     height: 100.0,
                     decoration: BoxDecoration(
@@ -339,9 +343,10 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                               decoration: BoxDecoration(),
                               child: Builder(
                                 builder: (context) {
-                                  final billList = containerInvoiceRecordList
-                                      .map((e) => e)
-                                      .toList();
+                                  final billList =
+                                      editBillBillSaleSummaryRecordList
+                                          .map((e) => e)
+                                          .toList();
 
                                   return ListView.separated(
                                     padding: EdgeInsets.zero,
@@ -362,20 +367,7 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                                           focusColor: Colors.transparent,
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            context.pushNamed(
-                                              'editBillDetails',
-                                              queryParameters: {
-                                                'prdDocument': serializeParam(
-                                                  billListItem,
-                                                  ParamType.Document,
-                                                ),
-                                              }.withoutNulls,
-                                              extra: <String, dynamic>{
-                                                'prdDocument': billListItem,
-                                              },
-                                            );
-                                          },
+                                          onTap: () async {},
                                           child: Container(
                                             width: double.infinity,
                                             decoration: BoxDecoration(
@@ -415,10 +407,10 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                                                   Expanded(
                                                     child: Text(
                                                       '${billListItem.dayId}  ${valueOrDefault<String>(
-                                                        functions.getTimeFromMilliseonds(
-                                                            billListItem
-                                                                .invoiceDate!
-                                                                .millisecondsSinceEpoch),
+                                                        functions
+                                                            .getTimeFromMilliseonds(
+                                                                billListItem
+                                                                    .createdDate),
                                                         '0',
                                                       )}',
                                                       style:
@@ -444,7 +436,7 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                                                   ),
                                                   Expanded(
                                                     child: Text(
-                                                      billListItem.invoice,
+                                                      billListItem.billNo,
                                                       textAlign:
                                                           TextAlign.center,
                                                       style:
@@ -470,7 +462,7 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                                                   ),
                                                   Expanded(
                                                     child: Text(
-                                                      '₹ ${billListItem.finalBillAmt.toString()}',
+                                                      '₹ ${billListItem.finalTotal.toString()}',
                                                       textAlign: TextAlign.end,
                                                       style:
                                                           FlutterFlowTheme.of(
@@ -531,13 +523,13 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                         ],
                       ),
                     ),
-                  );
-                },
-              ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

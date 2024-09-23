@@ -790,8 +790,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'editBillDetails',
           path: '/editBillDetails',
           asyncParams: {
-            'prdDocument':
-                getDoc(['OUTLET', 'INVOICE'], InvoiceRecord.fromSnapshot),
+            'prdDocument': getDoc(['OUTLET', 'BILL_SALE_SUMMARY'],
+                BillSaleSummaryRecord.fromSnapshot),
           },
           builder: (context, params) => EditBillDetailsWidget(
             prdDocument: params.getParam(

@@ -17,7 +17,7 @@ class EditBillDetailsWidget extends StatefulWidget {
     required this.prdDocument,
   });
 
-  final InvoiceRecord? prdDocument;
+  final BillSaleSummaryRecord? prdDocument;
 
   @override
   State<EditBillDetailsWidget> createState() => _EditBillDetailsWidgetState();
@@ -373,9 +373,7 @@ class _EditBillDetailsWidgetState extends State<EditBillDetailsWidget> {
                                     child: Builder(
                                       builder: (context) {
                                         final productItem = widget!
-                                                .prdDocument?.productList
-                                                ?.map((e) => e)
-                                                .toList()
+                                                .prdDocument?.billSaleItems
                                                 ?.toList() ??
                                             [];
 
@@ -423,8 +421,7 @@ class _EditBillDetailsWidgetState extends State<EditBillDetailsWidget> {
                                                                     .center,
                                                             children: [
                                                               Text(
-                                                                productItemIndex
-                                                                    .toString(),
+                                                                '1',
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodySmall
@@ -461,7 +458,7 @@ class _EditBillDetailsWidgetState extends State<EditBillDetailsWidget> {
                                                             children: [
                                                               Text(
                                                                 productItemItem
-                                                                    .name,
+                                                                    .product,
                                                                 textAlign:
                                                                     TextAlign
                                                                         .start,
@@ -842,7 +839,7 @@ class _EditBillDetailsWidgetState extends State<EditBillDetailsWidget> {
                                                       child: Text(
                                                         valueOrDefault<String>(
                                                           widget!.prdDocument
-                                                              ?.invoice,
+                                                              ?.billNo,
                                                           '-',
                                                         ),
                                                         style:
@@ -1124,7 +1121,7 @@ class _EditBillDetailsWidgetState extends State<EditBillDetailsWidget> {
                                                       child: Text(
                                                         valueOrDefault<String>(
                                                           widget!.prdDocument
-                                                              ?.billAmt
+                                                              ?.finalTotal
                                                               ?.toString(),
                                                           '-',
                                                         ),
@@ -1252,7 +1249,7 @@ class _EditBillDetailsWidgetState extends State<EditBillDetailsWidget> {
                                                       child: Text(
                                                         valueOrDefault<String>(
                                                           widget!.prdDocument
-                                                              ?.paymentMode,
+                                                              ?.payment,
                                                           '-',
                                                         ),
                                                         style:
@@ -1407,7 +1404,7 @@ class _EditBillDetailsWidgetState extends State<EditBillDetailsWidget> {
                                                       child: Text(
                                                         valueOrDefault<String>(
                                                           widget!.prdDocument
-                                                              ?.taxAmt
+                                                              ?.taxAmount
                                                               ?.toString(),
                                                           '-',
                                                         ),
@@ -1561,12 +1558,7 @@ class _EditBillDetailsWidgetState extends State<EditBillDetailsWidget> {
                                                                   0.0,
                                                                   0.0),
                                                       child: Text(
-                                                        valueOrDefault<String>(
-                                                          widget!.prdDocument
-                                                              ?.discountAmt
-                                                              ?.toString(),
-                                                          '-',
-                                                        ),
+                                                        '65',
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1717,12 +1709,7 @@ class _EditBillDetailsWidgetState extends State<EditBillDetailsWidget> {
                                                                   0.0,
                                                                   0.0),
                                                       child: Text(
-                                                        valueOrDefault<String>(
-                                                          widget!.prdDocument
-                                                              ?.delliveryChrg
-                                                              ?.toString(),
-                                                          '-',
-                                                        ),
+                                                        '50',
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1880,7 +1867,7 @@ class _EditBillDetailsWidgetState extends State<EditBillDetailsWidget> {
                                                       child: Text(
                                                         valueOrDefault<String>(
                                                           widget!.prdDocument
-                                                              ?.finalBillAmt
+                                                              ?.finalTotal
                                                               ?.toString(),
                                                           '-',
                                                         ),

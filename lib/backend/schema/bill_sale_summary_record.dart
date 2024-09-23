@@ -61,6 +61,21 @@ class BillSaleSummaryRecord extends FirestoreRecord {
   int get createdDate => _createdDate ?? 0;
   bool hasCreatedDate() => _createdDate != null;
 
+  // "payment" field.
+  String? _payment;
+  String get payment => _payment ?? '';
+  bool hasPayment() => _payment != null;
+
+  // "taxAmount" field.
+  double? _taxAmount;
+  double get taxAmount => _taxAmount ?? 0.0;
+  bool hasTaxAmount() => _taxAmount != null;
+
+  // "billSaleItems" field.
+  List<BillSaleItemDTStruct>? _billSaleItems;
+  List<BillSaleItemDTStruct> get billSaleItems => _billSaleItems ?? const [];
+  bool hasBillSaleItems() => _billSaleItems != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -73,6 +88,12 @@ class BillSaleSummaryRecord extends FirestoreRecord {
     _checkOutTime = castToType<int>(snapshotData['checkOutTime']);
     _dayId = snapshotData['dayId'] as String?;
     _createdDate = castToType<int>(snapshotData['createdDate']);
+    _payment = snapshotData['payment'] as String?;
+    _taxAmount = castToType<double>(snapshotData['taxAmount']);
+    _billSaleItems = getStructList(
+      snapshotData['billSaleItems'],
+      BillSaleItemDTStruct.fromMap,
+    );
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -124,6 +145,8 @@ Map<String, dynamic> createBillSaleSummaryRecordData({
   int? checkOutTime,
   String? dayId,
   int? createdDate,
+  String? payment,
+  double? taxAmount,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -136,6 +159,8 @@ Map<String, dynamic> createBillSaleSummaryRecordData({
       'checkOutTime': checkOutTime,
       'dayId': dayId,
       'createdDate': createdDate,
+      'payment': payment,
+      'taxAmount': taxAmount,
     }.withoutNulls,
   );
 
@@ -148,6 +173,7 @@ class BillSaleSummaryRecordDocumentEquality
 
   @override
   bool equals(BillSaleSummaryRecord? e1, BillSaleSummaryRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.billNo == e2?.billNo &&
         e1?.finalTotal == e2?.finalTotal &&
         e1?.id == e2?.id &&
@@ -156,7 +182,10 @@ class BillSaleSummaryRecordDocumentEquality
         e1?.checkInTime == e2?.checkInTime &&
         e1?.checkOutTime == e2?.checkOutTime &&
         e1?.dayId == e2?.dayId &&
-        e1?.createdDate == e2?.createdDate;
+        e1?.createdDate == e2?.createdDate &&
+        e1?.payment == e2?.payment &&
+        e1?.taxAmount == e2?.taxAmount &&
+        listEquality.equals(e1?.billSaleItems, e2?.billSaleItems);
   }
 
   @override
@@ -169,7 +198,10 @@ class BillSaleSummaryRecordDocumentEquality
         e?.checkInTime,
         e?.checkOutTime,
         e?.dayId,
-        e?.createdDate
+        e?.createdDate,
+        e?.payment,
+        e?.taxAmount,
+        e?.billSaleItems
       ]);
 
   @override
