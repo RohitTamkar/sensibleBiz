@@ -1270,6 +1270,47 @@ class FFAppState extends ChangeNotifier {
   set sEndDate(int value) {
     _sEndDate = value;
   }
+
+  double _priceCompState = 0.0;
+  double get priceCompState => _priceCompState;
+  set priceCompState(double value) {
+    _priceCompState = value;
+  }
+
+  double _qtyCompState = 0.0;
+  double get qtyCompState => _qtyCompState;
+  set qtyCompState(double value) {
+    _qtyCompState = value;
+  }
+
+  List<BillSaleItemDTStruct> _EBProductList = [];
+  List<BillSaleItemDTStruct> get EBProductList => _EBProductList;
+  set EBProductList(List<BillSaleItemDTStruct> value) {
+    _EBProductList = value;
+  }
+
+  void addToEBProductList(BillSaleItemDTStruct value) {
+    EBProductList.add(value);
+  }
+
+  void removeFromEBProductList(BillSaleItemDTStruct value) {
+    EBProductList.remove(value);
+  }
+
+  void removeAtIndexFromEBProductList(int index) {
+    EBProductList.removeAt(index);
+  }
+
+  void updateEBProductListAtIndex(
+    int index,
+    BillSaleItemDTStruct Function(BillSaleItemDTStruct) updateFn,
+  ) {
+    EBProductList[index] = updateFn(_EBProductList[index]);
+  }
+
+  void insertAtIndexInEBProductList(int index, BillSaleItemDTStruct value) {
+    EBProductList.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {

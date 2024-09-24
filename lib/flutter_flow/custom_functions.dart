@@ -878,3 +878,22 @@ int stringToInteger(String? val1) {
 String getPaymentMode(String jsonData) {
   return "Hello";
 }
+
+double getTotalOnQtyAndPrice(
+  double var1,
+  double var2,
+) {
+  return var1 * var2;
+}
+
+double getTotalEditBIll(List<BillSaleItemDTStruct> eBProductList) {
+  double totalSale = 0;
+  if (eBProductList.length == 0) {
+    return totalSale;
+  }
+
+  for (var item in eBProductList) {
+    totalSale += item.total;
+  }
+  return totalSale;
+}
