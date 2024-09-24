@@ -1498,12 +1498,13 @@ class _StockUpdateTransferWidgetState extends State<StockUpdateTransferWidget> {
                                                           FFAppState()
                                                                   .loopStart +
                                                               1;
-                                                      FFAppState()
-                                                          .update(() {});
+                                                      safeSetState(() {});
                                                     }
                                                     FFAppState().productCart =
                                                         [];
-                                                    FFAppState().update(() {});
+                                                    safeSetState(() {});
+                                                    FFAppState().loopStart = 0;
+                                                    safeSetState(() {});
                                                     safeSetState(() {
                                                       _model
                                                           .dropDownValueController

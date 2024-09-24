@@ -874,3 +874,7 @@ List<BillSaleSummaryRecord> orderByBillSale(
 int stringToInteger(String? val1) {
   return int.parse('$val1');
 }
+
+String getPaymentMode(String jsonData) {
+  return "Hello";
+}

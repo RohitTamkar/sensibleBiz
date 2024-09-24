@@ -13,7 +13,7 @@ class BillSaleItemDTStruct extends FFFirebaseStruct {
     double? price,
     double? quantity,
     double? total,
-    String? product,
+    ProductMasterListStruct? product,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _price = price,
         _quantity = quantity,
@@ -49,9 +49,13 @@ class BillSaleItemDTStruct extends FFFirebaseStruct {
   bool hasTotal() => _total != null;
 
   // "product" field.
-  String? _product;
-  String get product => _product ?? '';
-  set product(String? val) => _product = val;
+  ProductMasterListStruct? _product;
+  ProductMasterListStruct get product => _product ?? ProductMasterListStruct();
+  set product(ProductMasterListStruct? val) => _product = val;
+
+  void updateProduct(Function(ProductMasterListStruct) updateFn) {
+    updateFn(_product ??= ProductMasterListStruct());
+  }
 
   bool hasProduct() => _product != null;
 
@@ -60,7 +64,7 @@ class BillSaleItemDTStruct extends FFFirebaseStruct {
         price: castToType<double>(data['price']),
         quantity: castToType<double>(data['quantity']),
         total: castToType<double>(data['total']),
-        product: data['product'] as String?,
+        product: ProductMasterListStruct.maybeFromMap(data['product']),
       );
 
   static BillSaleItemDTStruct? maybeFromMap(dynamic data) => data is Map
@@ -71,7 +75,7 @@ class BillSaleItemDTStruct extends FFFirebaseStruct {
         'price': _price,
         'quantity': _quantity,
         'total': _total,
-        'product': _product,
+        'product': _product?.toMap(),
       }.withoutNulls;
 
   @override
@@ -90,7 +94,7 @@ class BillSaleItemDTStruct extends FFFirebaseStruct {
         ),
         'product': serializeParam(
           _product,
-          ParamType.String,
+          ParamType.DataStruct,
         ),
       }.withoutNulls;
 
@@ -111,10 +115,11 @@ class BillSaleItemDTStruct extends FFFirebaseStruct {
           ParamType.double,
           false,
         ),
-        product: deserializeParam(
+        product: deserializeStructParam(
           data['product'],
-          ParamType.String,
+          ParamType.DataStruct,
           false,
+          structBuilder: ProductMasterListStruct.fromSerializableMap,
         ),
       );
 
@@ -139,7 +144,7 @@ BillSaleItemDTStruct createBillSaleItemDTStruct({
   double? price,
   double? quantity,
   double? total,
-  String? product,
+  ProductMasterListStruct? product,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -149,7 +154,7 @@ BillSaleItemDTStruct createBillSaleItemDTStruct({
       price: price,
       quantity: quantity,
       total: total,
-      product: product,
+      product: product ?? (clearUnsetFields ? ProductMasterListStruct() : null),
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
@@ -206,6 +211,14 @@ Map<String, dynamic> getBillSaleItemDTFirestoreData(
     return {};
   }
   final firestoreData = mapToFirestore(billSaleItemDT.toMap());
+
+  // Handle nested data for "product" field.
+  addProductMasterListStructData(
+    firestoreData,
+    billSaleItemDT.hasProduct() ? billSaleItemDT.product : null,
+    'product',
+    forFieldValue,
+  );
 
   // Add any Firestore field values
   billSaleItemDT.firestoreUtilData.fieldValues

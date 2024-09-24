@@ -367,7 +367,20 @@ class _EditBillWidgetState extends State<EditBillWidget> {
                                           focusColor: Colors.transparent,
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
-                                          onTap: () async {},
+                                          onTap: () async {
+                                            context.pushNamed(
+                                              'editBillDetails',
+                                              queryParameters: {
+                                                'prdDocument': serializeParam(
+                                                  billListItem,
+                                                  ParamType.Document,
+                                                ),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                'prdDocument': billListItem,
+                                              },
+                                            );
+                                          },
                                           child: Container(
                                             width: double.infinity,
                                             decoration: BoxDecoration(

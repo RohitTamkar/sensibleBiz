@@ -458,7 +458,8 @@ class _EditBillDetailsWidgetState extends State<EditBillDetailsWidget> {
                                                             children: [
                                                               Text(
                                                                 productItemItem
-                                                                    .product,
+                                                                    .product
+                                                                    .name,
                                                                 textAlign:
                                                                     TextAlign
                                                                         .start,
