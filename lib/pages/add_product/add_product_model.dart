@@ -32,6 +32,8 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
   final formKey2 = GlobalKey<FormState>();
   // Stores action output result for [Firestore Query - Query a collection] action in AddProduct widget.
   List<ProductRecord>? total;
+  // Stores action output result for [Firestore Query - Query a collection] action in AddProduct widget.
+  UserProfileRecord? docMobile;
   // State field(s) for CodeM widget.
   FocusNode? codeMFocusNode;
   TextEditingController? codeMTextController;
@@ -128,6 +130,8 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
   FocusNode? codeWFocusNode;
   TextEditingController? codeWTextController;
   String? Function(BuildContext, String?)? codeWTextControllerValidator;
+  // State field(s) for Checkbox1 widget.
+  bool? checkbox1Value;
   // State field(s) for ProductNameW widget.
   FocusNode? productNameWFocusNode;
   TextEditingController? productNameWTextController;
@@ -208,6 +212,18 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
   FocusNode? hsnWFocusNode;
   TextEditingController? hsnWTextController;
   String? Function(BuildContext, String?)? hsnWTextControllerValidator;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  UserProfileRecord? userOutlets;
+  // Stores action output result for [Custom Action - getUnitTypes] action in Button widget.
+  int? unitIdWMul;
+  // Stores action output result for [Custom Action - getTaxIdCopy] action in Button widget.
+  int? taxIdWMul;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  CategoryRecord? catWMul;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  OutletRecord? outlet;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  ProductRecord? docWMul2;
   // Stores action output result for [Custom Action - getUnitTypes] action in Button widget.
   int? unitIdW;
   // Stores action output result for [Custom Action - getTaxIdCopy] action in Button widget.

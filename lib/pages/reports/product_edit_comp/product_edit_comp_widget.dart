@@ -175,8 +175,8 @@ class _ProductEditCompWidgetState extends State<ProductEditCompWidget> {
                                   ..price = _model.price
                                   ..total = functions.getTotalOnQtyAndPrice(
                                       _model.price, _model.qty)
-                                  ..product = ProductMasterListStruct(
-                                    price: _model.price,
+                                  ..updateProduct(
+                                    (e) => e..price = _model.price,
                                   ),
                               );
                               safeSetState(() {});
@@ -192,8 +192,8 @@ class _ProductEditCompWidgetState extends State<ProductEditCompWidget> {
                                 ..price = _model.price
                                 ..total = functions.getTotalOnQtyAndPrice(
                                     _model.price, _model.qty)
-                                ..product = ProductMasterListStruct(
-                                  price: _model.price,
+                                ..updateProduct(
+                                  (e) => e..price = _model.price,
                                 ),
                             );
                             safeSetState(() {});

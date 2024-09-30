@@ -50,6 +50,15 @@ class _EditProductWidgetState extends State<EditProductWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.catResultM = await CategoryRecord.getDocumentOnce(functions
           .getCatRefById(widget!.proDoc!.category, FFAppState().outletRef!.id));
+      _model.docMobile = await queryUserProfileRecordOnce(
+        queryBuilder: (userProfileRecord) => userProfileRecord.where(
+          'mobile',
+          isEqualTo: FFAppState().currentMobile,
+        ),
+        singleRecord: true,
+      ).then((s) => s.firstOrNull);
+
+      safeSetState(() {});
     });
 
     _model.textFieldCodeMTextController ??= TextEditingController(
@@ -577,6 +586,76 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                         .textFieldCodeMTextControllerValidator
                                                         .asValidator(context),
                                                   ),
+                                                ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    if (_model.docMobile
+                                                            ?.accessToMulticounter ==
+                                                        true)
+                                                      Container(
+                                                        width: 51.0,
+                                                        height: 45.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                        ),
+                                                        child: Theme(
+                                                          data: ThemeData(
+                                                            checkboxTheme:
+                                                                CheckboxThemeData(
+                                                              visualDensity:
+                                                                  VisualDensity
+                                                                      .compact,
+                                                              materialTapTargetSize:
+                                                                  MaterialTapTargetSize
+                                                                      .shrinkWrap,
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            4.0),
+                                                              ),
+                                                            ),
+                                                            unselectedWidgetColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .alternate,
+                                                          ),
+                                                          child: Checkbox(
+                                                            value: _model
+                                                                    .checkboxValue ??=
+                                                                _model
+                                                                    .docMobile!
+                                                                    .accessToMulticounter,
+                                                            onChanged:
+                                                                (newValue) async {
+                                                              safeSetState(() =>
+                                                                  _model.checkboxValue =
+                                                                      newValue!);
+                                                            },
+                                                            side: BorderSide(
+                                                              width: 2,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .alternate,
+                                                            ),
+                                                            activeColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                            checkColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .info,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                  ],
                                                 ),
                                               ],
                                             ),
@@ -3295,6 +3374,74 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                         .asValidator(context),
                                                   ),
                                                 ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    if (_model.docMobile
+                                                            ?.accessToMulticounter ==
+                                                        true)
+                                                      Container(
+                                                        width: 75.0,
+                                                        height: 43.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                        ),
+                                                        child: Theme(
+                                                          data: ThemeData(
+                                                            checkboxTheme:
+                                                                CheckboxThemeData(
+                                                              visualDensity:
+                                                                  VisualDensity
+                                                                      .compact,
+                                                              materialTapTargetSize:
+                                                                  MaterialTapTargetSize
+                                                                      .shrinkWrap,
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            4.0),
+                                                              ),
+                                                            ),
+                                                            unselectedWidgetColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .alternate,
+                                                          ),
+                                                          child: Checkbox(
+                                                            value: _model
+                                                                    .checkbox2Value ??=
+                                                                false,
+                                                            onChanged:
+                                                                (newValue) async {
+                                                              safeSetState(() =>
+                                                                  _model.checkbox2Value =
+                                                                      newValue!);
+                                                            },
+                                                            side: BorderSide(
+                                                              width: 2,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .alternate,
+                                                            ),
+                                                            activeColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                            checkColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .info,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                  ],
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -5549,186 +5696,567 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                           .validate()) {
                                                     return;
                                                   }
+                                                  if (_model.checkbox2Value!) {
+                                                    _model.userOutletsMul =
+                                                        await queryUserProfileRecordOnce(
+                                                      queryBuilder:
+                                                          (userProfileRecord) =>
+                                                              userProfileRecord
+                                                                  .where(
+                                                        'mobile',
+                                                        isEqualTo: FFAppState()
+                                                            .currentMobile,
+                                                      ),
+                                                      singleRecord: true,
+                                                    ).then((s) =>
+                                                            s.firstOrNull);
+                                                    _shouldSetState = true;
+                                                    _model.category5Mul =
+                                                        await queryCategoryRecordOnce(
+                                                      parent: FFAppState()
+                                                          .outletRef,
+                                                      queryBuilder:
+                                                          (categoryRecord) =>
+                                                              categoryRecord
+                                                                  .where(
+                                                        'name',
+                                                        isEqualTo:
+                                                            valueOrDefault<
+                                                                String>(
+                                                          _model
+                                                              .catDropDownWValue,
+                                                          'D',
+                                                        ),
+                                                      ),
+                                                      singleRecord: true,
+                                                    ).then((s) =>
+                                                            s.firstOrNull);
+                                                    _shouldSetState = true;
+                                                    _model.unitId1WMul =
+                                                        await actions
+                                                            .getUnitTypes(
+                                                      _model.unitDropDownWValue,
+                                                    );
+                                                    _shouldSetState = true;
+                                                    _model.taxId1WMul =
+                                                        await actions
+                                                            .getTaxIdCopy(
+                                                      _model
+                                                          .taxDropDownTaxWValue,
+                                                    );
+                                                    _shouldSetState = true;
+                                                    FFAppState().startLoop =
+                                                        FFAppState().startLoop +
+                                                            0;
+                                                    safeSetState(() {});
+                                                    while (
+                                                        FFAppState().startLoop <
+                                                            _model
+                                                                .userOutletsMul!
+                                                                .outlets
+                                                                .length) {
+                                                      _model.outletMul =
+                                                          await queryOutletRecordOnce(
+                                                        queryBuilder:
+                                                            (outletRecord) =>
+                                                                outletRecord
+                                                                    .where(
+                                                                      'id',
+                                                                      isEqualTo:
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                        _model
+                                                                            .userOutletsMul
+                                                                            ?.outlets?[FFAppState().startLoop],
+                                                                        '0',
+                                                                      ),
+                                                                    )
+                                                                    .where(
+                                                                      'multiCounter',
+                                                                      isEqualTo:
+                                                                          true,
+                                                                    ),
+                                                        singleRecord: true,
+                                                      ).then((s) =>
+                                                              s.firstOrNull);
+                                                      _shouldSetState = true;
+                                                      if (_model
+                                                              .userOutletsMul !=
+                                                          null) {
+                                                        _model.prd =
+                                                            await queryProductRecordOnce(
+                                                          parent: _model
+                                                              .outletMul
+                                                              ?.reference,
+                                                          queryBuilder:
+                                                              (productRecord) =>
+                                                                  productRecord
+                                                                      .where(
+                                                            'code',
+                                                            isEqualTo: widget!
+                                                                .productDocW
+                                                                ?.code,
+                                                          ),
+                                                          singleRecord: true,
+                                                        ).then((s) =>
+                                                                s.firstOrNull);
+                                                        _shouldSetState = true;
+
+                                                        await _model
+                                                            .prd!.reference
+                                                            .update(
+                                                                createProductRecordData(
+                                                          id: widget!
+                                                              .productDocW?.id,
+                                                          active: widget!
+                                                              .productDocW
+                                                              ?.active,
+                                                          barcode:
+                                                              valueOrDefault<
+                                                                  String>(
+                                                            _model
+                                                                .textFieldBarcodeWTextController
+                                                                .text,
+                                                            '0',
+                                                          ),
+                                                          category: _model
+                                                              .category5Mul
+                                                              ?.reference
+                                                              .id,
+                                                          cess: widget!
+                                                              .productDocW
+                                                              ?.cess,
+                                                          code: int.tryParse(_model
+                                                              .textFieldCodeWTextController
+                                                              .text),
+                                                          costPrice:
+                                                              valueOrDefault<
+                                                                  double>(
+                                                            double.tryParse(_model
+                                                                .textFieldSellingPriceWTextController
+                                                                .text),
+                                                            0.0,
+                                                          ),
+                                                          dateTme:
+                                                              getCurrentTimestamp,
+                                                          discount:
+                                                              valueOrDefault<
+                                                                  double>(
+                                                            double.tryParse(_model
+                                                                .textFieldDiscountPerWTextController1
+                                                                .text),
+                                                            0.0,
+                                                          ),
+                                                          keyCount: widget!
+                                                              .productDocW
+                                                              ?.keyCount,
+                                                          kitchenId: widget!
+                                                              .productDocW
+                                                              ?.kitchenId,
+                                                          mrpPrice:
+                                                              valueOrDefault<
+                                                                  double>(
+                                                            double.tryParse(_model
+                                                                .textFieldMRPPriceWTextController
+                                                                .text),
+                                                            0.0,
+                                                          ),
+                                                          name: functions
+                                                              .toCapitalLetter(
+                                                                  _model
+                                                                      .productNameWTextController
+                                                                      .text),
+                                                          onlinePrice:
+                                                              valueOrDefault<
+                                                                  double>(
+                                                            widget!.productDocW
+                                                                ?.onlinePrice,
+                                                            0.0,
+                                                          ),
+                                                          onlineSynced: widget!
+                                                              .productDocW
+                                                              ?.onlineSynced,
+                                                          price: valueOrDefault<
+                                                              double>(
+                                                            double.tryParse(_model
+                                                                .textFieldSellingPriceWTextController
+                                                                .text),
+                                                            0.0,
+                                                          ),
+                                                          priceTable:
+                                                              valueOrDefault<
+                                                                  String>(
+                                                            functions
+                                                                .returnPriceJsonString(
+                                                                    valueOrDefault<
+                                                                        double>(
+                                                              double.tryParse(_model
+                                                                  .textFieldSellingPriceWTextController
+                                                                  .text),
+                                                              0.0,
+                                                            )),
+                                                            '0',
+                                                          ),
+                                                          recipeId: widget!
+                                                              .productDocW
+                                                              ?.recipeId,
+                                                          regionalName: _model
+                                                              .textFieldRegionalNameWTextController
+                                                              .text,
+                                                          reorderLevel:
+                                                              valueOrDefault<
+                                                                  int>(
+                                                            int.tryParse(_model
+                                                                .textFieldRecorderLevelWTextController
+                                                                .text),
+                                                            0,
+                                                          ),
+                                                          selected: widget!
+                                                              .productDocW
+                                                              ?.selected,
+                                                          shortName: _model
+                                                              .textFieldShortNameWTextController
+                                                              .text,
+                                                          stockable: _model
+                                                              .stockCheckboxWNValue,
+                                                          taxIndex:
+                                                              _model.taxId1WMul,
+                                                          type: valueOrDefault<
+                                                              int>(
+                                                            widget!.productDocW
+                                                                ?.type,
+                                                            0,
+                                                          ),
+                                                          unitId: _model
+                                                              .unitId1WMul,
+                                                          weighable: _model
+                                                              .wightCheckboWNValue,
+                                                          hsnCode:
+                                                              valueOrDefault<
+                                                                  String>(
+                                                            _model
+                                                                .textFieldHsnWTextController
+                                                                .text,
+                                                            '0',
+                                                          ),
+                                                        ));
+                                                      }
+                                                      FFAppState().startLoop =
+                                                          FFAppState()
+                                                                  .startLoop +
+                                                              1;
+                                                      safeSetState(() {});
+                                                    }
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return WebViewAware(
+                                                          child: AlertDialog(
+                                                            title:
+                                                                Text('Update'),
+                                                            content: Text(
+                                                                'Product Update'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext),
+                                                                child:
+                                                                    Text('Ok'),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
+                                                    safeSetState(() {
+                                                      _model
+                                                          .textFieldCodeWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .productNameWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldSellingPriceWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldMRPPriceWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldPurchasePriceWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldCurrentStockWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldRegionalNameWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldRecorderLevelWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldDiscountPerWTextController1
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldDiscountPerWTextController2
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldShortNameWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldBarcodeWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldHsnWTextController
+                                                          ?.clear();
+                                                    });
+                                                    context.safePop();
+
+                                                    context.pushNamed(
+                                                        'ProductList');
+                                                  } else {
+                                                    _model.category5 =
+                                                        await queryCategoryRecordOnce(
+                                                      parent: FFAppState()
+                                                          .outletRef,
+                                                      queryBuilder:
+                                                          (categoryRecord) =>
+                                                              categoryRecord
+                                                                  .where(
+                                                        'name',
+                                                        isEqualTo:
+                                                            valueOrDefault<
+                                                                String>(
+                                                          _model
+                                                              .catDropDownWValue,
+                                                          'D',
+                                                        ),
+                                                      ),
+                                                      singleRecord: true,
+                                                    ).then((s) =>
+                                                            s.firstOrNull);
+                                                    _shouldSetState = true;
+                                                    _model.unitId1W =
+                                                        await actions
+                                                            .getUnitTypes(
+                                                      _model.unitDropDownWValue,
+                                                    );
+                                                    _shouldSetState = true;
+                                                    _model.taxId1W =
+                                                        await actions
+                                                            .getTaxIdCopy(
+                                                      _model
+                                                          .taxDropDownTaxWValue,
+                                                    );
+                                                    _shouldSetState = true;
+
+                                                    await widget!
+                                                        .productDocW!.reference
+                                                        .update(
+                                                            createProductRecordData(
+                                                      id: widget!
+                                                          .productDocW?.id,
+                                                      active: widget!
+                                                          .productDocW?.active,
+                                                      barcode: valueOrDefault<
+                                                          String>(
+                                                        _model
+                                                            .textFieldBarcodeWTextController
+                                                            .text,
+                                                        '0',
+                                                      ),
+                                                      category: _model.category5
+                                                          ?.reference.id,
+                                                      cess: widget!
+                                                          .productDocW?.cess,
+                                                      code: int.tryParse(_model
+                                                          .textFieldCodeWTextController
+                                                          .text),
+                                                      costPrice: valueOrDefault<
+                                                          double>(
+                                                        double.tryParse(_model
+                                                            .textFieldSellingPriceWTextController
+                                                            .text),
+                                                        0.0,
+                                                      ),
+                                                      dateTme:
+                                                          getCurrentTimestamp,
+                                                      discount: valueOrDefault<
+                                                          double>(
+                                                        double.tryParse(_model
+                                                            .textFieldDiscountPerWTextController1
+                                                            .text),
+                                                        0.0,
+                                                      ),
+                                                      keyCount: widget!
+                                                          .productDocW
+                                                          ?.keyCount,
+                                                      kitchenId: widget!
+                                                          .productDocW
+                                                          ?.kitchenId,
+                                                      mrpPrice: valueOrDefault<
+                                                          double>(
+                                                        double.tryParse(_model
+                                                            .textFieldMRPPriceWTextController
+                                                            .text),
+                                                        0.0,
+                                                      ),
+                                                      name: functions
+                                                          .toCapitalLetter(_model
+                                                              .productNameWTextController
+                                                              .text),
+                                                      onlinePrice:
+                                                          valueOrDefault<
+                                                              double>(
+                                                        widget!.productDocW
+                                                            ?.onlinePrice,
+                                                        0.0,
+                                                      ),
+                                                      onlineSynced: widget!
+                                                          .productDocW
+                                                          ?.onlineSynced,
+                                                      price: valueOrDefault<
+                                                          double>(
+                                                        double.tryParse(_model
+                                                            .textFieldSellingPriceWTextController
+                                                            .text),
+                                                        0.0,
+                                                      ),
+                                                      priceTable:
+                                                          valueOrDefault<
+                                                              String>(
+                                                        functions
+                                                            .returnPriceJsonString(
+                                                                valueOrDefault<
+                                                                    double>(
+                                                          double.tryParse(_model
+                                                              .textFieldSellingPriceWTextController
+                                                              .text),
+                                                          0.0,
+                                                        )),
+                                                        '0',
+                                                      ),
+                                                      recipeId: widget!
+                                                          .productDocW
+                                                          ?.recipeId,
+                                                      regionalName: _model
+                                                          .textFieldRegionalNameWTextController
+                                                          .text,
+                                                      reorderLevel:
+                                                          valueOrDefault<int>(
+                                                        int.tryParse(_model
+                                                            .textFieldRecorderLevelWTextController
+                                                            .text),
+                                                        0,
+                                                      ),
+                                                      selected: widget!
+                                                          .productDocW
+                                                          ?.selected,
+                                                      shortName: _model
+                                                          .textFieldShortNameWTextController
+                                                          .text,
+                                                      stockable: _model
+                                                          .stockCheckboxWNValue,
+                                                      taxIndex: _model.taxId1W,
+                                                      type: valueOrDefault<int>(
+                                                        widget!
+                                                            .productDocW?.type,
+                                                        0,
+                                                      ),
+                                                      unitId: _model.unitId1W,
+                                                      weighable: _model
+                                                          .wightCheckboWNValue,
+                                                      currentStock:
+                                                          valueOrDefault<
+                                                              double>(
+                                                        double.tryParse(_model
+                                                            .textFieldCurrentStockWTextController
+                                                            .text),
+                                                        0.0,
+                                                      ),
+                                                      hsnCode: valueOrDefault<
+                                                          String>(
+                                                        _model
+                                                            .textFieldHsnWTextController
+                                                            .text,
+                                                        '0',
+                                                      ),
+                                                    ));
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return WebViewAware(
+                                                          child: AlertDialog(
+                                                            title:
+                                                                Text('Update'),
+                                                            content: Text(
+                                                                'Product Update'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext),
+                                                                child:
+                                                                    Text('Ok'),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
+                                                    safeSetState(() {
+                                                      _model
+                                                          .textFieldCodeWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .productNameWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldSellingPriceWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldMRPPriceWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldPurchasePriceWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldCurrentStockWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldRegionalNameWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldRecorderLevelWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldDiscountPerWTextController1
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldDiscountPerWTextController2
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldShortNameWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldBarcodeWTextController
+                                                          ?.clear();
+                                                      _model
+                                                          .textFieldHsnWTextController
+                                                          ?.clear();
+                                                    });
+
+                                                    context.pushNamed(
+                                                        'ProductList');
+                                                  }
                                                 } else {
                                                   context.safePop();
                                                   if (_shouldSetState)
                                                     safeSetState(() {});
                                                   return;
                                                 }
-
-                                                _model.category5 =
-                                                    await queryCategoryRecordOnce(
-                                                  parent:
-                                                      FFAppState().outletRef,
-                                                  queryBuilder:
-                                                      (categoryRecord) =>
-                                                          categoryRecord.where(
-                                                    'name',
-                                                    isEqualTo:
-                                                        valueOrDefault<String>(
-                                                      _model.catDropDownWValue,
-                                                      'D',
-                                                    ),
-                                                  ),
-                                                  singleRecord: true,
-                                                ).then((s) => s.firstOrNull);
-                                                _shouldSetState = true;
-                                                _model.unitId1W =
-                                                    await actions.getUnitTypes(
-                                                  _model.unitDropDownWValue,
-                                                );
-                                                _shouldSetState = true;
-                                                _model.taxId1W =
-                                                    await actions.getTaxIdCopy(
-                                                  _model.taxDropDownTaxWValue,
-                                                );
-                                                _shouldSetState = true;
-
-                                                await widget!
-                                                    .productDocW!.reference
-                                                    .update(
-                                                        createProductRecordData(
-                                                  id: widget!.productDocW?.id,
-                                                  active: widget!
-                                                      .productDocW?.active,
-                                                  barcode:
-                                                      valueOrDefault<String>(
-                                                    _model
-                                                        .textFieldBarcodeWTextController
-                                                        .text,
-                                                    '0',
-                                                  ),
-                                                  category: _model
-                                                      .category5?.reference.id,
-                                                  cess:
-                                                      widget!.productDocW?.cess,
-                                                  code: int.tryParse(_model
-                                                      .textFieldCodeWTextController
-                                                      .text),
-                                                  costPrice:
-                                                      valueOrDefault<double>(
-                                                    double.tryParse(_model
-                                                        .textFieldSellingPriceWTextController
-                                                        .text),
-                                                    0.0,
-                                                  ),
-                                                  dateTme: getCurrentTimestamp,
-                                                  discount:
-                                                      valueOrDefault<double>(
-                                                    double.tryParse(_model
-                                                        .textFieldDiscountPerWTextController1
-                                                        .text),
-                                                    0.0,
-                                                  ),
-                                                  keyCount: widget!
-                                                      .productDocW?.keyCount,
-                                                  kitchenId: widget!
-                                                      .productDocW?.kitchenId,
-                                                  mrpPrice:
-                                                      valueOrDefault<double>(
-                                                    double.tryParse(_model
-                                                        .textFieldMRPPriceWTextController
-                                                        .text),
-                                                    0.0,
-                                                  ),
-                                                  name: functions
-                                                      .toCapitalLetter(_model
-                                                          .productNameWTextController
-                                                          .text),
-                                                  onlinePrice:
-                                                      valueOrDefault<double>(
-                                                    widget!.productDocW
-                                                        ?.onlinePrice,
-                                                    0.0,
-                                                  ),
-                                                  onlineSynced: widget!
-                                                      .productDocW
-                                                      ?.onlineSynced,
-                                                  price: valueOrDefault<double>(
-                                                    double.tryParse(_model
-                                                        .textFieldSellingPriceWTextController
-                                                        .text),
-                                                    0.0,
-                                                  ),
-                                                  priceTable:
-                                                      valueOrDefault<String>(
-                                                    functions
-                                                        .returnPriceJsonString(
-                                                            valueOrDefault<
-                                                                double>(
-                                                      double.tryParse(_model
-                                                          .textFieldSellingPriceWTextController
-                                                          .text),
-                                                      0.0,
-                                                    )),
-                                                    '0',
-                                                  ),
-                                                  recipeId: widget!
-                                                      .productDocW?.recipeId,
-                                                  regionalName: _model
-                                                      .textFieldRegionalNameWTextController
-                                                      .text,
-                                                  reorderLevel:
-                                                      valueOrDefault<int>(
-                                                    int.tryParse(_model
-                                                        .textFieldRecorderLevelWTextController
-                                                        .text),
-                                                    0,
-                                                  ),
-                                                  selected: widget!
-                                                      .productDocW?.selected,
-                                                  shortName: _model
-                                                      .textFieldShortNameWTextController
-                                                      .text,
-                                                  stockable: _model
-                                                      .stockCheckboxWNValue,
-                                                  taxIndex: _model.taxId1W,
-                                                  type: valueOrDefault<int>(
-                                                    widget!.productDocW?.type,
-                                                    0,
-                                                  ),
-                                                  unitId: _model.unitId1W,
-                                                  weighable: _model
-                                                      .wightCheckboWNValue,
-                                                  currentStock:
-                                                      valueOrDefault<double>(
-                                                    double.tryParse(_model
-                                                        .textFieldCurrentStockWTextController
-                                                        .text),
-                                                    0.0,
-                                                  ),
-                                                  hsnCode:
-                                                      valueOrDefault<String>(
-                                                    _model
-                                                        .textFieldHsnWTextController
-                                                        .text,
-                                                    '0',
-                                                  ),
-                                                ));
-                                                await showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return WebViewAware(
-                                                      child: AlertDialog(
-                                                        title: Text('Update'),
-                                                        content: Text(
-                                                            'Product Update'),
-                                                        actions: [
-                                                          TextButton(
-                                                            onPressed: () =>
-                                                                Navigator.pop(
-                                                                    alertDialogContext),
-                                                            child: Text('Ok'),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-
-                                                context
-                                                    .pushNamed('ProductList');
 
                                                 if (_shouldSetState)
                                                   safeSetState(() {});

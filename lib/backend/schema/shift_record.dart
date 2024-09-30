@@ -146,6 +146,16 @@ class ShiftRecord extends FirestoreRecord {
   String get paymentJson => _paymentJson ?? '';
   bool hasPaymentJson() => _paymentJson != null;
 
+  // "userId" field.
+  String? _userId;
+  String get userId => _userId ?? '';
+  bool hasUserId() => _userId != null;
+
+  // "productSale" field.
+  List<String>? _productSale;
+  List<String> get productSale => _productSale ?? const [];
+  bool hasProductSale() => _productSale != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -176,6 +186,8 @@ class ShiftRecord extends FirestoreRecord {
     _subTotalBill = castToType<double>(snapshotData['subTotalBill']);
     _tax = castToType<double>(snapshotData['tax']);
     _paymentJson = snapshotData['paymentJson'] as String?;
+    _userId = snapshotData['userId'] as String?;
+    _productSale = getDataList(snapshotData['productSale']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -243,6 +255,7 @@ Map<String, dynamic> createShiftRecordData({
   double? subTotalBill,
   double? tax,
   String? paymentJson,
+  String? userId,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -272,6 +285,7 @@ Map<String, dynamic> createShiftRecordData({
       'subTotalBill': subTotalBill,
       'tax': tax,
       'paymentJson': paymentJson,
+      'userId': userId,
     }.withoutNulls,
   );
 
@@ -283,6 +297,7 @@ class ShiftRecordDocumentEquality implements Equality<ShiftRecord> {
 
   @override
   bool equals(ShiftRecord? e1, ShiftRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.id == e2?.id &&
         e1?.dayId == e2?.dayId &&
         e1?.shiftNo == e2?.shiftNo &&
@@ -308,7 +323,9 @@ class ShiftRecordDocumentEquality implements Equality<ShiftRecord> {
         e1?.startTime == e2?.startTime &&
         e1?.subTotalBill == e2?.subTotalBill &&
         e1?.tax == e2?.tax &&
-        e1?.paymentJson == e2?.paymentJson;
+        e1?.paymentJson == e2?.paymentJson &&
+        e1?.userId == e2?.userId &&
+        listEquality.equals(e1?.productSale, e2?.productSale);
   }
 
   @override
@@ -338,7 +355,9 @@ class ShiftRecordDocumentEquality implements Equality<ShiftRecord> {
         e?.startTime,
         e?.subTotalBill,
         e?.tax,
-        e?.paymentJson
+        e?.paymentJson,
+        e?.userId,
+        e?.productSale
       ]);
 
   @override

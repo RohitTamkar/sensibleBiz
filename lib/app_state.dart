@@ -1311,6 +1311,35 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInEBProductList(int index, BillSaleItemDTStruct value) {
     EBProductList.insert(index, value);
   }
+
+  List<String> _productSaleStringList = [];
+  List<String> get productSaleStringList => _productSaleStringList;
+  set productSaleStringList(List<String> value) {
+    _productSaleStringList = value;
+  }
+
+  void addToProductSaleStringList(String value) {
+    productSaleStringList.add(value);
+  }
+
+  void removeFromProductSaleStringList(String value) {
+    productSaleStringList.remove(value);
+  }
+
+  void removeAtIndexFromProductSaleStringList(int index) {
+    productSaleStringList.removeAt(index);
+  }
+
+  void updateProductSaleStringListAtIndex(
+    int index,
+    String Function(String) updateFn,
+  ) {
+    productSaleStringList[index] = updateFn(_productSaleStringList[index]);
+  }
+
+  void insertAtIndexInProductSaleStringList(int index, String value) {
+    productSaleStringList.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {

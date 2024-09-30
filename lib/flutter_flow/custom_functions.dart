@@ -876,7 +876,30 @@ int stringToInteger(String? val1) {
 }
 
 String getPaymentMode(String jsonData) {
-  return "Hello";
+  Map<String, dynamic> paymentData = jsonDecode(jsonData);
+  // Map to translate keys to human-readable payment modes
+  Map<String, String> paymentModes = {
+    "cash": "Cash",
+    "credit": "Credit",
+    "digital": "Digital",
+    "card": "Card",
+    "googlepay": "Google Pay",
+    "phonepe": "PhonePe",
+    "paytm": "Paytm",
+    "other": "Other",
+    "loyaltypoint": "Loyalty Points",
+    "cheque_payment_mode": "Cheque",
+  };
+
+  // Collect modes with values greater than 0
+  String paMode = "";
+  paymentData.forEach((key, value) {
+    if (value > 0) {
+      paMode = paymentModes[key]!;
+    }
+  });
+
+  return paMode.isNotEmpty ? paMode : 'Cash';
 }
 
 double getTotalOnQtyAndPrice(
@@ -896,4 +919,116 @@ double getTotalEditBIll(List<BillSaleItemDTStruct> eBProductList) {
     totalSale += item.total;
   }
   return totalSale;
+}
+
+String updatePaymentMode(
+  String jsonData,
+  String newMode,
+) {
+  Map<String, dynamic> paymentData = jsonDecode(jsonData);
+
+  // Map to translate keys to human-readable payment modes
+  Map<String, String> paymentModes = {
+    "cash": "Cash",
+    "credit": "Credit",
+    "digital": "Digital",
+    "card": "Card",
+    "googlepay": "Google Pay",
+    "phonepe": "PhonePe",
+    "paytm": "Paytm",
+    "other": "Other",
+    "loyaltypoint": "Loyalty Points",
+    "cheque_payment_mode": "Cheque",
+  };
+
+  // Find the key for the new mode to update
+  String? newModeKey = paymentModes.entries
+      .firstWhere((entry) => entry.value == newMode,
+          orElse: () => const MapEntry("", ""))
+      .key;
+
+  if (newModeKey.isEmpty) {
+    return jsonData; // If the newMode is invalid, return the original JSON string
+  }
+
+  // Find the current mode with a value greater than 0
+  String? currentModeKey;
+  int currentValue = 0;
+
+  paymentData.forEach((key, value) {
+    if (value > 0 && paymentModes.containsKey(key)) {
+      currentModeKey = key;
+      currentValue = value;
+    }
+  });
+
+  // If we found a mode with value > 0, transfer its value to the newMode and set it to 0
+  if (currentModeKey != null && currentValue > 0) {
+    paymentData[newModeKey] =
+        currentValue; // Transfer the value to the new mode
+    paymentData[currentModeKey!] = 0; // Set the original mode to 0
+  }
+
+  // Convert the updated map back to a JSON string
+  return jsonEncode(paymentData);
+}
+
+String updatePaymentMode2(
+  String jsonData,
+  String mode,
+  int newValue,
+) {
+  Map<String, dynamic> paymentData = jsonDecode(jsonData);
+
+  // Map to translate keys to human-readable payment modes
+  Map<String, String> paymentModes = {
+    "cash": "Cash",
+    "credit": "Credit",
+    "digital": "Digital",
+    "card": "Card",
+    "googlepay": "Google Pay",
+    "phonepe": "PhonePe",
+    "paytm": "Paytm",
+    "other": "Other",
+    "loyaltypoint": "Loyalty Points",
+    "cheque_payment_mode": "Cheque",
+  };
+
+  // Find the key that matches the mode
+  String? paymentKey = paymentModes.entries
+      .firstWhere((entry) => entry.value == mode,
+          orElse: () => const MapEntry("", ""))
+      .key;
+
+  // Set all current non-zero payment modes to 0
+  paymentData.forEach((key, value) {
+    if (value > 0) {
+      paymentData[key] = 0;
+    }
+  });
+
+  // Update the value in the JSON if the key exists and the new value is greater than 0
+  if (paymentKey.isNotEmpty && newValue > 0) {
+    paymentData[paymentKey] = newValue;
+  }
+
+  // Convert the updated map back to a JSON string
+  String updatedJson = jsonEncode(paymentData);
+
+  return updatedJson;
+}
+
+List<String> updateProductSale(
+  List<String> productSale,
+  String productID,
+  double price,
+  int qty,
+) {
+  if (productSale.containsKey(productID)) {
+    productSale[productID]![price] = qty;
+  } else {
+    productSale[productID] = {price: qty};
+  }
+
+  return productSale;
 }

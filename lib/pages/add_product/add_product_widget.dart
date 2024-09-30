@@ -51,6 +51,15 @@ class _AddProductWidgetState extends State<AddProductWidget> {
       _model.total = await queryProductRecordOnce(
         parent: FFAppState().outletRef,
       );
+      _model.docMobile = await queryUserProfileRecordOnce(
+        queryBuilder: (userProfileRecord) => userProfileRecord.where(
+          'mobile',
+          isEqualTo: FFAppState().currentMobile,
+        ),
+        singleRecord: true,
+      ).then((s) => s.firstOrNull);
+
+      safeSetState(() {});
     });
 
     _model.codeMTextController ??=
@@ -3889,6 +3898,81 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                   context),
                                                         ),
                                                       ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    10.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            if (_model.docMobile
+                                                                    ?.accessToMulticounter ==
+                                                                true)
+                                                              Container(
+                                                                width: 100.0,
+                                                                height: 42.0,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryBackground,
+                                                                ),
+                                                                child: Theme(
+                                                                  data:
+                                                                      ThemeData(
+                                                                    checkboxTheme:
+                                                                        CheckboxThemeData(
+                                                                      visualDensity:
+                                                                          VisualDensity
+                                                                              .compact,
+                                                                      materialTapTargetSize:
+                                                                          MaterialTapTargetSize
+                                                                              .shrinkWrap,
+                                                                      shape:
+                                                                          RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(4.0),
+                                                                      ),
+                                                                    ),
+                                                                    unselectedWidgetColor:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .alternate,
+                                                                  ),
+                                                                  child:
+                                                                      Checkbox(
+                                                                    value: _model
+                                                                            .checkbox1Value ??=
+                                                                        false,
+                                                                    onChanged:
+                                                                        (newValue) async {
+                                                                      safeSetState(() =>
+                                                                          _model.checkbox1Value =
+                                                                              newValue!);
+                                                                    },
+                                                                    side:
+                                                                        BorderSide(
+                                                                      width: 2,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .alternate,
+                                                                    ),
+                                                                    activeColor:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                    checkColor:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .info,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                          ],
+                                                        ),
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
@@ -6671,219 +6755,157 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                       );
                                                       return;
                                                     }
-                                                    _model.unitIdW =
-                                                        await actions
-                                                            .getUnitTypes(
-                                                      _model.unitTypeWValue,
-                                                    );
-                                                    _model.taxIdW =
-                                                        await actions
-                                                            .getTaxIdCopy(
-                                                      _model.taxWValue,
-                                                    );
-                                                    _model.catW =
-                                                        await queryCategoryRecordOnce(
-                                                      parent: FFAppState()
-                                                          .outletRef,
-                                                      queryBuilder:
-                                                          (categoryRecord) =>
-                                                              categoryRecord
-                                                                  .where(
-                                                        'name',
-                                                        isEqualTo: _model
-                                                            .catDropDownWValue,
-                                                      ),
-                                                      singleRecord: true,
-                                                    ).then((s) =>
-                                                            s.firstOrNull);
-
-                                                    var productRecordReference =
-                                                        ProductRecord.createDoc(
-                                                            FFAppState()
-                                                                .outletRef!);
-                                                    await productRecordReference
-                                                        .set(
-                                                            createProductRecordData(
-                                                      active: false,
-                                                      category: _model
-                                                          .catW?.reference.id,
-                                                      cess: 0.0,
-                                                      code: valueOrDefault<int>(
-                                                        functions
-                                                            .getProductCount(
-                                                                _model.total!
-                                                                    .length),
-                                                        0,
-                                                      ),
-                                                      costPrice: valueOrDefault<
-                                                          double>(
-                                                        double.tryParse(_model
-                                                            .purchasePriceWTextController
-                                                            .text),
-                                                        0.0,
-                                                      ),
-                                                      dateTme:
-                                                          getCurrentTimestamp,
-                                                      barcode: valueOrDefault<
-                                                          String>(
-                                                        _model
-                                                            .barcodeWTextController
-                                                            .text,
-                                                        '0',
-                                                      ),
-                                                      discount: valueOrDefault<
-                                                          double>(
-                                                        double.tryParse(_model
-                                                            .discountPerWTextController
-                                                            .text),
-                                                        0.0,
-                                                      ),
-                                                      keyCount: 0,
-                                                      kitchenId: '',
-                                                      mrpPrice: valueOrDefault<
-                                                          double>(
-                                                        double.tryParse(_model
-                                                            .mRPPriceWTextController
-                                                            .text),
-                                                        0.0,
-                                                      ),
-                                                      name: functions
-                                                          .toCapitalLetter(_model
-                                                              .productNameWTextController
-                                                              .text),
-                                                      onlinePrice: 0.0,
-                                                      onlineSynced: false,
-                                                      price: valueOrDefault<
-                                                          double>(
-                                                        double.tryParse(_model
-                                                            .sellingPriceWTextController
-                                                            .text),
-                                                        0.0,
-                                                      ),
-                                                      priceTable:
-                                                          valueOrDefault<
-                                                              String>(
-                                                        functions
-                                                            .returnPriceJsonString(
+                                                    if (_model
+                                                        .checkbox1Value!) {
+                                                      _model.userOutlets =
+                                                          await queryUserProfileRecordOnce(
+                                                        queryBuilder:
+                                                            (userProfileRecord) =>
+                                                                userProfileRecord
+                                                                    .where(
+                                                          'mobile',
+                                                          isEqualTo: FFAppState()
+                                                              .currentMobile,
+                                                        ),
+                                                        singleRecord: true,
+                                                      ).then((s) =>
+                                                              s.firstOrNull);
+                                                      _model.unitIdWMul =
+                                                          await actions
+                                                              .getUnitTypes(
+                                                        _model.unitTypeWValue,
+                                                      );
+                                                      _model.taxIdWMul =
+                                                          await actions
+                                                              .getTaxIdCopy(
+                                                        _model.taxWValue,
+                                                      );
+                                                      _model.catWMul =
+                                                          await queryCategoryRecordOnce(
+                                                        parent: FFAppState()
+                                                            .outletRef,
+                                                        queryBuilder:
+                                                            (categoryRecord) =>
+                                                                categoryRecord
+                                                                    .where(
+                                                          'name',
+                                                          isEqualTo: _model
+                                                              .catDropDownWValue,
+                                                        ),
+                                                        singleRecord: true,
+                                                      ).then((s) =>
+                                                              s.firstOrNull);
+                                                      FFAppState().startLoop =
+                                                          0;
+                                                      safeSetState(() {});
+                                                      while (FFAppState()
+                                                              .startLoop <
+                                                          _model.userOutlets!
+                                                              .outlets.length) {
+                                                        _model.outlet =
+                                                            await queryOutletRecordOnce(
+                                                          queryBuilder:
+                                                              (outletRecord) =>
+                                                                  outletRecord
+                                                                      .where(
+                                                                        'id',
+                                                                        isEqualTo:
+                                                                            valueOrDefault<String>(
+                                                                          _model
+                                                                              .userOutlets
+                                                                              ?.outlets?[FFAppState().startLoop],
+                                                                          '0',
+                                                                        ),
+                                                                      )
+                                                                      .where(
+                                                                        'multiCounter',
+                                                                        isEqualTo:
+                                                                            true,
+                                                                      ),
+                                                          singleRecord: true,
+                                                        ).then((s) =>
+                                                                s.firstOrNull);
+                                                        if (_model.outlet !=
+                                                            null) {
+                                                          var productRecordReference1 =
+                                                              ProductRecord
+                                                                  .createDoc(_model
+                                                                      .outlet!
+                                                                      .reference);
+                                                          await productRecordReference1
+                                                              .set(
+                                                                  createProductRecordData(
+                                                            active: false,
+                                                            category: _model
+                                                                .catWMul
+                                                                ?.reference
+                                                                .id,
+                                                            cess: 0.0,
+                                                            code:
+                                                                valueOrDefault<
+                                                                    int>(
+                                                              functions
+                                                                  .getProductCount(
+                                                                      _model
+                                                                          .total!
+                                                                          .length),
+                                                              0,
+                                                            ),
+                                                            costPrice:
                                                                 valueOrDefault<
                                                                     double>(
-                                                          double.tryParse(_model
-                                                              .sellingPriceWTextController
-                                                              .text),
-                                                          0.0,
-                                                        )),
-                                                        '0',
-                                                      ),
-                                                      recipeId: '',
-                                                      regionalName: _model
-                                                          .regionalNameWTextController
-                                                          .text,
-                                                      reorderLevel:
-                                                          valueOrDefault<int>(
-                                                        int.tryParse(_model
-                                                            .recorderLevelWTextController
-                                                            .text),
-                                                        0,
-                                                      ),
-                                                      selected: false,
-                                                      shortName: _model
-                                                          .shortNameWTextController
-                                                          .text,
-                                                      stockable: _model
-                                                          .stockCheckboxWNValue,
-                                                      type: 0,
-                                                      weighable: _model
-                                                          .wightCheckboWNValue,
-                                                      currentStock:
-                                                          valueOrDefault<
-                                                              double>(
-                                                        double.tryParse(_model
-                                                            .currentStockWTextController
-                                                            .text),
-                                                        0.0,
-                                                      ),
-                                                      unitId:
-                                                          _model.unitIdW == null
-                                                              ? 1
-                                                              : _model.unitIdW,
-                                                      taxIndex:
-                                                          _model.taxIdW == null
-                                                              ? 1
-                                                              : _model.taxIdW,
-                                                      hsnCode: valueOrDefault<
-                                                          String>(
-                                                        _model
-                                                            .hsnWTextController
-                                                            .text,
-                                                        '0',
-                                                      ),
-                                                    ));
-                                                    _model.docW = ProductRecord
-                                                        .getDocumentFromData(
-                                                            createProductRecordData(
-                                                              active: false,
-                                                              category: _model
-                                                                  .catW
-                                                                  ?.reference
-                                                                  .id,
-                                                              cess: 0.0,
-                                                              code:
-                                                                  valueOrDefault<
-                                                                      int>(
-                                                                functions.getProductCount(
+                                                              double.tryParse(_model
+                                                                  .purchasePriceWTextController
+                                                                  .text),
+                                                              0.0,
+                                                            ),
+                                                            dateTme:
+                                                                getCurrentTimestamp,
+                                                            barcode:
+                                                                valueOrDefault<
+                                                                    String>(
+                                                              _model
+                                                                  .barcodeWTextController
+                                                                  .text,
+                                                              '0',
+                                                            ),
+                                                            discount:
+                                                                valueOrDefault<
+                                                                    double>(
+                                                              double.tryParse(_model
+                                                                  .discountPerWTextController
+                                                                  .text),
+                                                              0.0,
+                                                            ),
+                                                            keyCount: 0,
+                                                            kitchenId: '',
+                                                            mrpPrice:
+                                                                valueOrDefault<
+                                                                    double>(
+                                                              double.tryParse(_model
+                                                                  .mRPPriceWTextController
+                                                                  .text),
+                                                              0.0,
+                                                            ),
+                                                            name: functions
+                                                                .toCapitalLetter(
                                                                     _model
-                                                                        .total!
-                                                                        .length),
-                                                                0,
-                                                              ),
-                                                              costPrice:
-                                                                  valueOrDefault<
-                                                                      double>(
-                                                                double.tryParse(
-                                                                    _model
-                                                                        .purchasePriceWTextController
+                                                                        .productNameWTextController
                                                                         .text),
-                                                                0.0,
-                                                              ),
-                                                              dateTme:
-                                                                  getCurrentTimestamp,
-                                                              barcode:
-                                                                  valueOrDefault<
-                                                                      String>(
-                                                                _model
-                                                                    .barcodeWTextController
-                                                                    .text,
-                                                                '0',
-                                                              ),
-                                                              discount:
-                                                                  valueOrDefault<
-                                                                      double>(
-                                                                double.tryParse(
-                                                                    _model
-                                                                        .discountPerWTextController
-                                                                        .text),
-                                                                0.0,
-                                                              ),
-                                                              keyCount: 0,
-                                                              kitchenId: '',
-                                                              mrpPrice:
-                                                                  valueOrDefault<
-                                                                      double>(
-                                                                double.tryParse(
-                                                                    _model
-                                                                        .mRPPriceWTextController
-                                                                        .text),
-                                                                0.0,
-                                                              ),
-                                                              name: functions
-                                                                  .toCapitalLetter(
-                                                                      _model
-                                                                          .productNameWTextController
-                                                                          .text),
-                                                              onlinePrice: 0.0,
-                                                              onlineSynced:
-                                                                  false,
-                                                              price:
+                                                            onlinePrice: 0.0,
+                                                            onlineSynced: false,
+                                                            price:
+                                                                valueOrDefault<
+                                                                    double>(
+                                                              double.tryParse(_model
+                                                                  .sellingPriceWTextController
+                                                                  .text),
+                                                              0.0,
+                                                            ),
+                                                            priceTable:
+                                                                valueOrDefault<
+                                                                    String>(
+                                                              functions.returnPriceJsonString(
                                                                   valueOrDefault<
                                                                       double>(
                                                                 double.tryParse(
@@ -6891,11 +6913,500 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                         .sellingPriceWTextController
                                                                         .text),
                                                                 0.0,
-                                                              ),
-                                                              priceTable:
+                                                              )),
+                                                              '0',
+                                                            ),
+                                                            recipeId: '',
+                                                            regionalName: _model
+                                                                .regionalNameWTextController
+                                                                .text,
+                                                            reorderLevel:
+                                                                valueOrDefault<
+                                                                    int>(
+                                                              int.tryParse(_model
+                                                                  .recorderLevelWTextController
+                                                                  .text),
+                                                              0,
+                                                            ),
+                                                            selected: false,
+                                                            shortName: _model
+                                                                .shortNameWTextController
+                                                                .text,
+                                                            stockable: _model
+                                                                .stockCheckboxWNValue,
+                                                            type: 0,
+                                                            weighable: _model
+                                                                .wightCheckboWNValue,
+                                                            currentStock:
+                                                                valueOrDefault<
+                                                                    double>(
+                                                              double.tryParse(_model
+                                                                  .currentStockWTextController
+                                                                  .text),
+                                                              0.0,
+                                                            ),
+                                                            unitId: _model
+                                                                        .unitIdWMul ==
+                                                                    null
+                                                                ? 1
+                                                                : _model
+                                                                    .unitIdWMul,
+                                                            taxIndex: _model
+                                                                        .taxIdWMul ==
+                                                                    null
+                                                                ? 1
+                                                                : _model
+                                                                    .taxIdWMul,
+                                                            hsnCode:
+                                                                valueOrDefault<
+                                                                    String>(
+                                                              _model
+                                                                  .hsnWTextController
+                                                                  .text,
+                                                              '0',
+                                                            ),
+                                                            id: '',
+                                                          ));
+                                                          _model.docWMul2 = ProductRecord
+                                                              .getDocumentFromData(
+                                                                  createProductRecordData(
+                                                                    active:
+                                                                        false,
+                                                                    category: _model
+                                                                        .catWMul
+                                                                        ?.reference
+                                                                        .id,
+                                                                    cess: 0.0,
+                                                                    code:
+                                                                        valueOrDefault<
+                                                                            int>(
+                                                                      functions.getProductCount(_model
+                                                                          .total!
+                                                                          .length),
+                                                                      0,
+                                                                    ),
+                                                                    costPrice:
+                                                                        valueOrDefault<
+                                                                            double>(
+                                                                      double.tryParse(_model
+                                                                          .purchasePriceWTextController
+                                                                          .text),
+                                                                      0.0,
+                                                                    ),
+                                                                    dateTme:
+                                                                        getCurrentTimestamp,
+                                                                    barcode:
+                                                                        valueOrDefault<
+                                                                            String>(
+                                                                      _model
+                                                                          .barcodeWTextController
+                                                                          .text,
+                                                                      '0',
+                                                                    ),
+                                                                    discount:
+                                                                        valueOrDefault<
+                                                                            double>(
+                                                                      double.tryParse(_model
+                                                                          .discountPerWTextController
+                                                                          .text),
+                                                                      0.0,
+                                                                    ),
+                                                                    keyCount: 0,
+                                                                    kitchenId:
+                                                                        '',
+                                                                    mrpPrice:
+                                                                        valueOrDefault<
+                                                                            double>(
+                                                                      double.tryParse(_model
+                                                                          .mRPPriceWTextController
+                                                                          .text),
+                                                                      0.0,
+                                                                    ),
+                                                                    name: functions
+                                                                        .toCapitalLetter(_model
+                                                                            .productNameWTextController
+                                                                            .text),
+                                                                    onlinePrice:
+                                                                        0.0,
+                                                                    onlineSynced:
+                                                                        false,
+                                                                    price: valueOrDefault<
+                                                                        double>(
+                                                                      double.tryParse(_model
+                                                                          .sellingPriceWTextController
+                                                                          .text),
+                                                                      0.0,
+                                                                    ),
+                                                                    priceTable:
+                                                                        valueOrDefault<
+                                                                            String>(
+                                                                      functions.returnPriceJsonString(
+                                                                          valueOrDefault<
+                                                                              double>(
+                                                                        double.tryParse(_model
+                                                                            .sellingPriceWTextController
+                                                                            .text),
+                                                                        0.0,
+                                                                      )),
+                                                                      '0',
+                                                                    ),
+                                                                    recipeId:
+                                                                        '',
+                                                                    regionalName:
+                                                                        _model
+                                                                            .regionalNameWTextController
+                                                                            .text,
+                                                                    reorderLevel:
+                                                                        valueOrDefault<
+                                                                            int>(
+                                                                      int.tryParse(_model
+                                                                          .recorderLevelWTextController
+                                                                          .text),
+                                                                      0,
+                                                                    ),
+                                                                    selected:
+                                                                        false,
+                                                                    shortName: _model
+                                                                        .shortNameWTextController
+                                                                        .text,
+                                                                    stockable:
+                                                                        _model
+                                                                            .stockCheckboxWNValue,
+                                                                    type: 0,
+                                                                    weighable:
+                                                                        _model
+                                                                            .wightCheckboWNValue,
+                                                                    currentStock:
+                                                                        valueOrDefault<
+                                                                            double>(
+                                                                      double.tryParse(_model
+                                                                          .currentStockWTextController
+                                                                          .text),
+                                                                      0.0,
+                                                                    ),
+                                                                    unitId: _model.unitIdWMul ==
+                                                                            null
+                                                                        ? 1
+                                                                        : _model
+                                                                            .unitIdWMul,
+                                                                    taxIndex: _model.taxIdWMul ==
+                                                                            null
+                                                                        ? 1
+                                                                        : _model
+                                                                            .taxIdWMul,
+                                                                    hsnCode:
+                                                                        valueOrDefault<
+                                                                            String>(
+                                                                      _model
+                                                                          .hsnWTextController
+                                                                          .text,
+                                                                      '0',
+                                                                    ),
+                                                                    id: '',
+                                                                  ),
+                                                                  productRecordReference1);
+
+                                                          await _model.docWMul2!
+                                                              .reference
+                                                              .update(
+                                                                  createProductRecordData(
+                                                            id: functions
+                                                                .getProductIdByRef(_model
+                                                                    .docWMul2!
+                                                                    .reference),
+                                                          ));
+                                                        }
+                                                        FFAppState().startLoop =
+                                                            FFAppState()
+                                                                    .startLoop +
+                                                                1;
+                                                        safeSetState(() {});
+                                                      }
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return WebViewAware(
+                                                            child: AlertDialog(
+                                                              title:
+                                                                  Text('Alert'),
+                                                              content: Text(
+                                                                  'Product Added Successfully!! Multicounter'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: Text(
+                                                                      'Ok'),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                      safeSetState(() {
+                                                        _model
+                                                            .productNameWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .sellingPriceWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .mRPPriceWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .purchasePriceWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .regionalNameWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .recorderLevelWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .discountPerWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .shortNameWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .codeWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .hsnWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .barcodeWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .currentStockWTextController
+                                                            ?.clear();
+                                                      });
+                                                      context.safePop();
+
+                                                      context.pushNamed(
+                                                          'ProductList');
+                                                    } else {
+                                                      _model.unitIdW =
+                                                          await actions
+                                                              .getUnitTypes(
+                                                        _model.unitTypeWValue,
+                                                      );
+                                                      _model.taxIdW =
+                                                          await actions
+                                                              .getTaxIdCopy(
+                                                        _model.taxWValue,
+                                                      );
+                                                      _model.catW =
+                                                          await queryCategoryRecordOnce(
+                                                        parent: FFAppState()
+                                                            .outletRef,
+                                                        queryBuilder:
+                                                            (categoryRecord) =>
+                                                                categoryRecord
+                                                                    .where(
+                                                          'name',
+                                                          isEqualTo: _model
+                                                              .catDropDownWValue,
+                                                        ),
+                                                        singleRecord: true,
+                                                      ).then((s) =>
+                                                              s.firstOrNull);
+
+                                                      var productRecordReference2 =
+                                                          ProductRecord.createDoc(
+                                                              FFAppState()
+                                                                  .outletRef!);
+                                                      await productRecordReference2
+                                                          .set(
+                                                              createProductRecordData(
+                                                        active: false,
+                                                        category: _model
+                                                            .catW?.reference.id,
+                                                        cess: 0.0,
+                                                        code:
+                                                            valueOrDefault<int>(
+                                                          functions
+                                                              .getProductCount(
+                                                                  _model.total!
+                                                                      .length),
+                                                          0,
+                                                        ),
+                                                        costPrice:
+                                                            valueOrDefault<
+                                                                double>(
+                                                          double.tryParse(_model
+                                                              .purchasePriceWTextController
+                                                              .text),
+                                                          0.0,
+                                                        ),
+                                                        dateTme:
+                                                            getCurrentTimestamp,
+                                                        barcode: valueOrDefault<
+                                                            String>(
+                                                          _model
+                                                              .barcodeWTextController
+                                                              .text,
+                                                          '0',
+                                                        ),
+                                                        discount:
+                                                            valueOrDefault<
+                                                                double>(
+                                                          double.tryParse(_model
+                                                              .discountPerWTextController
+                                                              .text),
+                                                          0.0,
+                                                        ),
+                                                        keyCount: 0,
+                                                        kitchenId: '',
+                                                        mrpPrice:
+                                                            valueOrDefault<
+                                                                double>(
+                                                          double.tryParse(_model
+                                                              .mRPPriceWTextController
+                                                              .text),
+                                                          0.0,
+                                                        ),
+                                                        name: functions
+                                                            .toCapitalLetter(_model
+                                                                .productNameWTextController
+                                                                .text),
+                                                        onlinePrice: 0.0,
+                                                        onlineSynced: false,
+                                                        price: valueOrDefault<
+                                                            double>(
+                                                          double.tryParse(_model
+                                                              .sellingPriceWTextController
+                                                              .text),
+                                                          0.0,
+                                                        ),
+                                                        priceTable:
+                                                            valueOrDefault<
+                                                                String>(
+                                                          functions
+                                                              .returnPriceJsonString(
                                                                   valueOrDefault<
-                                                                      String>(
-                                                                functions.returnPriceJsonString(
+                                                                      double>(
+                                                            double.tryParse(_model
+                                                                .sellingPriceWTextController
+                                                                .text),
+                                                            0.0,
+                                                          )),
+                                                          '0',
+                                                        ),
+                                                        recipeId: '',
+                                                        regionalName: _model
+                                                            .regionalNameWTextController
+                                                            .text,
+                                                        reorderLevel:
+                                                            valueOrDefault<int>(
+                                                          int.tryParse(_model
+                                                              .recorderLevelWTextController
+                                                              .text),
+                                                          0,
+                                                        ),
+                                                        selected: false,
+                                                        shortName: _model
+                                                            .shortNameWTextController
+                                                            .text,
+                                                        stockable: _model
+                                                            .stockCheckboxWNValue,
+                                                        type: 0,
+                                                        weighable: _model
+                                                            .wightCheckboWNValue,
+                                                        currentStock:
+                                                            valueOrDefault<
+                                                                double>(
+                                                          double.tryParse(_model
+                                                              .currentStockWTextController
+                                                              .text),
+                                                          0.0,
+                                                        ),
+                                                        unitId: _model
+                                                                    .unitIdW ==
+                                                                null
+                                                            ? 1
+                                                            : _model.unitIdW,
+                                                        taxIndex:
+                                                            _model.taxIdW ==
+                                                                    null
+                                                                ? 1
+                                                                : _model.taxIdW,
+                                                        hsnCode: valueOrDefault<
+                                                            String>(
+                                                          _model
+                                                              .hsnWTextController
+                                                              .text,
+                                                          '0',
+                                                        ),
+                                                      ));
+                                                      _model.docW = ProductRecord
+                                                          .getDocumentFromData(
+                                                              createProductRecordData(
+                                                                active: false,
+                                                                category: _model
+                                                                    .catW
+                                                                    ?.reference
+                                                                    .id,
+                                                                cess: 0.0,
+                                                                code:
+                                                                    valueOrDefault<
+                                                                        int>(
+                                                                  functions.getProductCount(
+                                                                      _model
+                                                                          .total!
+                                                                          .length),
+                                                                  0,
+                                                                ),
+                                                                costPrice:
+                                                                    valueOrDefault<
+                                                                        double>(
+                                                                  double.tryParse(
+                                                                      _model
+                                                                          .purchasePriceWTextController
+                                                                          .text),
+                                                                  0.0,
+                                                                ),
+                                                                dateTme:
+                                                                    getCurrentTimestamp,
+                                                                barcode:
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                  _model
+                                                                      .barcodeWTextController
+                                                                      .text,
+                                                                  '0',
+                                                                ),
+                                                                discount:
+                                                                    valueOrDefault<
+                                                                        double>(
+                                                                  double.tryParse(
+                                                                      _model
+                                                                          .discountPerWTextController
+                                                                          .text),
+                                                                  0.0,
+                                                                ),
+                                                                keyCount: 0,
+                                                                kitchenId: '',
+                                                                mrpPrice:
+                                                                    valueOrDefault<
+                                                                        double>(
+                                                                  double.tryParse(
+                                                                      _model
+                                                                          .mRPPriceWTextController
+                                                                          .text),
+                                                                  0.0,
+                                                                ),
+                                                                name: functions
+                                                                    .toCapitalLetter(_model
+                                                                        .productNameWTextController
+                                                                        .text),
+                                                                onlinePrice:
+                                                                    0.0,
+                                                                onlineSynced:
+                                                                    false,
+                                                                price:
                                                                     valueOrDefault<
                                                                         double>(
                                                                   double.tryParse(
@@ -6903,133 +7414,148 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                           .sellingPriceWTextController
                                                                           .text),
                                                                   0.0,
-                                                                )),
-                                                                '0',
-                                                              ),
-                                                              recipeId: '',
-                                                              regionalName: _model
-                                                                  .regionalNameWTextController
-                                                                  .text,
-                                                              reorderLevel:
-                                                                  valueOrDefault<
-                                                                      int>(
-                                                                int.tryParse(_model
-                                                                    .recorderLevelWTextController
-                                                                    .text),
-                                                                0,
-                                                              ),
-                                                              selected: false,
-                                                              shortName: _model
-                                                                  .shortNameWTextController
-                                                                  .text,
-                                                              stockable: _model
-                                                                  .stockCheckboxWNValue,
-                                                              type: 0,
-                                                              weighable: _model
-                                                                  .wightCheckboWNValue,
-                                                              currentStock:
-                                                                  valueOrDefault<
-                                                                      double>(
-                                                                double.tryParse(
-                                                                    _model
-                                                                        .currentStockWTextController
+                                                                ),
+                                                                priceTable:
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                  functions.returnPriceJsonString(
+                                                                      valueOrDefault<
+                                                                          double>(
+                                                                    double.tryParse(_model
+                                                                        .sellingPriceWTextController
                                                                         .text),
-                                                                0.0,
-                                                              ),
-                                                              unitId: _model
-                                                                          .unitIdW ==
-                                                                      null
-                                                                  ? 1
-                                                                  : _model
-                                                                      .unitIdW,
-                                                              taxIndex:
-                                                                  _model.taxIdW ==
-                                                                          null
-                                                                      ? 1
-                                                                      : _model
-                                                                          .taxIdW,
-                                                              hsnCode:
-                                                                  valueOrDefault<
-                                                                      String>(
-                                                                _model
-                                                                    .hsnWTextController
+                                                                    0.0,
+                                                                  )),
+                                                                  '0',
+                                                                ),
+                                                                recipeId: '',
+                                                                regionalName: _model
+                                                                    .regionalNameWTextController
                                                                     .text,
-                                                                '0',
+                                                                reorderLevel:
+                                                                    valueOrDefault<
+                                                                        int>(
+                                                                  int.tryParse(_model
+                                                                      .recorderLevelWTextController
+                                                                      .text),
+                                                                  0,
+                                                                ),
+                                                                selected: false,
+                                                                shortName: _model
+                                                                    .shortNameWTextController
+                                                                    .text,
+                                                                stockable: _model
+                                                                    .stockCheckboxWNValue,
+                                                                type: 0,
+                                                                weighable: _model
+                                                                    .wightCheckboWNValue,
+                                                                currentStock:
+                                                                    valueOrDefault<
+                                                                        double>(
+                                                                  double.tryParse(
+                                                                      _model
+                                                                          .currentStockWTextController
+                                                                          .text),
+                                                                  0.0,
+                                                                ),
+                                                                unitId: _model
+                                                                            .unitIdW ==
+                                                                        null
+                                                                    ? 1
+                                                                    : _model
+                                                                        .unitIdW,
+                                                                taxIndex: _model
+                                                                            .taxIdW ==
+                                                                        null
+                                                                    ? 1
+                                                                    : _model
+                                                                        .taxIdW,
+                                                                hsnCode:
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                  _model
+                                                                      .hsnWTextController
+                                                                      .text,
+                                                                  '0',
+                                                                ),
                                                               ),
+                                                              productRecordReference2);
+
+                                                      await _model
+                                                          .docW!.reference
+                                                          .update(
+                                                              createProductRecordData(
+                                                        id: functions
+                                                            .getProductIdByRef(
+                                                                _model.docW!
+                                                                    .reference),
+                                                      ));
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return WebViewAware(
+                                                            child: AlertDialog(
+                                                              title:
+                                                                  Text('Alert'),
+                                                              content: Text(
+                                                                  'Product Added Successfully!!'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: Text(
+                                                                      'Ok'),
+                                                                ),
+                                                              ],
                                                             ),
-                                                            productRecordReference);
+                                                          );
+                                                        },
+                                                      );
+                                                      safeSetState(() {
+                                                        _model
+                                                            .productNameWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .sellingPriceWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .mRPPriceWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .purchasePriceWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .regionalNameWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .recorderLevelWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .discountPerWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .shortNameWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .codeWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .hsnWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .barcodeWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .currentStockWTextController
+                                                            ?.clear();
+                                                      });
+                                                      context.safePop();
 
-                                                    await _model.docW!.reference
-                                                        .update(
-                                                            createProductRecordData(
-                                                      id: functions
-                                                          .getProductIdByRef(
-                                                              _model.docW!
-                                                                  .reference),
-                                                    ));
-                                                    await showDialog(
-                                                      context: context,
-                                                      builder:
-                                                          (alertDialogContext) {
-                                                        return WebViewAware(
-                                                          child: AlertDialog(
-                                                            title:
-                                                                Text('Alert'),
-                                                            content: Text(
-                                                                'Product Added Successfully!!'),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext),
-                                                                child:
-                                                                    Text('Ok'),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
-                                                    safeSetState(() {
-                                                      _model
-                                                          .productNameWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .sellingPriceWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .mRPPriceWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .purchasePriceWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .regionalNameWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .recorderLevelWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .discountPerWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .shortNameWTextController
-                                                          ?.clear();
-                                                      _model.codeWTextController
-                                                          ?.clear();
-                                                      _model.hsnWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .barcodeWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .currentStockWTextController
-                                                          ?.clear();
-                                                    });
-                                                    context.safePop();
-
-                                                    context.pushNamed(
-                                                        'ProductList');
+                                                      context.pushNamed(
+                                                          'ProductList');
+                                                    }
 
                                                     safeSetState(() {});
                                                   },

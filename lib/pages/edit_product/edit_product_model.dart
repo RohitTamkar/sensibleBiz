@@ -28,11 +28,15 @@ class EditProductModel extends FlutterFlowModel<EditProductWidget> {
   final formKey1 = GlobalKey<FormState>();
   // Stores action output result for [Backend Call - Read Document] action in EditProduct widget.
   CategoryRecord? catResultM;
+  // Stores action output result for [Firestore Query - Query a collection] action in EditProduct widget.
+  UserProfileRecord? docMobile;
   // State field(s) for TextFieldCodeM widget.
   FocusNode? textFieldCodeMFocusNode;
   TextEditingController? textFieldCodeMTextController;
   String? Function(BuildContext, String?)?
       textFieldCodeMTextControllerValidator;
+  // State field(s) for Checkbox widget.
+  bool? checkboxValue;
   // State field(s) for productNameM widget.
   FocusNode? productNameMFocusNode;
   TextEditingController? productNameMTextController;
@@ -143,6 +147,8 @@ class EditProductModel extends FlutterFlowModel<EditProductWidget> {
   TextEditingController? textFieldCodeWTextController;
   String? Function(BuildContext, String?)?
       textFieldCodeWTextControllerValidator;
+  // State field(s) for Checkbox2 widget.
+  bool? checkbox2Value;
   // State field(s) for productNameW widget.
   FocusNode? productNameWFocusNode;
   TextEditingController? productNameWTextController;
@@ -241,6 +247,18 @@ class EditProductModel extends FlutterFlowModel<EditProductWidget> {
   FocusNode? textFieldHsnWFocusNode;
   TextEditingController? textFieldHsnWTextController;
   String? Function(BuildContext, String?)? textFieldHsnWTextControllerValidator;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  UserProfileRecord? userOutletsMul;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  CategoryRecord? category5Mul;
+  // Stores action output result for [Custom Action - getUnitTypes] action in Button widget.
+  int? unitId1WMul;
+  // Stores action output result for [Custom Action - getTaxIdCopy] action in Button widget.
+  int? taxId1WMul;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  OutletRecord? outletMul;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  ProductRecord? prd;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   CategoryRecord? category5;
   // Stores action output result for [Custom Action - getUnitTypes] action in Button widget.
