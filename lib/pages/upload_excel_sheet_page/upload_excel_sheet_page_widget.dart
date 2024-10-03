@@ -632,17 +632,22 @@ class _UploadExcelSheetPageWidgetState extends State<UploadExcelSheetPageWidget>
                                     },
                                   ),
                                 ),
-                                Expanded(
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.asset(
-                                      'assets/images/Excel_Sheet_Example_3.jpg',
-                                      width: double.infinity,
-                                      height: 200.0,
-                                      fit: BoxFit.fill,
+                                if (responsiveVisibility(
+                                  context: context,
+                                  phone: false,
+                                  tablet: false,
+                                ))
+                                  Expanded(
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: Image.asset(
+                                        'assets/images/Excel_Sheet_Example_3.jpg',
+                                        width: double.infinity,
+                                        height: 200.0,
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
                                   ),
-                                ),
                               ],
                             ),
                           ),

@@ -83,6 +83,7 @@ Future<List<ProductMasterListStruct>> readFromCsvnewprimise(
         var stock = fields[11];
         var weightable = fields[12];
         var code = fields[13];
+        //var hsnCode = fields[14];
         String generateShortName(String name) {
           List<String> words = name.split(' ');
           String shortName = '';

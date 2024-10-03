@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/multipal_price_comp_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -34,6 +35,8 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
   List<ProductRecord>? total;
   // Stores action output result for [Firestore Query - Query a collection] action in AddProduct widget.
   UserProfileRecord? docMobile;
+  // Stores action output result for [Firestore Query - Query a collection] action in AddProduct widget.
+  List<OutletRecord>? outletDocList;
   // State field(s) for CodeM widget.
   FocusNode? codeMFocusNode;
   TextEditingController? codeMTextController;
@@ -167,6 +170,8 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
   TextEditingController? purchasePriceWTextController;
   String? Function(BuildContext, String?)?
       purchasePriceWTextControllerValidator;
+  // Models for multipalPriceComp dynamic component.
+  late FlutterFlowDynamicModels<MultipalPriceCompModel> multipalPriceCompModels;
   // State field(s) for CatDropDownW widget.
   String? catDropDownWValue;
   FormFieldController<String>? catDropDownWValueController;
@@ -241,6 +246,8 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
     productNameWTextControllerValidator = _productNameWTextControllerValidator;
     sellingPriceWTextControllerValidator =
         _sellingPriceWTextControllerValidator;
+    multipalPriceCompModels =
+        FlutterFlowDynamicModels(() => MultipalPriceCompModel());
   }
 
   @override
@@ -296,6 +303,7 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
     purchasePriceWFocusNode?.dispose();
     purchasePriceWTextController?.dispose();
 
+    multipalPriceCompModels.dispose();
     regionalNameWFocusNode?.dispose();
     regionalNameWTextController?.dispose();
 

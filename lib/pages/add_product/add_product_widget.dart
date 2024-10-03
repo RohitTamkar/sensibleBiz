@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/multipal_price_comp_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -58,6 +59,12 @@ class _AddProductWidgetState extends State<AddProductWidget> {
         ),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
+      _model.outletDocList = await queryOutletRecordOnce(
+        queryBuilder: (outletRecord) => outletRecord.where(
+          'id',
+          isEqualTo: _model.docMobile?.outlets?.first,
+        ),
+      );
 
       safeSetState(() {});
     });
@@ -4717,6 +4724,115 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                     ],
                                                   ),
                                                 ),
+                                                if (_model.checkbox1Value ??
+                                                    true)
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 10.0,
+                                                                0.0, 15.0),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Expanded(
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        3.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child: Container(
+                                                              width: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width *
+                                                                  0.3,
+                                                              height: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .height *
+                                                                  0.3,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5.0),
+                                                              ),
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .all(
+                                                                            3.0),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Builder(
+                                                                      builder:
+                                                                          (context) {
+                                                                        final outletDocumentListItem =
+                                                                            _model.outletDocList?.map((e) => e).toList()?.toList() ??
+                                                                                [];
+
+                                                                        return ListView
+                                                                            .builder(
+                                                                          padding:
+                                                                              EdgeInsets.zero,
+                                                                          shrinkWrap:
+                                                                              true,
+                                                                          scrollDirection:
+                                                                              Axis.vertical,
+                                                                          itemCount:
+                                                                              outletDocumentListItem.length,
+                                                                          itemBuilder:
+                                                                              (context, outletDocumentListItemIndex) {
+                                                                            final outletDocumentListItemItem =
+                                                                                outletDocumentListItem[outletDocumentListItemIndex];
+                                                                            return wrapWithModel(
+                                                                              model: _model.multipalPriceCompModels.getModel(
+                                                                                outletDocumentListItemItem.id,
+                                                                                outletDocumentListItemIndex,
+                                                                              ),
+                                                                              updateCallback: () => safeSetState(() {}),
+                                                                              child: MultipalPriceCompWidget(
+                                                                                key: Key(
+                                                                                  'Key1h9_${outletDocumentListItemItem.id}',
+                                                                                ),
+                                                                                multiply: 1.2,
+                                                                                boMrp: double.parse(_model.mRPPriceWTextController.text),
+                                                                                gstPer: 5,
+                                                                                outletName: outletDocumentListItemItem.name,
+                                                                                sellingPrice: (double.parse(_model.mRPPriceWTextController.text) * 1.2) / 1.5,
+                                                                                mrpPrice: double.parse(_model.mRPPriceWTextController.text) * 1.2,
+                                                                              ),
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      },
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(

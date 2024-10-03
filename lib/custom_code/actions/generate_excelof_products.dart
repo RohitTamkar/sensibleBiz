@@ -102,6 +102,7 @@ Future<String> generateExcelofProducts(String? shopName, String? dateTime,
     TextCellValue('Stock'),
     TextCellValue('Weightable'),
     TextCellValue('Search Code'),
+    TextCellValue('Hsn Code'),
   ]);
   print(category);
   var productTotal = 0.0;
@@ -154,7 +155,7 @@ Future<String> generateExcelofProducts(String? shopName, String? dateTime,
       TextCellValue(stockBool),
       TextCellValue(weightBool),
       TextCellValue(product.code.toString()),
-
+      TextCellValue(product.hsnCode.toString()),
       // TextCellValue(product.cess.toString()),
       // TextCellValue(product.code.toString()),
 

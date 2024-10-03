@@ -11,7 +11,6 @@ import '/pages/reports/product_edit_comp/product_edit_comp_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'edit_bill_details_widget.dart' show EditBillDetailsWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -22,8 +21,6 @@ import 'package:webviewx_plus/webviewx_plus.dart';
 class EditBillDetailsModel extends FlutterFlowModel<EditBillDetailsWidget> {
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Firestore Query - Query a collection] action in IconButton widget.
-  ShiftRecord? shiftdocRef;
   // Models for productEditComp dynamic component.
   late FlutterFlowDynamicModels<ProductEditCompModel> productEditCompModels;
   // State field(s) for DropDown widget.

@@ -10,7 +10,6 @@ import '/flutter_flow/form_field_controller.dart';
 import '/pages/reports/product_edit_comp/product_edit_comp_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -165,63 +164,6 @@ class _EditBillDetailsWidgetState extends State<EditBillDetailsWidget> {
                                     },
                                   ),
                                 });
-                                _model.shiftdocRef = await queryShiftRecordOnce(
-                                  parent: FFAppState().outletRef,
-                                  queryBuilder: (shiftRecord) => shiftRecord
-                                      .where(
-                                        'dayId',
-                                        isEqualTo: widget!.prdDocument?.dayId,
-                                      )
-                                      .where(
-                                        'userId',
-                                        isEqualTo: widget!.prdDocument?.userId,
-                                      ),
-                                  singleRecord: true,
-                                ).then((s) => s.firstOrNull);
-                                FFAppState().productSaleStringList = _model
-                                    .shiftdocRef!.productSale
-                                    .toList()
-                                    .cast<String>();
-                                safeSetState(() {});
-                                FFAppState().startLoop = 0;
-                                safeSetState(() {});
-                                while (FFAppState().startLoop <
-                                    FFAppState().EBProductList.length) {
-                                  FFAppState().productSaleStringList = functions
-                                      .updateProductSale(
-                                          FFAppState()
-                                              .productSaleStringList
-                                              .toList(),
-                                          FFAppState()
-                                              .EBProductList[
-                                                  FFAppState().startLoop]
-                                              .product
-                                              .id,
-                                          FFAppState()
-                                              .EBProductList[
-                                                  FFAppState().startLoop]
-                                              .price,
-                                          FFAppState()
-                                              .EBProductList[
-                                                  FFAppState().startLoop]
-                                              .quantity
-                                              .toInt())
-                                      .toList()
-                                      .cast<String>();
-                                  safeSetState(() {});
-                                  FFAppState().startLoop =
-                                      FFAppState().startLoop + 1;
-                                  safeSetState(() {});
-                                }
-
-                                await _model.shiftdocRef!.reference.update({
-                                  ...mapToFirestore(
-                                    {
-                                      'productSale':
-                                          FFAppState().productSaleStringList,
-                                    },
-                                  ),
-                                });
                                 await showDialog(
                                   context: context,
                                   builder: (alertDialogContext) {
@@ -242,8 +184,6 @@ class _EditBillDetailsWidgetState extends State<EditBillDetailsWidget> {
                                   },
                                 );
                                 context.safePop();
-
-                                safeSetState(() {});
                               },
                             ),
                           ),

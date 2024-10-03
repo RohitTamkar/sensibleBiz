@@ -1024,11 +1024,11 @@ List<String> updateProductSale(
   double price,
   int qty,
 ) {
-  if (productSale.containsKey(productID)) {
+/*  if (productSale.containsKey(productID)) {
     productSale[productID]![price] = qty;
   } else {
     productSale[productID] = {price: qty};
-  }
+  }*/
 
   return productSale;
 }
