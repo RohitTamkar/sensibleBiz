@@ -71,3 +71,4 @@ export 'generate_pdf_file.dart' show generatePdfFile;
 export 'genrate_excel_for_product_wise_sale_report.dart'
     show genrateExcelForProductWiseSaleReport;
 export 'increment_stock_new.dart' show incrementStockNew;
+export 'barcode_random_generated.dart' show barcodeRandomGenerated;

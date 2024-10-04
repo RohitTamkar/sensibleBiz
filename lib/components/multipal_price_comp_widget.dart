@@ -47,10 +47,12 @@ class _MultipalPriceCompWidgetState extends State<MultipalPriceCompWidget> {
     super.initState();
     _model = createModel(context, () => MultipalPriceCompModel());
 
-    _model.sellingPriceWTextController ??= TextEditingController();
+    _model.sellingPriceWTextController ??=
+        TextEditingController(text: widget!.sellingPrice?.toString());
     _model.sellingPriceWFocusNode ??= FocusNode();
 
-    _model.mRPPriceWTextController ??= TextEditingController();
+    _model.mRPPriceWTextController ??=
+        TextEditingController(text: widget!.mrpPrice?.toString());
     _model.mRPPriceWFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));

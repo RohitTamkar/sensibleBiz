@@ -158,6 +158,9 @@ class FFAppState extends ChangeNotifier {
         }
       }
     });
+    _safeInit(() {
+      _barcode = prefs.getString('ff_barcode') ?? _barcode;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -1339,6 +1342,13 @@ class FFAppState extends ChangeNotifier {
 
   void insertAtIndexInProductSaleStringList(int index, String value) {
     productSaleStringList.insert(index, value);
+  }
+
+  String _barcode = '';
+  String get barcode => _barcode;
+  set barcode(String value) {
+    _barcode = value;
+    prefs.setString('ff_barcode', value);
   }
 }
 

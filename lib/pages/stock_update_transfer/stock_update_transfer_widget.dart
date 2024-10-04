@@ -1387,7 +1387,7 @@ class _StockUpdateTransferWidgetState extends State<StockUpdateTransferWidget> {
                                                                 FFAppState()
                                                                     .loopStart],
                                                             r'''$.currentStock''',
-                                                          ).toString()) >
+                                                          ).toString()) >=
                                                           functions
                                                               .stringToInteger(
                                                                   getJsonField(

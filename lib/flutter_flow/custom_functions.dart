@@ -1032,3 +1032,44 @@ List<String> updateProductSale(
 
   return productSale;
 }
+
+double? getMrpAndSPriceforMultipleOutlets(
+  String? inputMRP,
+  String? gstPerStr,
+  String? returnType,
+  double? multiple,
+) {
+  if (inputMRP == null || gstPerStr == null || returnType == null) {
+    return 0.0;
+  }
+
+  // Parse the MRP
+  double mrp;
+  try {
+    mrp = double.parse(inputMRP);
+  } catch (e) {
+    return 0.0; // Return 0.0 if parsing fails
+  }
+
+  if (returnType == "MRP") {
+    // Return MRP multiplied by 1.2
+    return mrp * multiple;
+  } else if (returnType == "SP") {
+    // Extract GST percentage
+    int gstPercentage = 0;
+    if (gstPerStr.startsWith("GST")) {
+      gstPercentage = int.parse(gstPerStr.substring(3));
+    } else if (gstPerStr.startsWith("VAT")) {
+      gstPercentage = int.parse(gstPerStr.substring(3));
+    } else {
+      return 0.0; // Return 0.0 if GST format is invalid
+    }
+
+    // Calculate Selling Price based on MRP and GST
+    double sellingPrice =
+        mrp * multiple + (mrp * multiple * gstPercentage / 100);
+    return sellingPrice; // Return the Selling Price
+  }
+
+  return 0.0;
+}

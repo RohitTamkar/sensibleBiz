@@ -65,6 +65,8 @@ class _AddProductWidgetState extends State<AddProductWidget> {
           isEqualTo: _model.docMobile?.outlets?.first,
         ),
       );
+      FFAppState().barcode = '';
+      safeSetState(() {});
 
       safeSetState(() {});
     });
@@ -136,7 +138,8 @@ class _AddProductWidgetState extends State<AddProductWidget> {
     _model.currentStockWTextController ??= TextEditingController();
     _model.currentStockWFocusNode ??= FocusNode();
 
-    _model.barcodeWTextController ??= TextEditingController();
+    _model.barcodeWTextController ??=
+        TextEditingController(text: FFAppState().barcode);
     _model.barcodeWFocusNode ??= FocusNode();
 
     _model.hsnWTextController ??= TextEditingController();
@@ -4816,8 +4819,8 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                                 boMrp: double.parse(_model.mRPPriceWTextController.text),
                                                                                 gstPer: 5,
                                                                                 outletName: outletDocumentListItemItem.name,
-                                                                                sellingPrice: (double.parse(_model.mRPPriceWTextController.text) * 1.2) / 1.5,
-                                                                                mrpPrice: double.parse(_model.mRPPriceWTextController.text) * 1.2,
+                                                                                sellingPrice: functions.getMrpAndSPriceforMultipleOutlets(functions.getMrpAndSPriceforMultipleOutlets(_model.mRPPriceWTextController.text, 'GST5', 'MRP', 1.2)?.toString(), 'GST5', 'SP', 1.2)!,
+                                                                                mrpPrice: functions.getMrpAndSPriceforMultipleOutlets(_model.mRPPriceWTextController.text, 'GST5', 'MRP', 1.2)!,
                                                                               ),
                                                                             );
                                                                           },
@@ -5983,83 +5986,24 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           3.0,
                                                                           5.0,
                                                                           0.0,
                                                                           3.0),
-                                                              child:
-                                                                  SelectionArea(
-                                                                      child:
-                                                                          Text(
-                                                                'Barcode',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodySmall
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodySmallFamily,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      useGoogleFonts: GoogleFonts
-                                                                              .asMap()
-                                                                          .containsKey(
-                                                                              FlutterFlowTheme.of(context).bodySmallFamily),
-                                                                    ),
-                                                              )),
-                                                            ),
-                                                            if (false)
-                                                              Align(
-                                                                alignment:
-                                                                    AlignmentDirectional(
-                                                                        1.0,
-                                                                        0.0),
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .qr_code_scanner,
-                                                                  color: Colors
-                                                                      .black,
-                                                                  size: 28.0,
-                                                                ),
-                                                              ),
-                                                            Expanded(
-                                                              child: Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            5.0,
-                                                                            0.0),
-                                                                child:
-                                                                    TextFormField(
-                                                                  controller: _model
-                                                                      .barcodeWTextController,
-                                                                  focusNode: _model
-                                                                      .barcodeWFocusNode,
-                                                                  onChanged: (_) =>
-                                                                      EasyDebounce
-                                                                          .debounce(
-                                                                    '_model.barcodeWTextController',
-                                                                    Duration(
-                                                                        milliseconds:
-                                                                            2000),
-                                                                    () => safeSetState(
-                                                                        () {}),
-                                                                  ),
-                                                                  autofocus:
-                                                                      false,
-                                                                  obscureText:
-                                                                      false,
-                                                                  decoration:
-                                                                      InputDecoration(
-                                                                    isDense:
-                                                                        false,
-                                                                    hintStyle: FlutterFlowTheme.of(
+                                                                  child:
+                                                                      SelectionArea(
+                                                                          child:
+                                                                              Text(
+                                                                    'Barcode',
+                                                                    style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodySmall
                                                                         .override(
@@ -6070,97 +6014,210 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                           useGoogleFonts:
                                                                               GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
                                                                         ),
-                                                                    enabledBorder:
-                                                                        UnderlineInputBorder(
-                                                                      borderSide:
-                                                                          BorderSide(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryText,
-                                                                        width:
-                                                                            1.0,
+                                                                  )),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Expanded(
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            5.0,
+                                                                            0.0,
+                                                                            5.0,
+                                                                            0.0),
+                                                                    child:
+                                                                        TextFormField(
+                                                                      controller:
+                                                                          _model
+                                                                              .barcodeWTextController,
+                                                                      focusNode:
+                                                                          _model
+                                                                              .barcodeWFocusNode,
+                                                                      onChanged:
+                                                                          (_) =>
+                                                                              EasyDebounce.debounce(
+                                                                        '_model.barcodeWTextController',
+                                                                        Duration(
+                                                                            milliseconds:
+                                                                                2000),
+                                                                        () => safeSetState(
+                                                                            () {}),
                                                                       ),
-                                                                      borderRadius:
-                                                                          const BorderRadius
-                                                                              .only(
-                                                                        topLeft:
-                                                                            Radius.circular(4.0),
-                                                                        topRight:
-                                                                            Radius.circular(4.0),
+                                                                      autofocus:
+                                                                          false,
+                                                                      obscureText:
+                                                                          false,
+                                                                      decoration:
+                                                                          InputDecoration(
+                                                                        isDense:
+                                                                            false,
+                                                                        hintStyle: FlutterFlowTheme.of(context)
+                                                                            .bodySmall
+                                                                            .override(
+                                                                              fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
+                                                                              letterSpacing: 0.0,
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
+                                                                            ),
+                                                                        enabledBorder:
+                                                                            UnderlineInputBorder(
+                                                                          borderSide:
+                                                                              BorderSide(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).secondaryText,
+                                                                            width:
+                                                                                1.0,
+                                                                          ),
+                                                                          borderRadius:
+                                                                              const BorderRadius.only(
+                                                                            topLeft:
+                                                                                Radius.circular(4.0),
+                                                                            topRight:
+                                                                                Radius.circular(4.0),
+                                                                          ),
+                                                                        ),
+                                                                        focusedBorder:
+                                                                            UnderlineInputBorder(
+                                                                          borderSide:
+                                                                              BorderSide(
+                                                                            color:
+                                                                                Color(0x00000000),
+                                                                            width:
+                                                                                1.0,
+                                                                          ),
+                                                                          borderRadius:
+                                                                              const BorderRadius.only(
+                                                                            topLeft:
+                                                                                Radius.circular(4.0),
+                                                                            topRight:
+                                                                                Radius.circular(4.0),
+                                                                          ),
+                                                                        ),
+                                                                        errorBorder:
+                                                                            UnderlineInputBorder(
+                                                                          borderSide:
+                                                                              BorderSide(
+                                                                            color:
+                                                                                Color(0x00000000),
+                                                                            width:
+                                                                                1.0,
+                                                                          ),
+                                                                          borderRadius:
+                                                                              const BorderRadius.only(
+                                                                            topLeft:
+                                                                                Radius.circular(4.0),
+                                                                            topRight:
+                                                                                Radius.circular(4.0),
+                                                                          ),
+                                                                        ),
+                                                                        focusedErrorBorder:
+                                                                            UnderlineInputBorder(
+                                                                          borderSide:
+                                                                              BorderSide(
+                                                                            color:
+                                                                                Color(0x00000000),
+                                                                            width:
+                                                                                1.0,
+                                                                          ),
+                                                                          borderRadius:
+                                                                              const BorderRadius.only(
+                                                                            topLeft:
+                                                                                Radius.circular(4.0),
+                                                                            topRight:
+                                                                                Radius.circular(4.0),
+                                                                          ),
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                    focusedBorder:
-                                                                        UnderlineInputBorder(
-                                                                      borderSide:
-                                                                          BorderSide(
-                                                                        color: Color(
-                                                                            0x00000000),
-                                                                        width:
-                                                                            1.0,
-                                                                      ),
-                                                                      borderRadius:
-                                                                          const BorderRadius
-                                                                              .only(
-                                                                        topLeft:
-                                                                            Radius.circular(4.0),
-                                                                        topRight:
-                                                                            Radius.circular(4.0),
-                                                                      ),
-                                                                    ),
-                                                                    errorBorder:
-                                                                        UnderlineInputBorder(
-                                                                      borderSide:
-                                                                          BorderSide(
-                                                                        color: Color(
-                                                                            0x00000000),
-                                                                        width:
-                                                                            1.0,
-                                                                      ),
-                                                                      borderRadius:
-                                                                          const BorderRadius
-                                                                              .only(
-                                                                        topLeft:
-                                                                            Radius.circular(4.0),
-                                                                        topRight:
-                                                                            Radius.circular(4.0),
-                                                                      ),
-                                                                    ),
-                                                                    focusedErrorBorder:
-                                                                        UnderlineInputBorder(
-                                                                      borderSide:
-                                                                          BorderSide(
-                                                                        color: Color(
-                                                                            0x00000000),
-                                                                        width:
-                                                                            1.0,
-                                                                      ),
-                                                                      borderRadius:
-                                                                          const BorderRadius
-                                                                              .only(
-                                                                        topLeft:
-                                                                            Radius.circular(4.0),
-                                                                        topRight:
-                                                                            Radius.circular(4.0),
-                                                                      ),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            useGoogleFonts:
+                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                          ),
+                                                                      keyboardType:
+                                                                          TextInputType
+                                                                              .number,
+                                                                      validator: _model
+                                                                          .barcodeWTextControllerValidator
+                                                                          .asValidator(
+                                                                              context),
                                                                     ),
                                                                   ),
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                ),
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Container(
+                                                                      width: MediaQuery.sizeOf(context)
+                                                                              .width *
+                                                                          0.12,
+                                                                      height: MediaQuery.sizeOf(context)
+                                                                              .height *
+                                                                          0.03,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondary,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(5.0),
                                                                       ),
-                                                                  keyboardType:
-                                                                      TextInputType
-                                                                          .number,
-                                                                  validator: _model
-                                                                      .barcodeWTextControllerValidator
-                                                                      .asValidator(
-                                                                          context),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Create Barcode',
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                  letterSpacing: 0.0,
+                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            Align(
+                                                              alignment:
+                                                                  AlignmentDirectional(
+                                                                      1.0, 0.0),
+                                                              child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {},
+                                                                child: Icon(
+                                                                  Icons
+                                                                      .qr_code_scanner,
+                                                                  color: Colors
+                                                                      .black,
+                                                                  size: 28.0,
                                                                 ),
                                                               ),
                                                             ),
@@ -6977,14 +7034,6 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                             ),
                                                             dateTme:
                                                                 getCurrentTimestamp,
-                                                            barcode:
-                                                                valueOrDefault<
-                                                                    String>(
-                                                              _model
-                                                                  .barcodeWTextController
-                                                                  .text,
-                                                              '0',
-                                                            ),
                                                             discount:
                                                                 valueOrDefault<
                                                                     double>(
@@ -7111,14 +7160,6 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                     ),
                                                                     dateTme:
                                                                         getCurrentTimestamp,
-                                                                    barcode:
-                                                                        valueOrDefault<
-                                                                            String>(
-                                                                      _model
-                                                                          .barcodeWTextController
-                                                                          .text,
-                                                                      '0',
-                                                                    ),
                                                                     discount:
                                                                         valueOrDefault<
                                                                             double>(
@@ -7293,12 +7334,12 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                             .hsnWTextController
                                                             ?.clear();
                                                         _model
-                                                            .barcodeWTextController
-                                                            ?.clear();
-                                                        _model
                                                             .currentStockWTextController
                                                             ?.clear();
                                                       });
+                                                      FFAppState().barcode = '';
+                                                      FFAppState()
+                                                          .update(() {});
                                                       context.safePop();
 
                                                       context.pushNamed(
@@ -7359,13 +7400,6 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                         ),
                                                         dateTme:
                                                             getCurrentTimestamp,
-                                                        barcode: valueOrDefault<
-                                                            String>(
-                                                          _model
-                                                              .barcodeWTextController
-                                                              .text,
-                                                          '0',
-                                                        ),
                                                         discount:
                                                             valueOrDefault<
                                                                 double>(
@@ -7486,14 +7520,6 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                 ),
                                                                 dateTme:
                                                                     getCurrentTimestamp,
-                                                                barcode:
-                                                                    valueOrDefault<
-                                                                        String>(
-                                                                  _model
-                                                                      .barcodeWTextController
-                                                                      .text,
-                                                                  '0',
-                                                                ),
                                                                 discount:
                                                                     valueOrDefault<
                                                                         double>(
@@ -7661,12 +7687,12 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                             .hsnWTextController
                                                             ?.clear();
                                                         _model
-                                                            .barcodeWTextController
-                                                            ?.clear();
-                                                        _model
                                                             .currentStockWTextController
                                                             ?.clear();
                                                       });
+                                                      FFAppState().barcode = '';
+                                                      FFAppState()
+                                                          .update(() {});
                                                       context.safePop();
 
                                                       context.pushNamed(
