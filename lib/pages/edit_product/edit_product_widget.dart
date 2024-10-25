@@ -1,11 +1,13 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -58,6 +60,16 @@ class _EditProductWidgetState extends State<EditProductWidget> {
         singleRecord: true,
       ).then((s) => s.firstOrNull);
 
+      safeSetState(() {});
+      _model.productDocument = await queryProductRecordOnce(
+        parent: FFAppState().outletRef,
+        queryBuilder: (productRecord) => productRecord.where(
+          'id',
+          isEqualTo: widget!.proDoc?.reference.id,
+        ),
+        singleRecord: true,
+      ).then((s) => s.firstOrNull);
+      FFAppState().productImageUrl = _model.productDocument!.image;
       safeSetState(() {});
     });
 
@@ -591,9 +603,14 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   children: [
-                                                    if (_model.docMobile
-                                                            ?.accessToMulticounter ==
-                                                        true)
+                                                    if ((_model.docMobile
+                                                                ?.accessToMulticounter ==
+                                                            true) &&
+                                                        responsiveVisibility(
+                                                          context: context,
+                                                          phone: false,
+                                                          tablet: false,
+                                                        ))
                                                       Container(
                                                         width: 51.0,
                                                         height: 45.0,
@@ -603,55 +620,63 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                   .of(context)
                                                               .secondaryBackground,
                                                         ),
-                                                        child: Theme(
-                                                          data: ThemeData(
-                                                            checkboxTheme:
-                                                                CheckboxThemeData(
-                                                              visualDensity:
-                                                                  VisualDensity
-                                                                      .compact,
-                                                              materialTapTargetSize:
-                                                                  MaterialTapTargetSize
-                                                                      .shrinkWrap,
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            4.0),
+                                                        child: Visibility(
+                                                          visible:
+                                                              responsiveVisibility(
+                                                            context: context,
+                                                            phone: false,
+                                                            tablet: false,
+                                                          ),
+                                                          child: Theme(
+                                                            data: ThemeData(
+                                                              checkboxTheme:
+                                                                  CheckboxThemeData(
+                                                                visualDensity:
+                                                                    VisualDensity
+                                                                        .compact,
+                                                                materialTapTargetSize:
+                                                                    MaterialTapTargetSize
+                                                                        .shrinkWrap,
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              4.0),
+                                                                ),
                                                               ),
+                                                              unselectedWidgetColor:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .alternate,
                                                             ),
-                                                            unselectedWidgetColor:
-                                                                FlutterFlowTheme.of(
+                                                            child: Checkbox(
+                                                              value: _model
+                                                                      .checkboxValue ??=
+                                                                  _model
+                                                                      .docMobile!
+                                                                      .accessToMulticounter,
+                                                              onChanged:
+                                                                  (newValue) async {
+                                                                safeSetState(() =>
+                                                                    _model.checkboxValue =
+                                                                        newValue!);
+                                                              },
+                                                              side: BorderSide(
+                                                                width: 2,
+                                                                color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .alternate,
-                                                          ),
-                                                          child: Checkbox(
-                                                            value: _model
-                                                                    .checkboxValue ??=
-                                                                _model
-                                                                    .docMobile!
-                                                                    .accessToMulticounter,
-                                                            onChanged:
-                                                                (newValue) async {
-                                                              safeSetState(() =>
-                                                                  _model.checkboxValue =
-                                                                      newValue!);
-                                                            },
-                                                            side: BorderSide(
-                                                              width: 2,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .alternate,
+                                                              ),
+                                                              activeColor:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                              checkColor:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .info,
                                                             ),
-                                                            activeColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                            checkColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .info,
                                                           ),
                                                         ),
                                                       ),
@@ -1891,116 +1916,120 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 Expanded(
-                                                  child: Theme(
-                                                    data: ThemeData(
-                                                      unselectedWidgetColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .customColor3,
-                                                    ),
-                                                    child: CheckboxListTile(
-                                                      value: _model
-                                                              .wightCheckboMValue ??=
-                                                          widget!.proDoc!
-                                                              .weighable,
-                                                      onChanged:
-                                                          (newValue) async {
-                                                        safeSetState(() => _model
-                                                                .wightCheckboMValue =
-                                                            newValue!);
-                                                      },
-                                                      title: Text(
-                                                        'Weightable',
-                                                        style:
+                                                  child: Material(
+                                                    color: Colors.transparent,
+                                                    child: Theme(
+                                                      data: ThemeData(
+                                                        unselectedWidgetColor:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyLarge
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyLargeFamily,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyLargeFamily),
-                                                                ),
+                                                                .customColor3,
                                                       ),
-                                                      tileColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .customColor1,
-                                                      activeColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      checkColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryBtnText,
-                                                      dense: true,
-                                                      controlAffinity:
-                                                          ListTileControlAffinity
-                                                              .leading,
+                                                      child: CheckboxListTile(
+                                                        value: _model
+                                                                .wightCheckboMValue ??=
+                                                            widget!.proDoc!
+                                                                .weighable,
+                                                        onChanged:
+                                                            (newValue) async {
+                                                          safeSetState(() =>
+                                                              _model.wightCheckboMValue =
+                                                                  newValue!);
+                                                        },
+                                                        title: Text(
+                                                          'Weightable',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyLarge
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLargeFamily,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyLargeFamily),
+                                                              ),
+                                                        ),
+                                                        tileColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .customColor1,
+                                                        activeColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        checkColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBtnText,
+                                                        dense: true,
+                                                        controlAffinity:
+                                                            ListTileControlAffinity
+                                                                .leading,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
                                                 Expanded(
-                                                  child: Theme(
-                                                    data: ThemeData(
-                                                      unselectedWidgetColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .customColor3,
-                                                    ),
-                                                    child: CheckboxListTile(
-                                                      value: _model
-                                                              .stockCheckboxMValue ??=
-                                                          widget!.proDoc!
-                                                              .stockable,
-                                                      onChanged:
-                                                          (newValue) async {
-                                                        safeSetState(() => _model
-                                                                .stockCheckboxMValue =
-                                                            newValue!);
-                                                      },
-                                                      title: Text(
-                                                        'Stockable',
-                                                        style:
+                                                  child: Material(
+                                                    color: Colors.transparent,
+                                                    child: Theme(
+                                                      data: ThemeData(
+                                                        unselectedWidgetColor:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyLarge
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyLargeFamily,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyLargeFamily),
-                                                                ),
+                                                                .customColor3,
                                                       ),
-                                                      tileColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .customColor1,
-                                                      activeColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      checkColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryBtnText,
-                                                      dense: true,
-                                                      controlAffinity:
-                                                          ListTileControlAffinity
-                                                              .leading,
+                                                      child: CheckboxListTile(
+                                                        value: _model
+                                                                .stockCheckboxMValue ??=
+                                                            widget!.proDoc!
+                                                                .stockable,
+                                                        onChanged:
+                                                            (newValue) async {
+                                                          safeSetState(() =>
+                                                              _model.stockCheckboxMValue =
+                                                                  newValue!);
+                                                        },
+                                                        title: Text(
+                                                          'Stockable',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyLarge
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLargeFamily,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyLargeFamily),
+                                                              ),
+                                                        ),
+                                                        tileColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .customColor1,
+                                                        activeColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        checkColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBtnText,
+                                                        dense: true,
+                                                        controlAffinity:
+                                                            ListTileControlAffinity
+                                                                .leading,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -2149,7 +2178,8 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                             'GST28',
                                                                             'VAT22',
                                                                             'GST3',
-                                                                            'GST2'
+                                                                            'GST2',
+                                                                            'IGST18'
                                                                           ],
                                                                           onChanged: (val) =>
                                                                               safeSetState(() => _model.taxDropDownMValue = val),
@@ -2908,6 +2938,188 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                               ],
                                             ),
                                           ),
+                                          if (responsiveVisibility(
+                                            context: context,
+                                            phone: false,
+                                            tablet: false,
+                                            tabletLandscape: false,
+                                            desktop: false,
+                                          ))
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 0.0, 0.0, 10.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                10.0, 0.0),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                      child: Image.network(
+                                                        functions.imgStrtoimagePath(
+                                                            FFAppState()
+                                                                .productImageUrl)!,
+                                                        width: 150.0,
+                                                        height: 100.0,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  FFButtonWidget(
+                                                    onPressed: () async {
+                                                      final selectedMedia =
+                                                          await selectMedia(
+                                                        mediaSource: MediaSource
+                                                            .photoGallery,
+                                                        multiImage: false,
+                                                      );
+                                                      if (selectedMedia !=
+                                                              null &&
+                                                          selectedMedia.every((m) =>
+                                                              validateFileFormat(
+                                                                  m.storagePath,
+                                                                  context))) {
+                                                        safeSetState(() => _model
+                                                                .isDataUploading =
+                                                            true);
+                                                        var selectedUploadedFiles =
+                                                            <FFUploadedFile>[];
+
+                                                        var downloadUrls =
+                                                            <String>[];
+                                                        try {
+                                                          selectedUploadedFiles =
+                                                              selectedMedia
+                                                                  .map((m) =>
+                                                                      FFUploadedFile(
+                                                                        name: m
+                                                                            .storagePath
+                                                                            .split('/')
+                                                                            .last,
+                                                                        bytes: m
+                                                                            .bytes,
+                                                                        height: m
+                                                                            .dimensions
+                                                                            ?.height,
+                                                                        width: m
+                                                                            .dimensions
+                                                                            ?.width,
+                                                                        blurHash:
+                                                                            m.blurHash,
+                                                                      ))
+                                                                  .toList();
+
+                                                          downloadUrls =
+                                                              (await Future
+                                                                      .wait(
+                                                            selectedMedia.map(
+                                                              (m) async =>
+                                                                  await uploadData(
+                                                                      m.storagePath,
+                                                                      m.bytes),
+                                                            ),
+                                                          ))
+                                                                  .where((u) =>
+                                                                      u != null)
+                                                                  .map(
+                                                                      (u) => u!)
+                                                                  .toList();
+                                                        } finally {
+                                                          _model.isDataUploading =
+                                                              false;
+                                                        }
+                                                        if (selectedUploadedFiles
+                                                                    .length ==
+                                                                selectedMedia
+                                                                    .length &&
+                                                            downloadUrls
+                                                                    .length ==
+                                                                selectedMedia
+                                                                    .length) {
+                                                          safeSetState(() {
+                                                            _model.uploadedLocalFile =
+                                                                selectedUploadedFiles
+                                                                    .first;
+                                                            _model.uploadedFileUrl =
+                                                                downloadUrls
+                                                                    .first;
+                                                          });
+                                                        } else {
+                                                          safeSetState(() {});
+                                                          return;
+                                                        }
+                                                      }
+
+                                                      FFAppState()
+                                                              .productImageUrl =
+                                                          _model
+                                                              .uploadedFileUrl;
+                                                      safeSetState(() {});
+                                                    },
+                                                    text: 'Upload Image',
+                                                    options: FFButtonOptions(
+                                                      height: 35.0,
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  12.0,
+                                                                  0.0,
+                                                                  12.0,
+                                                                  0.0),
+                                                      iconPadding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .info,
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmallFamily,
+                                                                color: Colors
+                                                                    .white,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .titleSmallFamily),
+                                                              ),
+                                                      elevation: 3.0,
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Colors.transparent,
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
@@ -4814,116 +5026,120 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 Expanded(
-                                                  child: Theme(
-                                                    data: ThemeData(
-                                                      unselectedWidgetColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .customColor3,
-                                                    ),
-                                                    child: CheckboxListTile(
-                                                      value: _model
-                                                              .wightCheckboWNValue ??=
-                                                          widget!.productDocW!
-                                                              .weighable,
-                                                      onChanged:
-                                                          (newValue) async {
-                                                        safeSetState(() => _model
-                                                                .wightCheckboWNValue =
-                                                            newValue!);
-                                                      },
-                                                      title: Text(
-                                                        'Weightable',
-                                                        style:
+                                                  child: Material(
+                                                    color: Colors.transparent,
+                                                    child: Theme(
+                                                      data: ThemeData(
+                                                        unselectedWidgetColor:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyLarge
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyLargeFamily,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyLargeFamily),
-                                                                ),
+                                                                .customColor3,
                                                       ),
-                                                      tileColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .customColor1,
-                                                      activeColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      checkColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryBtnText,
-                                                      dense: true,
-                                                      controlAffinity:
-                                                          ListTileControlAffinity
-                                                              .leading,
+                                                      child: CheckboxListTile(
+                                                        value: _model
+                                                                .wightCheckboWNValue ??=
+                                                            widget!.productDocW!
+                                                                .weighable,
+                                                        onChanged:
+                                                            (newValue) async {
+                                                          safeSetState(() =>
+                                                              _model.wightCheckboWNValue =
+                                                                  newValue!);
+                                                        },
+                                                        title: Text(
+                                                          'Weightable',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyLarge
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLargeFamily,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyLargeFamily),
+                                                              ),
+                                                        ),
+                                                        tileColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .customColor1,
+                                                        activeColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        checkColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBtnText,
+                                                        dense: true,
+                                                        controlAffinity:
+                                                            ListTileControlAffinity
+                                                                .leading,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
                                                 Expanded(
-                                                  child: Theme(
-                                                    data: ThemeData(
-                                                      unselectedWidgetColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .customColor3,
-                                                    ),
-                                                    child: CheckboxListTile(
-                                                      value: _model
-                                                              .stockCheckboxWNValue ??=
-                                                          widget!.productDocW!
-                                                              .stockable,
-                                                      onChanged:
-                                                          (newValue) async {
-                                                        safeSetState(() => _model
-                                                                .stockCheckboxWNValue =
-                                                            newValue!);
-                                                      },
-                                                      title: Text(
-                                                        'Stockable',
-                                                        style:
+                                                  child: Material(
+                                                    color: Colors.transparent,
+                                                    child: Theme(
+                                                      data: ThemeData(
+                                                        unselectedWidgetColor:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyLarge
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyLargeFamily,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyLargeFamily),
-                                                                ),
+                                                                .customColor3,
                                                       ),
-                                                      tileColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .customColor1,
-                                                      activeColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      checkColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryBtnText,
-                                                      dense: true,
-                                                      controlAffinity:
-                                                          ListTileControlAffinity
-                                                              .leading,
+                                                      child: CheckboxListTile(
+                                                        value: _model
+                                                                .stockCheckboxWNValue ??=
+                                                            widget!.productDocW!
+                                                                .stockable,
+                                                        onChanged:
+                                                            (newValue) async {
+                                                          safeSetState(() =>
+                                                              _model.stockCheckboxWNValue =
+                                                                  newValue!);
+                                                        },
+                                                        title: Text(
+                                                          'Stockable',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyLarge
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLargeFamily,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyLargeFamily),
+                                                              ),
+                                                        ),
+                                                        tileColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .customColor1,
+                                                        activeColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        checkColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBtnText,
+                                                        dense: true,
+                                                        controlAffinity:
+                                                            ListTileControlAffinity
+                                                                .leading,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -5073,7 +5289,8 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                             'GST18',
                                                                             'GST28',
                                                                             'VAT10',
-                                                                            'VAT22'
+                                                                            'VAT22',
+                                                                            'IGST18'
                                                                           ],
                                                                           onChanged: (val) =>
                                                                               safeSetState(() => _model.taxDropDownTaxWValue = val),
@@ -5433,191 +5650,226 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                     MainAxisAlignment
                                                                         .spaceBetween,
                                                                 children: [
-                                                                  Expanded(
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          3.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          TextFormField(
-                                                                        controller:
-                                                                            _model.textFieldBarcodeWTextController,
-                                                                        focusNode:
-                                                                            _model.textFieldBarcodeWFocusNode,
-                                                                        autofocus:
-                                                                            false,
-                                                                        obscureText:
-                                                                            false,
-                                                                        decoration:
-                                                                            InputDecoration(
-                                                                          isDense:
-                                                                              true,
-                                                                          labelText:
-                                                                              'Barcode',
-                                                                          labelStyle: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                letterSpacing: 0.0,
-                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                              ),
-                                                                          enabledBorder:
-                                                                              OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(
-                                                                              color: FlutterFlowTheme.of(context).customColor1,
-                                                                              width: 0.5,
+                                                                  Container(
+                                                                    width: MediaQuery.sizeOf(context)
+                                                                            .width *
+                                                                        0.43,
+                                                                    height: MediaQuery.sizeOf(context)
+                                                                            .height *
+                                                                        0.06,
+                                                                    decoration:
+                                                                        BoxDecoration(),
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          children: [
+                                                                            Column(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                Container(
+                                                                                  width: 427.0,
+                                                                                  child: Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 3.0, 0.0),
+                                                                                    child: TextFormField(
+                                                                                      controller: _model.textFieldBarcodeWTextController,
+                                                                                      focusNode: _model.textFieldBarcodeWFocusNode,
+                                                                                      autofocus: false,
+                                                                                      obscureText: false,
+                                                                                      decoration: InputDecoration(
+                                                                                        isDense: true,
+                                                                                        labelText: 'Barcode',
+                                                                                        labelStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                              letterSpacing: 0.0,
+                                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                            ),
+                                                                                        enabledBorder: OutlineInputBorder(
+                                                                                          borderSide: BorderSide(
+                                                                                            color: FlutterFlowTheme.of(context).customColor1,
+                                                                                            width: 0.5,
+                                                                                          ),
+                                                                                          borderRadius: BorderRadius.circular(5.0),
+                                                                                        ),
+                                                                                        focusedBorder: OutlineInputBorder(
+                                                                                          borderSide: BorderSide(
+                                                                                            color: FlutterFlowTheme.of(context).info,
+                                                                                            width: 0.5,
+                                                                                          ),
+                                                                                          borderRadius: BorderRadius.circular(5.0),
+                                                                                        ),
+                                                                                        errorBorder: OutlineInputBorder(
+                                                                                          borderSide: BorderSide(
+                                                                                            color: FlutterFlowTheme.of(context).error,
+                                                                                            width: 0.5,
+                                                                                          ),
+                                                                                          borderRadius: BorderRadius.circular(5.0),
+                                                                                        ),
+                                                                                        focusedErrorBorder: OutlineInputBorder(
+                                                                                          borderSide: BorderSide(
+                                                                                            color: FlutterFlowTheme.of(context).error,
+                                                                                            width: 0.5,
+                                                                                          ),
+                                                                                          borderRadius: BorderRadius.circular(5.0),
+                                                                                        ),
+                                                                                        filled: true,
+                                                                                        fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                      ),
+                                                                                      style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                                                            fontFamily: FlutterFlowTheme.of(context).bodyLargeFamily,
+                                                                                            letterSpacing: 0.0,
+                                                                                            useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyLargeFamily),
+                                                                                          ),
+                                                                                      validator: _model.textFieldBarcodeWTextControllerValidator.asValidator(context),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
                                                                             ),
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(5.0),
-                                                                          ),
-                                                                          focusedBorder:
-                                                                              OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(
-                                                                              color: FlutterFlowTheme.of(context).info,
-                                                                              width: 0.5,
-                                                                            ),
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(5.0),
-                                                                          ),
-                                                                          errorBorder:
-                                                                              OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(
-                                                                              color: FlutterFlowTheme.of(context).error,
-                                                                              width: 0.5,
-                                                                            ),
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(5.0),
-                                                                          ),
-                                                                          focusedErrorBorder:
-                                                                              OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(
-                                                                              color: FlutterFlowTheme.of(context).error,
-                                                                              width: 0.5,
-                                                                            ),
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(5.0),
-                                                                          ),
-                                                                          filled:
-                                                                              true,
-                                                                          fillColor:
-                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                          ],
                                                                         ),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyLarge
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyLargeFamily,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyLargeFamily),
+                                                                        Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          children: [
+                                                                            Column(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                FFButtonWidget(
+                                                                                  onPressed: () async {
+                                                                                    _model.barcodeScan3 = await actions.barcodeRandomGeneratedNew(
+                                                                                      getCurrentTimestamp,
+                                                                                    );
+                                                                                    safeSetState(() {
+                                                                                      _model.textFieldBarcodeWTextController?.text = _model.barcodeScan3!;
+                                                                                      _model.textFieldBarcodeWTextController?.selection = TextSelection.collapsed(offset: _model.textFieldBarcodeWTextController!.text.length);
+                                                                                    });
+
+                                                                                    safeSetState(() {});
+                                                                                  },
+                                                                                  text: 'Create Barcode',
+                                                                                  options: FFButtonOptions(
+                                                                                    width: MediaQuery.sizeOf(context).width * 0.1,
+                                                                                    height: 40.0,
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                                                                                    iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                    color: FlutterFlowTheme.of(context).secondary,
+                                                                                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                                                                          fontFamily: FlutterFlowTheme.of(context).titleSmallFamily,
+                                                                                          color: FlutterFlowTheme.of(context).primaryText,
+                                                                                          fontSize: 12.0,
+                                                                                          letterSpacing: 0.0,
+                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                                        ),
+                                                                                    elevation: 0.0,
+                                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
                                                                             ),
-                                                                        validator: _model
-                                                                            .textFieldBarcodeWTextControllerValidator
-                                                                            .asValidator(context),
-                                                                      ),
+                                                                          ],
+                                                                        ),
+                                                                      ],
                                                                     ),
                                                                   ),
-                                                                  Expanded(
+                                                                  Container(
+                                                                    width: MediaQuery.sizeOf(context)
+                                                                            .width *
+                                                                        0.43,
+                                                                    height: MediaQuery.sizeOf(context)
+                                                                            .height *
+                                                                        0.06,
+                                                                    decoration:
+                                                                        BoxDecoration(),
                                                                     child:
-                                                                        Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          3.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          TextFormField(
-                                                                        controller:
-                                                                            _model.textFieldHsnWTextController,
-                                                                        focusNode:
-                                                                            _model.textFieldHsnWFocusNode,
-                                                                        autofocus:
-                                                                            true,
-                                                                        obscureText:
-                                                                            false,
-                                                                        decoration:
-                                                                            InputDecoration(
-                                                                          isDense:
-                                                                              true,
-                                                                          labelText:
-                                                                              'HSN Code',
-                                                                          labelStyle: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                letterSpacing: 0.0,
-                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                        Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        Expanded(
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                3.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                TextFormField(
+                                                                              controller: _model.textFieldHsnWTextController,
+                                                                              focusNode: _model.textFieldHsnWFocusNode,
+                                                                              autofocus: true,
+                                                                              obscureText: false,
+                                                                              decoration: InputDecoration(
+                                                                                isDense: true,
+                                                                                labelText: 'HSN Code',
+                                                                                labelStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                      letterSpacing: 0.0,
+                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                    ),
+                                                                                hintStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                      letterSpacing: 0.0,
+                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                                    ),
+                                                                                enabledBorder: OutlineInputBorder(
+                                                                                  borderSide: BorderSide(
+                                                                                    color: FlutterFlowTheme.of(context).customColor1,
+                                                                                    width: 0.5,
+                                                                                  ),
+                                                                                  borderRadius: BorderRadius.circular(5.0),
+                                                                                ),
+                                                                                focusedBorder: OutlineInputBorder(
+                                                                                  borderSide: BorderSide(
+                                                                                    color: FlutterFlowTheme.of(context).info,
+                                                                                    width: 0.5,
+                                                                                  ),
+                                                                                  borderRadius: BorderRadius.circular(5.0),
+                                                                                ),
+                                                                                errorBorder: OutlineInputBorder(
+                                                                                  borderSide: BorderSide(
+                                                                                    color: FlutterFlowTheme.of(context).error,
+                                                                                    width: 0.5,
+                                                                                  ),
+                                                                                  borderRadius: BorderRadius.circular(5.0),
+                                                                                ),
+                                                                                focusedErrorBorder: OutlineInputBorder(
+                                                                                  borderSide: BorderSide(
+                                                                                    color: FlutterFlowTheme.of(context).error,
+                                                                                    width: 0.5,
+                                                                                  ),
+                                                                                  borderRadius: BorderRadius.circular(5.0),
+                                                                                ),
+                                                                                filled: true,
+                                                                                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                                                                               ),
-                                                                          hintStyle: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                letterSpacing: 0.0,
-                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                              ),
-                                                                          enabledBorder:
-                                                                              OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(
-                                                                              color: FlutterFlowTheme.of(context).customColor1,
-                                                                              width: 0.5,
+                                                                              style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                                                    fontFamily: FlutterFlowTheme.of(context).bodyLargeFamily,
+                                                                                    letterSpacing: 0.0,
+                                                                                    useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyLargeFamily),
+                                                                                  ),
+                                                                              keyboardType: TextInputType.number,
+                                                                              validator: _model.textFieldHsnWTextControllerValidator.asValidator(context),
                                                                             ),
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(5.0),
                                                                           ),
-                                                                          focusedBorder:
-                                                                              OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(
-                                                                              color: FlutterFlowTheme.of(context).info,
-                                                                              width: 0.5,
-                                                                            ),
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(5.0),
-                                                                          ),
-                                                                          errorBorder:
-                                                                              OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(
-                                                                              color: FlutterFlowTheme.of(context).error,
-                                                                              width: 0.5,
-                                                                            ),
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(5.0),
-                                                                          ),
-                                                                          focusedErrorBorder:
-                                                                              OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide(
-                                                                              color: FlutterFlowTheme.of(context).error,
-                                                                              width: 0.5,
-                                                                            ),
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(5.0),
-                                                                          ),
-                                                                          filled:
-                                                                              true,
-                                                                          fillColor:
-                                                                              FlutterFlowTheme.of(context).secondaryBackground,
                                                                         ),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyLarge
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyLargeFamily,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyLargeFamily),
-                                                                            ),
-                                                                        keyboardType:
-                                                                            TextInputType.number,
-                                                                        validator: _model
-                                                                            .textFieldHsnWTextControllerValidator
-                                                                            .asValidator(context),
-                                                                      ),
+                                                                      ],
                                                                     ),
                                                                   ),
                                                                 ],
@@ -5649,659 +5901,278 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     5.0, 0.0, 0.0, 0.0),
-                                            child: FFButtonWidget(
-                                              onPressed: () async {
-                                                var _shouldSetState = false;
-                                                var confirmDialogResponse =
-                                                    await showDialog<bool>(
-                                                          context: context,
-                                                          builder:
-                                                              (alertDialogContext) {
-                                                            return WebViewAware(
-                                                              child:
-                                                                  AlertDialog(
-                                                                title: Text(
-                                                                    'Alert'),
-                                                                content: Text(
-                                                                    'Are you  Sure You Want To Updated This Product'),
-                                                                actions: [
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.pop(
-                                                                            alertDialogContext,
-                                                                            false),
-                                                                    child: Text(
-                                                                        'Cancel'),
-                                                                  ),
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.pop(
-                                                                            alertDialogContext,
-                                                                            true),
-                                                                    child: Text(
-                                                                        'Confirm'),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            );
-                                                          },
-                                                        ) ??
-                                                        false;
-                                                if (confirmDialogResponse) {
-                                                  if (_model.formKey1
-                                                              .currentState ==
-                                                          null ||
-                                                      !_model.formKey1
-                                                          .currentState!
-                                                          .validate()) {
-                                                    return;
-                                                  }
-                                                  if (_model.checkbox2Value!) {
-                                                    _model.userOutletsMul =
-                                                        await queryUserProfileRecordOnce(
-                                                      queryBuilder:
-                                                          (userProfileRecord) =>
-                                                              userProfileRecord
-                                                                  .where(
-                                                        'mobile',
-                                                        isEqualTo: FFAppState()
-                                                            .currentMobile,
-                                                      ),
-                                                      singleRecord: true,
-                                                    ).then((s) =>
-                                                            s.firstOrNull);
-                                                    _shouldSetState = true;
-                                                    _model.category5Mul =
-                                                        await queryCategoryRecordOnce(
-                                                      parent: FFAppState()
-                                                          .outletRef,
-                                                      queryBuilder:
-                                                          (categoryRecord) =>
-                                                              categoryRecord
-                                                                  .where(
-                                                        'name',
-                                                        isEqualTo:
-                                                            valueOrDefault<
-                                                                String>(
-                                                          _model
-                                                              .catDropDownWValue,
-                                                          'D',
-                                                        ),
-                                                      ),
-                                                      singleRecord: true,
-                                                    ).then((s) =>
-                                                            s.firstOrNull);
-                                                    _shouldSetState = true;
-                                                    _model.unitId1WMul =
-                                                        await actions
-                                                            .getUnitTypes(
-                                                      _model.unitDropDownWValue,
-                                                    );
-                                                    _shouldSetState = true;
-                                                    _model.taxId1WMul =
-                                                        await actions
-                                                            .getTaxIdCopy(
-                                                      _model
-                                                          .taxDropDownTaxWValue,
-                                                    );
-                                                    _shouldSetState = true;
-                                                    FFAppState().startLoop =
-                                                        FFAppState().startLoop +
-                                                            0;
-                                                    safeSetState(() {});
-                                                    while (
-                                                        FFAppState().startLoop <
-                                                            _model
-                                                                .userOutletsMul!
-                                                                .outlets
-                                                                .length) {
-                                                      _model.outletMul =
-                                                          await queryOutletRecordOnce(
-                                                        queryBuilder:
-                                                            (outletRecord) =>
-                                                                outletRecord
-                                                                    .where(
-                                                                      'id',
-                                                                      isEqualTo:
-                                                                          valueOrDefault<
-                                                                              String>(
-                                                                        _model
-                                                                            .userOutletsMul
-                                                                            ?.outlets?[FFAppState().startLoop],
-                                                                        '0',
-                                                                      ),
-                                                                    )
-                                                                    .where(
-                                                                      'multiCounter',
-                                                                      isEqualTo:
-                                                                          true,
-                                                                    ),
-                                                        singleRecord: true,
-                                                      ).then((s) =>
-                                                              s.firstOrNull);
-                                                      _shouldSetState = true;
-                                                      if (_model
-                                                              .userOutletsMul !=
-                                                          null) {
-                                                        _model.prd =
-                                                            await queryProductRecordOnce(
-                                                          parent: _model
-                                                              .outletMul
-                                                              ?.reference,
-                                                          queryBuilder:
-                                                              (productRecord) =>
-                                                                  productRecord
-                                                                      .where(
-                                                            'code',
-                                                            isEqualTo: widget!
-                                                                .productDocW
-                                                                ?.code,
-                                                          ),
-                                                          singleRecord: true,
-                                                        ).then((s) =>
-                                                                s.firstOrNull);
-                                                        _shouldSetState = true;
-
-                                                        await _model
-                                                            .prd!.reference
-                                                            .update(
-                                                                createProductRecordData(
-                                                          id: widget!
-                                                              .productDocW?.id,
-                                                          active: widget!
-                                                              .productDocW
-                                                              ?.active,
-                                                          barcode:
-                                                              valueOrDefault<
-                                                                  String>(
-                                                            _model
-                                                                .textFieldBarcodeWTextController
-                                                                .text,
-                                                            '0',
-                                                          ),
-                                                          category: _model
-                                                              .category5Mul
-                                                              ?.reference
-                                                              .id,
-                                                          cess: widget!
-                                                              .productDocW
-                                                              ?.cess,
-                                                          code: int.tryParse(_model
-                                                              .textFieldCodeWTextController
-                                                              .text),
-                                                          costPrice:
-                                                              valueOrDefault<
-                                                                  double>(
-                                                            double.tryParse(_model
-                                                                .textFieldSellingPriceWTextController
-                                                                .text),
-                                                            0.0,
-                                                          ),
-                                                          dateTme:
-                                                              getCurrentTimestamp,
-                                                          discount:
-                                                              valueOrDefault<
-                                                                  double>(
-                                                            double.tryParse(_model
-                                                                .textFieldDiscountPerWTextController1
-                                                                .text),
-                                                            0.0,
-                                                          ),
-                                                          keyCount: widget!
-                                                              .productDocW
-                                                              ?.keyCount,
-                                                          kitchenId: widget!
-                                                              .productDocW
-                                                              ?.kitchenId,
-                                                          mrpPrice:
-                                                              valueOrDefault<
-                                                                  double>(
-                                                            double.tryParse(_model
-                                                                .textFieldMRPPriceWTextController
-                                                                .text),
-                                                            0.0,
-                                                          ),
-                                                          name: functions
-                                                              .toCapitalLetter(
-                                                                  _model
-                                                                      .productNameWTextController
-                                                                      .text),
-                                                          onlinePrice:
-                                                              valueOrDefault<
-                                                                  double>(
-                                                            widget!.productDocW
-                                                                ?.onlinePrice,
-                                                            0.0,
-                                                          ),
-                                                          onlineSynced: widget!
-                                                              .productDocW
-                                                              ?.onlineSynced,
-                                                          price: valueOrDefault<
-                                                              double>(
-                                                            double.tryParse(_model
-                                                                .textFieldSellingPriceWTextController
-                                                                .text),
-                                                            0.0,
-                                                          ),
-                                                          priceTable:
-                                                              valueOrDefault<
-                                                                  String>(
-                                                            functions
-                                                                .returnPriceJsonString(
-                                                                    valueOrDefault<
-                                                                        double>(
-                                                              double.tryParse(_model
-                                                                  .textFieldSellingPriceWTextController
-                                                                  .text),
-                                                              0.0,
-                                                            )),
-                                                            '0',
-                                                          ),
-                                                          recipeId: widget!
-                                                              .productDocW
-                                                              ?.recipeId,
-                                                          regionalName: _model
-                                                              .textFieldRegionalNameWTextController
-                                                              .text,
-                                                          reorderLevel:
-                                                              valueOrDefault<
-                                                                  int>(
-                                                            int.tryParse(_model
-                                                                .textFieldRecorderLevelWTextController
-                                                                .text),
-                                                            0,
-                                                          ),
-                                                          selected: widget!
-                                                              .productDocW
-                                                              ?.selected,
-                                                          shortName: _model
-                                                              .textFieldShortNameWTextController
-                                                              .text,
-                                                          stockable: _model
-                                                              .stockCheckboxWNValue,
-                                                          taxIndex:
-                                                              _model.taxId1WMul,
-                                                          type: valueOrDefault<
-                                                              int>(
-                                                            widget!.productDocW
-                                                                ?.type,
-                                                            0,
-                                                          ),
-                                                          unitId: _model
-                                                              .unitId1WMul,
-                                                          weighable: _model
-                                                              .wightCheckboWNValue,
-                                                          hsnCode:
-                                                              valueOrDefault<
-                                                                  String>(
-                                                            _model
-                                                                .textFieldHsnWTextController
-                                                                .text,
-                                                            '0',
-                                                          ),
-                                                        ));
-                                                      }
-                                                      FFAppState().startLoop =
-                                                          FFAppState()
-                                                                  .startLoop +
-                                                              1;
-                                                      safeSetState(() {});
-                                                    }
-                                                    await showDialog(
-                                                      context: context,
-                                                      builder:
-                                                          (alertDialogContext) {
-                                                        return WebViewAware(
-                                                          child: AlertDialog(
-                                                            title:
-                                                                Text('Update'),
-                                                            content: Text(
-                                                                'Product Update'),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext),
-                                                                child:
-                                                                    Text('Ok'),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
-                                                    safeSetState(() {
-                                                      _model
-                                                          .textFieldCodeWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .productNameWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldSellingPriceWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldMRPPriceWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldPurchasePriceWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldCurrentStockWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldRegionalNameWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldRecorderLevelWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldDiscountPerWTextController1
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldDiscountPerWTextController2
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldShortNameWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldBarcodeWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldHsnWTextController
-                                                          ?.clear();
-                                                    });
-                                                    context.safePop();
-
-                                                    context.pushNamed(
-                                                        'ProductList');
-                                                  } else {
-                                                    _model.category5 =
-                                                        await queryCategoryRecordOnce(
-                                                      parent: FFAppState()
-                                                          .outletRef,
-                                                      queryBuilder:
-                                                          (categoryRecord) =>
-                                                              categoryRecord
-                                                                  .where(
-                                                        'name',
-                                                        isEqualTo:
-                                                            valueOrDefault<
-                                                                String>(
-                                                          _model
-                                                              .catDropDownWValue,
-                                                          'D',
-                                                        ),
-                                                      ),
-                                                      singleRecord: true,
-                                                    ).then((s) =>
-                                                            s.firstOrNull);
-                                                    _shouldSetState = true;
-                                                    _model.unitId1W =
-                                                        await actions
-                                                            .getUnitTypes(
-                                                      _model.unitDropDownWValue,
-                                                    );
-                                                    _shouldSetState = true;
-                                                    _model.taxId1W =
-                                                        await actions
-                                                            .getTaxIdCopy(
-                                                      _model
-                                                          .taxDropDownTaxWValue,
-                                                    );
-                                                    _shouldSetState = true;
-
-                                                    await widget!
-                                                        .productDocW!.reference
-                                                        .update(
-                                                            createProductRecordData(
-                                                      id: widget!
-                                                          .productDocW?.id,
-                                                      active: widget!
-                                                          .productDocW?.active,
-                                                      barcode: valueOrDefault<
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onLongPress: () async {},
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  _model.category5 =
+                                                      await queryCategoryRecordOnce(
+                                                    parent:
+                                                        FFAppState().outletRef,
+                                                    queryBuilder:
+                                                        (categoryRecord) =>
+                                                            categoryRecord
+                                                                .where(
+                                                      'name',
+                                                      isEqualTo: valueOrDefault<
                                                           String>(
                                                         _model
-                                                            .textFieldBarcodeWTextController
-                                                            .text,
-                                                        '0',
+                                                            .catDropDownWValue,
+                                                        'D',
                                                       ),
-                                                      category: _model.category5
-                                                          ?.reference.id,
-                                                      cess: widget!
-                                                          .productDocW?.cess,
-                                                      code: int.tryParse(_model
-                                                          .textFieldCodeWTextController
+                                                    ),
+                                                    singleRecord: true,
+                                                  ).then((s) => s.firstOrNull);
+                                                  _model.unitId1W =
+                                                      await actions
+                                                          .getUnitTypes(
+                                                    _model.unitDropDownWValue,
+                                                  );
+                                                  _model.taxId1W = await actions
+                                                      .getTaxIdCopy(
+                                                    _model.taxDropDownTaxWValue,
+                                                  );
+
+                                                  await widget!
+                                                      .productDocW!.reference
+                                                      .update(
+                                                          createProductRecordData(
+                                                    id: widget!.productDocW?.id,
+                                                    active: widget!
+                                                        .productDocW?.active,
+                                                    barcode:
+                                                        valueOrDefault<String>(
+                                                      _model
+                                                          .textFieldBarcodeWTextController
+                                                          .text,
+                                                      '0',
+                                                    ),
+                                                    category: _model.category5
+                                                        ?.reference.id,
+                                                    cess: widget!
+                                                        .productDocW?.cess,
+                                                    code: int.tryParse(_model
+                                                        .textFieldCodeWTextController
+                                                        .text),
+                                                    costPrice:
+                                                        valueOrDefault<double>(
+                                                      double.tryParse(_model
+                                                          .textFieldSellingPriceWTextController
                                                           .text),
-                                                      costPrice: valueOrDefault<
-                                                          double>(
-                                                        double.tryParse(_model
-                                                            .textFieldSellingPriceWTextController
-                                                            .text),
-                                                        0.0,
-                                                      ),
-                                                      dateTme:
-                                                          getCurrentTimestamp,
-                                                      discount: valueOrDefault<
-                                                          double>(
-                                                        double.tryParse(_model
-                                                            .textFieldDiscountPerWTextController1
-                                                            .text),
-                                                        0.0,
-                                                      ),
-                                                      keyCount: widget!
-                                                          .productDocW
-                                                          ?.keyCount,
-                                                      kitchenId: widget!
-                                                          .productDocW
-                                                          ?.kitchenId,
-                                                      mrpPrice: valueOrDefault<
-                                                          double>(
-                                                        double.tryParse(_model
-                                                            .textFieldMRPPriceWTextController
-                                                            .text),
-                                                        0.0,
-                                                      ),
-                                                      name: functions
-                                                          .toCapitalLetter(_model
-                                                              .productNameWTextController
-                                                              .text),
-                                                      onlinePrice:
-                                                          valueOrDefault<
-                                                              double>(
-                                                        widget!.productDocW
-                                                            ?.onlinePrice,
-                                                        0.0,
-                                                      ),
-                                                      onlineSynced: widget!
-                                                          .productDocW
-                                                          ?.onlineSynced,
-                                                      price: valueOrDefault<
-                                                          double>(
-                                                        double.tryParse(_model
-                                                            .textFieldSellingPriceWTextController
-                                                            .text),
-                                                        0.0,
-                                                      ),
-                                                      priceTable:
-                                                          valueOrDefault<
-                                                              String>(
-                                                        functions
-                                                            .returnPriceJsonString(
-                                                                valueOrDefault<
-                                                                    double>(
-                                                          double.tryParse(_model
-                                                              .textFieldSellingPriceWTextController
-                                                              .text),
-                                                          0.0,
-                                                        )),
-                                                        '0',
-                                                      ),
-                                                      recipeId: widget!
-                                                          .productDocW
-                                                          ?.recipeId,
-                                                      regionalName: _model
-                                                          .textFieldRegionalNameWTextController
-                                                          .text,
-                                                      reorderLevel:
-                                                          valueOrDefault<int>(
-                                                        int.tryParse(_model
-                                                            .textFieldRecorderLevelWTextController
-                                                            .text),
-                                                        0,
-                                                      ),
-                                                      selected: widget!
-                                                          .productDocW
-                                                          ?.selected,
-                                                      shortName: _model
-                                                          .textFieldShortNameWTextController
-                                                          .text,
-                                                      stockable: _model
-                                                          .stockCheckboxWNValue,
-                                                      taxIndex: _model.taxId1W,
-                                                      type: valueOrDefault<int>(
-                                                        widget!
-                                                            .productDocW?.type,
-                                                        0,
-                                                      ),
-                                                      unitId: _model.unitId1W,
-                                                      weighable: _model
-                                                          .wightCheckboWNValue,
-                                                      currentStock:
-                                                          valueOrDefault<
-                                                              double>(
-                                                        double.tryParse(_model
-                                                            .textFieldCurrentStockWTextController
-                                                            .text),
-                                                        0.0,
-                                                      ),
-                                                      hsnCode: valueOrDefault<
-                                                          String>(
-                                                        _model
-                                                            .textFieldHsnWTextController
-                                                            .text,
-                                                        '0',
-                                                      ),
-                                                    ));
-                                                    await showDialog(
-                                                      context: context,
-                                                      builder:
-                                                          (alertDialogContext) {
-                                                        return WebViewAware(
-                                                          child: AlertDialog(
-                                                            title:
-                                                                Text('Update'),
-                                                            content: Text(
-                                                                'Product Update'),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext),
-                                                                child:
-                                                                    Text('Ok'),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
-                                                    safeSetState(() {
-                                                      _model
-                                                          .textFieldCodeWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .productNameWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldSellingPriceWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldMRPPriceWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldPurchasePriceWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldCurrentStockWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldRegionalNameWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldRecorderLevelWTextController
-                                                          ?.clear();
-                                                      _model
+                                                      0.0,
+                                                    ),
+                                                    dateTme:
+                                                        getCurrentTimestamp,
+                                                    discount:
+                                                        valueOrDefault<double>(
+                                                      double.tryParse(_model
                                                           .textFieldDiscountPerWTextController1
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldDiscountPerWTextController2
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldShortNameWTextController
-                                                          ?.clear();
-                                                      _model
-                                                          .textFieldBarcodeWTextController
-                                                          ?.clear();
+                                                          .text),
+                                                      0.0,
+                                                    ),
+                                                    keyCount: widget!
+                                                        .productDocW?.keyCount,
+                                                    kitchenId: widget!
+                                                        .productDocW?.kitchenId,
+                                                    mrpPrice:
+                                                        valueOrDefault<double>(
+                                                      double.tryParse(_model
+                                                          .textFieldMRPPriceWTextController
+                                                          .text),
+                                                      0.0,
+                                                    ),
+                                                    name: functions
+                                                        .toCapitalLetter(_model
+                                                            .productNameWTextController
+                                                            .text),
+                                                    onlinePrice:
+                                                        valueOrDefault<double>(
+                                                      widget!.productDocW
+                                                          ?.onlinePrice,
+                                                      0.0,
+                                                    ),
+                                                    onlineSynced: widget!
+                                                        .productDocW
+                                                        ?.onlineSynced,
+                                                    price:
+                                                        valueOrDefault<double>(
+                                                      double.tryParse(_model
+                                                          .textFieldSellingPriceWTextController
+                                                          .text),
+                                                      0.0,
+                                                    ),
+                                                    priceTable:
+                                                        valueOrDefault<String>(
+                                                      functions
+                                                          .returnPriceJsonString(
+                                                              valueOrDefault<
+                                                                  double>(
+                                                        double.tryParse(_model
+                                                            .textFieldSellingPriceWTextController
+                                                            .text),
+                                                        0.0,
+                                                      )),
+                                                      '0',
+                                                    ),
+                                                    recipeId: widget!
+                                                        .productDocW?.recipeId,
+                                                    regionalName: _model
+                                                        .textFieldRegionalNameWTextController
+                                                        .text,
+                                                    reorderLevel:
+                                                        valueOrDefault<int>(
+                                                      int.tryParse(_model
+                                                          .textFieldRecorderLevelWTextController
+                                                          .text),
+                                                      0,
+                                                    ),
+                                                    selected: widget!
+                                                        .productDocW?.selected,
+                                                    shortName: _model
+                                                        .textFieldShortNameWTextController
+                                                        .text,
+                                                    stockable: _model
+                                                        .stockCheckboxWNValue,
+                                                    taxIndex: _model.taxId1W,
+                                                    type: valueOrDefault<int>(
+                                                      widget!.productDocW?.type,
+                                                      0,
+                                                    ),
+                                                    unitId: _model.unitId1W,
+                                                    weighable: _model
+                                                        .wightCheckboWNValue,
+                                                    currentStock:
+                                                        valueOrDefault<double>(
+                                                      double.tryParse(_model
+                                                          .textFieldCurrentStockWTextController
+                                                          .text),
+                                                      0.0,
+                                                    ),
+                                                    hsnCode:
+                                                        valueOrDefault<String>(
                                                       _model
                                                           .textFieldHsnWTextController
-                                                          ?.clear();
-                                                    });
-
-                                                    context.pushNamed(
-                                                        'ProductList');
-                                                  }
-                                                } else {
-                                                  context.safePop();
-                                                  if (_shouldSetState)
-                                                    safeSetState(() {});
-                                                  return;
-                                                }
-
-                                                if (_shouldSetState)
-                                                  safeSetState(() {});
-                                              },
-                                              text: 'Update',
-                                              options: FFButtonOptions(
-                                                width: 250.0,
-                                                height: 40.0,
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 0.0),
-                                                iconPadding:
-                                                    EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                            0.0, 0.0, 0.0, 0.0),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                textStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleMediumFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBtnText,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleMediumFamily),
+                                                          .text,
+                                                      '0',
+                                                    ),
+                                                  ));
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return WebViewAware(
+                                                        child: AlertDialog(
+                                                          title: Text('Update'),
+                                                          content: Text(
+                                                              'Product Update'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: Text('Ok'),
+                                                            ),
+                                                          ],
                                                         ),
-                                                elevation: 2.0,
-                                                borderSide: BorderSide(
-                                                  color: Colors.transparent,
+                                                      );
+                                                    },
+                                                  );
+                                                  safeSetState(() {
+                                                    _model
+                                                        .textFieldCodeWTextController
+                                                        ?.clear();
+                                                    _model
+                                                        .productNameWTextController
+                                                        ?.clear();
+                                                    _model
+                                                        .textFieldSellingPriceWTextController
+                                                        ?.clear();
+                                                    _model
+                                                        .textFieldMRPPriceWTextController
+                                                        ?.clear();
+                                                    _model
+                                                        .textFieldPurchasePriceWTextController
+                                                        ?.clear();
+                                                    _model
+                                                        .textFieldCurrentStockWTextController
+                                                        ?.clear();
+                                                    _model
+                                                        .textFieldRegionalNameWTextController
+                                                        ?.clear();
+                                                    _model
+                                                        .textFieldRecorderLevelWTextController
+                                                        ?.clear();
+                                                    _model
+                                                        .textFieldDiscountPerWTextController1
+                                                        ?.clear();
+                                                    _model
+                                                        .textFieldDiscountPerWTextController2
+                                                        ?.clear();
+                                                    _model
+                                                        .textFieldShortNameWTextController
+                                                        ?.clear();
+                                                    _model
+                                                        .textFieldBarcodeWTextController
+                                                        ?.clear();
+                                                    _model
+                                                        .textFieldHsnWTextController
+                                                        ?.clear();
+                                                  });
+
+                                                  context
+                                                      .pushNamed('ProductList');
+
+                                                  safeSetState(() {});
+                                                },
+                                                text: 'Update',
+                                                options: FFButtonOptions(
+                                                  width: 250.0,
+                                                  height: 40.0,
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 0.0, 0.0),
+                                                  iconPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(0.0, 0.0,
+                                                              0.0, 0.0),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .titleMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleMediumFamily,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBtnText,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleMediumFamily),
+                                                      ),
+                                                  elevation: 2.0,
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0),
                                                 ),
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
                                               ),
                                             ),
                                           ),

@@ -1,11 +1,13 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'edit_product_widget.dart' show EditProductWidget;
@@ -30,6 +32,8 @@ class EditProductModel extends FlutterFlowModel<EditProductWidget> {
   CategoryRecord? catResultM;
   // Stores action output result for [Firestore Query - Query a collection] action in EditProduct widget.
   UserProfileRecord? docMobile;
+  // Stores action output result for [Firestore Query - Query a collection] action in EditProduct widget.
+  ProductRecord? productDocument;
   // State field(s) for TextFieldCodeM widget.
   FocusNode? textFieldCodeMFocusNode;
   TextEditingController? textFieldCodeMTextController;
@@ -136,6 +140,11 @@ class EditProductModel extends FlutterFlowModel<EditProductWidget> {
   TextEditingController? textFieldHsnCodeMTextController;
   String? Function(BuildContext, String?)?
       textFieldHsnCodeMTextControllerValidator;
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl = '';
+
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   CategoryRecord? category2;
   // Stores action output result for [Custom Action - getUnitTypes] action in Button widget.
@@ -243,22 +252,12 @@ class EditProductModel extends FlutterFlowModel<EditProductWidget> {
   TextEditingController? textFieldBarcodeWTextController;
   String? Function(BuildContext, String?)?
       textFieldBarcodeWTextControllerValidator;
+  // Stores action output result for [Custom Action - barcodeRandomGeneratedNew] action in Button widget.
+  String? barcodeScan3;
   // State field(s) for TextFieldHsnW widget.
   FocusNode? textFieldHsnWFocusNode;
   TextEditingController? textFieldHsnWTextController;
   String? Function(BuildContext, String?)? textFieldHsnWTextControllerValidator;
-  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  UserProfileRecord? userOutletsMul;
-  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  CategoryRecord? category5Mul;
-  // Stores action output result for [Custom Action - getUnitTypes] action in Button widget.
-  int? unitId1WMul;
-  // Stores action output result for [Custom Action - getTaxIdCopy] action in Button widget.
-  int? taxId1WMul;
-  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  OutletRecord? outletMul;
-  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  ProductRecord? prd;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   CategoryRecord? category5;
   // Stores action output result for [Custom Action - getUnitTypes] action in Button widget.

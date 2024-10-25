@@ -190,28 +190,46 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                           child: Align(
                                             alignment:
                                                 AlignmentDirectional(0.0, -1.0),
-                                            child: AutoSizeText(
-                                              'Product List',
-                                              textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .displaySmall
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .displaySmallFamily,
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .displaySmallFamily),
-                                                      ),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context.pushNamed(
+                                                  'AddProduct',
+                                                  queryParameters: {
+                                                    'codeLen': serializeParam(
+                                                      _model.productList1,
+                                                      ParamType.int,
+                                                    ),
+                                                  }.withoutNulls,
+                                                );
+                                              },
+                                              child: AutoSizeText(
+                                                'Product List',
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .displaySmall
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .displaySmallFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .displaySmallFamily),
+                                                        ),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -878,29 +896,6 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                                   ),
                                                                   onPressed:
                                                                       () async {
-                                                                    await showDialog(
-                                                                      context:
-                                                                          context,
-                                                                      builder:
-                                                                          (alertDialogContext) {
-                                                                        return WebViewAware(
-                                                                          child:
-                                                                              AlertDialog(
-                                                                            title:
-                                                                                Text(listProductMItem.category),
-                                                                            content:
-                                                                                Text(_model.getProductDoc.length.toString()),
-                                                                            actions: [
-                                                                              TextButton(
-                                                                                onPressed: () => Navigator.pop(alertDialogContext),
-                                                                                child: Text('Ok'),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        );
-                                                                      },
-                                                                    );
-
                                                                     context
                                                                         .pushNamed(
                                                                       'EditProduct',
@@ -1006,7 +1001,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                             );
 
                                             context.pushNamed(
-                                              'AddProduct',
+                                              'AddProductNew',
                                               queryParameters: {
                                                 'codeLen': serializeParam(
                                                   _model.productCode,
@@ -2131,7 +2126,7 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                         );
 
                                         context.pushNamed(
-                                          'AddProduct',
+                                          'AddProductNew',
                                           queryParameters: {
                                             'codeLen': serializeParam(
                                               _model.productList1,

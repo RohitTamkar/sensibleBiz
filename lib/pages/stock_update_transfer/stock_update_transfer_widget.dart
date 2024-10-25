@@ -420,10 +420,14 @@ class _StockUpdateTransferWidgetState extends State<StockUpdateTransferWidget> {
                                                           .toList(),
                                                       _model.dropDownNewValue!,
                                                     );
-                                                    FFAppState()
-                                                        .addToProductCart(
-                                                            _model.resCopy!);
+                                                    FFAppState().isTransfer =
+                                                        true;
                                                     safeSetState(() {});
+                                                    _model.addResult =
+                                                        await actions
+                                                            .checkDuplicatCartItem(
+                                                      _model.resCopy!,
+                                                    );
 
                                                     safeSetState(() {});
                                                   },
@@ -1013,12 +1017,9 @@ class _StockUpdateTransferWidgetState extends State<StockUpdateTransferWidget> {
                                                                       .selBill,
                                                                 );
                                                                 FFAppState()
-                                                                        .productCart =
-                                                                    _model
-                                                                        .res2Copy!
-                                                                        .toList()
-                                                                        .cast<
-                                                                            dynamic>();
+                                                                    .removeFromProductCart(
+                                                                        _model
+                                                                            .res2Copy!);
                                                                 safeSetState(
                                                                     () {});
 
@@ -1156,389 +1157,365 @@ class _StockUpdateTransferWidgetState extends State<StockUpdateTransferWidget> {
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 FFButtonWidget(
-                                                  onPressed: () async {
-                                                    var _shouldSetState = false;
-                                                    _model.issueDoc =
-                                                        await queryStockLogRecordOnce(
-                                                      parent: FFAppState()
-                                                          .outletRef,
-                                                      queryBuilder:
-                                                          (stockLogRecord) =>
-                                                              stockLogRecord
-                                                                  .where(
-                                                                    'dayId',
-                                                                    isEqualTo: functions
-                                                                        .getDayId(
-                                                                            getCurrentTimestamp),
-                                                                  )
-                                                                  .orderBy(
-                                                                      'reqCount',
-                                                                      descending:
-                                                                          true),
-                                                    );
-                                                    _shouldSetState = true;
-                                                    _model.issueDoctranfer =
-                                                        await queryStockLogRecordOnce(
-                                                      parent: widget!
-                                                          .outlet?.reference,
-                                                      queryBuilder:
-                                                          (stockLogRecord) =>
-                                                              stockLogRecord
-                                                                  .where(
-                                                                    'dayId',
-                                                                    isEqualTo: functions
-                                                                        .getDayId(
-                                                                            getCurrentTimestamp),
-                                                                  )
-                                                                  .orderBy(
-                                                                      'reqCount',
-                                                                      descending:
-                                                                          true),
-                                                    );
-                                                    _shouldSetState = true;
-                                                    if (_model
-                                                            .issueDoc!.length >
-                                                        0) {
-                                                      FFAppState().count =
-                                                          functions
-                                                              .reqCountNumber(
-                                                                  _model
+                                                  onPressed:
+                                                      FFAppState().isTransfer
+                                                          ? null
+                                                          : () async {
+                                                              var _shouldSetState =
+                                                                  false;
+                                                              _model.issueDoc =
+                                                                  await queryStockLogRecordOnce(
+                                                                parent:
+                                                                    FFAppState()
+                                                                        .outletRef,
+                                                                queryBuilder: (stockLogRecord) =>
+                                                                    stockLogRecord
+                                                                        .where(
+                                                                          'dayId',
+                                                                          isEqualTo:
+                                                                              functions.getDayId(getCurrentTimestamp),
+                                                                        )
+                                                                        .orderBy(
+                                                                            'reqCount',
+                                                                            descending:
+                                                                                true),
+                                                              );
+                                                              _shouldSetState =
+                                                                  true;
+                                                              _model.issueDoctranfer =
+                                                                  await queryStockLogRecordOnce(
+                                                                parent: widget!
+                                                                    .outlet
+                                                                    ?.reference,
+                                                                queryBuilder: (stockLogRecord) =>
+                                                                    stockLogRecord
+                                                                        .where(
+                                                                          'dayId',
+                                                                          isEqualTo:
+                                                                              functions.getDayId(getCurrentTimestamp),
+                                                                        )
+                                                                        .orderBy(
+                                                                            'reqCount',
+                                                                            descending:
+                                                                                true),
+                                                              );
+                                                              _shouldSetState =
+                                                                  true;
+                                                              if (_model
                                                                       .issueDoc!
-                                                                      .first);
-                                                      safeSetState(() {});
-                                                    } else {
-                                                      FFAppState().count = 1;
-                                                      safeSetState(() {});
-                                                    }
+                                                                      .length >
+                                                                  0) {
+                                                                FFAppState()
+                                                                        .count =
+                                                                    functions.reqCountNumber(_model
+                                                                        .issueDoc!
+                                                                        .first);
+                                                                safeSetState(
+                                                                    () {});
+                                                              } else {
+                                                                FFAppState()
+                                                                    .count = 1;
+                                                                safeSetState(
+                                                                    () {});
+                                                              }
 
-                                                    _model.cartREsult =
-                                                        await actions.addToCart(
-                                                      FFAppState()
-                                                          .productCart
-                                                          .toList(),
-                                                    );
-                                                    _shouldSetState = true;
-                                                    var confirmDialogResponse =
-                                                        await showDialog<bool>(
-                                                              context: context,
-                                                              builder:
-                                                                  (alertDialogContext) {
-                                                                return WebViewAware(
-                                                                  child:
-                                                                      AlertDialog(
-                                                                    title: Text(
-                                                                        'Alert'),
-                                                                    content: Text(
-                                                                        'Are You Sure To Add Stock ?'),
-                                                                    actions: [
-                                                                      TextButton(
-                                                                        onPressed: () => Navigator.pop(
-                                                                            alertDialogContext,
-                                                                            false),
-                                                                        child: Text(
-                                                                            'Cancel'),
-                                                                      ),
-                                                                      TextButton(
-                                                                        onPressed: () => Navigator.pop(
-                                                                            alertDialogContext,
-                                                                            true),
-                                                                        child: Text(
-                                                                            'Confirm'),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                );
-                                                              },
-                                                            ) ??
-                                                            false;
-                                                    if (!confirmDialogResponse) {
-                                                      if (_shouldSetState)
-                                                        safeSetState(() {});
-                                                      return;
-                                                    }
+                                                              _model.cartREsult =
+                                                                  await actions
+                                                                      .addToCart(
+                                                                FFAppState()
+                                                                    .productCart
+                                                                    .toList(),
+                                                              );
+                                                              _shouldSetState =
+                                                                  true;
+                                                              var confirmDialogResponse =
+                                                                  await showDialog<
+                                                                          bool>(
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (alertDialogContext) {
+                                                                          return WebViewAware(
+                                                                            child:
+                                                                                AlertDialog(
+                                                                              title: Text('Alert'),
+                                                                              content: Text('Are You Sure To Add Stock ?'),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                  onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                  child: Text('Cancel'),
+                                                                                ),
+                                                                                TextButton(
+                                                                                  onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                  child: Text('Confirm'),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                      ) ??
+                                                                      false;
+                                                              if (!confirmDialogResponse) {
+                                                                if (_shouldSetState)
+                                                                  safeSetState(
+                                                                      () {});
+                                                                return;
+                                                              }
 
-                                                    await StockLogRecord
-                                                            .createDoc(
-                                                                FFAppState()
-                                                                    .outletRef!)
-                                                        .set({
-                                                      ...createStockLogRecordData(
-                                                        dayId: functions.getDayId(
-                                                            getCurrentTimestamp),
-                                                        createdDate:
-                                                            getCurrentTimestamp,
-                                                        modifiedDate:
-                                                            getCurrentTimestamp,
-                                                        createdDateInMill: functions
-                                                            .timestampToMili(
-                                                                getCurrentTimestamp),
-                                                        modifiedDateInMill: functions
-                                                            .timestampToMili(
-                                                                getCurrentTimestamp),
-                                                        monthId: functions
-                                                            .getMonthId(),
-                                                        createdBy:
-                                                            rowUserProfileRecord
-                                                                ?.id,
-                                                        modifiedBy:
-                                                            rowUserProfileRecord
-                                                                ?.id,
-                                                        requestedId: functions
-                                                            .genInvoiceNum(
-                                                                FFAppState()
-                                                                    .count),
-                                                        status: 'COMPLETED',
-                                                        stockType: 'TRANSFER',
-                                                        reqCount:
-                                                            FFAppState().count,
-                                                        toOutletId: widget!
-                                                            .outlet?.name,
-                                                        fromOutletId:
-                                                            FFAppState()
-                                                                .outletName,
-                                                        reqStock: getJsonField(
-                                                          FFAppState()
-                                                                  .productCart[
-                                                              FFAppState()
-                                                                  .loopStart],
-                                                          r'''$.reqStock''',
-                                                        ),
-                                                      ),
-                                                      ...mapToFirestore(
-                                                        {
-                                                          'productListMap':
-                                                              getProductListListFirestoreData(
-                                                            FFAppState()
-                                                                .selectedPrdDataMap,
-                                                          ),
-                                                        },
-                                                      ),
-                                                    });
-
-                                                    await StockLogRecord
-                                                            .createDoc(widget!
-                                                                .outlet!
-                                                                .reference)
-                                                        .set({
-                                                      ...createStockLogRecordData(
-                                                        dayId: functions.getDayId(
-                                                            getCurrentTimestamp),
-                                                        createdDate:
-                                                            getCurrentTimestamp,
-                                                        modifiedDate:
-                                                            getCurrentTimestamp,
-                                                        createdDateInMill: functions
-                                                            .timestampToMili(
-                                                                getCurrentTimestamp),
-                                                        modifiedDateInMill: functions
-                                                            .timestampToMili(
-                                                                getCurrentTimestamp),
-                                                        monthId: functions
-                                                            .getMonthId(),
-                                                        createdBy:
-                                                            rowUserProfileRecord
-                                                                ?.id,
-                                                        modifiedBy:
-                                                            rowUserProfileRecord
-                                                                ?.id,
-                                                        requestedId: functions
-                                                            .genInvoiceNum(
-                                                                FFAppState()
-                                                                    .count),
-                                                        status: 'COMPLETED',
-                                                        stockType: 'RECEIVED',
-                                                        reqCount:
-                                                            FFAppState().count,
-                                                        toOutletId: widget!
-                                                            .outlet?.name,
-                                                        fromOutletId:
-                                                            FFAppState()
-                                                                .outletName,
-                                                        reqStock: getJsonField(
-                                                          FFAppState()
-                                                                  .productCart[
-                                                              FFAppState()
-                                                                  .loopStart],
-                                                          r'''$.reqStock''',
-                                                        ),
-                                                      ),
-                                                      ...mapToFirestore(
-                                                        {
-                                                          'productListMap':
-                                                              getProductListListFirestoreData(
-                                                            FFAppState()
-                                                                .selectedPrdDataMap,
-                                                          ),
-                                                        },
-                                                      ),
-                                                    });
-                                                    FFAppState().loopStart = 0;
-                                                    safeSetState(() {});
-                                                    while (
-                                                        FFAppState().loopStart <
-                                                            FFAppState()
-                                                                .productCart
-                                                                .length) {
-                                                      if (functions
-                                                              .stringToInteger(
-                                                                  getJsonField(
-                                                            FFAppState()
-                                                                    .productCart[
-                                                                FFAppState()
-                                                                    .loopStart],
-                                                            r'''$.currentStock''',
-                                                          ).toString()) >=
-                                                          functions
-                                                              .stringToInteger(
-                                                                  getJsonField(
-                                                            FFAppState()
-                                                                    .productCart[
-                                                                FFAppState()
-                                                                    .loopStart],
-                                                            r'''$.reqStock''',
-                                                          ).toString())) {
-                                                        await ProductListStruct
-                                                                .maybeFromMap(FFAppState()
-                                                                        .productCart[
-                                                                    FFAppState()
-                                                                        .loopStart])!
-                                                            .ref!
-                                                            .update({
-                                                          ...mapToFirestore(
-                                                            {
-                                                              'currentStock':
-                                                                  FieldValue
-                                                                      .increment(
-                                                                          -(getJsonField(
-                                                                FFAppState()
-                                                                        .productCart[
-                                                                    FFAppState()
-                                                                        .loopStart],
-                                                                r'''$.reqStock''',
-                                                              ))),
-                                                            },
-                                                          ),
-                                                        });
-                                                        _model.prdfromaddupdatestock =
-                                                            await queryProductRecordOnce(
-                                                          parent: widget!.outlet
-                                                              ?.reference,
-                                                          queryBuilder:
-                                                              (productRecord) =>
-                                                                  productRecord
-                                                                      .where(
-                                                            'code',
-                                                            isEqualTo:
-                                                                getJsonField(
-                                                              FFAppState()
-                                                                      .productCart[
-                                                                  FFAppState()
-                                                                      .loopStart],
-                                                              r'''$.code''',
-                                                            ),
-                                                          ),
-                                                          singleRecord: true,
-                                                        ).then((s) =>
-                                                                s.firstOrNull);
-                                                        _shouldSetState = true;
-
-                                                        await _model
-                                                            .prdfromaddupdatestock!
-                                                            .reference
-                                                            .update({
-                                                          ...mapToFirestore(
-                                                            {
-                                                              'currentStock':
-                                                                  FieldValue
-                                                                      .increment(
-                                                                          getJsonField(
-                                                                FFAppState()
-                                                                        .productCart[
-                                                                    FFAppState()
-                                                                        .loopStart],
-                                                                r'''$.reqStock''',
-                                                              )),
-                                                            },
-                                                          ),
-                                                        });
-                                                      } else {
-                                                        await showDialog(
-                                                          context: context,
-                                                          builder:
-                                                              (alertDialogContext) {
-                                                            return WebViewAware(
-                                                              child:
-                                                                  AlertDialog(
-                                                                title: Text(
-                                                                    getJsonField(
-                                                                  FFAppState()
-                                                                          .productCart[
+                                                              await StockLogRecord
+                                                                      .createDoc(
+                                                                          FFAppState()
+                                                                              .outletRef!)
+                                                                  .set({
+                                                                ...createStockLogRecordData(
+                                                                  dayId: functions
+                                                                      .getDayId(
+                                                                          getCurrentTimestamp),
+                                                                  createdDate:
+                                                                      getCurrentTimestamp,
+                                                                  modifiedDate:
+                                                                      getCurrentTimestamp,
+                                                                  createdDateInMill:
+                                                                      functions
+                                                                          .timestampToMili(
+                                                                              getCurrentTimestamp),
+                                                                  modifiedDateInMill:
+                                                                      functions
+                                                                          .timestampToMili(
+                                                                              getCurrentTimestamp),
+                                                                  monthId: functions
+                                                                      .getMonthId(),
+                                                                  createdBy:
+                                                                      rowUserProfileRecord
+                                                                          ?.id,
+                                                                  modifiedBy:
+                                                                      rowUserProfileRecord
+                                                                          ?.id,
+                                                                  requestedId: functions
+                                                                      .genInvoiceNum(
+                                                                          FFAppState()
+                                                                              .count),
+                                                                  status:
+                                                                      'COMPLETED',
+                                                                  stockType:
+                                                                      'TRANSFER',
+                                                                  reqCount:
                                                                       FFAppState()
-                                                                          .loopStart],
-                                                                  r'''$.name''',
-                                                                ).toString()),
-                                                                content: Text(
-                                                                    'Item Out Of Stock'),
-                                                                actions: [
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.pop(
-                                                                            alertDialogContext),
-                                                                    child: Text(
-                                                                        'Ok'),
+                                                                          .count,
+                                                                  toOutletId:
+                                                                      widget!
+                                                                          .outlet
+                                                                          ?.name,
+                                                                  fromOutletId:
+                                                                      FFAppState()
+                                                                          .outletName,
+                                                                  reqStock:
+                                                                      getJsonField(
+                                                                    FFAppState()
+                                                                            .productCart[
+                                                                        FFAppState()
+                                                                            .loopStart],
+                                                                    r'''$.reqStock''',
                                                                   ),
-                                                                ],
-                                                              ),
-                                                            );
-                                                          },
-                                                        );
-                                                      }
+                                                                ),
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'productListMap':
+                                                                        getProductListListFirestoreData(
+                                                                      FFAppState()
+                                                                          .selectedPrdDataMap,
+                                                                    ),
+                                                                  },
+                                                                ),
+                                                              });
 
-                                                      FFAppState().loopStart =
-                                                          FFAppState()
-                                                                  .loopStart +
-                                                              1;
-                                                      safeSetState(() {});
-                                                    }
-                                                    FFAppState().productCart =
-                                                        [];
-                                                    safeSetState(() {});
-                                                    FFAppState().loopStart = 0;
-                                                    safeSetState(() {});
-                                                    safeSetState(() {
-                                                      _model
-                                                          .dropDownValueController
-                                                          ?.reset();
-                                                      _model
-                                                          .dropDownNewValueController
-                                                          ?.reset();
-                                                    });
-                                                    await showDialog(
-                                                      context: context,
-                                                      builder:
-                                                          (alertDialogContext) {
-                                                        return WebViewAware(
-                                                          child: AlertDialog(
-                                                            title:
-                                                                Text('Alert'),
-                                                            content: Text(
-                                                                'Product Transfer Successfully'),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext),
-                                                                child:
-                                                                    Text('Ok'),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        );
-                                                      },
-                                                    );
-                                                    if (_shouldSetState)
-                                                      safeSetState(() {});
-                                                  },
+                                                              await StockLogRecord
+                                                                      .createDoc(widget!
+                                                                          .outlet!
+                                                                          .reference)
+                                                                  .set({
+                                                                ...createStockLogRecordData(
+                                                                  dayId: functions
+                                                                      .getDayId(
+                                                                          getCurrentTimestamp),
+                                                                  createdDate:
+                                                                      getCurrentTimestamp,
+                                                                  modifiedDate:
+                                                                      getCurrentTimestamp,
+                                                                  createdDateInMill:
+                                                                      functions
+                                                                          .timestampToMili(
+                                                                              getCurrentTimestamp),
+                                                                  modifiedDateInMill:
+                                                                      functions
+                                                                          .timestampToMili(
+                                                                              getCurrentTimestamp),
+                                                                  monthId: functions
+                                                                      .getMonthId(),
+                                                                  createdBy:
+                                                                      rowUserProfileRecord
+                                                                          ?.id,
+                                                                  modifiedBy:
+                                                                      rowUserProfileRecord
+                                                                          ?.id,
+                                                                  requestedId: functions
+                                                                      .genInvoiceNum(
+                                                                          FFAppState()
+                                                                              .count),
+                                                                  status:
+                                                                      'COMPLETED',
+                                                                  stockType:
+                                                                      'RECEIVED',
+                                                                  reqCount:
+                                                                      FFAppState()
+                                                                          .count,
+                                                                  toOutletId:
+                                                                      widget!
+                                                                          .outlet
+                                                                          ?.name,
+                                                                  fromOutletId:
+                                                                      FFAppState()
+                                                                          .outletName,
+                                                                  reqStock:
+                                                                      getJsonField(
+                                                                    FFAppState()
+                                                                            .productCart[
+                                                                        FFAppState()
+                                                                            .loopStart],
+                                                                    r'''$.reqStock''',
+                                                                  ),
+                                                                ),
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'productListMap':
+                                                                        getProductListListFirestoreData(
+                                                                      FFAppState()
+                                                                          .selectedPrdDataMap,
+                                                                    ),
+                                                                  },
+                                                                ),
+                                                              });
+                                                              FFAppState()
+                                                                  .loopStart = 0;
+                                                              safeSetState(
+                                                                  () {});
+                                                              while (FFAppState()
+                                                                      .loopStart <
+                                                                  FFAppState()
+                                                                      .productCart
+                                                                      .length) {
+                                                                await ProductListStruct.maybeFromMap(FFAppState()
+                                                                            .productCart[
+                                                                        FFAppState()
+                                                                            .loopStart])!
+                                                                    .ref!
+                                                                    .update({
+                                                                  ...mapToFirestore(
+                                                                    {
+                                                                      'currentStock':
+                                                                          FieldValue.increment(
+                                                                              -(getJsonField(
+                                                                        FFAppState()
+                                                                            .productCart[FFAppState().loopStart],
+                                                                        r'''$.reqStock''',
+                                                                      ))),
+                                                                    },
+                                                                  ),
+                                                                });
+                                                                _model.prdfromaddupdatestock =
+                                                                    await queryProductRecordOnce(
+                                                                  parent: widget!
+                                                                      .outlet
+                                                                      ?.reference,
+                                                                  queryBuilder:
+                                                                      (productRecord) =>
+                                                                          productRecord
+                                                                              .where(
+                                                                    'code',
+                                                                    isEqualTo:
+                                                                        getJsonField(
+                                                                      FFAppState()
+                                                                              .productCart[
+                                                                          FFAppState()
+                                                                              .loopStart],
+                                                                      r'''$.code''',
+                                                                    ),
+                                                                  ),
+                                                                  singleRecord:
+                                                                      true,
+                                                                ).then((s) => s
+                                                                        .firstOrNull);
+                                                                _shouldSetState =
+                                                                    true;
+
+                                                                await _model
+                                                                    .prdfromaddupdatestock!
+                                                                    .reference
+                                                                    .update({
+                                                                  ...mapToFirestore(
+                                                                    {
+                                                                      'currentStock':
+                                                                          FieldValue.increment(
+                                                                              getJsonField(
+                                                                        FFAppState()
+                                                                            .productCart[FFAppState().loopStart],
+                                                                        r'''$.reqStock''',
+                                                                      )),
+                                                                    },
+                                                                  ),
+                                                                });
+                                                                FFAppState()
+                                                                        .loopStart =
+                                                                    FFAppState()
+                                                                            .loopStart +
+                                                                        1;
+                                                                safeSetState(
+                                                                    () {});
+                                                              }
+                                                              FFAppState()
+                                                                  .productCart = [];
+                                                              safeSetState(
+                                                                  () {});
+                                                              FFAppState()
+                                                                  .loopStart = 0;
+                                                              safeSetState(
+                                                                  () {});
+                                                              safeSetState(() {
+                                                                _model
+                                                                    .dropDownValueController
+                                                                    ?.reset();
+                                                                _model
+                                                                    .dropDownNewValueController
+                                                                    ?.reset();
+                                                              });
+                                                              await showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (alertDialogContext) {
+                                                                  return WebViewAware(
+                                                                    child:
+                                                                        AlertDialog(
+                                                                      title: Text(
+                                                                          'Alert'),
+                                                                      content: Text(
+                                                                          'Product Transfer Successfully'),
+                                                                      actions: [
+                                                                        TextButton(
+                                                                          onPressed: () =>
+                                                                              Navigator.pop(alertDialogContext),
+                                                                          child:
+                                                                              Text('Ok'),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              );
+                                                              if (_shouldSetState)
+                                                                safeSetState(
+                                                                    () {});
+                                                            },
                                                   text: 'Transfer Stock',
                                                   icon: Icon(
                                                     Icons
@@ -1583,6 +1560,14 @@ class _StockUpdateTransferWidgetState extends State<StockUpdateTransferWidget> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8.0),
+                                                    disabledColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .alternate,
+                                                    disabledTextColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primaryText,
                                                   ),
                                                 ),
                                               ],
@@ -2150,7 +2135,7 @@ class _StockUpdateTransferWidgetState extends State<StockUpdateTransferWidget> {
                                                                         ),
                                                                         Expanded(
                                                                           flex:
-                                                                              2,
+                                                                              4,
                                                                           child:
                                                                               Container(
                                                                             width:
@@ -2191,6 +2176,7 @@ class _StockUpdateTransferWidgetState extends State<StockUpdateTransferWidget> {
                                                                                       textAlign: TextAlign.center,
                                                                                       style: FlutterFlowTheme.of(context).headlineMedium.override(
                                                                                             fontFamily: FlutterFlowTheme.of(context).headlineMediumFamily,
+                                                                                            fontSize: 15.0,
                                                                                             letterSpacing: 0.0,
                                                                                             useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).headlineMediumFamily),
                                                                                           ),

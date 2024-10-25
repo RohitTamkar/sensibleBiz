@@ -2,7 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/no_data/no_data_widget.dart';
-import '/components/requested_stock_widget.dart';
+import '/components/requested_stock_add_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -934,28 +934,19 @@ class _StockUpdateNewWidgetState extends State<StockUpdateNewWidget> {
                                                             ),
                                                             Expanded(
                                                               flex: 2,
-                                                              child: Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            7.0,
-                                                                            0.0),
-                                                                child:
-                                                                    RequestedStockWidget(
-                                                                  key: Key(
-                                                                      'Keybre_${listIndex}_of_${list.length}'),
-                                                                  parameter1:
-                                                                      getJsonField(
-                                                                    listItem,
-                                                                    r'''$.reqStock''',
-                                                                  ),
-                                                                  parameter2:
-                                                                      getJsonField(
-                                                                    listItem,
-                                                                    r'''$''',
-                                                                  ),
+                                                              child:
+                                                                  RequestedStockAddWidget(
+                                                                key: Key(
+                                                                    'Keyp7n_${listIndex}_of_${list.length}'),
+                                                                parameter2:
+                                                                    getJsonField(
+                                                                  listItem,
+                                                                  r'''$''',
+                                                                ),
+                                                                parameter1:
+                                                                    getJsonField(
+                                                                  listItem,
+                                                                  r'''$.reqStock''',
                                                                 ),
                                                               ),
                                                             ),
@@ -990,12 +981,9 @@ class _StockUpdateNewWidgetState extends State<StockUpdateNewWidget> {
                                                                       .selBill,
                                                                 );
                                                                 FFAppState()
-                                                                        .productCart =
-                                                                    _model
-                                                                        .res2Copy!
-                                                                        .toList()
-                                                                        .cast<
-                                                                            dynamic>();
+                                                                    .removeFromProductCart(
+                                                                        _model
+                                                                            .res2Copy!);
                                                                 safeSetState(
                                                                     () {});
 
@@ -1132,262 +1120,246 @@ class _StockUpdateNewWidgetState extends State<StockUpdateNewWidget> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
-                                                if (FFAppState()
-                                                    .productCart
-                                                    .containsMap(
-                                                        _model.resCopy))
-                                                  FFButtonWidget(
-                                                    onPressed: () async {
-                                                      var _shouldSetState =
-                                                          false;
-                                                      _model.issueDoc =
-                                                          await queryStockLogRecordOnce(
-                                                        parent: FFAppState()
-                                                            .outletRef,
-                                                        queryBuilder:
-                                                            (stockLogRecord) =>
-                                                                stockLogRecord
-                                                                    .where(
-                                                                      'dayId',
-                                                                      isEqualTo:
-                                                                          functions
-                                                                              .getDayId(getCurrentTimestamp),
-                                                                    )
-                                                                    .orderBy(
-                                                                        'reqCount',
-                                                                        descending:
+                                                FFButtonWidget(
+                                                  onPressed: () async {
+                                                    var _shouldSetState = false;
+                                                    _model.issueDoc =
+                                                        await queryStockLogRecordOnce(
+                                                      parent: FFAppState()
+                                                          .outletRef,
+                                                      queryBuilder:
+                                                          (stockLogRecord) =>
+                                                              stockLogRecord
+                                                                  .where(
+                                                                    'dayId',
+                                                                    isEqualTo: functions
+                                                                        .getDayId(
+                                                                            getCurrentTimestamp),
+                                                                  )
+                                                                  .orderBy(
+                                                                      'reqCount',
+                                                                      descending:
+                                                                          true),
+                                                    );
+                                                    _shouldSetState = true;
+                                                    if (_model
+                                                            .issueDoc!.length >
+                                                        0) {
+                                                      FFAppState().count =
+                                                          functions
+                                                              .reqCountNumber(
+                                                                  _model
+                                                                      .issueDoc!
+                                                                      .first);
+                                                      safeSetState(() {});
+                                                    } else {
+                                                      FFAppState().count = 1;
+                                                      safeSetState(() {});
+                                                    }
+
+                                                    _model.cartREsult =
+                                                        await actions.addToCart(
+                                                      FFAppState()
+                                                          .productCart
+                                                          .toList(),
+                                                    );
+                                                    _shouldSetState = true;
+                                                    var confirmDialogResponse =
+                                                        await showDialog<bool>(
+                                                              context: context,
+                                                              builder:
+                                                                  (alertDialogContext) {
+                                                                return WebViewAware(
+                                                                  child:
+                                                                      AlertDialog(
+                                                                    title: Text(
+                                                                        'Alert'),
+                                                                    content: Text(
+                                                                        'Are You Sure To Add Stock ?'),
+                                                                    actions: [
+                                                                      TextButton(
+                                                                        onPressed: () => Navigator.pop(
+                                                                            alertDialogContext,
+                                                                            false),
+                                                                        child: Text(
+                                                                            'Cancel'),
+                                                                      ),
+                                                                      TextButton(
+                                                                        onPressed: () => Navigator.pop(
+                                                                            alertDialogContext,
                                                                             true),
-                                                      );
-                                                      _shouldSetState = true;
-                                                      if (_model.issueDoc!
-                                                              .length >
-                                                          0) {
-                                                        FFAppState().count =
-                                                            functions
-                                                                .reqCountNumber(
-                                                                    _model
-                                                                        .issueDoc!
-                                                                        .first);
-                                                        safeSetState(() {});
-                                                      } else {
-                                                        FFAppState().count = 1;
-                                                        safeSetState(() {});
-                                                      }
-
-                                                      _model.cartREsult =
-                                                          await actions
-                                                              .addToCart(
-                                                        FFAppState()
-                                                            .productCart
-                                                            .toList(),
-                                                      );
-                                                      _shouldSetState = true;
-                                                      var confirmDialogResponse =
-                                                          await showDialog<
-                                                                  bool>(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (alertDialogContext) {
-                                                                  return WebViewAware(
-                                                                    child:
-                                                                        AlertDialog(
-                                                                      title: Text(
-                                                                          'Alert'),
-                                                                      content: Text(
-                                                                          'Are You Sure To Add Stock ?'),
-                                                                      actions: [
-                                                                        TextButton(
-                                                                          onPressed: () => Navigator.pop(
-                                                                              alertDialogContext,
-                                                                              false),
-                                                                          child:
-                                                                              Text('Cancel'),
-                                                                        ),
-                                                                        TextButton(
-                                                                          onPressed: () => Navigator.pop(
-                                                                              alertDialogContext,
-                                                                              true),
-                                                                          child:
-                                                                              Text('Confirm'),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  );
-                                                                },
-                                                              ) ??
-                                                              false;
-                                                      if (!confirmDialogResponse) {
-                                                        if (_shouldSetState)
-                                                          safeSetState(() {});
-                                                        return;
-                                                      }
-
-                                                      await StockLogRecord
-                                                              .createDoc(
-                                                                  FFAppState()
-                                                                      .outletRef!)
-                                                          .set({
-                                                        ...createStockLogRecordData(
-                                                          dayId: functions.getDayId(
-                                                              getCurrentTimestamp),
-                                                          createdDate:
-                                                              getCurrentTimestamp,
-                                                          modifiedDate:
-                                                              getCurrentTimestamp,
-                                                          createdDateInMill: functions
-                                                              .timestampToMili(
-                                                                  getCurrentTimestamp),
-                                                          modifiedDateInMill: functions
-                                                              .timestampToMili(
-                                                                  getCurrentTimestamp),
-                                                          monthId: functions
-                                                              .getMonthId(),
-                                                          createdBy:
-                                                              rowUserProfileRecord
-                                                                  ?.id,
-                                                          modifiedBy:
-                                                              rowUserProfileRecord
-                                                                  ?.id,
-                                                          requestedId: functions
-                                                              .genInvoiceNum(
-                                                                  FFAppState()
-                                                                      .count),
-                                                          status: 'COMPLETED',
-                                                          stockType: 'ADD',
-                                                          reqCount: FFAppState()
-                                                              .count,
-                                                        ),
-                                                        ...mapToFirestore(
-                                                          {
-                                                            'productListMap':
-                                                                getProductListListFirestoreData(
-                                                              FFAppState()
-                                                                  .selectedPrdDataMap,
-                                                            ),
-                                                          },
-                                                        ),
-                                                      });
-                                                      FFAppState().loopStart =
-                                                          0;
-                                                      safeSetState(() {});
-                                                      while (FFAppState()
-                                                              .loopStart <
-                                                          FFAppState()
-                                                              .productCart
-                                                              .length) {
-                                                        await ProductListStruct
-                                                                .maybeFromMap(FFAppState()
-                                                                        .productCart[
-                                                                    FFAppState()
-                                                                        .loopStart])!
-                                                            .ref!
-                                                            .update(
-                                                                createProductRecordData(
-                                                              currentStock:
-                                                                  getJsonField(
-                                                                FFAppState()
-                                                                        .productCart[
-                                                                    FFAppState()
-                                                                        .loopStart],
-                                                                r'''$.totalStock''',
-                                                              ),
-                                                            ));
-                                                        FFAppState().loopStart =
-                                                            FFAppState()
-                                                                    .loopStart +
-                                                                1;
-                                                        safeSetState(() {});
-                                                      }
-                                                      FFAppState().productCart =
-                                                          [];
-                                                      safeSetState(() {});
-                                                      safeSetState(() {
-                                                        _model
-                                                            .dropDownValueController
-                                                            ?.reset();
-                                                        _model
-                                                            .dropDownNewValueController
-                                                            ?.reset();
-                                                      });
-                                                      await showDialog(
-                                                        context: context,
-                                                        builder:
-                                                            (alertDialogContext) {
-                                                          return WebViewAware(
-                                                            child: AlertDialog(
-                                                              title:
-                                                                  Text('Alert'),
-                                                              content: Text(
-                                                                  'Request Successfully Send'),
-                                                              actions: [
-                                                                TextButton(
-                                                                  onPressed: () =>
-                                                                      Navigator.pop(
-                                                                          alertDialogContext),
-                                                                  child: Text(
-                                                                      'Ok'),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          );
-                                                        },
-                                                      );
+                                                                        child: Text(
+                                                                            'Confirm'),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ) ??
+                                                            false;
+                                                    if (!confirmDialogResponse) {
                                                       if (_shouldSetState)
                                                         safeSetState(() {});
-                                                    },
-                                                    text: 'Add Stock',
-                                                    icon: Icon(
-                                                      Icons.add,
-                                                      size: 30.0,
-                                                    ),
-                                                    options: FFButtonOptions(
-                                                      height: 40.0,
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  24.0,
-                                                                  0.0,
-                                                                  24.0,
-                                                                  0.0),
-                                                      iconPadding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .success,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmall
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmallFamily,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBtnText,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .titleSmallFamily),
-                                                              ),
-                                                      borderSide: BorderSide(
-                                                        width: 3.0,
+                                                      return;
+                                                    }
+
+                                                    await StockLogRecord
+                                                            .createDoc(
+                                                                FFAppState()
+                                                                    .outletRef!)
+                                                        .set({
+                                                      ...createStockLogRecordData(
+                                                        dayId: functions.getDayId(
+                                                            getCurrentTimestamp),
+                                                        createdDate:
+                                                            getCurrentTimestamp,
+                                                        modifiedDate:
+                                                            getCurrentTimestamp,
+                                                        createdDateInMill: functions
+                                                            .timestampToMili(
+                                                                getCurrentTimestamp),
+                                                        modifiedDateInMill: functions
+                                                            .timestampToMili(
+                                                                getCurrentTimestamp),
+                                                        monthId: functions
+                                                            .getMonthId(),
+                                                        createdBy:
+                                                            rowUserProfileRecord
+                                                                ?.id,
+                                                        modifiedBy:
+                                                            rowUserProfileRecord
+                                                                ?.id,
+                                                        requestedId: functions
+                                                            .genInvoiceNum(
+                                                                FFAppState()
+                                                                    .count),
+                                                        status: 'COMPLETED',
+                                                        stockType: 'ADD',
+                                                        reqCount:
+                                                            FFAppState().count,
                                                       ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
+                                                      ...mapToFirestore(
+                                                        {
+                                                          'productListMap':
+                                                              getProductListListFirestoreData(
+                                                            FFAppState()
+                                                                .selectedPrdDataMap,
+                                                          ),
+                                                        },
+                                                      ),
+                                                    });
+                                                    FFAppState().loopStart = 0;
+                                                    safeSetState(() {});
+                                                    while (
+                                                        FFAppState().loopStart <
+                                                            FFAppState()
+                                                                .productCart
+                                                                .length) {
+                                                      await ProductListStruct
+                                                              .maybeFromMap(FFAppState()
+                                                                      .productCart[
+                                                                  FFAppState()
+                                                                      .loopStart])!
+                                                          .ref!
+                                                          .update(
+                                                              createProductRecordData(
+                                                            currentStock:
+                                                                getJsonField(
+                                                              FFAppState()
+                                                                      .productCart[
+                                                                  FFAppState()
+                                                                      .loopStart],
+                                                              r'''$.totalStock''',
+                                                            ),
+                                                          ));
+                                                      FFAppState().loopStart =
+                                                          FFAppState()
+                                                                  .loopStart +
+                                                              1;
+                                                      safeSetState(() {});
+                                                    }
+                                                    FFAppState().productCart =
+                                                        [];
+                                                    safeSetState(() {});
+                                                    safeSetState(() {
+                                                      _model
+                                                          .dropDownValueController
+                                                          ?.reset();
+                                                      _model
+                                                          .dropDownNewValueController
+                                                          ?.reset();
+                                                    });
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return WebViewAware(
+                                                          child: AlertDialog(
+                                                            title:
+                                                                Text('Alert'),
+                                                            content: Text(
+                                                                'Request Successfully Send'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext),
+                                                                child:
+                                                                    Text('Ok'),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
+                                                    if (_shouldSetState)
+                                                      safeSetState(() {});
+                                                  },
+                                                  text: 'Add Stock',
+                                                  icon: Icon(
+                                                    Icons.add,
+                                                    size: 30.0,
                                                   ),
+                                                  options: FFButtonOptions(
+                                                    height: 40.0,
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(24.0, 0.0,
+                                                                24.0, 0.0),
+                                                    iconPadding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 0.0),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .success,
+                                                    textStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmallFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBtnText,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmallFamily),
+                                                        ),
+                                                    borderSide: BorderSide(
+                                                      width: 3.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  ),
+                                                ),
                                               ],
                                             );
                                           },
@@ -1836,7 +1808,7 @@ class _StockUpdateNewWidgetState extends State<StockUpdateNewWidget> {
                                                                             padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 0.0,
                                                                                 0.0,
-                                                                                10.0,
+                                                                                30.0,
                                                                                 0.0),
                                                                             child:
                                                                                 Text(
@@ -1859,32 +1831,35 @@ class _StockUpdateNewWidgetState extends State<StockUpdateNewWidget> {
                                                                             decoration:
                                                                                 BoxDecoration(),
                                                                             child:
-                                                                                Row(
-                                                                              mainAxisSize: MainAxisSize.max,
-                                                                              children: [
-                                                                                Text(
-                                                                                  'Available \nStock :',
-                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                        fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                        color: FlutterFlowTheme.of(context).success,
-                                                                                        letterSpacing: 0.0,
-                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                                      ),
-                                                                                ),
                                                                                 Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
-                                                                                  child: Text(
-                                                                                    functions.roundOff1Copy(list1Item.currentStock).toString(),
-                                                                                    textAlign: TextAlign.start,
-                                                                                    style: FlutterFlowTheme.of(context).titleMedium.override(
-                                                                                          fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 30.0, 0.0),
+                                                                              child: Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    'Available \nStock :',
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
                                                                                           color: FlutterFlowTheme.of(context).success,
                                                                                           letterSpacing: 0.0,
-                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleMediumFamily),
+                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                                         ),
                                                                                   ),
-                                                                                ),
-                                                                              ],
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+                                                                                    child: Text(
+                                                                                      functions.roundOff1Copy(list1Item.currentStock).toString(),
+                                                                                      textAlign: TextAlign.start,
+                                                                                      style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                            fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,
+                                                                                            color: FlutterFlowTheme.of(context).success,
+                                                                                            letterSpacing: 0.0,
+                                                                                            useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleMediumFamily),
+                                                                                          ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
                                                                             ),
                                                                           ),
                                                                         ),
@@ -1892,64 +1867,69 @@ class _StockUpdateNewWidgetState extends State<StockUpdateNewWidget> {
                                                                           flex:
                                                                               2,
                                                                           child:
-                                                                              Container(
-                                                                            width:
-                                                                                100.0,
-                                                                            decoration:
-                                                                                BoxDecoration(),
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                0.0,
+                                                                                30.0,
+                                                                                0.0),
                                                                             child:
-                                                                                Row(
-                                                                              mainAxisSize: MainAxisSize.max,
-                                                                              children: [
-                                                                                Text(
-                                                                                  'Req \nStock :',
-                                                                                  style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                                                        fontFamily: FlutterFlowTheme.of(context).bodyLargeFamily,
-                                                                                        letterSpacing: 0.0,
-                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyLargeFamily),
-                                                                                      ),
-                                                                                ),
-                                                                                if (FFAppState().hide)
-                                                                                  FlutterFlowIconButton(
-                                                                                    borderColor: FlutterFlowTheme.of(context).error,
-                                                                                    borderRadius: 5.0,
-                                                                                    borderWidth: 1.0,
-                                                                                    buttonSize: 30.0,
-                                                                                    fillColor: FlutterFlowTheme.of(context).primaryBtnText,
-                                                                                    icon: FaIcon(
-                                                                                      FontAwesomeIcons.minus,
-                                                                                      color: FlutterFlowTheme.of(context).error,
-                                                                                      size: 18.0,
-                                                                                    ),
-                                                                                    onPressed: () async {},
-                                                                                  ),
-                                                                                Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
-                                                                                  child: Text(
-                                                                                    list1Item.reqStock.toString(),
-                                                                                    textAlign: TextAlign.center,
-                                                                                    style: FlutterFlowTheme.of(context).headlineMedium.override(
-                                                                                          fontFamily: FlutterFlowTheme.of(context).headlineMediumFamily,
+                                                                                Container(
+                                                                              width: 100.0,
+                                                                              decoration: BoxDecoration(),
+                                                                              child: Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    'Req \nStock :',
+                                                                                    style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                                                          fontFamily: FlutterFlowTheme.of(context).bodyLargeFamily,
                                                                                           letterSpacing: 0.0,
-                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).headlineMediumFamily),
+                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyLargeFamily),
                                                                                         ),
                                                                                   ),
-                                                                                ),
-                                                                                if (FFAppState().hide)
-                                                                                  FlutterFlowIconButton(
-                                                                                    borderColor: FlutterFlowTheme.of(context).success,
-                                                                                    borderRadius: 5.0,
-                                                                                    borderWidth: 1.0,
-                                                                                    buttonSize: 30.0,
-                                                                                    fillColor: FlutterFlowTheme.of(context).primaryBtnText,
-                                                                                    icon: Icon(
-                                                                                      Icons.add,
-                                                                                      color: FlutterFlowTheme.of(context).success,
-                                                                                      size: 18.0,
+                                                                                  if (FFAppState().hide)
+                                                                                    FlutterFlowIconButton(
+                                                                                      borderColor: FlutterFlowTheme.of(context).error,
+                                                                                      borderRadius: 5.0,
+                                                                                      borderWidth: 1.0,
+                                                                                      buttonSize: 30.0,
+                                                                                      fillColor: FlutterFlowTheme.of(context).primaryBtnText,
+                                                                                      icon: FaIcon(
+                                                                                        FontAwesomeIcons.minus,
+                                                                                        color: FlutterFlowTheme.of(context).error,
+                                                                                        size: 18.0,
+                                                                                      ),
+                                                                                      onPressed: () async {},
                                                                                     ),
-                                                                                    onPressed: () async {},
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
+                                                                                    child: Text(
+                                                                                      list1Item.reqStock.toString(),
+                                                                                      textAlign: TextAlign.center,
+                                                                                      style: FlutterFlowTheme.of(context).headlineMedium.override(
+                                                                                            fontFamily: FlutterFlowTheme.of(context).headlineMediumFamily,
+                                                                                            letterSpacing: 0.0,
+                                                                                            useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).headlineMediumFamily),
+                                                                                          ),
+                                                                                    ),
                                                                                   ),
-                                                                              ],
+                                                                                  if (FFAppState().hide)
+                                                                                    FlutterFlowIconButton(
+                                                                                      borderColor: FlutterFlowTheme.of(context).success,
+                                                                                      borderRadius: 5.0,
+                                                                                      borderWidth: 1.0,
+                                                                                      buttonSize: 30.0,
+                                                                                      fillColor: FlutterFlowTheme.of(context).primaryBtnText,
+                                                                                      icon: Icon(
+                                                                                        Icons.add,
+                                                                                        color: FlutterFlowTheme.of(context).success,
+                                                                                        size: 18.0,
+                                                                                      ),
+                                                                                      onPressed: () async {},
+                                                                                    ),
+                                                                                ],
+                                                                              ),
                                                                             ),
                                                                           ),
                                                                         ),

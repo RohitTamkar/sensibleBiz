@@ -140,11 +140,47 @@ service cloud.firestore {
     match /OUTLET/{parent}/INVOICE/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if false;
+      allow write: if true;
       allow delete: if false;
     }
 
     match /{path=**}/INVOICE/{document} {
+      allow read: if true;
+    }
+
+
+    match /OUTLET/{parent}/MULTIPLIERS/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if false;
+    }
+
+    match /{path=**}/MULTIPLIERS/{document} {
+      allow read: if true;
+    }
+
+
+    match /OUTLET/{parent}/EXPENSE_HEADER/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/EXPENSE_HEADER/{document} {
+      allow read: if true;
+    }
+
+
+    match /OUTLET/{parent}/UPI_CONFIGURATION_QRCODE/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/UPI_CONFIGURATION_QRCODE/{document} {
       allow read: if true;
     }
 

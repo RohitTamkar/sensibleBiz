@@ -42,7 +42,6 @@ class MulticounterOutletModel
 
   PagingController<DocumentSnapshot?, OutletRecord>? listViewPagingController;
   Query? listViewPagingQuery;
-  List<StreamSubscription?> listViewStreamSubscriptions = [];
 
   // Model for loader component.
   late LoaderModel loaderModel;
@@ -54,7 +53,6 @@ class MulticounterOutletModel
 
   @override
   void dispose() {
-    listViewStreamSubscriptions.forEach((s) => s?.cancel());
     listViewPagingController?.dispose();
 
     loaderModel.dispose();
@@ -84,10 +82,9 @@ class MulticounterOutletModel
         (nextPageMarker) => queryOutletRecordPage(
           queryBuilder: (_) => listViewPagingQuery ??= query,
           nextPageMarker: nextPageMarker,
-          streamSubscriptions: listViewStreamSubscriptions,
           controller: controller,
           pageSize: 25,
-          isStream: true,
+          isStream: false,
         ),
       );
   }

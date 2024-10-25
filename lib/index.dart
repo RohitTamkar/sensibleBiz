@@ -118,3 +118,12 @@ export '/pages/stock_update_transfer_report/stock_update_transfer_report_widget.
 export '/pages/reports/edit_bill/edit_bill_widget.dart' show EditBillWidget;
 export '/pages/reports/edit_bill_details/edit_bill_details_widget.dart'
     show EditBillDetailsWidget;
+export '/pages/add_product_new/add_product_new_widget.dart'
+    show AddProductNewWidget;
+export '/pages/expense_page/expense_page_widget.dart' show ExpensePageWidget;
+export '/pages/expense_details/expense_details_widget.dart'
+    show ExpenseDetailsWidget;
+export '/pages/edit_expense/edit_expense_widget.dart' show EditExpenseWidget;
+export '/pages/edit_upi/edit_upi_widget.dart' show EditUpiWidget;
+export '/pages/u_p_i_page/u_p_i_page_widget.dart' show UPIPageWidget;
+export '/pages/add_upi/add_upi_widget.dart' show AddUpiWidget;

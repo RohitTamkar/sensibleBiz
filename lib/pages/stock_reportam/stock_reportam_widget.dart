@@ -269,7 +269,7 @@ class _StockReportamWidgetState extends State<StockReportamWidget>
                                         .primaryText,
                                     unselectedLabelColor:
                                         FlutterFlowTheme.of(context)
-                                            .secondaryText,
+                                            .primaryText,
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .labelLarge
                                         .override(

@@ -31,6 +31,8 @@ int getTaxIdCopy(String? tax) {
         return 8;
       case "GST2":
         return 9;
+      case "IGST18":
+        return 10;
     }
   }
   // Default value if the provided tax is not found

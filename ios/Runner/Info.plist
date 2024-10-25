@@ -55,10 +55,10 @@
 
 	<key>NSCameraUsageDescription</key>
     <string>In order to scan for barcodes and QR codes, this app requires permission to access the camera.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>In order to upload data, this app requires permission to access the photo library.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
     <string>In order to get current location</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-    <string>to upload csv file</string>
 	<key>NSLocalizedDescription</key>
     <string>to upload csv file</string>
 	<key>NSPhotoLibraryUsageDescriptionkey</key>

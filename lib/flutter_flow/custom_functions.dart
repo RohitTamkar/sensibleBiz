@@ -178,6 +178,10 @@ int getProductCount(int count) {
   return count + 1;
 }
 
+double stringToDouble(String? val1) {
+  return double.parse('$val1');
+}
+
 String getCatIdByRefCopy2(DocumentReference docRef) {
   return docRef.id;
 }
@@ -464,6 +468,8 @@ String getTaxIdEdit1(int? tax) {
         return "GST3";
       case 7:
         return "GST2";
+      case 8:
+        return "IGST18";
     }
   }
   // Default value if the provided tax is not found
@@ -1039,37 +1045,83 @@ double? getMrpAndSPriceforMultipleOutlets(
   String? returnType,
   double? multiple,
 ) {
-  if (inputMRP == null || gstPerStr == null || returnType == null) {
-    return 0.0;
-  }
-
+  print(inputMRP);
+  print(gstPerStr);
+  print(returnType);
+  print(multiple);
   // Parse the MRP
   double mrp;
   try {
-    mrp = double.parse(inputMRP);
+    mrp = double.parse(inputMRP!);
   } catch (e) {
     return 0.0; // Return 0.0 if parsing fails
   }
 
   if (returnType == "MRP") {
     // Return MRP multiplied by 1.2
-    return mrp * multiple;
+    print(mrp * multiple!);
+
+    return mrp * multiple!;
   } else if (returnType == "SP") {
     // Extract GST percentage
     int gstPercentage = 0;
-    if (gstPerStr.startsWith("GST")) {
-      gstPercentage = int.parse(gstPerStr.substring(3));
-    } else if (gstPerStr.startsWith("VAT")) {
-      gstPercentage = int.parse(gstPerStr.substring(3));
+    if (gstPerStr!.startsWith("GST")) {
+      gstPercentage = int.parse(gstPerStr!.substring(3));
+    } else if (gstPerStr!.startsWith("VAT")) {
+      gstPercentage = int.parse(gstPerStr!.substring(3));
     } else {
       return 0.0; // Return 0.0 if GST format is invalid
     }
 
+    double sellingPrice = mrp * multiple! / (1 + (gstPercentage / 100));
+    print(sellingPrice);
+
+    String roundedX = sellingPrice.toStringAsFixed(2);
+    print(roundedX);
+    //return sellingPrice..toStringAsFixed(2);
+    return double.parse(roundedX);
     // Calculate Selling Price based on MRP and GST
-    double sellingPrice =
-        mrp * multiple + (mrp * multiple * gstPercentage / 100);
-    return sellingPrice; // Return the Selling Price
+    // double sellingPrice =
+    //     mrp * multiple! + (mrp * multiple! * gstPercentage / 100);
+    // return sellingPrice; // Return the Selling Price
+  }
+  print("*****");
+  //return 0.0;
+}
+
+double getMultiCounterPrices(
+  String outletId,
+  List<MultipliersListStruct> list,
+  String type,
+) {
+  double result = 0.0;
+  bool flag = false;
+  int count = 0;
+  for (int j = 0; j < list.length; j++) {
+    count++;
+    if (outletId == list[j].outletId) {
+      flag = true;
+      if (type == "SP") {
+        result = list[j].sPrice;
+      } else if (type == "MRP") {
+        result = list[j].mrp;
+      }
+
+      break;
+    } else {
+      if (flag = false && count == list.length) {
+        result = 0.0;
+      }
+    }
   }
 
-  return 0.0;
+  return result;
+}
+
+String? imgStrtoimagePath(String? imageLink) {
+  return imageLink;
+}
+
+String? imagePatToString(String? imagePath) {
+  return imagePath;
 }

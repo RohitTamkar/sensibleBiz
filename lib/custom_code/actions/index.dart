@@ -1,5 +1,9 @@
 export 'is_user_profile_valid.dart' show isUserProfileValid;
 export 'get_shift_details_copy.dart' show getShiftDetailsCopy;
+export 'multi_counter_struct_update.dart' show multiCounterStructUpdate;
+export 'mrp_update.dart' show mrpUpdate;
+export 'check_duplicat_cart_item.dart' show checkDuplicatCartItem;
+export 'validate_cur_stock.dart' show validateCurStock;
 export 'generate_excelof_customer.dart' show generateExcelofCustomer;
 export 'decrement_stock_new1.dart' show decrementStockNew1;
 export 'category_dup_actionby_name.dart' show categoryDupActionbyName;
@@ -72,3 +76,5 @@ export 'genrate_excel_for_product_wise_sale_report.dart'
     show genrateExcelForProductWiseSaleReport;
 export 'increment_stock_new.dart' show incrementStockNew;
 export 'barcode_random_generated.dart' show barcodeRandomGenerated;
+export 'barcode_random_generated_new.dart' show barcodeRandomGeneratedNew;
+export 'multi_counter_struct.dart' show multiCounterStruct;

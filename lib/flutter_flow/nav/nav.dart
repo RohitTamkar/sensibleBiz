@@ -799,6 +799,70 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.Document,
             ),
           ),
+        ),
+        FFRoute(
+          name: 'AddProductNew',
+          path: '/addProductNew',
+          builder: (context, params) => AddProductNewWidget(
+            codeLen: params.getParam(
+              'codeLen',
+              ParamType.int,
+            ),
+            proRef: params.getParam(
+              'proRef',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['OUTLET', 'PRODUCT'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'ExpensePage',
+          path: '/expensePage',
+          builder: (context, params) => ExpensePageWidget(),
+        ),
+        FFRoute(
+          name: 'ExpenseDetails',
+          path: '/ExpenseDetails',
+          builder: (context, params) => ExpenseDetailsWidget(),
+        ),
+        FFRoute(
+          name: 'EditExpense',
+          path: '/EditExpense',
+          asyncParams: {
+            'ref': getDoc(
+                ['OUTLET', 'EXPENSE_HEADER'], ExpenseHeaderRecord.fromSnapshot),
+          },
+          builder: (context, params) => EditExpenseWidget(
+            ref: params.getParam(
+              'ref',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'EditUpi',
+          path: '/Upi',
+          asyncParams: {
+            'ref': getDoc(['OUTLET', 'UPI_CONFIGURATION_QRCODE'],
+                UpiConfigurationQrcodeRecord.fromSnapshot),
+          },
+          builder: (context, params) => EditUpiWidget(
+            ref: params.getParam(
+              'ref',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'UPIPage',
+          path: '/UPIPage',
+          builder: (context, params) => UPIPageWidget(),
+        ),
+        FFRoute(
+          name: 'AddUpi',
+          path: '/AddUpi',
+          builder: (context, params) => AddUpiWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

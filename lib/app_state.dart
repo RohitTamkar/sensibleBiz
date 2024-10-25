@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
-import 'backend/api_requests/api_manager.dart';
+import '/backend/api_requests/api_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'dart:convert';
@@ -1349,6 +1349,49 @@ class FFAppState extends ChangeNotifier {
   set barcode(String value) {
     _barcode = value;
     prefs.setString('ff_barcode', value);
+  }
+
+  bool _isTransfer = true;
+  bool get isTransfer => _isTransfer;
+  set isTransfer(bool value) {
+    _isTransfer = value;
+  }
+
+  List<MultipliersListStruct> _multiCounterOutletList = [];
+  List<MultipliersListStruct> get multiCounterOutletList =>
+      _multiCounterOutletList;
+  set multiCounterOutletList(List<MultipliersListStruct> value) {
+    _multiCounterOutletList = value;
+  }
+
+  void addToMultiCounterOutletList(MultipliersListStruct value) {
+    multiCounterOutletList.add(value);
+  }
+
+  void removeFromMultiCounterOutletList(MultipliersListStruct value) {
+    multiCounterOutletList.remove(value);
+  }
+
+  void removeAtIndexFromMultiCounterOutletList(int index) {
+    multiCounterOutletList.removeAt(index);
+  }
+
+  void updateMultiCounterOutletListAtIndex(
+    int index,
+    MultipliersListStruct Function(MultipliersListStruct) updateFn,
+  ) {
+    multiCounterOutletList[index] = updateFn(_multiCounterOutletList[index]);
+  }
+
+  void insertAtIndexInMultiCounterOutletList(
+      int index, MultipliersListStruct value) {
+    multiCounterOutletList.insert(index, value);
+  }
+
+  String _productImageUrl = '';
+  String get productImageUrl => _productImageUrl;
+  set productImageUrl(String value) {
+    _productImageUrl = value;
   }
 }
 

@@ -35,6 +35,8 @@ class StockUpdateTransferModel
   FormFieldController<String>? dropDownNewValueController;
   // Stores action output result for [Custom Action - selectedProductList] action in DropDownNew widget.
   dynamic? resCopy;
+  // Stores action output result for [Custom Action - checkDuplicatCartItem] action in DropDownNew widget.
+  List<dynamic>? addResult;
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;

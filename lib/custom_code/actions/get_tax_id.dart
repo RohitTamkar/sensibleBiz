@@ -29,6 +29,8 @@ Future<int> getTaxId(int? tax) async {
         return 7;
       case 2:
         return 8;
+      case 18:
+        return 9;
     }
   }
   // Default value if the provided tax is not found

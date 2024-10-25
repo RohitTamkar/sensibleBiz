@@ -59,12 +59,6 @@ class _AddProductWidgetState extends State<AddProductWidget> {
         ),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
-      _model.outletDocList = await queryOutletRecordOnce(
-        queryBuilder: (outletRecord) => outletRecord.where(
-          'id',
-          isEqualTo: _model.docMobile?.outlets?.first,
-        ),
-      );
       FFAppState().barcode = '';
       safeSetState(() {});
 
@@ -135,12 +129,12 @@ class _AddProductWidgetState extends State<AddProductWidget> {
     _model.shortNameWTextController ??= TextEditingController();
     _model.shortNameWFocusNode ??= FocusNode();
 
-    _model.currentStockWTextController ??= TextEditingController();
-    _model.currentStockWFocusNode ??= FocusNode();
-
     _model.barcodeWTextController ??=
         TextEditingController(text: FFAppState().barcode);
     _model.barcodeWFocusNode ??= FocusNode();
+
+    _model.currentStockWTextController ??= TextEditingController();
+    _model.currentStockWFocusNode ??= FocusNode();
 
     _model.hsnWTextController ??= TextEditingController();
     _model.hsnWFocusNode ??= FocusNode();
@@ -2485,110 +2479,110 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                               .center,
                                                       children: [
                                                         Expanded(
-                                                          child: Theme(
-                                                            data: ThemeData(
-                                                              unselectedWidgetColor:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .customColor1,
-                                                            ),
-                                                            child:
-                                                                CheckboxListTile(
-                                                              value: _model
-                                                                      .wightCheckboMValue ??=
-                                                                  false,
-                                                              onChanged:
-                                                                  (newValue) async {
-                                                                safeSetState(() =>
-                                                                    _model.wightCheckboMValue =
-                                                                        newValue!);
-                                                              },
-                                                              title: Text(
-                                                                'Weightable',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      useGoogleFonts: GoogleFonts
-                                                                              .asMap()
-                                                                          .containsKey(
-                                                                              FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                    ),
+                                                          child: Material(
+                                                            color: Colors
+                                                                .transparent,
+                                                            child: Theme(
+                                                              data: ThemeData(
+                                                                unselectedWidgetColor:
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .customColor1,
                                                               ),
-                                                              tileColor: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .customColor1,
-                                                              activeColor:
-                                                                  FlutterFlowTheme.of(
+                                                              child:
+                                                                  CheckboxListTile(
+                                                                value: _model
+                                                                        .wightCheckboMValue ??=
+                                                                    false,
+                                                                onChanged:
+                                                                    (newValue) async {
+                                                                  safeSetState(() =>
+                                                                      _model.wightCheckboMValue =
+                                                                          newValue!);
+                                                                },
+                                                                title: Text(
+                                                                  'Weightable',
+                                                                  style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .primary,
-                                                              checkColor:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryBtnText,
-                                                              dense: true,
-                                                              controlAffinity:
-                                                                  ListTileControlAffinity
-                                                                      .leading,
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                      ),
+                                                                ),
+                                                                tileColor: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .customColor1,
+                                                                activeColor:
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                checkColor: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBtnText,
+                                                                dense: true,
+                                                                controlAffinity:
+                                                                    ListTileControlAffinity
+                                                                        .leading,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
                                                         Expanded(
-                                                          child: Theme(
-                                                            data: ThemeData(
-                                                              unselectedWidgetColor:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .customColor1,
-                                                            ),
-                                                            child:
-                                                                CheckboxListTile(
-                                                              value: _model
-                                                                      .stockCheckboxMValue ??=
-                                                                  false,
-                                                              onChanged:
-                                                                  (newValue) async {
-                                                                safeSetState(() =>
-                                                                    _model.stockCheckboxMValue =
-                                                                        newValue!);
-                                                              },
-                                                              title: Text(
-                                                                'Stockable',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      useGoogleFonts: GoogleFonts
-                                                                              .asMap()
-                                                                          .containsKey(
-                                                                              FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                    ),
+                                                          child: Material(
+                                                            color: Colors
+                                                                .transparent,
+                                                            child: Theme(
+                                                              data: ThemeData(
+                                                                unselectedWidgetColor:
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .customColor1,
                                                               ),
-                                                              tileColor: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .customColor1,
-                                                              activeColor:
-                                                                  FlutterFlowTheme.of(
+                                                              child:
+                                                                  CheckboxListTile(
+                                                                value: _model
+                                                                        .stockCheckboxMValue ??=
+                                                                    false,
+                                                                onChanged:
+                                                                    (newValue) async {
+                                                                  safeSetState(() =>
+                                                                      _model.stockCheckboxMValue =
+                                                                          newValue!);
+                                                                },
+                                                                title: Text(
+                                                                  'Stockable',
+                                                                  style: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .primary,
-                                                              checkColor:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryBtnText,
-                                                              dense: true,
-                                                              controlAffinity:
-                                                                  ListTileControlAffinity
-                                                                      .leading,
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        useGoogleFonts:
+                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                      ),
+                                                                ),
+                                                                tileColor: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .customColor1,
+                                                                activeColor:
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                checkColor: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBtnText,
+                                                                dense: true,
+                                                                controlAffinity:
+                                                                    ListTileControlAffinity
+                                                                        .leading,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
@@ -4441,6 +4435,21 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                       focusNode:
                                                                           _model
                                                                               .mRPPriceWFocusNode,
+                                                                      onChanged:
+                                                                          (_) =>
+                                                                              EasyDebounce.debounce(
+                                                                        '_model.mRPPriceWTextController',
+                                                                        Duration(
+                                                                            milliseconds:
+                                                                                2000),
+                                                                        () async {
+                                                                          _model.mrpPrice = double.tryParse(_model
+                                                                              .mRPPriceWTextController
+                                                                              .text);
+                                                                          safeSetState(
+                                                                              () {});
+                                                                        },
+                                                                      ),
                                                                       autofocus:
                                                                           false,
                                                                       obscureText:
@@ -4734,106 +4743,211 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 10.0,
                                                                 0.0, 15.0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Expanded(
-                                                          child: Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        3.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Container(
-                                                              width: MediaQuery
-                                                                          .sizeOf(
-                                                                              context)
-                                                                      .width *
-                                                                  0.3,
-                                                              height: MediaQuery
-                                                                          .sizeOf(
-                                                                              context)
-                                                                      .height *
-                                                                  0.3,
-                                                              decoration:
-                                                                  BoxDecoration(
+                                                    child: StreamBuilder<
+                                                        List<
+                                                            UserProfileRecord>>(
+                                                      stream:
+                                                          queryUserProfileRecord(
+                                                        queryBuilder:
+                                                            (userProfileRecord) =>
+                                                                userProfileRecord
+                                                                    .where(
+                                                          'mobile',
+                                                          isEqualTo: FFAppState()
+                                                                      .currentMobile !=
+                                                                  ''
+                                                              ? FFAppState()
+                                                                  .currentMobile
+                                                              : null,
+                                                        ),
+                                                        singleRecord: true,
+                                                      ),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 50.0,
+                                                              height: 50.0,
+                                                              child:
+                                                                  SpinKitFadingCircle(
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .secondaryBackground,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5.0),
+                                                                    .warning,
+                                                                size: 50.0,
                                                               ),
+                                                            ),
+                                                          );
+                                                        }
+                                                        List<UserProfileRecord>
+                                                            rowUserProfileRecordList =
+                                                            snapshot.data!;
+                                                        // Return an empty Container when the item does not exist.
+                                                        if (snapshot
+                                                            .data!.isEmpty) {
+                                                          return Container();
+                                                        }
+                                                        final rowUserProfileRecord =
+                                                            rowUserProfileRecordList
+                                                                    .isNotEmpty
+                                                                ? rowUserProfileRecordList
+                                                                    .first
+                                                                : null;
+
+                                                        return Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Expanded(
                                                               child: Padding(
                                                                 padding:
-                                                                    EdgeInsets
-                                                                        .all(
-                                                                            3.0),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Builder(
-                                                                      builder:
-                                                                          (context) {
-                                                                        final outletDocumentListItem =
-                                                                            _model.outletDocList?.map((e) => e).toList()?.toList() ??
-                                                                                [];
-
-                                                                        return ListView
-                                                                            .builder(
-                                                                          padding:
-                                                                              EdgeInsets.zero,
-                                                                          shrinkWrap:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            3.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child: StreamBuilder<
+                                                                    List<
+                                                                        OutletRecord>>(
+                                                                  stream:
+                                                                      queryOutletRecord(
+                                                                    queryBuilder: (outletRecord) => outletRecord
+                                                                        .whereIn('id', rowUserProfileRecord?.outlets != '' ? rowUserProfileRecord?.outlets : null)
+                                                                        .where(
+                                                                          'id',
+                                                                          isNotEqualTo: FFAppState().outletRef?.id != ''
+                                                                              ? FFAppState().outletRef?.id
+                                                                              : null,
+                                                                        )
+                                                                        .where(
+                                                                          'multiCounter',
+                                                                          isEqualTo:
                                                                               true,
-                                                                          scrollDirection:
-                                                                              Axis.vertical,
-                                                                          itemCount:
-                                                                              outletDocumentListItem.length,
-                                                                          itemBuilder:
-                                                                              (context, outletDocumentListItemIndex) {
-                                                                            final outletDocumentListItemItem =
-                                                                                outletDocumentListItem[outletDocumentListItemIndex];
-                                                                            return wrapWithModel(
-                                                                              model: _model.multipalPriceCompModels.getModel(
-                                                                                outletDocumentListItemItem.id,
-                                                                                outletDocumentListItemIndex,
-                                                                              ),
-                                                                              updateCallback: () => safeSetState(() {}),
-                                                                              child: MultipalPriceCompWidget(
-                                                                                key: Key(
-                                                                                  'Key1h9_${outletDocumentListItemItem.id}',
-                                                                                ),
-                                                                                multiply: 1.2,
-                                                                                boMrp: double.parse(_model.mRPPriceWTextController.text),
-                                                                                gstPer: 5,
-                                                                                outletName: outletDocumentListItemItem.name,
-                                                                                sellingPrice: functions.getMrpAndSPriceforMultipleOutlets(functions.getMrpAndSPriceforMultipleOutlets(_model.mRPPriceWTextController.text, 'GST5', 'MRP', 1.2)?.toString(), 'GST5', 'SP', 1.2)!,
-                                                                                mrpPrice: functions.getMrpAndSPriceforMultipleOutlets(_model.mRPPriceWTextController.text, 'GST5', 'MRP', 1.2)!,
-                                                                              ),
-                                                                            );
-                                                                          },
-                                                                        );
-                                                                      },
-                                                                    ),
-                                                                  ],
+                                                                        ),
+                                                                  ),
+                                                                  builder: (context,
+                                                                      snapshot) {
+                                                                    // Customize what your widget looks like when it's loading.
+                                                                    if (!snapshot
+                                                                        .hasData) {
+                                                                      return Center(
+                                                                        child:
+                                                                            SizedBox(
+                                                                          width:
+                                                                              50.0,
+                                                                          height:
+                                                                              50.0,
+                                                                          child:
+                                                                              SpinKitFadingCircle(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).warning,
+                                                                            size:
+                                                                                50.0,
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    }
+                                                                    List<OutletRecord>
+                                                                        containerOutletRecordList =
+                                                                        snapshot
+                                                                            .data!;
+
+                                                                    return Container(
+                                                                      width: MediaQuery.sizeOf(context)
+                                                                              .width *
+                                                                          0.3,
+                                                                      height:
+                                                                          MediaQuery.sizeOf(context).height *
+                                                                              0.3,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryBackground,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(5.0),
+                                                                      ),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding:
+                                                                            EdgeInsets.all(3.0),
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Builder(
+                                                                              builder: (context) {
+                                                                                final outletDocumentListItem = containerOutletRecordList.map((e) => e).toList();
+
+                                                                                return ListView.builder(
+                                                                                  padding: EdgeInsets.zero,
+                                                                                  shrinkWrap: true,
+                                                                                  scrollDirection: Axis.vertical,
+                                                                                  itemCount: outletDocumentListItem.length,
+                                                                                  itemBuilder: (context, outletDocumentListItemIndex) {
+                                                                                    final outletDocumentListItemItem = outletDocumentListItem[outletDocumentListItemIndex];
+                                                                                    return InkWell(
+                                                                                      splashColor: Colors.transparent,
+                                                                                      focusColor: Colors.transparent,
+                                                                                      hoverColor: Colors.transparent,
+                                                                                      highlightColor: Colors.transparent,
+                                                                                      onTap: () async {
+                                                                                        await showDialog(
+                                                                                          context: context,
+                                                                                          builder: (alertDialogContext) {
+                                                                                            return WebViewAware(
+                                                                                              child: AlertDialog(
+                                                                                                title: Text(outletDocumentListItemItem.id),
+                                                                                                actions: [
+                                                                                                  TextButton(
+                                                                                                    onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                                    child: Text('Ok'),
+                                                                                                  ),
+                                                                                                ],
+                                                                                              ),
+                                                                                            );
+                                                                                          },
+                                                                                        );
+                                                                                      },
+                                                                                      child: wrapWithModel(
+                                                                                        model: _model.multipalPriceCompModels.getModel(
+                                                                                          outletDocumentListItemItem.id,
+                                                                                          outletDocumentListItemIndex,
+                                                                                        ),
+                                                                                        updateCallback: () => safeSetState(() {}),
+                                                                                        updateOnChange: true,
+                                                                                        child: MultipalPriceCompWidget(
+                                                                                          key: Key(
+                                                                                            'Key1h9_${outletDocumentListItemItem.id}',
+                                                                                          ),
+                                                                                          outletName: outletDocumentListItemItem.name,
+                                                                                          sellingPrice: functions.getMrpAndSPriceforMultipleOutlets(_model.mrpPrice?.toString(), 'GST5', 'SP', 1.0)!,
+                                                                                          mrpPrice: functions.getMrpAndSPriceforMultipleOutlets(_model.mrpPrice?.toString(), 'GST5', 'MRP', 1.0)!,
+                                                                                        ),
+                                                                                      ),
+                                                                                    );
+                                                                                  },
+                                                                                );
+                                                                              },
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                        ),
-                                                      ],
+                                                          ],
+                                                        );
+                                                      },
                                                     ),
                                                   ),
                                                 Padding(
@@ -4907,15 +5021,14 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                   .catDropDownWValueController ??=
                                                               FormFieldController<
                                                                   String>(null),
-                                                          options:
-                                                              containerCategoryRecordList
-                                                                  .map((e) =>
-                                                                      valueOrDefault<
-                                                                          String>(
-                                                                        e.name,
-                                                                        'B',
-                                                                      ))
-                                                                  .toList(),
+                                                          options: containerCategoryRecordList
+                                                              .sortedList(
+                                                                  keyOf: (e) =>
+                                                                      e.name,
+                                                                  desc: false)
+                                                              .map(
+                                                                  (e) => e.name)
+                                                              .toList(),
                                                           onChanged: (val) =>
                                                               safeSetState(() =>
                                                                   _model.catDropDownWValue =
@@ -5762,6 +5875,36 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
+                                                          0.0, 0.0, 0.0, 8.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        'Barcode',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleMedium
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMediumFamily,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .titleMediumFamily),
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
                                                           0.0, 10.0, 0.0, 0.0),
                                                   child: Row(
                                                     mainAxisSize:
@@ -5770,6 +5913,221 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: [
+                                                      Container(
+                                                        width:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width *
+                                                                0.43,
+                                                        height:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .height *
+                                                                0.06,
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Container(
+                                                                      width:
+                                                                          427.0,
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            5.0,
+                                                                            0.0,
+                                                                            5.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            TextFormField(
+                                                                          controller:
+                                                                              _model.barcodeWTextController,
+                                                                          focusNode:
+                                                                              _model.barcodeWFocusNode,
+                                                                          onChanged: (_) =>
+                                                                              EasyDebounce.debounce(
+                                                                            '_model.barcodeWTextController',
+                                                                            Duration(milliseconds: 2000),
+                                                                            () =>
+                                                                                safeSetState(() {}),
+                                                                          ),
+                                                                          autofocus:
+                                                                              false,
+                                                                          obscureText:
+                                                                              false,
+                                                                          decoration:
+                                                                              InputDecoration(
+                                                                            isDense:
+                                                                                false,
+                                                                            hintStyle: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                  fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
+                                                                                  letterSpacing: 0.0,
+                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
+                                                                                ),
+                                                                            enabledBorder:
+                                                                                UnderlineInputBorder(
+                                                                              borderSide: BorderSide(
+                                                                                color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                width: 1.0,
+                                                                              ),
+                                                                              borderRadius: const BorderRadius.only(
+                                                                                topLeft: Radius.circular(4.0),
+                                                                                topRight: Radius.circular(4.0),
+                                                                              ),
+                                                                            ),
+                                                                            focusedBorder:
+                                                                                UnderlineInputBorder(
+                                                                              borderSide: BorderSide(
+                                                                                color: Color(0x00000000),
+                                                                                width: 1.0,
+                                                                              ),
+                                                                              borderRadius: const BorderRadius.only(
+                                                                                topLeft: Radius.circular(4.0),
+                                                                                topRight: Radius.circular(4.0),
+                                                                              ),
+                                                                            ),
+                                                                            errorBorder:
+                                                                                UnderlineInputBorder(
+                                                                              borderSide: BorderSide(
+                                                                                color: Color(0x00000000),
+                                                                                width: 1.0,
+                                                                              ),
+                                                                              borderRadius: const BorderRadius.only(
+                                                                                topLeft: Radius.circular(4.0),
+                                                                                topRight: Radius.circular(4.0),
+                                                                              ),
+                                                                            ),
+                                                                            focusedErrorBorder:
+                                                                                UnderlineInputBorder(
+                                                                              borderSide: BorderSide(
+                                                                                color: Color(0x00000000),
+                                                                                width: 1.0,
+                                                                              ),
+                                                                              borderRadius: const BorderRadius.only(
+                                                                                topLeft: Radius.circular(4.0),
+                                                                                topRight: Radius.circular(4.0),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                                letterSpacing: 0.0,
+                                                                                useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                              ),
+                                                                          keyboardType:
+                                                                              TextInputType.number,
+                                                                          validator: _model
+                                                                              .barcodeWTextControllerValidator
+                                                                              .asValidator(context),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    FFButtonWidget(
+                                                                      onPressed:
+                                                                          () async {
+                                                                        _model.barcodeScan2 =
+                                                                            await actions.barcodeRandomGeneratedNew(
+                                                                          getCurrentTimestamp,
+                                                                        );
+                                                                        safeSetState(
+                                                                            () {
+                                                                          _model
+                                                                              .barcodeWTextController
+                                                                              ?.text = _model.barcodeScan2!;
+                                                                          _model
+                                                                              .barcodeWTextController
+                                                                              ?.selection = TextSelection.collapsed(offset: _model.barcodeWTextController!.text.length);
+                                                                        });
+                                                                        FFAppState().barcode =
+                                                                            _model.barcodeScan2!;
+                                                                        safeSetState(
+                                                                            () {});
+
+                                                                        safeSetState(
+                                                                            () {});
+                                                                      },
+                                                                      text:
+                                                                          'Create Barcode',
+                                                                      options:
+                                                                          FFButtonOptions(
+                                                                        width: MediaQuery.sizeOf(context).width *
+                                                                            0.1,
+                                                                        height:
+                                                                            40.0,
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            16.0,
+                                                                            0.0,
+                                                                            16.0,
+                                                                            0.0),
+                                                                        iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondary,
+                                                                        textStyle: FlutterFlowTheme.of(context)
+                                                                            .titleSmall
+                                                                            .override(
+                                                                              fontFamily: FlutterFlowTheme.of(context).titleSmallFamily,
+                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                              fontSize: 12.0,
+                                                                              letterSpacing: 0.0,
+                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                            ),
+                                                                        elevation:
+                                                                            0.0,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(8.0),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
                                                       Container(
                                                         width:
                                                             MediaQuery.sizeOf(
@@ -5966,264 +6324,6 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                           ],
                                                         ),
                                                       ),
-                                                      Container(
-                                                        width:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .width *
-                                                                0.43,
-                                                        height:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .height *
-                                                                0.06,
-                                                        decoration:
-                                                            BoxDecoration(),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          3.0,
-                                                                          5.0,
-                                                                          0.0,
-                                                                          3.0),
-                                                                  child:
-                                                                      SelectionArea(
-                                                                          child:
-                                                                              Text(
-                                                                    'Barcode',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodySmallFamily,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
-                                                                        ),
-                                                                  )),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Expanded(
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            5.0,
-                                                                            0.0),
-                                                                    child:
-                                                                        TextFormField(
-                                                                      controller:
-                                                                          _model
-                                                                              .barcodeWTextController,
-                                                                      focusNode:
-                                                                          _model
-                                                                              .barcodeWFocusNode,
-                                                                      onChanged:
-                                                                          (_) =>
-                                                                              EasyDebounce.debounce(
-                                                                        '_model.barcodeWTextController',
-                                                                        Duration(
-                                                                            milliseconds:
-                                                                                2000),
-                                                                        () => safeSetState(
-                                                                            () {}),
-                                                                      ),
-                                                                      autofocus:
-                                                                          false,
-                                                                      obscureText:
-                                                                          false,
-                                                                      decoration:
-                                                                          InputDecoration(
-                                                                        isDense:
-                                                                            false,
-                                                                        hintStyle: FlutterFlowTheme.of(context)
-                                                                            .bodySmall
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
-                                                                            ),
-                                                                        enabledBorder:
-                                                                            UnderlineInputBorder(
-                                                                          borderSide:
-                                                                              BorderSide(
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).secondaryText,
-                                                                            width:
-                                                                                1.0,
-                                                                          ),
-                                                                          borderRadius:
-                                                                              const BorderRadius.only(
-                                                                            topLeft:
-                                                                                Radius.circular(4.0),
-                                                                            topRight:
-                                                                                Radius.circular(4.0),
-                                                                          ),
-                                                                        ),
-                                                                        focusedBorder:
-                                                                            UnderlineInputBorder(
-                                                                          borderSide:
-                                                                              BorderSide(
-                                                                            color:
-                                                                                Color(0x00000000),
-                                                                            width:
-                                                                                1.0,
-                                                                          ),
-                                                                          borderRadius:
-                                                                              const BorderRadius.only(
-                                                                            topLeft:
-                                                                                Radius.circular(4.0),
-                                                                            topRight:
-                                                                                Radius.circular(4.0),
-                                                                          ),
-                                                                        ),
-                                                                        errorBorder:
-                                                                            UnderlineInputBorder(
-                                                                          borderSide:
-                                                                              BorderSide(
-                                                                            color:
-                                                                                Color(0x00000000),
-                                                                            width:
-                                                                                1.0,
-                                                                          ),
-                                                                          borderRadius:
-                                                                              const BorderRadius.only(
-                                                                            topLeft:
-                                                                                Radius.circular(4.0),
-                                                                            topRight:
-                                                                                Radius.circular(4.0),
-                                                                          ),
-                                                                        ),
-                                                                        focusedErrorBorder:
-                                                                            UnderlineInputBorder(
-                                                                          borderSide:
-                                                                              BorderSide(
-                                                                            color:
-                                                                                Color(0x00000000),
-                                                                            width:
-                                                                                1.0,
-                                                                          ),
-                                                                          borderRadius:
-                                                                              const BorderRadius.only(
-                                                                            topLeft:
-                                                                                Radius.circular(4.0),
-                                                                            topRight:
-                                                                                Radius.circular(4.0),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                          ),
-                                                                      keyboardType:
-                                                                          TextInputType
-                                                                              .number,
-                                                                      validator: _model
-                                                                          .barcodeWTextControllerValidator
-                                                                          .asValidator(
-                                                                              context),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Container(
-                                                                      width: MediaQuery.sizeOf(context)
-                                                                              .width *
-                                                                          0.12,
-                                                                      height: MediaQuery.sizeOf(context)
-                                                                              .height *
-                                                                          0.03,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondary,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(5.0),
-                                                                      ),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          Text(
-                                                                            'Create Barcode',
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                                  letterSpacing: 0.0,
-                                                                                  useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                                ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            Align(
-                                                              alignment:
-                                                                  AlignmentDirectional(
-                                                                      1.0, 0.0),
-                                                              child: InkWell(
-                                                                splashColor: Colors
-                                                                    .transparent,
-                                                                focusColor: Colors
-                                                                    .transparent,
-                                                                hoverColor: Colors
-                                                                    .transparent,
-                                                                highlightColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                onTap:
-                                                                    () async {},
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .qr_code_scanner,
-                                                                  color: Colors
-                                                                      .black,
-                                                                  size: 28.0,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
                                                     ],
                                                   ),
                                                 ),
@@ -6234,112 +6334,120 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                       CrossAxisAlignment.center,
                                                   children: [
                                                     Expanded(
-                                                      child: Theme(
-                                                        data: ThemeData(
-                                                          unselectedWidgetColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .customColor1,
-                                                        ),
-                                                        child: CheckboxListTile(
-                                                          value: _model
-                                                                  .wightCheckboWNValue ??=
-                                                              false,
-                                                          onChanged:
-                                                              (newValue) async {
-                                                            safeSetState(() =>
-                                                                _model.wightCheckboWNValue =
-                                                                    newValue!);
-                                                          },
-                                                          title: Text(
-                                                            'Weightable',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily),
-                                                                ),
+                                                      child: Material(
+                                                        color:
+                                                            Colors.transparent,
+                                                        child: Theme(
+                                                          data: ThemeData(
+                                                            unselectedWidgetColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .customColor1,
                                                           ),
-                                                          tileColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .customColor1,
-                                                          activeColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primary,
-                                                          checkColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primaryBtnText,
-                                                          dense: true,
-                                                          controlAffinity:
-                                                              ListTileControlAffinity
-                                                                  .leading,
+                                                          child:
+                                                              CheckboxListTile(
+                                                            value: _model
+                                                                    .wightCheckboWNValue ??=
+                                                                false,
+                                                            onChanged:
+                                                                (newValue) async {
+                                                              safeSetState(() =>
+                                                                  _model.wightCheckboWNValue =
+                                                                      newValue!);
+                                                            },
+                                                            title: Text(
+                                                              'Weightable',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                  ),
+                                                            ),
+                                                            tileColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .customColor1,
+                                                            activeColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                            checkColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBtnText,
+                                                            dense: true,
+                                                            controlAffinity:
+                                                                ListTileControlAffinity
+                                                                    .leading,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                     Expanded(
-                                                      child: Theme(
-                                                        data: ThemeData(
-                                                          unselectedWidgetColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .customColor1,
-                                                        ),
-                                                        child: CheckboxListTile(
-                                                          value: _model
-                                                                  .stockCheckboxWNValue ??=
-                                                              false,
-                                                          onChanged:
-                                                              (newValue) async {
-                                                            safeSetState(() =>
-                                                                _model.stockCheckboxWNValue =
-                                                                    newValue!);
-                                                          },
-                                                          title: Text(
-                                                            'Stockable',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily),
-                                                                ),
+                                                      child: Material(
+                                                        color:
+                                                            Colors.transparent,
+                                                        child: Theme(
+                                                          data: ThemeData(
+                                                            unselectedWidgetColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .customColor1,
                                                           ),
-                                                          tileColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .customColor1,
-                                                          activeColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primary,
-                                                          checkColor:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primaryBtnText,
-                                                          dense: true,
-                                                          controlAffinity:
-                                                              ListTileControlAffinity
-                                                                  .leading,
+                                                          child:
+                                                              CheckboxListTile(
+                                                            value: _model
+                                                                    .stockCheckboxWNValue ??=
+                                                                false,
+                                                            onChanged:
+                                                                (newValue) async {
+                                                              safeSetState(() =>
+                                                                  _model.stockCheckboxWNValue =
+                                                                      newValue!);
+                                                            },
+                                                            title: Text(
+                                                              'Stockable',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodyMediumFamily,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            FlutterFlowTheme.of(context).bodyMediumFamily),
+                                                                  ),
+                                                            ),
+                                                            tileColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .customColor1,
+                                                            activeColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                            checkColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBtnText,
+                                                            dense: true,
+                                                            controlAffinity:
+                                                                ListTileControlAffinity
+                                                                    .leading,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
@@ -7102,14 +7210,10 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                             type: 0,
                                                             weighable: _model
                                                                 .wightCheckboWNValue,
-                                                            currentStock:
-                                                                valueOrDefault<
-                                                                    double>(
-                                                              double.tryParse(_model
-                                                                  .currentStockWTextController
-                                                                  .text),
-                                                              0.0,
-                                                            ),
+                                                            currentStock: double
+                                                                .tryParse(_model
+                                                                    .currentStockWTextController
+                                                                    .text),
                                                             unitId: _model
                                                                         .unitIdWMul ==
                                                                     null
@@ -7130,7 +7234,14 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                   .text,
                                                               '0',
                                                             ),
-                                                            id: '',
+                                                            barcode:
+                                                                valueOrDefault<
+                                                                    String>(
+                                                              _model
+                                                                  .barcodeWTextController
+                                                                  .text,
+                                                              '0',
+                                                            ),
                                                           ));
                                                           _model.docWMul2 = ProductRecord
                                                               .getDocumentFromData(
@@ -7234,13 +7345,9 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                         _model
                                                                             .wightCheckboWNValue,
                                                                     currentStock:
-                                                                        valueOrDefault<
-                                                                            double>(
-                                                                      double.tryParse(_model
-                                                                          .currentStockWTextController
-                                                                          .text),
-                                                                      0.0,
-                                                                    ),
+                                                                        double.tryParse(_model
+                                                                            .currentStockWTextController
+                                                                            .text),
                                                                     unitId: _model.unitIdWMul ==
                                                                             null
                                                                         ? 1
@@ -7259,7 +7366,14 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                           .text,
                                                                       '0',
                                                                     ),
-                                                                    id: '',
+                                                                    barcode:
+                                                                        valueOrDefault<
+                                                                            String>(
+                                                                      _model
+                                                                          .barcodeWTextController
+                                                                          .text,
+                                                                      '0',
+                                                                    ),
                                                                   ),
                                                                   productRecordReference1);
 
@@ -7332,6 +7446,9 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                             ?.clear();
                                                         _model
                                                             .hsnWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .barcodeWTextController
                                                             ?.clear();
                                                         _model
                                                             .currentStockWTextController
@@ -7465,14 +7582,10 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                         type: 0,
                                                         weighable: _model
                                                             .wightCheckboWNValue,
-                                                        currentStock:
-                                                            valueOrDefault<
-                                                                double>(
-                                                          double.tryParse(_model
-                                                              .currentStockWTextController
-                                                              .text),
-                                                          0.0,
-                                                        ),
+                                                        currentStock: double
+                                                            .tryParse(_model
+                                                                .currentStockWTextController
+                                                                .text),
                                                         unitId: _model
                                                                     .unitIdW ==
                                                                 null
@@ -7487,6 +7600,13 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                             String>(
                                                           _model
                                                               .hsnWTextController
+                                                              .text,
+                                                          '0',
+                                                        ),
+                                                        barcode: valueOrDefault<
+                                                            String>(
+                                                          _model
+                                                              .barcodeWTextController
                                                               .text,
                                                           '0',
                                                         ),
@@ -7591,15 +7711,10 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                 type: 0,
                                                                 weighable: _model
                                                                     .wightCheckboWNValue,
-                                                                currentStock:
-                                                                    valueOrDefault<
-                                                                        double>(
-                                                                  double.tryParse(
-                                                                      _model
-                                                                          .currentStockWTextController
-                                                                          .text),
-                                                                  0.0,
-                                                                ),
+                                                                currentStock: double
+                                                                    .tryParse(_model
+                                                                        .currentStockWTextController
+                                                                        .text),
                                                                 unitId: _model
                                                                             .unitIdW ==
                                                                         null
@@ -7617,6 +7732,14 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                         String>(
                                                                   _model
                                                                       .hsnWTextController
+                                                                      .text,
+                                                                  '0',
+                                                                ),
+                                                                barcode:
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                  _model
+                                                                      .barcodeWTextController
                                                                       .text,
                                                                   '0',
                                                                 ),
@@ -7685,6 +7808,9 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                             ?.clear();
                                                         _model
                                                             .hsnWTextController
+                                                            ?.clear();
+                                                        _model
+                                                            .barcodeWTextController
                                                             ?.clear();
                                                         _model
                                                             .currentStockWTextController

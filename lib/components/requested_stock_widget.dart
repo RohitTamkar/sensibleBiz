@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'requested_stock_model.dart';
 export 'requested_stock_model.dart';
 
@@ -70,7 +71,7 @@ class _RequestedStockWidgetState extends State<RequestedStockWidget> {
         if (textEditingValue.text == '') {
           return const Iterable<String>.empty();
         }
-        return ['Option 1'].where((option) {
+        return <String>[].where((option) {
           final lowercaseOption = option.toLowerCase();
           return lowercaseOption.contains(textEditingValue.text.toLowerCase());
         });
@@ -120,6 +121,58 @@ class _RequestedStockWidgetState extends State<RequestedStockWidget> {
             '_model.textController',
             Duration(milliseconds: 2000),
             () async {
+              var _shouldSetState = false;
+              _model.flag1 = await actions.validateCurStock(
+                widget!.parameter2!,
+                double.parse(_model.textController.text),
+              );
+              _shouldSetState = true;
+              if (_model.flag1!) {
+                await showDialog(
+                  context: context,
+                  builder: (alertDialogContext) {
+                    return WebViewAware(
+                      child: AlertDialog(
+                        title:
+                            Text('Req stock must be less than current stock'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(alertDialogContext),
+                            child: Text('Ok'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+                FFAppState().isTransfer = true;
+                FFAppState().update(() {});
+                safeSetState(() {
+                  _model.textController?.clear();
+                });
+                if (_shouldSetState) safeSetState(() {});
+                return;
+              } else {
+                await showDialog(
+                  context: context,
+                  builder: (alertDialogContext) {
+                    return WebViewAware(
+                      child: AlertDialog(
+                        title: Text('You  Can Transfer Stock'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(alertDialogContext),
+                            child: Text('Ok'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+                FFAppState().isTransfer = false;
+                FFAppState().update(() {});
+              }
+
               _model.result = await actions.incrementStockNew(
                 widget!.parameter2!,
                 valueOrDefault<int>(
@@ -128,11 +181,11 @@ class _RequestedStockWidgetState extends State<RequestedStockWidget> {
                 ),
                 double.tryParse(_model.textController.text),
               );
+              _shouldSetState = true;
               FFAppState().productCart =
                   _model.result!.toList().cast<dynamic>();
               safeSetState(() {});
-
-              safeSetState(() {});
+              if (_shouldSetState) safeSetState(() {});
             },
           ),
           autofocus: false,

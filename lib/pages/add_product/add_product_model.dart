@@ -27,6 +27,10 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
 
   int? codeCount = 0;
 
+  double? mrpPrice = 0.0;
+
+  double? sellingPrice = 0.0;
+
   ///  State fields for stateful widgets in this page.
 
   final formKey1 = GlobalKey<FormState>();
@@ -35,8 +39,6 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
   List<ProductRecord>? total;
   // Stores action output result for [Firestore Query - Query a collection] action in AddProduct widget.
   UserProfileRecord? docMobile;
-  // Stores action output result for [Firestore Query - Query a collection] action in AddProduct widget.
-  List<OutletRecord>? outletDocList;
   // State field(s) for CodeM widget.
   FocusNode? codeMFocusNode;
   TextEditingController? codeMTextController;
@@ -192,14 +194,16 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
   FocusNode? shortNameWFocusNode;
   TextEditingController? shortNameWTextController;
   String? Function(BuildContext, String?)? shortNameWTextControllerValidator;
-  // State field(s) for CurrentStockW widget.
-  FocusNode? currentStockWFocusNode;
-  TextEditingController? currentStockWTextController;
-  String? Function(BuildContext, String?)? currentStockWTextControllerValidator;
   // State field(s) for BarcodeW widget.
   FocusNode? barcodeWFocusNode;
   TextEditingController? barcodeWTextController;
   String? Function(BuildContext, String?)? barcodeWTextControllerValidator;
+  // Stores action output result for [Custom Action - barcodeRandomGeneratedNew] action in Button widget.
+  String? barcodeScan2;
+  // State field(s) for CurrentStockW widget.
+  FocusNode? currentStockWFocusNode;
+  TextEditingController? currentStockWTextController;
+  String? Function(BuildContext, String?)? currentStockWTextControllerValidator;
   // State field(s) for WightCheckboWN widget.
   bool? wightCheckboWNValue;
   // State field(s) for StockCheckboxWN widget.
@@ -316,11 +320,11 @@ class AddProductModel extends FlutterFlowModel<AddProductWidget> {
     shortNameWFocusNode?.dispose();
     shortNameWTextController?.dispose();
 
-    currentStockWFocusNode?.dispose();
-    currentStockWTextController?.dispose();
-
     barcodeWFocusNode?.dispose();
     barcodeWTextController?.dispose();
+
+    currentStockWFocusNode?.dispose();
+    currentStockWTextController?.dispose();
 
     hsnWFocusNode?.dispose();
     hsnWTextController?.dispose();

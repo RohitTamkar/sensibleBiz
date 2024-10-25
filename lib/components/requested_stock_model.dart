@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 
 class RequestedStockModel extends FlutterFlowModel<RequestedStockWidget> {
   ///  State fields for stateful widgets in this component.
@@ -18,6 +19,8 @@ class RequestedStockModel extends FlutterFlowModel<RequestedStockWidget> {
   TextEditingController? textController;
   String? textFieldSelectedOption;
   String? Function(BuildContext, String?)? textControllerValidator;
+  // Stores action output result for [Custom Action - validateCurStock] action in TextField widget.
+  bool? flag1;
   // Stores action output result for [Custom Action - incrementStockNew] action in TextField widget.
   List<dynamic>? result;
 
