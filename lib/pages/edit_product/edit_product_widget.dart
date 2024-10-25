@@ -2940,8 +2940,6 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                           ),
                                           if (responsiveVisibility(
                                             context: context,
-                                            phone: false,
-                                            tablet: false,
                                             tabletLandscape: false,
                                             desktop: false,
                                           ))
