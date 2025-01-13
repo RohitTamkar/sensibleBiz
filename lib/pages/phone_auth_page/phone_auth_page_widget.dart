@@ -2,10 +2,12 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'phone_auth_page_model.dart';
 export 'phone_auth_page_model.dart';
 
@@ -42,8 +44,13 @@ class _PhoneAuthPageWidgetState extends State<PhoneAuthPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -362,8 +369,26 @@ class _PhoneAuthPageWidgetState extends State<PhoneAuthPageWidget> {
                                       FFAppState().currentMobile =
                                           '+91${_model.textFieldNumberTextController.text}';
                                       safeSetState(() {});
+                                      await showDialog(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return WebViewAware(
+                                            child: AlertDialog(
+                                              title: Text('OTP Page 1'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext),
+                                                  child: Text('Ok'),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
                                       final phoneNumberVal =
-                                          '+91${_model.textFieldNumberTextController.text}';
+                                          FFAppState().currentMobile;
                                       if (phoneNumberVal == null ||
                                           phoneNumberVal.isEmpty ||
                                           !phoneNumberVal.startsWith('+')) {
@@ -383,7 +408,32 @@ class _PhoneAuthPageWidgetState extends State<PhoneAuthPageWidget> {
                                           context.goNamedAuth(
                                             'OTPverification',
                                             context.mounted,
+                                            queryParameters: {
+                                              'mobile': serializeParam(
+                                                FFAppState().currentMobile,
+                                                ParamType.String,
+                                              ),
+                                            }.withoutNulls,
                                             ignoreRedirect: true,
+                                          );
+                                        },
+                                      );
+
+                                      await showDialog(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return WebViewAware(
+                                            child: AlertDialog(
+                                              title: Text('OTP Page 2'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext),
+                                                  child: Text('Ok'),
+                                                ),
+                                              ],
+                                            ),
                                           );
                                         },
                                       );

@@ -4,6 +4,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -52,7 +53,10 @@ class _ReportsWidgetState extends State<ReportsWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -163,9 +167,10 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                             await ProductRecord.getDocumentOnce(
                                                 functions.productRef(
                                                     getJsonField(
-                                                      _model.prdJson2![
-                                                          FFAppState()
-                                                              .iLoopStart],
+                                                      _model.prdJson2!
+                                                          .elementAtOrNull(
+                                                              FFAppState()
+                                                                  .iLoopStart),
                                                       r'''$.prdId''',
                                                     ).toString(),
                                                     FFAppState().outletId));
@@ -173,13 +178,13 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                             await actions.docToJsonCopy(
                                           _model.productDetail2!,
                                           getJsonField(
-                                            _model.prdJson2![
-                                                FFAppState().iLoopStart],
+                                            _model.prdJson2!.elementAtOrNull(
+                                                FFAppState().iLoopStart),
                                             r'''$.price''',
                                           ),
                                           getJsonField(
-                                            _model.prdJson2![
-                                                FFAppState().iLoopStart],
+                                            _model.prdJson2!.elementAtOrNull(
+                                                FFAppState().iLoopStart),
                                             r'''$.qty''',
                                           ),
                                         );
@@ -273,9 +278,10 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                             await ProductRecord.getDocumentOnce(
                                                 functions.productRef(
                                                     getJsonField(
-                                                      _model.prdJson1![
-                                                          FFAppState()
-                                                              .iLoopStart],
+                                                      _model.prdJson1!
+                                                          .elementAtOrNull(
+                                                              FFAppState()
+                                                                  .iLoopStart),
                                                       r'''$.prdId''',
                                                     ).toString(),
                                                     FFAppState().outletId));
@@ -283,13 +289,13 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                             await actions.docToJsonCopy(
                                           _model.productDetail!,
                                           getJsonField(
-                                            _model.prdJson1![
-                                                FFAppState().iLoopStart],
+                                            _model.prdJson1!.elementAtOrNull(
+                                                FFAppState().iLoopStart),
                                             r'''$.price''',
                                           ),
                                           getJsonField(
-                                            _model.prdJson1![
-                                                FFAppState().iLoopStart],
+                                            _model.prdJson1!.elementAtOrNull(
+                                                FFAppState().iLoopStart),
                                             r'''$.qty''',
                                           ),
                                         );
@@ -312,9 +318,10 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                             .getDocumentOnce(
                                                 functions.categoryRef(
                                                     getJsonField(
-                                                      _model.catJson1![
-                                                          FFAppState()
-                                                              .jLoopStart],
+                                                      _model.catJson1!
+                                                          .elementAtOrNull(
+                                                              FFAppState()
+                                                                  .jLoopStart),
                                                       r'''$''',
                                                     ).toString(),
                                                     FFAppState().outletId));
@@ -322,8 +329,8 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                             await actions.catDocToJson(
                                           _model.catDetails!,
                                           getJsonField(
-                                            _model.catJson1![
-                                                FFAppState().jLoopStart],
+                                            _model.catJson1!.elementAtOrNull(
+                                                FFAppState().jLoopStart),
                                             r'''$''',
                                           ).toString(),
                                         );
@@ -569,44 +576,48 @@ class _ReportsWidgetState extends State<ReportsWidget> {
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 20.0, 0.0, 0.0),
-                                  child: FFButtonWidget(
-                                    onPressed: () async {
-                                      context.pushNamed('editBill');
-                                    },
-                                    text: 'Edit Bill ',
-                                    options: FFButtonOptions(
-                                      height: 50.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          24.0, 0.0, 24.0, 0.0),
-                                      iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleSmallFamily,
-                                            letterSpacing: 0.0,
-                                            useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey(
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmallFamily),
-                                          ),
-                                      elevation: 3.0,
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1.0,
+                                if (FFAppState().hide)
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 20.0, 0.0, 0.0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        context.pushNamed('editBill');
+                                      },
+                                      text: 'Edit Bill ',
+                                      options: FFButtonOptions(
+                                        height: 50.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            24.0, 0.0, 24.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondary,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmallFamily,
+                                              letterSpacing: 0.0,
+                                              useGoogleFonts: GoogleFonts
+                                                      .asMap()
+                                                  .containsKey(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmallFamily),
+                                            ),
+                                        elevation: 3.0,
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
                                       ),
-                                      borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
-                                ),
                               ],
                             ),
                           ),

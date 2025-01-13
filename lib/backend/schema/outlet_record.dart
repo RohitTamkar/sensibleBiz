@@ -91,6 +91,11 @@ class OutletRecord extends FirestoreRecord {
   bool get demo => _demo ?? false;
   bool hasDemo() => _demo != null;
 
+  // "restaurant_id" field.
+  int? _restaurantId;
+  int get restaurantId => _restaurantId ?? 0;
+  bool hasRestaurantId() => _restaurantId != null;
+
   void _initializeFields() {
     _id = snapshotData['id'] as String?;
     _name = snapshotData['name'] as String?;
@@ -107,6 +112,7 @@ class OutletRecord extends FirestoreRecord {
     _isDemo = snapshotData['isDemo'] as bool?;
     _businessId = snapshotData['businessId'] as String?;
     _demo = snapshotData['demo'] as bool?;
+    _restaurantId = castToType<int>(snapshotData['restaurant_id']);
   }
 
   static CollectionReference get collection =>
@@ -158,6 +164,7 @@ Map<String, dynamic> createOutletRecordData({
   bool? isDemo,
   String? businessId,
   bool? demo,
+  int? restaurantId,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -176,6 +183,7 @@ Map<String, dynamic> createOutletRecordData({
       'isDemo': isDemo,
       'businessId': businessId,
       'demo': demo,
+      'restaurant_id': restaurantId,
     }.withoutNulls,
   );
 
@@ -201,7 +209,8 @@ class OutletRecordDocumentEquality implements Equality<OutletRecord> {
         e1?.eraseOutlet == e2?.eraseOutlet &&
         e1?.isDemo == e2?.isDemo &&
         e1?.businessId == e2?.businessId &&
-        e1?.demo == e2?.demo;
+        e1?.demo == e2?.demo &&
+        e1?.restaurantId == e2?.restaurantId;
   }
 
   @override
@@ -220,7 +229,8 @@ class OutletRecordDocumentEquality implements Equality<OutletRecord> {
         e?.eraseOutlet,
         e?.isDemo,
         e?.businessId,
-        e?.demo
+        e?.demo,
+        e?.restaurantId
       ]);
 
   @override

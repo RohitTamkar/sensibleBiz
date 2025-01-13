@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -129,7 +130,10 @@ class _ProductSaleReportDaywiseWidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -252,15 +256,19 @@ class _ProductSaleReportDaywiseWidgetState
                                               backgroundColor:
                                                   Colors.transparent,
                                               alignment:
-                                                  AlignmentDirectional(0.0, 0.0)
+                                                  AlignmentDirectional(1.0, 1.0)
                                                       .resolve(
                                                           Directionality.of(
                                                               context)),
                                               child: WebViewAware(
                                                 child: GestureDetector(
-                                                  onTap: () => FocusScope.of(
-                                                          dialogContext)
-                                                      .unfocus(),
+                                                  onTap: () {
+                                                    FocusScope.of(dialogContext)
+                                                        .unfocus();
+                                                    FocusManager
+                                                        .instance.primaryFocus
+                                                        ?.unfocus();
+                                                  },
                                                   child:
                                                       CustomDateRangeCopyWidget(),
                                                 ),
@@ -296,8 +304,10 @@ class _ProductSaleReportDaywiseWidgetState
                                                 productRecord.where(
                                               'id',
                                               isEqualTo: getJsonField(
-                                                _model.prdJson3?[
-                                                    FFAppState().iLoopStart],
+                                                _model.prdJson3
+                                                    ?.elementAtOrNull(
+                                                        FFAppState()
+                                                            .iLoopStart),
                                                 r'''$.prdId''',
                                               ).toString(),
                                             ),
@@ -308,13 +318,17 @@ class _ProductSaleReportDaywiseWidgetState
                                             _model.productJson5 =
                                                 await actions.docToJsonCopyCopy(
                                               getJsonField(
-                                                _model.prdJson3![
-                                                    FFAppState().iLoopStart],
+                                                _model.prdJson3!
+                                                    .elementAtOrNull(
+                                                        FFAppState()
+                                                            .iLoopStart),
                                                 r'''$.price''',
                                               ),
                                               getJsonField(
-                                                _model.prdJson3![
-                                                    FFAppState().iLoopStart],
+                                                _model.prdJson3!
+                                                    .elementAtOrNull(
+                                                        FFAppState()
+                                                            .iLoopStart),
                                                 r'''$.qty''',
                                               ),
                                             );
@@ -328,13 +342,17 @@ class _ProductSaleReportDaywiseWidgetState
                                                 await actions.docToJsonCopy(
                                               _model.productDetail3!,
                                               getJsonField(
-                                                _model.prdJson3![
-                                                    FFAppState().iLoopStart],
+                                                _model.prdJson3!
+                                                    .elementAtOrNull(
+                                                        FFAppState()
+                                                            .iLoopStart),
                                                 r'''$.price''',
                                               ),
                                               getJsonField(
-                                                _model.prdJson3![
-                                                    FFAppState().iLoopStart],
+                                                _model.prdJson3!
+                                                    .elementAtOrNull(
+                                                        FFAppState()
+                                                            .iLoopStart),
                                                 r'''$.qty''',
                                               ),
                                             );

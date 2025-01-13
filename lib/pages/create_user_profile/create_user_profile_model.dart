@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'create_user_profile_widget.dart' show CreateUserProfileWidget;
@@ -72,6 +73,11 @@ class CreateUserProfileModel extends FlutterFlowModel<CreateUserProfileWidget> {
     return null;
   }
 
+  // State field(s) for TextFieldAreaPincode widget.
+  FocusNode? textFieldAreaPincodeFocusNode;
+  TextEditingController? textFieldAreaPincodeTextController;
+  String? Function(BuildContext, String?)?
+      textFieldAreaPincodeTextControllerValidator;
   // Stores action output result for [Custom Action - platformDetails] action in Button widget.
   String? did;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
@@ -132,6 +138,9 @@ class CreateUserProfileModel extends FlutterFlowModel<CreateUserProfileWidget> {
 
     pINTextFieldFocusNode1?.dispose();
     pINTextFieldTextController1?.dispose();
+
+    textFieldAreaPincodeFocusNode?.dispose();
+    textFieldAreaPincodeTextController?.dispose();
 
     textFieldNameFocusNode2?.dispose();
     textFieldNameTextController2?.dispose();

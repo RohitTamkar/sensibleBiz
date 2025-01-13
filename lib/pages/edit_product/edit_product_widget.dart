@@ -2,12 +2,14 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
+import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -19,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 import 'edit_product_model.dart';
@@ -230,7 +233,10 @@ class _EditProductWidgetState extends State<EditProductWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -962,8 +968,6 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                               ),
                                                       textAlign:
                                                           TextAlign.center,
-                                                      keyboardType:
-                                                          TextInputType.number,
                                                       validator: _model
                                                           .textFieldSellingPriceMTextControllerValidator
                                                           .asValidator(context),
@@ -1082,8 +1086,6 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                       .bodyLargeFamily),
                                                         ),
                                                     textAlign: TextAlign.center,
-                                                    keyboardType:
-                                                        TextInputType.number,
                                                     validator: _model
                                                         .textFieldMRPPriceMTextControllerValidator
                                                         .asValidator(context),
@@ -1217,8 +1219,6 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                               ),
                                                       textAlign:
                                                           TextAlign.center,
-                                                      keyboardType:
-                                                          TextInputType.number,
                                                       validator: _model
                                                           .textFieldPurchasePriceMTextControllerValidator
                                                           .asValidator(context),
@@ -1753,8 +1753,6 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                         FlutterFlowTheme.of(context)
                                                                             .bodyLargeFamily),
                                                               ),
-                                                      keyboardType:
-                                                          TextInputType.number,
                                                       validator: _model
                                                           .textFieldDiscountPerMTextController1Validator
                                                           .asValidator(context),
@@ -1895,8 +1893,6 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                         FlutterFlowTheme.of(context)
                                                                             .bodyLargeFamily),
                                                               ),
-                                                      keyboardType:
-                                                          TextInputType.number,
                                                       validator: _model
                                                           .textFieldDiscountPerMTextController2Validator
                                                           .asValidator(context),
@@ -2168,7 +2164,31 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                           controller: _model.taxDropDownMValueController ??=
                                                                               FormFieldController<String>(
                                                                             _model.taxDropDownMValue ??=
-                                                                                functions.getTaxIdEdit1(widget!.proDoc?.taxIndex),
+                                                                                () {
+                                                                              if (widget!.proDoc?.taxIndex == 1) {
+                                                                                return 'GST0';
+                                                                              } else if (widget!.proDoc?.taxIndex == 2) {
+                                                                                return 'GST5';
+                                                                              } else if (widget!.proDoc?.taxIndex == 3) {
+                                                                                return 'GST12';
+                                                                              } else if (widget!.proDoc?.taxIndex == 4) {
+                                                                                return 'GST18';
+                                                                              } else if (widget!.proDoc?.taxIndex == 5) {
+                                                                                return 'GST28';
+                                                                              } else if (widget!.proDoc?.taxIndex == 6) {
+                                                                                return 'VAT22';
+                                                                              } else if (widget!.proDoc?.taxIndex == 7) {
+                                                                                return 'VAT10';
+                                                                              } else if (widget!.proDoc?.taxIndex == 8) {
+                                                                                return 'GST3';
+                                                                              } else if (widget!.proDoc?.taxIndex == 9) {
+                                                                                return 'GST2';
+                                                                              } else if (widget!.proDoc?.taxIndex == 10) {
+                                                                                return 'IGST18';
+                                                                              } else {
+                                                                                return functions.getTaxIdEdit1(widget!.proDoc?.taxIndex);
+                                                                              }
+                                                                            }(),
                                                                           ),
                                                                           options: [
                                                                             'GST0',
@@ -2497,10 +2517,6 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                               letterSpacing: 0.0,
                                                                               useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyLargeFamily),
                                                                             ),
-                                                                        keyboardType: const TextInputType
-                                                                            .numberWithOptions(
-                                                                            decimal:
-                                                                                true),
                                                                         validator: _model
                                                                             .textFieldCurrentStockMTextControllerValidator
                                                                             .asValidator(context),
@@ -2555,13 +2571,9 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                               .dropDownValueController ??=
                                                                           FormFieldController<
                                                                               String>(
-                                                                        _model.dropDownValue ??=
-                                                                            valueOrDefault<String>(
-                                                                          widget!
-                                                                              .proDoc
-                                                                              ?.kitchenId,
-                                                                          '\"',
-                                                                        ),
+                                                                        _model.dropDownValue ??= widget!
+                                                                            .proDoc
+                                                                            ?.kitchenId,
                                                                       ),
                                                                       options: List<String>.from(dropDownServicePointRecordList
                                                                           .map((e) =>
@@ -2589,14 +2601,9 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                             useGoogleFonts:
                                                                                 GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                           ),
-                                                                      hintText:
-                                                                          valueOrDefault<
-                                                                              String>(
-                                                                        widget!
-                                                                            .proDoc
-                                                                            ?.kitchenId,
-                                                                        '\"',
-                                                                      ),
+                                                                      hintText: widget!
+                                                                          .proDoc
+                                                                          ?.kitchenId,
                                                                       icon:
                                                                           Icon(
                                                                         Icons
@@ -2960,17 +2967,66 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                         EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 10.0, 0.0),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: Image.network(
-                                                        functions.imgStrtoimagePath(
-                                                            FFAppState()
-                                                                .productImageUrl)!,
-                                                        width: 150.0,
-                                                        height: 100.0,
-                                                        fit: BoxFit.cover,
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        await Navigator.push(
+                                                          context,
+                                                          PageTransition(
+                                                            type:
+                                                                PageTransitionType
+                                                                    .fade,
+                                                            child:
+                                                                FlutterFlowExpandedImageView(
+                                                              image:
+                                                                  Image.network(
+                                                                functions.imgStrtoimagePath(
+                                                                    FFAppState()
+                                                                        .productImageUrl)!,
+                                                                fit: BoxFit
+                                                                    .contain,
+                                                              ),
+                                                              allowRotation:
+                                                                  false,
+                                                              tag: functions
+                                                                  .imgStrtoimagePath(
+                                                                      FFAppState()
+                                                                          .productImageUrl)!,
+                                                              useHeroAnimation:
+                                                                  true,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                      child: Hero(
+                                                        tag: functions
+                                                            .imgStrtoimagePath(
+                                                                FFAppState()
+                                                                    .productImageUrl)!,
+                                                        transitionOnUserGestures:
+                                                            true,
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                          child: Image.network(
+                                                            functions
+                                                                .imgStrtoimagePath(
+                                                                    FFAppState()
+                                                                        .productImageUrl)!,
+                                                            width: 150.0,
+                                                            height: 100.0,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
@@ -3230,8 +3286,13 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                       .text),
                                                   keyCount:
                                                       widget!.proDoc?.keyCount,
-                                                  kitchenId:
-                                                      _model.dropDownValue,
+                                                  kitchenId: _model
+                                                                  .dropDownValue ==
+                                                              null ||
+                                                          _model.dropDownValue ==
+                                                              ''
+                                                      ? ''
+                                                      : _model.dropDownValue,
                                                   mrpPrice: double.tryParse(_model
                                                       .textFieldMRPPriceMTextController
                                                       .text),
@@ -3283,6 +3344,8 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                   hsnCode: _model
                                                       .textFieldHsnCodeMTextController
                                                       .text,
+                                                  image: FFAppState()
+                                                      .productImageUrl,
                                                 ));
                                                 await showDialog(
                                                   context: context,
@@ -5276,7 +5339,31 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                           controller: _model.taxDropDownTaxWValueController ??=
                                                                               FormFieldController<String>(
                                                                             _model.taxDropDownTaxWValue ??=
-                                                                                functions.getTaxIdEdit2(widget!.productDocW?.taxIndex),
+                                                                                () {
+                                                                              if (widget!.productDocW?.taxIndex == 1) {
+                                                                                return 'GST0';
+                                                                              } else if (widget!.productDocW?.taxIndex == 2) {
+                                                                                return 'GST5';
+                                                                              } else if (widget!.productDocW?.taxIndex == 3) {
+                                                                                return 'GST12';
+                                                                              } else if (widget!.productDocW?.taxIndex == 4) {
+                                                                                return 'GST18';
+                                                                              } else if (widget!.productDocW?.taxIndex == 5) {
+                                                                                return 'GST28';
+                                                                              } else if (widget!.productDocW?.taxIndex == 6) {
+                                                                                return 'VAT22';
+                                                                              } else if (widget!.productDocW?.taxIndex == 7) {
+                                                                                return 'VAT10';
+                                                                              } else if (widget!.productDocW?.taxIndex == 8) {
+                                                                                return 'GST3';
+                                                                              } else if (widget!.productDocW?.taxIndex == 9) {
+                                                                                return 'GST2';
+                                                                              } else if (widget!.productDocW?.taxIndex == 10) {
+                                                                                return 'IGST18';
+                                                                              } else {
+                                                                                return functions.getTaxIdEdit2(widget!.productDocW?.taxIndex);
+                                                                              }
+                                                                            }(),
                                                                           ),
                                                                           options: [
                                                                             'GST0',
@@ -5751,7 +5838,6 @@ class _EditProductWidgetState extends State<EditProductWidget> {
                                                                                     );
                                                                                     safeSetState(() {
                                                                                       _model.textFieldBarcodeWTextController?.text = _model.barcodeScan3!;
-                                                                                      _model.textFieldBarcodeWTextController?.selection = TextSelection.collapsed(offset: _model.textFieldBarcodeWTextController!.text.length);
                                                                                     });
 
                                                                                     safeSetState(() {});

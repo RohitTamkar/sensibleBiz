@@ -3,19 +3,20 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/check_in_success/check_in_success_widget.dart';
 import '/components/check_out_success/check_out_success_widget.dart';
+import '/components/select_date_range/select_date_range_widget.dart';
 import '/components/session_expired/session_expired_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:expandable/expandable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -137,7 +138,10 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -1911,8 +1915,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                         .length) {
                                                                   _model.productDetail5 = await ProductRecord.getDocumentOnce(functions.productRef(
                                                                       getJsonField(
-                                                                        _model.prdJson5![
-                                                                            FFAppState().iLoopStart],
+                                                                        _model
+                                                                            .prdJson5!
+                                                                            .elementAtOrNull(FFAppState().iLoopStart),
                                                                         r'''$.prdId''',
                                                                       ).toString(),
                                                                       FFAppState().outletId));
@@ -1922,15 +1927,17 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                     _model
                                                                         .productDetail5!,
                                                                     getJsonField(
-                                                                      _model.prdJson5![
-                                                                          FFAppState()
-                                                                              .iLoopStart],
+                                                                      _model
+                                                                          .prdJson5!
+                                                                          .elementAtOrNull(
+                                                                              FFAppState().iLoopStart),
                                                                       r'''$.price''',
                                                                     ),
                                                                     getJsonField(
-                                                                      _model.prdJson5![
-                                                                          FFAppState()
-                                                                              .iLoopStart],
+                                                                      _model
+                                                                          .prdJson5!
+                                                                          .elementAtOrNull(
+                                                                              FFAppState().iLoopStart),
                                                                       r'''$.qty''',
                                                                     ),
                                                                   );
@@ -1966,8 +1973,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                         .length) {
                                                                   _model.catDetails5 = await CategoryRecord.getDocumentOnce(functions.categoryRef(
                                                                       getJsonField(
-                                                                        _model.catJson5![
-                                                                            FFAppState().jLoopStart],
+                                                                        _model
+                                                                            .catJson5!
+                                                                            .elementAtOrNull(FFAppState().jLoopStart),
                                                                         r'''$''',
                                                                       ).toString(),
                                                                       FFAppState().outletId));
@@ -1977,9 +1985,10 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                     _model
                                                                         .catDetails5!,
                                                                     getJsonField(
-                                                                      _model.catJson5![
-                                                                          FFAppState()
-                                                                              .jLoopStart],
+                                                                      _model
+                                                                          .catJson5!
+                                                                          .elementAtOrNull(
+                                                                              FFAppState().jLoopStart),
                                                                       r'''$''',
                                                                     ).toString(),
                                                                   );
@@ -2149,8 +2158,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                         .length) {
                                                                   _model.productDetailDashboard = await ProductRecord.getDocumentOnce(functions.productRef(
                                                                       getJsonField(
-                                                                        _model.prdJsonDashboard![
-                                                                            FFAppState().iLoopStart],
+                                                                        _model
+                                                                            .prdJsonDashboard!
+                                                                            .elementAtOrNull(FFAppState().iLoopStart),
                                                                         r'''$.prdId''',
                                                                       ).toString(),
                                                                       FFAppState().outletId));
@@ -2160,15 +2170,17 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                     _model
                                                                         .productDetailDashboard!,
                                                                     getJsonField(
-                                                                      _model.prdJsonDashboard![
-                                                                          FFAppState()
-                                                                              .iLoopStart],
+                                                                      _model
+                                                                          .prdJsonDashboard!
+                                                                          .elementAtOrNull(
+                                                                              FFAppState().iLoopStart),
                                                                       r'''$.price''',
                                                                     ),
                                                                     getJsonField(
-                                                                      _model.prdJsonDashboard![
-                                                                          FFAppState()
-                                                                              .iLoopStart],
+                                                                      _model
+                                                                          .prdJsonDashboard!
+                                                                          .elementAtOrNull(
+                                                                              FFAppState().iLoopStart),
                                                                       r'''$.qty''',
                                                                     ),
                                                                   );
@@ -2937,6 +2949,131 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                 ),
                                               ),
                                             ),
+                                            if (true /* Warning: Trying to access variable not yet defined. */)
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 2.0),
+                                                child: StreamBuilder<
+                                                    List<UserProfileRecord>>(
+                                                  stream:
+                                                      queryUserProfileRecord(
+                                                    queryBuilder:
+                                                        (userProfileRecord) =>
+                                                            userProfileRecord
+                                                                .where(
+                                                      'mobile',
+                                                      isEqualTo: FFAppState()
+                                                          .currentMobile,
+                                                    ),
+                                                    singleRecord: true,
+                                                  ),
+                                                  builder: (context, snapshot) {
+                                                    // Customize what your widget looks like when it's loading.
+                                                    if (!snapshot.hasData) {
+                                                      return Center(
+                                                        child: SizedBox(
+                                                          width: 50.0,
+                                                          height: 50.0,
+                                                          child:
+                                                              SpinKitFadingCircle(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .warning,
+                                                            size: 50.0,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                    List<UserProfileRecord>
+                                                        containerUserProfileRecordList =
+                                                        snapshot.data!;
+                                                    final containerUserProfileRecord =
+                                                        containerUserProfileRecordList
+                                                                .isNotEmpty
+                                                            ? containerUserProfileRecordList
+                                                                .first
+                                                            : null;
+
+                                                    return InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        context.pushNamed(
+                                                            'multipliersOutlet');
+                                                      },
+                                                      child: Container(
+                                                        width:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width *
+                                                                1.0,
+                                                        height: 50.0,
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          5.0,
+                                                                          0.0),
+                                                              child: Container(
+                                                                width: 40.0,
+                                                                height: 40.0,
+                                                                decoration:
+                                                                    BoxDecoration(),
+                                                                child: Align(
+                                                                  alignment:
+                                                                      AlignmentDirectional(
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: FaIcon(
+                                                                    FontAwesomeIcons
+                                                                        .mixcloud,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    size: 28.0,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              'Multipliers',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .headlineMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .headlineMediumFamily,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    useGoogleFonts: GoogleFonts
+                                                                            .asMap()
+                                                                        .containsKey(
+                                                                            FlutterFlowTheme.of(context).headlineMediumFamily),
+                                                                  ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
@@ -3655,9 +3792,15 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                       WebViewAware(
                                                                     child:
                                                                         GestureDetector(
-                                                                      onTap: () =>
-                                                                          FocusScope.of(dialogContext)
-                                                                              .unfocus(),
+                                                                      onTap:
+                                                                          () {
+                                                                        FocusScope.of(dialogContext)
+                                                                            .unfocus();
+                                                                        FocusManager
+                                                                            .instance
+                                                                            .primaryFocus
+                                                                            ?.unfocus();
+                                                                      },
                                                                       child:
                                                                           CheckInSuccessWidget(),
                                                                     ),
@@ -3743,8 +3886,15 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                         WebViewAware(
                                                                       child:
                                                                           GestureDetector(
-                                                                        onTap: () =>
-                                                                            FocusScope.of(dialogContext).unfocus(),
+                                                                        onTap:
+                                                                            () {
+                                                                          FocusScope.of(dialogContext)
+                                                                              .unfocus();
+                                                                          FocusManager
+                                                                              .instance
+                                                                              .primaryFocus
+                                                                              ?.unfocus();
+                                                                        },
                                                                         child:
                                                                             CheckOutSuccessWidget(),
                                                                       ),
@@ -3786,9 +3936,15 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                       WebViewAware(
                                                                     child:
                                                                         GestureDetector(
-                                                                      onTap: () =>
-                                                                          FocusScope.of(dialogContext)
-                                                                              .unfocus(),
+                                                                      onTap:
+                                                                          () {
+                                                                        FocusScope.of(dialogContext)
+                                                                            .unfocus();
+                                                                        FocusManager
+                                                                            .instance
+                                                                            .primaryFocus
+                                                                            ?.unfocus();
+                                                                      },
                                                                       child:
                                                                           SessionExpiredWidget(),
                                                                     ),
@@ -3874,138 +4030,299 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
-                                                MainAxisAlignment.end,
+                                                MainAxisAlignment.spaceAround,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                             children: [
-                                              if (FFAppState().hide)
-                                                Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [],
+                                              Container(
+                                                height:
+                                                    MediaQuery.sizeOf(context)
+                                                            .height *
+                                                        0.03,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0),
                                                 ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 2.0, 0.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  20.0,
-                                                                  5.0),
-                                                      child:
-                                                          FlutterFlowIconButton(
-                                                        borderColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        borderRadius: 20.0,
-                                                        borderWidth: 1.0,
-                                                        buttonSize: 40.0,
-                                                        fillColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondary,
-                                                        icon: Icon(
-                                                          Icons.calendar_month,
-                                                          color: FlutterFlowTheme
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          10.0, 0.0, 10.0, 0.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    5.0,
+                                                                    0.0,
+                                                                    10.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          FFAppState()
+                                                              .selectedDate,
+                                                          style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .primary,
-                                                          size: 24.0,
+                                                              .bodySmall
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodySmallFamily,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodySmallFamily),
+                                                              ),
                                                         ),
-                                                        onPressed: () async {
-                                                          final _datePickedDate =
-                                                              await showDatePicker(
-                                                            context: context,
-                                                            initialDate:
-                                                                getCurrentTimestamp,
-                                                            firstDate:
-                                                                DateTime(1900),
-                                                            lastDate:
-                                                                getCurrentTimestamp,
-                                                          );
-
-                                                          if (_datePickedDate !=
-                                                              null) {
-                                                            safeSetState(() {
-                                                              _model.datePicked =
-                                                                  DateTime(
-                                                                _datePickedDate
-                                                                    .year,
-                                                                _datePickedDate
-                                                                    .month,
-                                                                _datePickedDate
-                                                                    .day,
-                                                              );
-                                                            });
-                                                          }
-                                                          FFAppState()
-                                                                  .selectedDate =
-                                                              functions.getDayId(
-                                                                  _model
-                                                                      .datePicked!);
-                                                          safeSetState(() {});
-                                                          _model.clickShiftData =
-                                                              await actions
-                                                                  .getShiftDetails(
-                                                            FFAppState()
-                                                                .outletId,
-                                                            FFAppState()
-                                                                .selectedDate,
-                                                          );
-                                                          _model.clickShiftSummary =
-                                                              await actions
-                                                                  .getShiftSummary(
-                                                            _model
-                                                                .clickShiftData!
-                                                                .toList(),
-                                                            '1',
-                                                          );
-                                                          FFAppState()
-                                                                  .selectedShift =
-                                                              '1';
-                                                          FFAppState()
-                                                                  .shiftDetail =
-                                                              _model
-                                                                  .clickShiftSummary!;
-                                                          FFAppState()
-                                                                  .isShiftSelected =
-                                                              true;
-                                                          FFAppState()
-                                                                  .shiftDetailsList =
-                                                              _model
-                                                                  .clickShiftData!
-                                                                  .toList()
-                                                                  .cast<
-                                                                      dynamic>();
-                                                          safeSetState(() {});
-                                                          _model.clickTime =
-                                                              await actions
-                                                                  .diffBetweenDates(
-                                                            getCurrentTimestamp,
-                                                            getJsonField(
-                                                              _model
-                                                                  .loadShiftSummary,
-                                                              r'''$.lastBillTime''',
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                height:
+                                                    MediaQuery.sizeOf(context)
+                                                            .height *
+                                                        0.03,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          10.0, 0.0, 10.0, 0.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    10.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          'Last Sync',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodySmall
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodySmallFamily,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .bodySmallFamily),
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        FFAppState().synchTime,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodySmall
+                                                                .override(
+                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodySmallFamily,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  useGoogleFonts: GoogleFonts
+                                                                          .asMap()
+                                                                      .containsKey(
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodySmallFamily),
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Builder(
+                                                builder: (context) => Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 20.0, 0.0),
+                                                  child: FlutterFlowIconButton(
+                                                    borderColor:
+                                                        Colors.transparent,
+                                                    borderRadius: 0.0,
+                                                    buttonSize: 45.0,
+                                                    icon: Icon(
+                                                      Icons.calendar_today,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      size: 25.0,
+                                                    ),
+                                                    onPressed: () async {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (dialogContext) {
+                                                          return Dialog(
+                                                            elevation: 0,
+                                                            insetPadding:
+                                                                EdgeInsets.zero,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            alignment: AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
+                                                            child: WebViewAware(
+                                                              child:
+                                                                  GestureDetector(
+                                                                onTap: () {
+                                                                  FocusScope.of(
+                                                                          dialogContext)
+                                                                      .unfocus();
+                                                                  FocusManager
+                                                                      .instance
+                                                                      .primaryFocus
+                                                                      ?.unfocus();
+                                                                },
+                                                                child:
+                                                                    SelectDateRangeWidget(),
+                                                              ),
                                                             ),
                                                           );
-                                                          FFAppState()
-                                                                  .synchTime =
-                                                              _model.clickTime!;
-                                                          safeSetState(() {});
-
-                                                          safeSetState(() {});
                                                         },
-                                                      ),
-                                                    ),
-                                                  ],
+                                                      );
+
+                                                      if (!FFAppState()
+                                                          .dateRange) {
+                                                        _model.clickShiftData =
+                                                            await actions
+                                                                .getShiftDetails(
+                                                          FFAppState().outletId,
+                                                          FFAppState()
+                                                              .selectedDate,
+                                                        );
+                                                        FFAppState()
+                                                                .custmJsonList =
+                                                            _model
+                                                                .clickShiftData!
+                                                                .toList()
+                                                                .cast<
+                                                                    dynamic>();
+                                                        safeSetState(() {});
+                                                        _model.clickShiftSummary1 =
+                                                            await actions
+                                                                .getShiftSummary(
+                                                          _model.clickShiftData!
+                                                              .toList(),
+                                                          '1',
+                                                        );
+                                                        FFAppState()
+                                                                .selectedShift =
+                                                            '1';
+                                                        FFAppState()
+                                                                .shiftDetail =
+                                                            _model
+                                                                .clickShiftSummary1!;
+                                                        FFAppState()
+                                                                .isShiftSelected =
+                                                            true;
+                                                        FFAppState()
+                                                                .shiftDetailsList =
+                                                            _model
+                                                                .clickShiftData!
+                                                                .toList()
+                                                                .cast<
+                                                                    dynamic>();
+                                                        safeSetState(() {});
+                                                      } else {
+                                                        _model.custmData =
+                                                            await actions
+                                                                .getShiftDetailsCopy(
+                                                          FFAppState().outletId,
+                                                          FFAppState()
+                                                              .sStartDate,
+                                                          functions
+                                                              .getTomorrowCopy(
+                                                                  FFAppState()
+                                                                      .sEndDate),
+                                                        );
+                                                        FFAppState()
+                                                                .custmJsonList =
+                                                            _model.custmData!
+                                                                .toList()
+                                                                .cast<
+                                                                    dynamic>();
+                                                        safeSetState(() {});
+                                                        _model.clickShiftSummary =
+                                                            await actions
+                                                                .getShiftSummaryWithDateRange(
+                                                          FFAppState()
+                                                              .custmJsonList
+                                                              .toList(),
+                                                        );
+                                                        FFAppState()
+                                                                .selectedShift =
+                                                            '1';
+                                                        FFAppState()
+                                                                .shiftDetail =
+                                                            _model
+                                                                .clickShiftSummary!;
+                                                        FFAppState()
+                                                                .isShiftSelected =
+                                                            true;
+                                                        FFAppState()
+                                                                .shiftDetailsList =
+                                                            _model.custmData!
+                                                                .toList()
+                                                                .cast<
+                                                                    dynamic>();
+                                                        safeSetState(() {});
+                                                      }
+
+                                                      _model.clickTime =
+                                                          await actions
+                                                              .diffBetweenDates(
+                                                        getCurrentTimestamp,
+                                                        getJsonField(
+                                                          _model
+                                                              .loadShiftSummary,
+                                                          r'''$.lastBillTime''',
+                                                        ),
+                                                      );
+                                                      FFAppState().synchTime =
+                                                          _model.clickTime!;
+                                                      safeSetState(() {});
+
+                                                      safeSetState(() {});
+                                                    },
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -5733,13 +6050,13 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                                                                             ),
                                                                                                                           ),
                                                                                                                           AutoSizeText(
-                                                                                                                            valueOrDefault<String>(
+                                                                                                                            functions.roundOff(valueOrDefault<double>(
                                                                                                                               getJsonField(
                                                                                                                                 FFAppState().shiftDetail,
                                                                                                                                 r'''$.tax''',
-                                                                                                                              )?.toString(),
-                                                                                                                              '0',
-                                                                                                                            ),
+                                                                                                                              ),
+                                                                                                                              0.0,
+                                                                                                                            )),
                                                                                                                             style: FlutterFlowTheme.of(context).displaySmall.override(
                                                                                                                                   fontFamily: FlutterFlowTheme.of(context).displaySmallFamily,
                                                                                                                                   letterSpacing: 0.0,
@@ -6135,7 +6452,13 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                                                                           ),
                                                                                                                         ),
                                                                                                                         AutoSizeText(
-                                                                                                                          '0',
+                                                                                                                          valueOrDefault<String>(
+                                                                                                                            getJsonField(
+                                                                                                                              FFAppState().shiftDetail,
+                                                                                                                              r'''$.expensesAmtTotal''',
+                                                                                                                            )?.toString(),
+                                                                                                                            '0',
+                                                                                                                          ),
                                                                                                                           style: FlutterFlowTheme.of(context).displaySmall.override(
                                                                                                                                 fontFamily: FlutterFlowTheme.of(context).displaySmallFamily,
                                                                                                                                 letterSpacing: 0.0,
@@ -6508,228 +6831,117 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                                   MainAxisSize
                                                                       .max,
                                                               children: [
-                                                                Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceAround,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          5.0),
-                                                                      child:
-                                                                          Container(
-                                                                        height: MediaQuery.sizeOf(context).height *
-                                                                            0.03,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondaryBackground,
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(5.0),
-                                                                        ),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              10.0,
-                                                                              0.0,
-                                                                              10.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.min,
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.center,
-                                                                            children: [
-                                                                              Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 10.0, 0.0),
-                                                                                child: Text(
-                                                                                  FFAppState().selectedDate,
-                                                                                  style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                        fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
-                                                                                        letterSpacing: 0.0,
-                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
-                                                                                      ),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          5.0),
-                                                                      child:
-                                                                          Container(
-                                                                        height: MediaQuery.sizeOf(context).height *
-                                                                            0.03,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondaryBackground,
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(5.0),
-                                                                        ),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              10.0,
-                                                                              0.0,
-                                                                              10.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.min,
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.center,
-                                                                            children: [
-                                                                              Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
-                                                                                child: Text(
-                                                                                  'Last Sync',
-                                                                                  style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                        fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
-                                                                                        letterSpacing: 0.0,
-                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
-                                                                                      ),
-                                                                                ),
-                                                                              ),
-                                                                              Text(
-                                                                                FFAppState().synchTime,
-                                                                                style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                      fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
-                                                                                      letterSpacing: 0.0,
-                                                                                      useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
-                                                                                    ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          10.0),
-                                                                  child:
-                                                                      Container(
-                                                                    width: MediaQuery.sizeOf(context)
-                                                                            .width *
-                                                                        0.95,
-                                                                    height: MediaQuery.sizeOf(context)
-                                                                            .height *
-                                                                        0.045,
-                                                                    decoration:
-                                                                        BoxDecoration(),
+                                                                if (FFAppState()
+                                                                        .dateRange ==
+                                                                    false)
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            10.0),
                                                                     child:
-                                                                        Builder(
-                                                                      builder:
-                                                                          (context) {
-                                                                        final list = FFAppState()
-                                                                            .shiftDetailsList
-                                                                            .map((e) =>
-                                                                                e)
-                                                                            .toList();
+                                                                        Container(
+                                                                      width: MediaQuery.sizeOf(context)
+                                                                              .width *
+                                                                          0.95,
+                                                                      height: MediaQuery.sizeOf(context)
+                                                                              .height *
+                                                                          0.035,
+                                                                      decoration:
+                                                                          BoxDecoration(),
+                                                                      child:
+                                                                          Builder(
+                                                                        builder:
+                                                                            (context) {
+                                                                          final list = FFAppState()
+                                                                              .shiftDetailsList
+                                                                              .map((e) => e)
+                                                                              .toList();
 
-                                                                        return ListView
-                                                                            .builder(
-                                                                          padding:
-                                                                              EdgeInsets.zero,
-                                                                          scrollDirection:
-                                                                              Axis.horizontal,
-                                                                          itemCount:
-                                                                              list.length,
-                                                                          itemBuilder:
-                                                                              (context, listIndex) {
-                                                                            final listItem =
-                                                                                list[listIndex];
-                                                                            return Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
-                                                                              child: FFButtonWidget(
-                                                                                onPressed: () async {
-                                                                                  _model.buttonShiftData = await actions.getShiftDetails(
-                                                                                    FFAppState().outletId,
-                                                                                    FFAppState().selectedDate,
-                                                                                  );
-                                                                                  _model.shiftClick = await actions.getShiftSummary(
-                                                                                    _model.buttonShiftData!.toList(),
+                                                                          return ListView
+                                                                              .builder(
+                                                                            padding:
+                                                                                EdgeInsets.zero,
+                                                                            scrollDirection:
+                                                                                Axis.horizontal,
+                                                                            itemCount:
+                                                                                list.length,
+                                                                            itemBuilder:
+                                                                                (context, listIndex) {
+                                                                              final listItem = list[listIndex];
+                                                                              return Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                                                                                child: FFButtonWidget(
+                                                                                  onPressed: () async {
+                                                                                    _model.buttonShiftData = await actions.getShiftDetails(
+                                                                                      FFAppState().outletId,
+                                                                                      FFAppState().selectedDate,
+                                                                                    );
+                                                                                    _model.shiftClick = await actions.getShiftSummary(
+                                                                                      _model.buttonShiftData!.toList(),
+                                                                                      getJsonField(
+                                                                                        listItem,
+                                                                                        r'''$.shiftNo''',
+                                                                                      ).toString(),
+                                                                                    );
+                                                                                    FFAppState().selectedShift = getJsonField(
+                                                                                      listItem,
+                                                                                      r'''$.shiftNo''',
+                                                                                    ).toString();
+                                                                                    FFAppState().shiftDetail = _model.shiftClick!;
+                                                                                    FFAppState().isShiftSelected = true;
+                                                                                    safeSetState(() {});
+                                                                                    FFAppState().shiftDetailsList = _model.buttonShiftData!.toList().cast<dynamic>();
+                                                                                    safeSetState(() {});
+                                                                                    _model.time2 = await actions.diffBetweenDates(
+                                                                                      getCurrentTimestamp,
+                                                                                      getJsonField(
+                                                                                        listItem,
+                                                                                        r'''$.lastBillTime''',
+                                                                                      ),
+                                                                                    );
+                                                                                    FFAppState().synchTime = _model.time2!;
+                                                                                    safeSetState(() {});
+
+                                                                                    safeSetState(() {});
+                                                                                  },
+                                                                                  text: 'Shift ${valueOrDefault<String>(
                                                                                     getJsonField(
                                                                                       listItem,
                                                                                       r'''$.shiftNo''',
-                                                                                    ).toString(),
-                                                                                  );
-                                                                                  FFAppState().selectedShift = getJsonField(
-                                                                                    listItem,
-                                                                                    r'''$.shiftNo''',
-                                                                                  ).toString();
-                                                                                  FFAppState().shiftDetail = _model.shiftClick!;
-                                                                                  FFAppState().isShiftSelected = true;
-                                                                                  safeSetState(() {});
-                                                                                  FFAppState().shiftDetailsList = _model.buttonShiftData!.toList().cast<dynamic>();
-                                                                                  safeSetState(() {});
-                                                                                  _model.time2 = await actions.diffBetweenDates(
-                                                                                    getCurrentTimestamp,
-                                                                                    getJsonField(
-                                                                                      listItem,
-                                                                                      r'''$.lastBillTime''',
+                                                                                    )?.toString(),
+                                                                                    '1',
+                                                                                  )}',
+                                                                                  options: FFButtonOptions(
+                                                                                    width: 80.0,
+                                                                                    height: 13.0,
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                    iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                    color: FlutterFlowTheme.of(context).secondary,
+                                                                                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                                                                          fontFamily: FlutterFlowTheme.of(context).titleSmallFamily,
+                                                                                          color: FlutterFlowTheme.of(context).primary,
+                                                                                          fontSize: 13.0,
+                                                                                          letterSpacing: 0.0,
+                                                                                          useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
+                                                                                        ),
+                                                                                    elevation: 2.0,
+                                                                                    borderSide: BorderSide(
+                                                                                      width: 2.0,
                                                                                     ),
-                                                                                  );
-                                                                                  FFAppState().synchTime = _model.time2!;
-                                                                                  safeSetState(() {});
-
-                                                                                  safeSetState(() {});
-                                                                                },
-                                                                                text: 'Shift ${valueOrDefault<String>(
-                                                                                  getJsonField(
-                                                                                    listItem,
-                                                                                    r'''$.shiftNo''',
-                                                                                  )?.toString(),
-                                                                                  '1',
-                                                                                )}',
-                                                                                options: FFButtonOptions(
-                                                                                  width: 80.0,
-                                                                                  height: 15.0,
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                                                                  iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                                                                  color: FlutterFlowTheme.of(context).secondary,
-                                                                                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                                                                        fontFamily: FlutterFlowTheme.of(context).titleSmallFamily,
-                                                                                        color: FlutterFlowTheme.of(context).primary,
-                                                                                        fontSize: 13.0,
-                                                                                        letterSpacing: 0.0,
-                                                                                        useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleSmallFamily),
-                                                                                      ),
-                                                                                  elevation: 2.0,
-                                                                                  borderSide: BorderSide(
-                                                                                    width: 2.0,
+                                                                                    borderRadius: BorderRadius.circular(10.0),
+                                                                                    hoverColor: FFAppState().bShift != null ? FlutterFlowTheme.of(context).success : FlutterFlowTheme.of(context).tertiary,
                                                                                   ),
-                                                                                  borderRadius: BorderRadius.circular(10.0),
-                                                                                  hoverColor: FFAppState().bShift != null ? FlutterFlowTheme.of(context).success : FlutterFlowTheme.of(context).tertiary,
                                                                                 ),
-                                                                              ),
-                                                                            );
-                                                                          },
-                                                                        );
-                                                                      },
+                                                                              );
+                                                                            },
+                                                                          );
+                                                                        },
+                                                                      ),
                                                                     ),
                                                                   ),
-                                                                ),
                                                                 Stack(
                                                                   children: [
                                                                     if (FFAppState()

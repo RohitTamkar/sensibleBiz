@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/pages/reports/product_edit_comp/product_edit_comp_widget.dart';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'edit_bill_details_widget.dart' show EditBillDetailsWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';

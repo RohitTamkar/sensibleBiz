@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -94,7 +95,10 @@ class _ProductListWidgetState extends State<ProductListWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -3109,9 +3113,13 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                                               context)),
                                               child: WebViewAware(
                                                 child: GestureDetector(
-                                                  onTap: () => FocusScope.of(
-                                                          dialogContext)
-                                                      .unfocus(),
+                                                  onTap: () {
+                                                    FocusScope.of(dialogContext)
+                                                        .unfocus();
+                                                    FocusManager
+                                                        .instance.primaryFocus
+                                                        ?.unfocus();
+                                                  },
                                                   child: Container(
                                                     height: MediaQuery.sizeOf(
                                                                 context)
@@ -3135,14 +3143,16 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                           safeSetState(() {});
                                           while (FFAppState().startLoop <
                                               _model.prdList!.length) {
-                                            await _model
-                                                .prdList![
-                                                    FFAppState().startLoop]
+                                            await _model.prdList!
+                                                .elementAtOrNull(
+                                                    FFAppState().startLoop)!
                                                 .reference
                                                 .delete();
                                             _model.removeFromGetProductDoc(
-                                                _model.prdList![
-                                                    FFAppState().startLoop]);
+                                                (_model.prdList!
+                                                    .elementAtOrNull(
+                                                        FFAppState()
+                                                            .startLoop))!);
                                             safeSetState(() {});
                                             FFAppState().startLoop =
                                                 FFAppState().startLoop + 1;
@@ -3547,14 +3557,14 @@ class _ProductListWidgetState extends State<ProductListWidget> {
                                         safeSetState(() {});
                                         while (FFAppState().startLoop <
                                             _model.prdForServPt.length) {
-                                          await _model
-                                              .prdForServPt[
-                                                  FFAppState().startLoop]
+                                          await _model.prdForServPt
+                                              .elementAtOrNull(
+                                                  FFAppState().startLoop)!
                                               .reference
                                               .update(createProductRecordData(
-                                            kitchenId: fetchedServicePtItem
-                                                .reference.id,
-                                          ));
+                                                kitchenId: fetchedServicePtItem
+                                                    .reference.id,
+                                              ));
                                           FFAppState().startLoop =
                                               FFAppState().startLoop + 1;
                                           safeSetState(() {});

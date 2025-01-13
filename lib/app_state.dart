@@ -1393,6 +1393,41 @@ class FFAppState extends ChangeNotifier {
   set productImageUrl(String value) {
     _productImageUrl = value;
   }
+
+  List<dynamic> _custmJsonList = [];
+  List<dynamic> get custmJsonList => _custmJsonList;
+  set custmJsonList(List<dynamic> value) {
+    _custmJsonList = value;
+  }
+
+  void addToCustmJsonList(dynamic value) {
+    custmJsonList.add(value);
+  }
+
+  void removeFromCustmJsonList(dynamic value) {
+    custmJsonList.remove(value);
+  }
+
+  void removeAtIndexFromCustmJsonList(int index) {
+    custmJsonList.removeAt(index);
+  }
+
+  void updateCustmJsonListAtIndex(
+    int index,
+    dynamic Function(dynamic) updateFn,
+  ) {
+    custmJsonList[index] = updateFn(_custmJsonList[index]);
+  }
+
+  void insertAtIndexInCustmJsonList(int index, dynamic value) {
+    custmJsonList.insert(index, value);
+  }
+
+  bool _dateRange = false;
+  bool get dateRange => _dateRange;
+  set dateRange(bool value) {
+    _dateRange = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

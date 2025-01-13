@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -72,7 +73,10 @@ class _StockOutWidgetState extends State<StockOutWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -1163,12 +1167,10 @@ class _StockOutWidgetState extends State<StockOutWidget> {
                                                       if (_model.issueDoc!
                                                               .length >
                                                           0) {
-                                                        FFAppState().count =
-                                                            functions
-                                                                .reqCountNumber(
-                                                                    _model
-                                                                        .issueDoc!
-                                                                        .first);
+                                                        FFAppState().count = functions
+                                                            .reqCountNumber(_model
+                                                                .issueDoc!
+                                                                .firstOrNull!);
                                                         safeSetState(() {});
                                                       } else {
                                                         FFAppState().count = 1;
@@ -1279,18 +1281,20 @@ class _StockOutWidgetState extends State<StockOutWidget> {
                                                               .length) {
                                                         await ProductListStruct
                                                                 .maybeFromMap(FFAppState()
-                                                                        .productCart[
-                                                                    FFAppState()
-                                                                        .loopStart])!
+                                                                    .productCart
+                                                                    .elementAtOrNull(
+                                                                        FFAppState()
+                                                                            .loopStart)!)!
                                                             .ref!
                                                             .update(
                                                                 createProductRecordData(
                                                               currentStock:
                                                                   getJsonField(
                                                                 FFAppState()
-                                                                        .productCart[
-                                                                    FFAppState()
-                                                                        .loopStart],
+                                                                    .productCart
+                                                                    .elementAtOrNull(
+                                                                        FFAppState()
+                                                                            .loopStart),
                                                                 r'''$.totalStock''',
                                                               ),
                                                             ));

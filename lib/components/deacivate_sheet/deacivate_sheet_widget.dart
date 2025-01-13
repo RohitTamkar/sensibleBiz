@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -158,38 +159,54 @@ class _DeacivateSheetWidgetState extends State<DeacivateSheetWidget> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                FFButtonWidget(
-                  onPressed: () async {
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onLongPress: () async {
                     FFAppState().deactivate = false;
                     safeSetState(() {});
                     context.safePop();
                   },
-                  text: 'Cancel',
-                  options: FFButtonOptions(
-                    width: 100.0,
-                    height: 30.0,
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: Color(0xFF262D34),
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Lexend Deca',
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.normal,
-                          useGoogleFonts:
-                              GoogleFonts.asMap().containsKey('Lexend Deca'),
-                        ),
-                    elevation: 2.0,
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1.0,
+                  child: FFButtonWidget(
+                    onPressed: () {
+                      print('Button pressed ...');
+                    },
+                    text: 'Cancel',
+                    options: FFButtonOptions(
+                      width: 100.0,
+                      height: 30.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: Color(0xFF262D34),
+                      textStyle: FlutterFlowTheme.of(context)
+                          .titleSmall
+                          .override(
+                            fontFamily: 'Lexend Deca',
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.normal,
+                            useGoogleFonts:
+                                GoogleFonts.asMap().containsKey('Lexend Deca'),
+                          ),
+                      elevation: 2.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
                     ),
                   ),
                 ),
-                FFButtonWidget(
-                  onPressed: () async {
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onLongPress: () async {
                     FFAppState().deactivate = true;
                     safeSetState(() {});
 
@@ -224,27 +241,35 @@ class _DeacivateSheetWidgetState extends State<DeacivateSheetWidget> {
                     );
                     Navigator.pop(context);
                   },
-                  text: 'Continue',
-                  options: FFButtonOptions(
-                    width: 150.0,
-                    height: 30.0,
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: Color(0xFF4B39EF),
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Lexend Deca',
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.normal,
-                          useGoogleFonts:
-                              GoogleFonts.asMap().containsKey('Lexend Deca'),
-                        ),
-                    elevation: 2.0,
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1.0,
+                  child: FFButtonWidget(
+                    onPressed: () {
+                      print('Button pressed ...');
+                    },
+                    text: 'Continue',
+                    options: FFButtonOptions(
+                      width: 150.0,
+                      height: 30.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: Color(0xFF4B39EF),
+                      textStyle: FlutterFlowTheme.of(context)
+                          .titleSmall
+                          .override(
+                            fontFamily: 'Lexend Deca',
+                            color: Colors.white,
+                            fontSize: 16.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.normal,
+                            useGoogleFonts:
+                                GoogleFonts.asMap().containsKey('Lexend Deca'),
+                          ),
+                      elevation: 2.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
                     ),
                   ),
                 ),

@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -57,7 +58,10 @@ class _StockWidgetState extends State<StockWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -249,8 +253,8 @@ class _StockWidgetState extends State<StockWidget> {
                                                       e.name ==
                                                       _model.dropDownValue)
                                                   .toList()
-                                                  .first
-                                                  .reference;
+                                                  .firstOrNull
+                                                  ?.reference;
                                         },
                                         width: double.infinity,
                                         height: 50.0,

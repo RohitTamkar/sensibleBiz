@@ -3,12 +3,14 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/components/check_in_success/check_in_success_widget.dart';
 import '/components/check_out_success/check_out_success_widget.dart';
+import '/components/select_date_range/select_date_range_widget.dart';
 import '/components/session_expired/session_expired_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dashboard_widget.dart' show DashboardWidget;
@@ -16,7 +18,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:expandable/expandable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -83,10 +84,13 @@ class DashboardModel extends FlutterFlowModel<DashboardWidget> {
   DeviceRecord? deviceDocument;
   // Stores action output result for [Firestore Query - Query a collection] action in IconButton widget.
   BillSaleSummaryRecord? billDocumnetQR;
-  DateTime? datePicked;
   // Stores action output result for [Custom Action - getShiftDetails] action in IconButton widget.
   List<dynamic>? clickShiftData;
   // Stores action output result for [Custom Action - getShiftSummary] action in IconButton widget.
+  dynamic? clickShiftSummary1;
+  // Stores action output result for [Custom Action - getShiftDetailsCopy] action in IconButton widget.
+  List<dynamic>? custmData;
+  // Stores action output result for [Custom Action - getShiftSummaryWithDateRange] action in IconButton widget.
   dynamic? clickShiftSummary;
   // Stores action output result for [Custom Action - diffBetweenDates] action in IconButton widget.
   String? clickTime;

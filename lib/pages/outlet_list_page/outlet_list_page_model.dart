@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'outlet_list_page_widget.dart' show OutletListPageWidget;
 import 'package:auto_size_text/auto_size_text.dart';

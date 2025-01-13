@@ -2,6 +2,7 @@ import '/components/custom_date_range_copy/custom_date_range_copy_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -60,10 +61,14 @@ class _SelectDateRangeWidgetState extends State<SelectDateRangeWidget> {
           )
         ],
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(0.0),
-          bottomRight: Radius.circular(0.0),
-          topLeft: Radius.circular(0.0),
-          topRight: Radius.circular(0.0),
+          bottomLeft: Radius.circular(6.0),
+          bottomRight: Radius.circular(3.0),
+          topLeft: Radius.circular(3.0),
+          topRight: Radius.circular(6.0),
+        ),
+        border: Border.all(
+          color: FlutterFlowTheme.of(context).primary,
+          width: 2.0,
         ),
       ),
       child: Padding(
@@ -78,6 +83,9 @@ class _SelectDateRangeWidgetState extends State<SelectDateRangeWidget> {
                 onPressed: () async {
                   FFAppState().selectedDate =
                       functions.getDayId(getCurrentTimestamp);
+                  FFAppState().selectedLastDate =
+                      functions.getDayId(getCurrentTimestamp);
+                  FFAppState().dateRange = false;
                   safeSetState(() {});
                   Navigator.pop(context);
                 },
@@ -110,6 +118,9 @@ class _SelectDateRangeWidgetState extends State<SelectDateRangeWidget> {
               onPressed: () async {
                 FFAppState().selectedDate = functions
                     .getYesterdayDayId(functions.getDayId(getCurrentTimestamp));
+                FFAppState().selectedLastDate = functions
+                    .getYesterdayDayId(functions.getDayId(getCurrentTimestamp));
+                FFAppState().dateRange = false;
                 safeSetState(() {});
                 Navigator.pop(context);
               },
@@ -138,6 +149,8 @@ class _SelectDateRangeWidgetState extends State<SelectDateRangeWidget> {
             ),
             FFButtonWidget(
               onPressed: () async {
+                FFAppState().dateRange = true;
+                safeSetState(() {});
                 await showModalBottomSheet(
                   isScrollControlled: true,
                   backgroundColor: Colors.transparent,
@@ -152,6 +165,8 @@ class _SelectDateRangeWidgetState extends State<SelectDateRangeWidget> {
                     );
                   },
                 ).then((value) => safeSetState(() {}));
+
+                Navigator.pop(context);
               },
               text: 'Custom Date',
               options: FFButtonOptions(

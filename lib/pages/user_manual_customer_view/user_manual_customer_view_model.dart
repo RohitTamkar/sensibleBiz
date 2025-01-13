@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/flutter_flow_youtube_player.dart';
+import 'dart:ui';
 import 'user_manual_customer_view_widget.dart'
     show UserManualCustomerViewWidget;
 import 'package:flutter/material.dart';

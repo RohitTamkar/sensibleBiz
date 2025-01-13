@@ -41,6 +41,8 @@ export 'req_count_increment.dart' show reqCountIncrement;
 export 'export_to_excel.dart' show exportToExcel;
 export 'genarate_category_code.dart' show genarateCategoryCode;
 export 'platform_details.dart' show platformDetails;
+export 'get_shift_summary_with_date_range.dart'
+    show getShiftSummaryWithDateRange;
 export 'check_shift.dart' show checkShift;
 export 'get_shift_details.dart' show getShiftDetails;
 export 'get_daywise_sale.dart' show getDaywiseSale;

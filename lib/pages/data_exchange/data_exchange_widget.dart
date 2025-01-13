@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -64,7 +65,10 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -304,10 +308,14 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                                     context)),
                                                     child: WebViewAware(
                                                       child: GestureDetector(
-                                                        onTap: () =>
-                                                            FocusScope.of(
-                                                                    dialogContext)
-                                                                .unfocus(),
+                                                        onTap: () {
+                                                          FocusScope.of(
+                                                                  dialogContext)
+                                                              .unfocus();
+                                                          FocusManager.instance
+                                                              .primaryFocus
+                                                              ?.unfocus();
+                                                        },
                                                         child: Container(
                                                           height:
                                                               MediaQuery.sizeOf(
@@ -345,10 +353,14 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                                     context)),
                                                     child: WebViewAware(
                                                       child: GestureDetector(
-                                                        onTap: () =>
-                                                            FocusScope.of(
-                                                                    dialogContext)
-                                                                .unfocus(),
+                                                        onTap: () {
+                                                          FocusScope.of(
+                                                                  dialogContext)
+                                                              .unfocus();
+                                                          FocusManager.instance
+                                                              .primaryFocus
+                                                              ?.unfocus();
+                                                        },
                                                         child: Container(
                                                           height:
                                                               MediaQuery.sizeOf(
@@ -389,10 +401,15 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                                       context)),
                                                       child: WebViewAware(
                                                         child: GestureDetector(
-                                                          onTap: () =>
-                                                              FocusScope.of(
-                                                                      dialogContext)
-                                                                  .unfocus(),
+                                                          onTap: () {
+                                                            FocusScope.of(
+                                                                    dialogContext)
+                                                                .unfocus();
+                                                            FocusManager
+                                                                .instance
+                                                                .primaryFocus
+                                                                ?.unfocus();
+                                                          },
                                                           child: Container(
                                                             height: MediaQuery
                                                                         .sizeOf(
@@ -434,10 +451,15 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                                       context)),
                                                       child: WebViewAware(
                                                         child: GestureDetector(
-                                                          onTap: () =>
-                                                              FocusScope.of(
-                                                                      dialogContext)
-                                                                  .unfocus(),
+                                                          onTap: () {
+                                                            FocusScope.of(
+                                                                    dialogContext)
+                                                                .unfocus();
+                                                            FocusManager
+                                                                .instance
+                                                                .primaryFocus
+                                                                ?.unfocus();
+                                                          },
                                                           child: Container(
                                                             height: MediaQuery
                                                                         .sizeOf(
@@ -494,9 +516,9 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                         .selectedCat!.length) {
                                                   _model.res = await actions
                                                       .categoryDupActionbyName(
-                                                    _model
-                                                        .selectedCat?[
-                                                            _model.startLoop!]
+                                                    _model.selectedCat
+                                                        ?.elementAtOrNull(
+                                                            _model.startLoop!)
                                                         ?.name,
                                                     _model.mainCat!.toList(),
                                                   );
@@ -507,30 +529,33 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                                     .outletRef!)
                                                         .set(
                                                             createCategoryRecordData(
-                                                      id: _model
-                                                          .selectedCat?[
-                                                              _model.startLoop!]
+                                                      id: _model.selectedCat
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.reference
                                                           .id,
                                                       categoryNo: _model
-                                                          .selectedCat?[
-                                                              _model.startLoop!]
+                                                          .selectedCat
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.categoryNo,
-                                                      name: _model
-                                                          .selectedCat?[
-                                                              _model.startLoop!]
+                                                      name: _model.selectedCat
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.name,
                                                       onlineSynced: _model
-                                                          .selectedCat?[
-                                                              _model.startLoop!]
+                                                          .selectedCat
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.onlineSynced,
                                                       regionalName: _model
-                                                          .selectedCat?[
-                                                              _model.startLoop!]
+                                                          .selectedCat
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.regionalName,
-                                                      type: _model
-                                                          .selectedCat?[
-                                                              _model.startLoop!]
+                                                      type: _model.selectedCat
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.type,
                                                     ));
                                                   }
@@ -545,9 +570,9 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                         .selectedPrd!.length) {
                                                   _model.res1 = await actions
                                                       .productDupAction(
-                                                    _model
-                                                        .selectedPrd?[
-                                                            _model.startLoop!]
+                                                    _model.selectedPrd
+                                                        ?.elementAtOrNull(
+                                                            _model.startLoop!)
                                                         ?.id,
                                                     _model.currentPrd!.toList(),
                                                   );
@@ -563,279 +588,331 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                     await productRecordReference
                                                         .set(
                                                             createProductRecordData(
-                                                      id: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                      id: _model.selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.id,
-                                                      active: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                      active: _model.selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.active,
                                                       barcode: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.barcode,
                                                       category: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.category,
-                                                      cess: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                      cess: _model.selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.cess,
-                                                      code: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                      code: _model.selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.code,
                                                       costPrice: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.costPrice,
                                                       dateTme: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.dateTme,
                                                       discount: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.discount,
                                                       keyCount: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.keyCount,
                                                       kitchenId: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.kitchenId,
                                                       mrpPrice: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.mrpPrice,
-                                                      name: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                      name: _model.selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.name,
                                                       onlinePrice: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.onlinePrice,
                                                       onlineSynced: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.onlineSynced,
-                                                      price: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                      price: _model.selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.price,
                                                       priceTable: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.priceTable,
                                                       recipeId: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.recipeId,
                                                       regionalName: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.regionalName,
                                                       reorderLevel: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.reorderLevel,
                                                       selected: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.selected,
                                                       shortName: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.shortName,
                                                       stockable: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.stockable,
                                                       taxIndex: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.taxIndex,
-                                                      type: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                      type: _model.selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.type,
-                                                      unitId: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                      unitId: _model.selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.unitId,
                                                       weighable: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.weighable,
                                                       currentStock: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.currentStock,
                                                       hsnCode: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.hsnCode,
                                                       discountAmount: _model
-                                                          .selectedPrd?[
-                                                              _model.startLoop!]
+                                                          .selectedPrd
+                                                          ?.elementAtOrNull(
+                                                              _model.startLoop!)
                                                           ?.discountAmount,
                                                     ));
                                                     _model.createdPrd = ProductRecord
                                                         .getDocumentFromData(
                                                             createProductRecordData(
                                                               id: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.id,
                                                               active: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.active,
                                                               barcode: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.barcode,
                                                               category: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.category,
                                                               cess: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.cess,
                                                               code: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.code,
                                                               costPrice: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.costPrice,
                                                               dateTme: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.dateTme,
                                                               discount: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.discount,
                                                               keyCount: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.keyCount,
                                                               kitchenId: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.kitchenId,
                                                               mrpPrice: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.mrpPrice,
                                                               name: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.name,
                                                               onlinePrice: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.onlinePrice,
                                                               onlineSynced: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.onlineSynced,
                                                               price: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.price,
                                                               priceTable: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.priceTable,
                                                               recipeId: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.recipeId,
                                                               regionalName: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.regionalName,
                                                               reorderLevel: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.reorderLevel,
                                                               selected: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.selected,
                                                               shortName: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.shortName,
                                                               stockable: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.stockable,
                                                               taxIndex: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.taxIndex,
                                                               type: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.type,
                                                               unitId: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.unitId,
                                                               weighable: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.weighable,
                                                               currentStock: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.currentStock,
                                                               hsnCode: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.hsnCode,
                                                               discountAmount: _model
-                                                                  .selectedPrd?[
+                                                                  .selectedPrd
+                                                                  ?.elementAtOrNull(
                                                                       _model
-                                                                          .startLoop!]
+                                                                          .startLoop!)
                                                                   ?.discountAmount,
                                                             ),
                                                             productRecordReference);
@@ -860,20 +937,21 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                     _model.prdLst2!.length) {
                                                   _model.str =
                                                       await actions.mapCatToPrd(
-                                                    _model.prdLst2![
-                                                        _model.startLoop!],
+                                                    (_model.prdLst2!
+                                                        .elementAtOrNull(_model
+                                                            .startLoop!))!,
                                                     _model.catIdUp!.toList(),
                                                     _model.startLoop!,
                                                   );
 
-                                                  await _model
-                                                      .prdLst2![
-                                                          _model.startLoop!]
+                                                  await _model.prdLst2!
+                                                      .elementAtOrNull(
+                                                          _model.startLoop!)!
                                                       .reference
                                                       .update(
                                                           createProductRecordData(
-                                                    category: _model.str,
-                                                  ));
+                                                        category: _model.str,
+                                                      ));
                                                   _model.startLoop =
                                                       _model.startLoop! + 1;
                                                   safeSetState(() {});
@@ -882,18 +960,19 @@ class _DataExchangeWidgetState extends State<DataExchangeWidget> {
                                                 safeSetState(() {});
                                                 while (_model.startLoop! <
                                                     _model.catIdUp!.length) {
-                                                  await _model
-                                                      .catIdUp![
-                                                          _model.startLoop!]
+                                                  await _model.catIdUp!
+                                                      .elementAtOrNull(
+                                                          _model.startLoop!)!
                                                       .reference
                                                       .update(
                                                           createCategoryRecordData(
-                                                    id: _model
-                                                        .catIdUp?[
-                                                            _model.startLoop!]
-                                                        ?.reference
-                                                        .id,
-                                                  ));
+                                                        id: _model.catIdUp
+                                                            ?.elementAtOrNull(
+                                                                _model
+                                                                    .startLoop!)
+                                                            ?.reference
+                                                            .id,
+                                                      ));
                                                   _model.startLoop =
                                                       _model.startLoop! + 1;
                                                   safeSetState(() {});

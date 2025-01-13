@@ -23,6 +23,8 @@ export 'serialization_util.dart';
 
 const kTransitionInfoKey = '__transition_info__';
 
+GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
+
 class AppStateNotifier extends ChangeNotifier {
   AppStateNotifier._();
 
@@ -80,6 +82,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
+      navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
           appStateNotifier.loggedIn ? NavBarPage() : SplashScreenWidget(),
       routes: [
@@ -92,7 +95,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'OTPverification',
           path: '/oTPverification',
-          builder: (context, params) => OTPverificationWidget(),
+          builder: (context, params) => OTPverificationWidget(
+            mobile: params.getParam(
+              'mobile',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: 'SplashScreen',
@@ -149,7 +157,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'CreateUserProfile',
           path: '/createUserProfile',
-          builder: (context, params) => CreateUserProfileWidget(),
+          builder: (context, params) => CreateUserProfileWidget(
+            mobile: params.getParam(
+              'mobile',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: 'EditOutlet',
@@ -443,21 +456,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             outlet: params.getParam(
               'outlet',
               ParamType.Document,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: 'PhoneAuthPageTest',
-          path: '/phoneAuthPageTest',
-          builder: (context, params) => PhoneAuthPageTestWidget(),
-        ),
-        FFRoute(
-          name: 'OTPverificationTest',
-          path: '/oTPverificationTest',
-          builder: (context, params) => OTPverificationTestWidget(
-            mobile: params.getParam(
-              'mobile',
-              ParamType.String,
             ),
           ),
         ),
@@ -863,6 +861,58 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'AddUpi',
           path: '/AddUpi',
           builder: (context, params) => AddUpiWidget(),
+        ),
+        FFRoute(
+          name: 'multipliersOutlet',
+          path: '/multipliersOutlet',
+          builder: (context, params) => MultipliersOutletWidget(),
+        ),
+        FFRoute(
+          name: 'multiplayer',
+          path: '/multiplayer',
+          asyncParams: {
+            'out': getDoc(
+                ['OUTLET', 'MULTIPLIERS'], MultipliersRecord.fromSnapshot),
+          },
+          builder: (context, params) => MultiplayerWidget(
+            mult: params.getParam(
+              'mult',
+              ParamType.String,
+            ),
+            out: params.getParam(
+              'out',
+              ParamType.Document,
+            ),
+            id: params.getParam(
+              'id',
+              ParamType.String,
+            ),
+            index: params.getParam(
+              'index',
+              ParamType.int,
+            ),
+            multidata: params.getParam<MultipliersListStruct>(
+              'multidata',
+              ParamType.DataStruct,
+              isList: true,
+              structBuilder: MultipliersListStruct.fromSerializableMap,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'DashboardCopy',
+          path: '/dashboardCopy',
+          asyncParams: {
+            'outletDetails': getDoc(['OUTLET'], OutletRecord.fromSnapshot),
+          },
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'DashboardCopy')
+              : DashboardCopyWidget(
+                  outletDetails: params.getParam(
+                    'outletDetails',
+                    ParamType.Document,
+                  ),
+                ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

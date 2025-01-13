@@ -133,7 +133,9 @@ class StockLogRecord extends FirestoreRecord {
     );
     _createdDateInMill = castToType<int>(snapshotData['createdDateInMill']);
     _modifiedDateInMill = castToType<int>(snapshotData['modifiedDateInMill']);
-    _stockList = CartListStruct.maybeFromMap(snapshotData['stockList']);
+    _stockList = snapshotData['stockList'] is CartListStruct
+        ? snapshotData['stockList']
+        : CartListStruct.maybeFromMap(snapshotData['stockList']);
     _createdById = snapshotData['createdById'] as DocumentReference?;
     _modifiedById = snapshotData['modifiedById'] as DocumentReference?;
     _requestedId = snapshotData['requestedId'] as String?;

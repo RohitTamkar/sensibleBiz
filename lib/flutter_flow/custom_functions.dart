@@ -223,6 +223,18 @@ String differenceBetDates(
   return result.toString();
 }
 
+int getTomorrowCopy(int customDate) {
+  DateTime givenDate = DateTime.fromMillisecondsSinceEpoch(customDate);
+
+  // Calculate tomorrow's date by adding 1 day
+  DateTime tomorrowDate = givenDate.add(Duration(days: 1));
+
+  // Convert the tomorrow date back to milliseconds since epoch
+  int tomorrowMilliseconds = tomorrowDate.millisecondsSinceEpoch;
+
+  return tomorrowMilliseconds;
+}
+
 DocumentReference genDeviceRefById(String id) {
   return FirebaseFirestore.instance.doc('/DEVICE/$id');
 }
@@ -546,10 +558,12 @@ double discountAmtPer(
 
 String shortName(String name) {
   // short name in sentence in first later
-  List<String> words = name.split(' ');
+  List<String> words = name.trim().split(' ');
   String initials = '';
   for (String word in words) {
-    initials += word[0];
+    if (word.isNotEmpty) {
+      initials += word[0];
+    }
   }
   return initials.toUpperCase();
 }

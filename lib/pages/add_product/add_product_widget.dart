@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -154,7 +155,10 @@ class _AddProductWidgetState extends State<AddProductWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -6074,9 +6078,6 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                           _model
                                                                               .barcodeWTextController
                                                                               ?.text = _model.barcodeScan2!;
-                                                                          _model
-                                                                              .barcodeWTextController
-                                                                              ?.selection = TextSelection.collapsed(offset: _model.barcodeWTextController!.text.length);
                                                                         });
                                                                         FFAppState().barcode =
                                                                             _model.barcodeScan2!;
@@ -7094,7 +7095,8 @@ class _AddProductWidgetState extends State<AddProductWidget> {
                                                                             valueOrDefault<String>(
                                                                           _model
                                                                               .userOutlets
-                                                                              ?.outlets?[FFAppState().startLoop],
+                                                                              ?.outlets
+                                                                              ?.elementAtOrNull(FFAppState().startLoop),
                                                                           '0',
                                                                         ),
                                                                       )

@@ -63,6 +63,8 @@
     <string>to upload csv file</string>
 	<key>NSPhotoLibraryUsageDescriptionkey</key>
     <string>to upload csv file</string>
+	<key>PermissionGroupNotification</key>
+    <string>notification</string>
 
 
 	<key>UILaunchStoryboardName</key>

@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -79,7 +80,10 @@ class _StockUpdateTransferWidgetState extends State<StockUpdateTransferWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -1209,7 +1213,7 @@ class _StockUpdateTransferWidgetState extends State<StockUpdateTransferWidget> {
                                                                         .count =
                                                                     functions.reqCountNumber(_model
                                                                         .issueDoc!
-                                                                        .first);
+                                                                        .firstOrNull!);
                                                                 safeSetState(
                                                                     () {});
                                                               } else {
@@ -1312,9 +1316,9 @@ class _StockUpdateTransferWidgetState extends State<StockUpdateTransferWidget> {
                                                                   reqStock:
                                                                       getJsonField(
                                                                     FFAppState()
-                                                                            .productCart[
-                                                                        FFAppState()
-                                                                            .loopStart],
+                                                                        .productCart
+                                                                        .elementAtOrNull(
+                                                                            FFAppState().loopStart),
                                                                     r'''$.reqStock''',
                                                                   ),
                                                                 ),
@@ -1379,9 +1383,9 @@ class _StockUpdateTransferWidgetState extends State<StockUpdateTransferWidget> {
                                                                   reqStock:
                                                                       getJsonField(
                                                                     FFAppState()
-                                                                            .productCart[
-                                                                        FFAppState()
-                                                                            .loopStart],
+                                                                        .productCart
+                                                                        .elementAtOrNull(
+                                                                            FFAppState().loopStart),
                                                                     r'''$.reqStock''',
                                                                   ),
                                                                 ),
@@ -1405,9 +1409,9 @@ class _StockUpdateTransferWidgetState extends State<StockUpdateTransferWidget> {
                                                                       .productCart
                                                                       .length) {
                                                                 await ProductListStruct.maybeFromMap(FFAppState()
-                                                                            .productCart[
-                                                                        FFAppState()
-                                                                            .loopStart])!
+                                                                        .productCart
+                                                                        .elementAtOrNull(
+                                                                            FFAppState().loopStart)!)!
                                                                     .ref!
                                                                     .update({
                                                                   ...mapToFirestore(
@@ -1416,7 +1420,8 @@ class _StockUpdateTransferWidgetState extends State<StockUpdateTransferWidget> {
                                                                           FieldValue.increment(
                                                                               -(getJsonField(
                                                                         FFAppState()
-                                                                            .productCart[FFAppState().loopStart],
+                                                                            .productCart
+                                                                            .elementAtOrNull(FFAppState().loopStart),
                                                                         r'''$.reqStock''',
                                                                       ))),
                                                                     },
@@ -1435,9 +1440,9 @@ class _StockUpdateTransferWidgetState extends State<StockUpdateTransferWidget> {
                                                                     isEqualTo:
                                                                         getJsonField(
                                                                       FFAppState()
-                                                                              .productCart[
-                                                                          FFAppState()
-                                                                              .loopStart],
+                                                                          .productCart
+                                                                          .elementAtOrNull(
+                                                                              FFAppState().loopStart),
                                                                       r'''$.code''',
                                                                     ),
                                                                   ),
@@ -1458,7 +1463,8 @@ class _StockUpdateTransferWidgetState extends State<StockUpdateTransferWidget> {
                                                                           FieldValue.increment(
                                                                               getJsonField(
                                                                         FFAppState()
-                                                                            .productCart[FFAppState().loopStart],
+                                                                            .productCart
+                                                                            .elementAtOrNull(FFAppState().loopStart),
                                                                         r'''$.reqStock''',
                                                                       )),
                                                                     },

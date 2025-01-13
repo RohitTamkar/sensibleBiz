@@ -129,7 +129,9 @@ class UserProfileRecord extends FirestoreRecord {
     _address = snapshotData['address'] as String?;
     _businessId = snapshotData['businessId'] as String?;
     _outletList = snapshotData['outletList'] as String?;
-    _userAccess = UserListStruct.maybeFromMap(snapshotData['userAccess']);
+    _userAccess = snapshotData['userAccess'] is UserListStruct
+        ? snapshotData['userAccess']
+        : UserListStruct.maybeFromMap(snapshotData['userAccess']);
     _userSettings = snapshotData['userSettings'] as String?;
   }
 

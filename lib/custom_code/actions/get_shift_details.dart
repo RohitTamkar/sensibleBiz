@@ -64,6 +64,7 @@ Future<List<dynamic>> getShiftDetails(
         "tax": doc["tax"],
         "totalSale": doc["totalSale"],
         "userId": doc["userId"],
+        "expensesAmtTotal": doc["expensesAmtTotal"],
       });
     });
   }

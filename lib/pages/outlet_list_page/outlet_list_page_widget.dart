@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -84,7 +85,10 @@ class _OutletListPageWidgetState extends State<OutletListPageWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -867,89 +871,85 @@ class _OutletListPageWidgetState extends State<OutletListPageWidget>
                                 ],
                               ),
                             ),
-                            if (FFAppState().hide)
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 3.0, 0.0, 6.0),
-                                  child: Container(
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 0.5,
-                                    height: 100.0,
-                                    decoration: BoxDecoration(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        _model.qrResult =
-                                            await FlutterBarcodeScanner
-                                                .scanBarcode(
-                                          '#C62828', // scanning line color
-                                          'Cancel', // cancel button text
-                                          true, // whether to show the flash icon
-                                          ScanMode.QR,
-                                        );
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 3.0, 0.0, 6.0),
+                                child: Container(
+                                  width: MediaQuery.sizeOf(context).width * 0.5,
+                                  height: 100.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      _model.qrResult =
+                                          await FlutterBarcodeScanner
+                                              .scanBarcode(
+                                        '#C62828', // scanning line color
+                                        'Cancel', // cancel button text
+                                        true, // whether to show the flash icon
+                                        ScanMode.QR,
+                                      );
 
-                                        context.pushNamed(
-                                          'AddOutlet',
-                                          queryParameters: {
-                                            'qr': serializeParam(
-                                              _model.qrResult,
-                                              ParamType.String,
-                                            ),
-                                          }.withoutNulls,
-                                        );
+                                      context.pushNamed(
+                                        'AddOutlet',
+                                        queryParameters: {
+                                          'qr': serializeParam(
+                                            _model.qrResult,
+                                            ParamType.String,
+                                          ),
+                                        }.withoutNulls,
+                                      );
 
-                                        safeSetState(() {});
-                                      },
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 10.0, 0.0),
-                                            child: Icon(
-                                              Icons.add_business,
-                                              color: Colors.white,
-                                              size: 20.0,
-                                            ),
+                                      safeSetState(() {});
+                                    },
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 10.0, 0.0),
+                                          child: Icon(
+                                            Icons.add_business,
+                                            color: Colors.white,
+                                            size: 20.0,
                                           ),
-                                          Text(
-                                            'Add Outlet',
-                                            style: FlutterFlowTheme.of(context)
-                                                .titleMedium
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleMediumFamily,
-                                                  color: Colors.white,
-                                                  fontSize: 15.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w600,
-                                                  useGoogleFonts: GoogleFonts
-                                                          .asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleMediumFamily),
-                                                ),
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                        Text(
+                                          'Add Outlet',
+                                          style: FlutterFlowTheme.of(context)
+                                              .titleMedium
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleMediumFamily,
+                                                color: Colors.white,
+                                                fontSize: 15.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w600,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleMediumFamily),
+                                              ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
                               ),
+                            ),
                           ],
                         ),
                       ),

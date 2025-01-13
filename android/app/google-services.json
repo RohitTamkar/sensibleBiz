@@ -52,6 +52,42 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:815478550082:android:05f371f6888b2e27e247db",
+        "android_client_info": {
+          "package_name": "com.sensible.barcodelabel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "815478550082-qrojmerdl919il0pmriqav54jr1fq9g5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT3bPKNdJ8qreVkYdcYPM95NIgRc8VuEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815478550082-d2j1or3hbprurdu485a990tv9mql5t4k.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "815478550082-0qlmtoj8nhr0sg2tc42sbiopjapu12dl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sensible.admin"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:815478550082:android:711dad2b8d23116fe247db",
         "android_client_info": {
           "package_name": "com.sensible.book"

@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -115,7 +116,10 @@ class _CategoryWiseSaleReportWidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -237,26 +241,25 @@ class _CategoryWiseSaleReportWidgetState
                                   safeSetState(() {});
                                   while (FFAppState().iLoopStart <
                                       _model.prdJson2!.length) {
-                                    _model.productDetail1 =
-                                        await ProductRecord.getDocumentOnce(
-                                            functions.productRef(
-                                                getJsonField(
-                                                  _model.prdJson2![
-                                                      FFAppState().iLoopStart],
-                                                  r'''$.prdId''',
-                                                ).toString(),
-                                                FFAppState().outletId));
+                                    _model.productDetail1 = await ProductRecord
+                                        .getDocumentOnce(functions.productRef(
+                                            getJsonField(
+                                              _model.prdJson2!.elementAtOrNull(
+                                                  FFAppState().iLoopStart),
+                                              r'''$.prdId''',
+                                            ).toString(),
+                                            FFAppState().outletId));
                                     _model.productJson2 =
                                         await actions.docToJsonCopy(
                                       _model.productDetail1!,
                                       getJsonField(
-                                        _model
-                                            .prdJson2![FFAppState().iLoopStart],
+                                        _model.prdJson2!.elementAtOrNull(
+                                            FFAppState().iLoopStart),
                                         r'''$.price''',
                                       ),
                                       getJsonField(
-                                        _model
-                                            .prdJson2![FFAppState().iLoopStart],
+                                        _model.prdJson2!.elementAtOrNull(
+                                            FFAppState().iLoopStart),
                                         r'''$.qty''',
                                       ),
                                     );
@@ -275,18 +278,17 @@ class _CategoryWiseSaleReportWidgetState
                                   safeSetState(() {});
                                   while (FFAppState().jLoopStart <
                                       _model.catJson2!.length) {
-                                    _model.catDetails1 =
-                                        await CategoryRecord.getDocumentOnce(
-                                            functions.categoryRef(
-                                                (_model.catJson2![FFAppState()
-                                                        .jLoopStart])
-                                                    .toString(),
-                                                FFAppState().outletId));
+                                    _model.catDetails1 = await CategoryRecord
+                                        .getDocumentOnce(functions.categoryRef(
+                                            (_model.catJson2!.elementAtOrNull(
+                                                    FFAppState().jLoopStart))!
+                                                .toString(),
+                                            FFAppState().outletId));
                                     _model.categoryJson2 =
                                         await actions.catDocToJson(
                                       _model.catDetails1!,
-                                      (_model.catJson2![
-                                              FFAppState().jLoopStart])
+                                      (_model.catJson2!.elementAtOrNull(
+                                              FFAppState().jLoopStart))!
                                           .toString(),
                                     );
                                     FFAppState().jLoopStart =

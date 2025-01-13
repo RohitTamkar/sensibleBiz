@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -311,7 +312,10 @@ class _AccountWidgetState extends State<AccountWidget>
                 : null;
 
         return GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -568,20 +572,26 @@ class _AccountWidgetState extends State<AccountWidget>
                                             ],
                                           ),
                                         ),
-                                        if (FFAppState().hide)
-                                          Container(
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                0.15,
-                                            height: MediaQuery.sizeOf(context)
-                                                    .height *
-                                                0.15,
-                                            decoration: BoxDecoration(),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
+                                        Container(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.15,
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              0.15,
+                                          decoration: BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              if (responsiveVisibility(
+                                                context: context,
+                                                phone: false,
+                                                tablet: false,
+                                                tabletLandscape: false,
+                                                desktop: false,
+                                              ))
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
@@ -605,9 +615,9 @@ class _AccountWidgetState extends State<AccountWidget>
                                                     },
                                                   ),
                                                 ),
-                                              ],
-                                            ),
+                                            ],
                                           ),
+                                        ),
                                       ],
                                     ),
                                   ],
@@ -1154,9 +1164,13 @@ class _AccountWidgetState extends State<AccountWidget>
                                           builder: (context) {
                                             return WebViewAware(
                                               child: GestureDetector(
-                                                onTap: () =>
-                                                    FocusScope.of(context)
-                                                        .unfocus(),
+                                                onTap: () {
+                                                  FocusScope.of(context)
+                                                      .unfocus();
+                                                  FocusManager
+                                                      .instance.primaryFocus
+                                                      ?.unfocus();
+                                                },
                                                 child: Padding(
                                                   padding:
                                                       MediaQuery.viewInsetsOf(
@@ -1199,9 +1213,13 @@ class _AccountWidgetState extends State<AccountWidget>
                                         builder: (context) {
                                           return WebViewAware(
                                             child: GestureDetector(
-                                              onTap: () =>
-                                                  FocusScope.of(context)
-                                                      .unfocus(),
+                                              onTap: () {
+                                                FocusScope.of(context)
+                                                    .unfocus();
+                                                FocusManager
+                                                    .instance.primaryFocus
+                                                    ?.unfocus();
+                                              },
                                               child: Padding(
                                                 padding:
                                                     MediaQuery.viewInsetsOf(

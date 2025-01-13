@@ -139,6 +139,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'OutletListPage': OutletListPageWidget(),
       'Dashboard': DashboardWidget(),
       'Reports': ReportsWidget(),
+      'DashboardCopy': DashboardCopyWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -193,6 +194,14 @@ class _NavBarPageState extends State<NavBarPage> {
                 size: 24.0,
               ),
               label: 'Reports',
+              tooltip: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.dashboard_customize,
+                size: 24.0,
+              ),
+              label: 'Dashboard',
               tooltip: '',
             )
           ],

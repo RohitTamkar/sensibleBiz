@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -56,6 +57,9 @@ class _CreateUserProfileTestWidgetState
     _model.pINTextFieldTextController1 ??= TextEditingController();
     _model.pINTextFieldFocusNode1 ??= FocusNode();
 
+    _model.textFieldAreaPincodeTextController ??= TextEditingController();
+    _model.textFieldAreaPincodeFocusNode ??= FocusNode();
+
     _model.textFieldNameTextController2 ??= TextEditingController();
     _model.textFieldNameFocusNode2 ??= FocusNode();
 
@@ -86,7 +90,10 @@ class _CreateUserProfileTestWidgetState
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -705,7 +712,7 @@ class _CreateUserProfileTestWidgetState
                                             MainAxisAlignment.start,
                                         children: [
                                           AutoSizeText(
-                                            'Quick PIN',
+                                            'Login Pin (4 Digit Only)',
                                             style: FlutterFlowTheme.of(context)
                                                 .titleSmall
                                                 .override(
@@ -847,6 +854,137 @@ class _CreateUserProfileTestWidgetState
                                         ],
                                       ),
                                     ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 5.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          AutoSizeText(
+                                            'Area Pincode',
+                                            style: FlutterFlowTheme.of(context)
+                                                .titleSmall
+                                                .override(
+                                                  fontFamily:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmallFamily,
+                                                  letterSpacing: 0.0,
+                                                  useGoogleFonts: GoogleFonts
+                                                          .asMap()
+                                                      .containsKey(
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmallFamily),
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 20.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child: TextFormField(
+                                              controller: _model
+                                                  .textFieldAreaPincodeTextController,
+                                              focusNode: _model
+                                                  .textFieldAreaPincodeFocusNode,
+                                              onChanged: (_) =>
+                                                  EasyDebounce.debounce(
+                                                '_model.textFieldAreaPincodeTextController',
+                                                Duration(milliseconds: 2000),
+                                                () => safeSetState(() {}),
+                                              ),
+                                              autofocus: true,
+                                              obscureText: false,
+                                              decoration: InputDecoration(
+                                                isDense: false,
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                    width: 0.5,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .info,
+                                                    width: 0.5,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0),
+                                                ),
+                                                errorBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                    width: 0.5,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0),
+                                                ),
+                                                focusedErrorBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                    width: 0.5,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0),
+                                                ),
+                                                filled: true,
+                                                fillColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelLargeFamily,
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelLargeFamily),
+                                                      ),
+                                              keyboardType:
+                                                  TextInputType.emailAddress,
+                                              validator: _model
+                                                  .textFieldAreaPincodeTextControllerValidator
+                                                  .asValidator(context),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                     FFButtonWidget(
                                       onPressed: () async {
                                         _model.did =
@@ -872,12 +1010,14 @@ class _CreateUserProfileTestWidgetState
                                                 .text,
                                             roll: 'admin',
                                             outletId: '',
-                                            loggedIn: false,
+                                            loggedIn: true,
                                             active: true,
                                             createdDate: getCurrentTimestamp
                                                 .millisecondsSinceEpoch,
                                             accessToMulticounter: false,
-                                            address: '',
+                                            address: _model
+                                                .textFieldAreaPincodeTextController
+                                                .text,
                                             renewalDate:
                                                 functions.setRenewalDate(
                                                     getCurrentTimestamp),
@@ -923,12 +1063,14 @@ class _CreateUserProfileTestWidgetState
                                                 .text,
                                             roll: 'admin',
                                             outletId: '',
-                                            loggedIn: false,
+                                            loggedIn: true,
                                             active: true,
                                             createdDate: getCurrentTimestamp
                                                 .millisecondsSinceEpoch,
                                             accessToMulticounter: false,
-                                            address: '',
+                                            address: _model
+                                                .textFieldAreaPincodeTextController
+                                                .text,
                                             renewalDate:
                                                 functions.setRenewalDate(
                                                     getCurrentTimestamp),

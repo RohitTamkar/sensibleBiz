@@ -10,6 +10,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -177,7 +178,10 @@ class _AddProductNewWidgetState extends State<AddProductNewWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -852,13 +856,8 @@ class _AddProductNewWidgetState extends State<AddProductNewWidget> {
                                                                                 ),
                                                                             textAlign:
                                                                                 TextAlign.center,
-                                                                            keyboardType:
-                                                                                const TextInputType.numberWithOptions(decimal: true),
                                                                             validator:
                                                                                 _model.sellingPriceMTextControllerValidator.asValidator(context),
-                                                                            inputFormatters: [
-                                                                              FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-                                                                            ],
                                                                           ),
                                                                         ),
                                                                       ),
@@ -1001,15 +1000,9 @@ class _AddProductNewWidgetState extends State<AddProductNewWidget> {
                                                                               ),
                                                                           textAlign:
                                                                               TextAlign.center,
-                                                                          keyboardType: const TextInputType
-                                                                              .numberWithOptions(
-                                                                              decimal: true),
                                                                           validator: _model
                                                                               .mRPPriceMTextControllerValidator
                                                                               .asValidator(context),
-                                                                          inputFormatters: [
-                                                                            FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-                                                                          ],
                                                                         ),
                                                                       ),
                                                                     ),
@@ -1152,13 +1145,8 @@ class _AddProductNewWidgetState extends State<AddProductNewWidget> {
                                                                                 ),
                                                                             textAlign:
                                                                                 TextAlign.center,
-                                                                            keyboardType:
-                                                                                const TextInputType.numberWithOptions(decimal: true),
                                                                             validator:
                                                                                 _model.purchasePriceMTextControllerValidator.asValidator(context),
-                                                                            inputFormatters: [
-                                                                              FilteringTextInputFormatter.allow(RegExp('[0-9]'))
-                                                                            ],
                                                                           ),
                                                                         ),
                                                                       ),
@@ -1895,10 +1883,6 @@ class _AddProductNewWidgetState extends State<AddProductNewWidget> {
                                                                           useGoogleFonts:
                                                                               GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
-                                                                    keyboardType: const TextInputType
-                                                                        .numberWithOptions(
-                                                                        decimal:
-                                                                            true),
                                                                     validator: _model
                                                                         .discountPerMTextControllerValidator
                                                                         .asValidator(
@@ -2280,10 +2264,6 @@ class _AddProductNewWidgetState extends State<AddProductNewWidget> {
                                                                           useGoogleFonts:
                                                                               GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
-                                                                    keyboardType: const TextInputType
-                                                                        .numberWithOptions(
-                                                                        decimal:
-                                                                            true),
                                                                     validator: _model
                                                                         .currentStockMTextControllerValidator
                                                                         .asValidator(
@@ -3641,7 +3621,13 @@ class _AddProductNewWidgetState extends State<AddProductNewWidget> {
                                                                   .text),
                                                           unitId: _model.unitId,
                                                           taxIndex:
-                                                              _model.taxId,
+                                                              _model.taxMValue ==
+                                                                          null ||
+                                                                      _model.taxMValue ==
+                                                                          ''
+                                                                  ? 1
+                                                                  : _model
+                                                                      .taxId,
                                                           hsnCode:
                                                               valueOrDefault<
                                                                   String>(
@@ -3755,8 +3741,12 @@ class _AddProductNewWidgetState extends State<AddProductNewWidget> {
                                                                           .text),
                                                                   unitId: _model
                                                                       .unitId,
-                                                                  taxIndex:
-                                                                      _model
+                                                                  taxIndex: _model.taxMValue ==
+                                                                              null ||
+                                                                          _model.taxMValue ==
+                                                                              ''
+                                                                      ? 1
+                                                                      : _model
                                                                           .taxId,
                                                                   hsnCode:
                                                                       valueOrDefault<
@@ -6858,9 +6848,6 @@ class _AddProductNewWidgetState extends State<AddProductNewWidget> {
                                                                           _model
                                                                               .barcodeWTextController
                                                                               ?.text = _model.barcodeScan2!;
-                                                                          _model
-                                                                              .barcodeWTextController
-                                                                              ?.selection = TextSelection.collapsed(offset: _model.barcodeWTextController!.text.length);
                                                                         });
                                                                         FFAppState().barcode =
                                                                             _model.barcodeScan2!;
@@ -7404,7 +7391,8 @@ class _AddProductNewWidgetState extends State<AddProductNewWidget> {
                                                                             valueOrDefault<String>(
                                                                           _model
                                                                               .userOutlets
-                                                                              ?.outlets?[FFAppState().startLoop],
+                                                                              ?.outlets
+                                                                              ?.elementAtOrNull(FFAppState().startLoop),
                                                                           '0',
                                                                         ),
                                                                       )

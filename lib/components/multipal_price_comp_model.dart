@@ -1,6 +1,7 @@
 import '/components/edit_m_r_p/edit_m_r_p_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:ui';
 import 'multipal_price_comp_widget.dart' show MultipalPriceCompWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';

@@ -66,6 +66,7 @@ Future<List<dynamic>> getShiftDetailsCopy(
       });
     });
   }
-
+  print("list");
+  print(list);
   return list;
 }

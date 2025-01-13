@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -306,8 +307,9 @@ class _CustomDateRangeCopyWidgetState extends State<CustomDateRangeCopyWidget> {
                   builder: (alertDialogContext) {
                     return WebViewAware(
                       child: AlertDialog(
-                        title: Text(functions.getDayId(_model.datePicked1!)),
-                        content: Text(functions.getDayId(_model.datePicked2!)),
+                        title: Text('Date range selected'),
+                        content: Text(
+                            'You have selected date from ${functions.getDayId(_model.datePicked1!)} to ${functions.getDayId(_model.datePicked2!)}'),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(alertDialogContext),

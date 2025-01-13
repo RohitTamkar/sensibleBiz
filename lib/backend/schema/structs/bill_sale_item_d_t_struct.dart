@@ -64,7 +64,9 @@ class BillSaleItemDTStruct extends FFFirebaseStruct {
         price: castToType<double>(data['price']),
         quantity: castToType<double>(data['quantity']),
         total: castToType<double>(data['total']),
-        product: ProductMasterListStruct.maybeFromMap(data['product']),
+        product: data['product'] is ProductMasterListStruct
+            ? data['product']
+            : ProductMasterListStruct.maybeFromMap(data['product']),
       );
 
   static BillSaleItemDTStruct? maybeFromMap(dynamic data) => data is Map

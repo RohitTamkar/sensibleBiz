@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -62,7 +63,10 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -228,6 +232,8 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
                                               () => safeSetState(() {}),
                                             ),
                                             autofocus: true,
+                                            textCapitalization:
+                                                TextCapitalization.sentences,
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               hintText: 'Outlet Name',
@@ -403,6 +409,8 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
                                               () => safeSetState(() {}),
                                             ),
                                             autofocus: true,
+                                            textCapitalization:
+                                                TextCapitalization.sentences,
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               hintText: ' Enter Branch',
@@ -842,6 +850,10 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
                                                 _model.outletDoc?.reference.id,
                                             outletName: _model.outletDoc?.name,
                                             branch: _model.outletDoc?.branch,
+                                            userId:
+                                                containerUserProfileRecord?.id,
+                                            outletRef:
+                                                _model.outletDoc?.reference,
                                           ));
 
                                           await containerUserProfileRecord!
@@ -877,7 +889,18 @@ class _AddOutletWidgetState extends State<AddOutletWidget> {
                                             },
                                           );
 
-                                          context.pushNamed('Dashboard');
+                                          context.pushNamed(
+                                            'Dashboard',
+                                            queryParameters: {
+                                              'outletDetails': serializeParam(
+                                                _model.outletDoc,
+                                                ParamType.Document,
+                                              ),
+                                            }.withoutNulls,
+                                            extra: <String, dynamic>{
+                                              'outletDetails': _model.outletDoc,
+                                            },
+                                          );
 
                                           FFAppState().outletName =
                                               _model.outletDoc!.name;

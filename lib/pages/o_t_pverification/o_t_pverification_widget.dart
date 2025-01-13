@@ -4,19 +4,27 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'o_t_pverification_model.dart';
 export 'o_t_pverification_model.dart';
 
 class OTPverificationWidget extends StatefulWidget {
-  const OTPverificationWidget({super.key});
+  const OTPverificationWidget({
+    super.key,
+    this.mobile,
+  });
+
+  final String? mobile;
 
   @override
   State<OTPverificationWidget> createState() => _OTPverificationWidgetState();
@@ -32,7 +40,29 @@ class _OTPverificationWidgetState extends State<OTPverificationWidget> {
     super.initState();
     _model = createModel(context, () => OTPverificationModel());
 
-    _model.mObileTextFieldTextController ??= TextEditingController();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await showDialog(
+        context: context,
+        builder: (alertDialogContext) {
+          return WebViewAware(
+            child: AlertDialog(
+              title: Text('OTP Page 3'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(alertDialogContext),
+                  child: Text('Ok'),
+                ),
+              ],
+            ),
+          );
+        },
+      );
+      _model.timerController.onStartTimer();
+    });
+
+    _model.mObileTextFieldTextController ??=
+        TextEditingController(text: widget!.mobile);
     _model.mObileTextFieldFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -47,8 +77,13 @@ class _OTPverificationWidgetState extends State<OTPverificationWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -287,8 +322,11 @@ class _OTPverificationWidgetState extends State<OTPverificationWidget> {
                                                       .primaryText,
                                               size: 15.0,
                                             ),
-                                            onPressed: () {
-                                              print('IconButton pressed ...');
+                                            onPressed: () async {
+                                              FFAppState().currentMobile = '';
+                                              safeSetState(() {});
+
+                                              context.goNamed('PhoneAuthPage');
                                             },
                                           ),
                                         ],
@@ -319,7 +357,7 @@ class _OTPverificationWidgetState extends State<OTPverificationWidget> {
                                             MainAxisAlignment.spaceAround,
                                         enableActiveFill: false,
                                         autoFocus: true,
-                                        enablePinAutofill: true,
+                                        enablePinAutofill: false,
                                         errorTextSpace: 16.0,
                                         showCursor: true,
                                         cursorColor:
@@ -496,8 +534,16 @@ class _OTPverificationWidgetState extends State<OTPverificationWidget> {
                                                   return;
                                                 } else {
                                                   context.pushNamedAuth(
-                                                      'CreateUserProfile',
-                                                      context.mounted);
+                                                    'CreateUserProfile',
+                                                    context.mounted,
+                                                    queryParameters: {
+                                                      'mobile': serializeParam(
+                                                        FFAppState()
+                                                            .currentMobile,
+                                                        ParamType.String,
+                                                      ),
+                                                    }.withoutNulls,
+                                                  );
                                                 }
 
                                                 if (_shouldSetState)

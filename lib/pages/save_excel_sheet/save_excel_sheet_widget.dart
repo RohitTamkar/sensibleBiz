@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -61,9 +62,10 @@ class _SaveExcelSheetWidgetState extends State<SaveExcelSheetWidget> {
             locale: FFLocalizations.of(context).languageCode,
           ),
           functions.updateProductToJson(
-              _model.fetchedPrd![FFAppState().startLoop],
-              functions.getTaxIdfunc(_model
-                  .fetchedPrd![FFAppState().startLoop].taxIndex
+              (_model.fetchedPrd!.elementAtOrNull(FFAppState().startLoop))!,
+              functions.getTaxIdfunc(_model.fetchedPrd!
+                  .elementAtOrNull(FFAppState().startLoop)!
+                  .taxIndex
                   .toString()))!,
           FFAppState().startDate?.toString(),
           FFAppState().endDate?.toString(),
@@ -86,7 +88,10 @@ class _SaveExcelSheetWidgetState extends State<SaveExcelSheetWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -285,9 +290,12 @@ class _SaveExcelSheetWidgetState extends State<SaveExcelSheetWidget> {
                                           .resolve(Directionality.of(context)),
                                       child: WebViewAware(
                                         child: GestureDetector(
-                                          onTap: () =>
-                                              FocusScope.of(dialogContext)
-                                                  .unfocus(),
+                                          onTap: () {
+                                            FocusScope.of(dialogContext)
+                                                .unfocus();
+                                            FocusManager.instance.primaryFocus
+                                                ?.unfocus();
+                                          },
                                           child: Container(
                                             height: MediaQuery.sizeOf(context)
                                                     .height *

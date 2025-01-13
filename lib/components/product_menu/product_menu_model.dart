@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'dart:ui';
 import 'product_menu_widget.dart' show ProductMenuWidget;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';

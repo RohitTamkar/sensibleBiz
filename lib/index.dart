@@ -62,10 +62,6 @@ export '/pages/edit_product/edit_product_widget.dart' show EditProductWidget;
 export '/pages/stock_report_copy/stock_report_copy_widget.dart'
     show StockReportCopyWidget;
 export '/pages/stock_update/stock_update_widget.dart' show StockUpdateWidget;
-export '/pages/phone_auth_page_test/phone_auth_page_test_widget.dart'
-    show PhoneAuthPageTestWidget;
-export '/pages/o_t_pverification_test/o_t_pverification_test_widget.dart'
-    show OTPverificationTestWidget;
 export '/pages/create_user_profile_test/create_user_profile_test_widget.dart'
     show CreateUserProfileTestWidget;
 export '/pages/stock_weight_combine_page/stock_weight_combine_page_widget.dart'
@@ -105,7 +101,7 @@ export '/pages/reports/bill_wise_sale_report/bill_wise_sale_report_widget.dart'
     show BillWiseSaleReportWidget;
 export '/pages/user_pages/user_list/user_list_widget.dart' show UserListWidget;
 export '/pages/user_pages/add_user/add_user_widget.dart' show AddUserWidget;
-export '/pages/user_pages/edit_user/edit_user_widget.dart' show EditUserWidget;
+export '/pages/edit_user/edit_user_widget.dart' show EditUserWidget;
 export '/pages/stock_update_new/stock_update_new_widget.dart'
     show StockUpdateNewWidget;
 export '/pages/stock_out/stock_out_widget.dart' show StockOutWidget;
@@ -127,3 +123,8 @@ export '/pages/edit_expense/edit_expense_widget.dart' show EditExpenseWidget;
 export '/pages/edit_upi/edit_upi_widget.dart' show EditUpiWidget;
 export '/pages/u_p_i_page/u_p_i_page_widget.dart' show UPIPageWidget;
 export '/pages/add_upi/add_upi_widget.dart' show AddUpiWidget;
+export '/pages/multipliers_outlet/multipliers_outlet_widget.dart'
+    show MultipliersOutletWidget;
+export '/multiplayer/multiplayer_widget.dart' show MultiplayerWidget;
+export '/pages/dashboard_copy/dashboard_copy_widget.dart'
+    show DashboardCopyWidget;

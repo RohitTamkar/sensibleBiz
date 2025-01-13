@@ -10,6 +10,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -65,7 +66,10 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -225,9 +229,14 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                         context)),
                                                 child: WebViewAware(
                                                   child: GestureDetector(
-                                                    onTap: () => FocusScope.of(
-                                                            dialogContext)
-                                                        .unfocus(),
+                                                    onTap: () {
+                                                      FocusScope.of(
+                                                              dialogContext)
+                                                          .unfocus();
+                                                      FocusManager
+                                                          .instance.primaryFocus
+                                                          ?.unfocus();
+                                                    },
                                                     child:
                                                         CheckInSuccessWidget(),
                                                   ),
@@ -306,10 +315,14 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                                   context)),
                                                   child: WebViewAware(
                                                     child: GestureDetector(
-                                                      onTap: () =>
-                                                          FocusScope.of(
-                                                                  dialogContext)
-                                                              .unfocus(),
+                                                      onTap: () {
+                                                        FocusScope.of(
+                                                                dialogContext)
+                                                            .unfocus();
+                                                        FocusManager.instance
+                                                            .primaryFocus
+                                                            ?.unfocus();
+                                                      },
                                                       child:
                                                           CheckOutSuccessWidget(),
                                                     ),
@@ -341,9 +354,14 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                         context)),
                                                 child: WebViewAware(
                                                   child: GestureDetector(
-                                                    onTap: () => FocusScope.of(
-                                                            dialogContext)
-                                                        .unfocus(),
+                                                    onTap: () {
+                                                      FocusScope.of(
+                                                              dialogContext)
+                                                          .unfocus();
+                                                      FocusManager
+                                                          .instance.primaryFocus
+                                                          ?.unfocus();
+                                                    },
                                                     child:
                                                         SessionExpiredWidget(),
                                                   ),
@@ -388,9 +406,13 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                                     Directionality.of(context)),
                                             child: WebViewAware(
                                               child: GestureDetector(
-                                                onTap: () =>
-                                                    FocusScope.of(dialogContext)
-                                                        .unfocus(),
+                                                onTap: () {
+                                                  FocusScope.of(dialogContext)
+                                                      .unfocus();
+                                                  FocusManager
+                                                      .instance.primaryFocus
+                                                      ?.unfocus();
+                                                },
                                                 child: CalenderWidget(),
                                               ),
                                             ),
@@ -458,8 +480,11 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                       builder: (context) {
                                         return WebViewAware(
                                           child: GestureDetector(
-                                            onTap: () => FocusScope.of(context)
-                                                .unfocus(),
+                                            onTap: () {
+                                              FocusScope.of(context).unfocus();
+                                              FocusManager.instance.primaryFocus
+                                                  ?.unfocus();
+                                            },
                                             child: Padding(
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),
@@ -506,41 +531,42 @@ class _BillWiseSaleReportWidgetState extends State<BillWiseSaleReportWidget> {
                                           _model.billSaleSummeryDoc!.length) {
                                         FFAppState().addToBillSaleStructState(
                                             BillSaleSummeryDataTypeStruct(
-                                          billNo: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
+                                          billNo: _model.billSaleSummeryDoc
+                                              ?.elementAtOrNull(
+                                                  FFAppState().billStartLoop)
                                               ?.billNo,
-                                          finalTotal: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
+                                          finalTotal: _model.billSaleSummeryDoc
+                                              ?.elementAtOrNull(
+                                                  FFAppState().billStartLoop)
                                               ?.finalTotal,
-                                          id: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
+                                          id: _model.billSaleSummeryDoc
+                                              ?.elementAtOrNull(
+                                                  FFAppState().billStartLoop)
                                               ?.id,
-                                          serialNo: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
+                                          serialNo: _model.billSaleSummeryDoc
+                                              ?.elementAtOrNull(
+                                                  FFAppState().billStartLoop)
                                               ?.serialNo,
-                                          userId: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
+                                          userId: _model.billSaleSummeryDoc
+                                              ?.elementAtOrNull(
+                                                  FFAppState().billStartLoop)
                                               ?.userId,
-                                          checkInTime: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
+                                          checkInTime: _model.billSaleSummeryDoc
+                                              ?.elementAtOrNull(
+                                                  FFAppState().billStartLoop)
                                               ?.checkInTime,
                                           checkOutTime: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
+                                              .billSaleSummeryDoc
+                                              ?.elementAtOrNull(
+                                                  FFAppState().billStartLoop)
                                               ?.checkOutTime,
-                                          dayId: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
+                                          dayId: _model.billSaleSummeryDoc
+                                              ?.elementAtOrNull(
+                                                  FFAppState().billStartLoop)
                                               ?.dayId,
-                                          createdDate: _model
-                                              .billSaleSummeryDoc?[
-                                                  FFAppState().billStartLoop]
+                                          createdDate: _model.billSaleSummeryDoc
+                                              ?.elementAtOrNull(
+                                                  FFAppState().billStartLoop)
                                               ?.createdDate,
                                         ));
                                         safeSetState(() {});

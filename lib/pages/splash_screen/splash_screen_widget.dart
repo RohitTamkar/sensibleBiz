@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -90,7 +91,7 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
             if (FFAppState().currentUserRole == 'admin') {
               if (FFAppState().outletId != null &&
                   FFAppState().outletId != '') {
-                context.pushNamed('Dashboard');
+                context.pushNamed('DashboardCopy');
               } else {
                 context.pushNamed('OutletListPage');
               }
@@ -167,7 +168,10 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
